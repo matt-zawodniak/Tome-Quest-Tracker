@@ -13,7 +13,7 @@ struct QuestTrackerModel {
 
 struct Quest: Identifiable, Hashable {
 	
-	var questType: String
+	var questType: QuestType
 	var questName: String
 	var timeRemaining: TimeInterval?
 	var questDescription: String?

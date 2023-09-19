@@ -10,11 +10,11 @@ import SwiftUI
 struct QuestTableView: View {
 	
 	@State var questList: [Quest] = [
-		Quest(questType: "Side Quest", questName: "Do Dishes"),
-		Quest(questType: "Main Quest", questName: "Work on TableView"),
-		Quest(questType: "Daily Quest", questName: "Exercise Ankle", questDescription: "Trace the alphabet, once with each foot."),
-		Quest(questType: "Weekly Quest", questName: "Food Shopping", timeRemaining: 50),
-		Quest(questType: "Daily Quest", questName: "Brush Teeth")
+		Quest(questType: .sideQuest, questName: "Do Dishes"),
+		Quest(questType: .mainQuest, questName: "Work on TableView"),
+		Quest(questType: .dailyQuest, questName: "Exercise Ankle", questDescription: "Trace the alphabet, once with each foot."),
+		Quest(questType: .weeklyQuest, questName: "Food Shopping", timeRemaining: 50),
+		Quest(questType: .dailyQuest, questName: "Brush Teeth")
 	]
 	
 	var body: some View {
@@ -23,17 +23,11 @@ struct QuestTableView: View {
 				ForEach($questList, id: \.self) { $quest in
 					VStack{
 						HStack {
-							if quest.questType == "Main Quest" {
-								Text("!").foregroundStyle(.red)
-							} else if quest.questType == "Side Quest" {
-								Text("!")
-									.foregroundStyle(.yellow)
-							} else if quest.questType == "Daily Quest" {
-								Text("!")
-									.foregroundStyle(.green)
-							} else {
-								Text("!")
-									.foregroundStyle(.purple)
+							switch quest.questType {
+							case .mainQuest : Text("!").foregroundStyle(.red)
+							case .sideQuest : Text("!").foregroundStyle(.yellow)
+							case .dailyQuest : Text("!").foregroundStyle(.green)
+							case .weeklyQuest : Text("!").foregroundStyle(.purple)
 							}
 							Text(quest.questName)
 							Spacer()
