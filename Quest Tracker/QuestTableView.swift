@@ -10,11 +10,11 @@ import SwiftUI
 struct QuestTableView: View {
 	
 	@State var questList: [Quest] = [
-		Quest(questType: .sideQuest, questName: "Do Dishes"),
-		Quest(questType: .mainQuest, questName: "Work on TableView"),
-		Quest(questType: .dailyQuest, questName: "Exercise Ankle", questDescription: "Trace the alphabet, once with each foot."),
-		Quest(questType: .weeklyQuest, questName: "Food Shopping", timeRemaining: 50),
-		Quest(questType: .dailyQuest, questName: "Brush Teeth")
+		Quest(questType: .sideQuest, questName: "Do Dishes", timeCreated: Date(timeIntervalSince1970: 1)),
+		Quest(questType: .mainQuest, questName: "Work on TableView", timeCreated: Date(timeIntervalSince1970: 5)),
+		Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7)),
+		Quest(questType: .weeklyQuest, questName: "Food Shopping", timeRemaining: 500, timeCreated: Date(timeIntervalSince1970: 9)),
+		Quest(questType: .dailyQuest, questName: "Brush Teeth", timeRemaining: 50, timeCreated: Date(timeIntervalSince1970: 11))
 	]
 	
 	var body: some View {
@@ -32,7 +32,7 @@ struct QuestTableView: View {
 							Text(quest.questName)
 							Spacer()
 							if (quest.timeRemaining != nil) {
-								Text("Time Remaining")  // make this read off of the quest itself and autoupdate
+								Text(String(quest.timeRemaining!))  // This needs to actually be hours and minutes eventually
 							}
 						}
 						
@@ -59,13 +59,57 @@ struct QuestTableView: View {
 			}
 			.toolbar {
 				ToolbarItem(placement: .topBarTrailing) {
-					Button(action: {}, label: {
-						Text("Sort By:")
-					})
+					Menu {
+						Button {
+							sortByType()
+						} label: {Text("Quest Type")}
+						Button {
+							sortByName()
+						} label: {Text("Quest Name")}
+						Button {
+							sortByRecent()
+						} label: {Text("Recent")}
+						Button {
+							sortByTimeRemainingAscending()
+						} label: {Text("Time Remaining (ascending)")}
+						Button {
+							sortByTimeRemainingDescending()
+						} label: {Text("Time Remaining (descending)")}
+					} label: {Text("Sort by:")}
 				}
 			}
 		}
 		
+	}
+	
+	func sortByType() {
+		questList = questList.sorted {
+			$0.questType.rawValue < $1.questType.rawValue
+		}
+	}
+	
+	func sortByName() {
+		questList = questList.sorted {
+			$0.questName < $1.questName
+		}
+	}
+	
+	func sortByRecent() {
+		questList = questList.sorted {
+			$0.timeCreated < $1.timeCreated
+		}
+	}
+	
+	func sortByTimeRemainingAscending() {
+		questList = questList.sorted {
+			$0.timeRemaining ?? 999999999999 < $1.timeRemaining ?? 99999999999
+		}
+	}
+	
+	func sortByTimeRemainingDescending() {
+		questList = questList.sorted {
+			$0.timeRemaining ?? 0 > $1.timeRemaining ?? 0
+		}
 	}
 }
 

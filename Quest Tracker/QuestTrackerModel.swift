@@ -21,11 +21,13 @@ struct Quest: Identifiable, Hashable {
 	var questBonusReward: String?
 	var id = UUID()
 	var isSelected: Bool = false
+	var timeCreated: Date
 }
 
-enum QuestType {
-	case mainQuest
-	case sideQuest
-	case dailyQuest
-	case weeklyQuest
+enum QuestType: Int {
+	case mainQuest = 0
+	case sideQuest = 1
+	case dailyQuest = 2
+	case weeklyQuest = 3
 }
+
