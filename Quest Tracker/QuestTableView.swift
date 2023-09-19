@@ -9,7 +9,13 @@ import SwiftUI
 
 struct QuestTableView: View {
 	
-	@State var questList: [Quest] = [Quest(questType: "Side Quest", questName: "Do Dishes"), Quest(questType: "Main Quest", questName: "Work on TableView"), Quest(questType: "Daily Quest", questName: "Exercise Ankle", questDescription: "Trace the alphabet, once with each foot."), Quest(questType: "Weekly Quest", questName: "Food Shopping", timeRemaining: 50), Quest(questType: "Daily Quest", questName: "Brush Teeth")]
+	@State var questList: [Quest] = [
+		Quest(questType: "Side Quest", questName: "Do Dishes"),
+		Quest(questType: "Main Quest", questName: "Work on TableView"),
+		Quest(questType: "Daily Quest", questName: "Exercise Ankle", questDescription: "Trace the alphabet, once with each foot."),
+		Quest(questType: "Weekly Quest", questName: "Food Shopping", timeRemaining: 50),
+		Quest(questType: "Daily Quest", questName: "Brush Teeth")
+	]
 	
 	var body: some View {
 		NavigationStack {

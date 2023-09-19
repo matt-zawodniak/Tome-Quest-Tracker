@@ -13,7 +13,7 @@ struct QuestTrackerModel {
 
 struct Quest: Identifiable, Hashable {
 	
-	var questType: String, Comparable
+	var questType: String
 	var questName: String
 	var timeRemaining: TimeInterval?
 	var questDescription: String?
@@ -23,7 +23,7 @@ struct Quest: Identifiable, Hashable {
 	var isSelected: Bool = false
 }
 
-enum typesOfQuests {
+enum QuestType {
 	case mainQuest
 	case sideQuest
 	case dailyQuest
