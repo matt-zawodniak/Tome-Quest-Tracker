@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
+		8F2184522AB8DCD5004CCF7A /* QuestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */; };
 		8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */; };
 		8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38522AB396B6005CBED3 /* ContentView.swift */; };
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
+		8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTableView.swift; sourceTree = "<group>"; };
 		8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quest Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest_TrackerApp.swift; sourceTree = "<group>"; };
 		8FAC38522AB396B6005CBED3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +57,8 @@
 			children = (
 				8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */,
 				8FAC38522AB396B6005CBED3 /* ContentView.swift */,
+				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
+				8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
 			);
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F2184522AB8DCD5004CCF7A /* QuestTableView.swift in Sources */,
+				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
 				8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
 			);
