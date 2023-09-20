@@ -8,19 +8,12 @@
 import SwiftUI
 
 struct QuestTableView: View {
-	
-	@State var questList: [Quest] = [
-		Quest(questType: .sideQuest, questName: "Do Dishes", timeCreated: Date(timeIntervalSince1970: 1)),
-		Quest(questType: .mainQuest, questName: "Work on TableView", timeCreated: Date(timeIntervalSince1970: 5)),
-		Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7)),
-		Quest(questType: .weeklyQuest, questName: "Food Shopping", timeRemaining: 500, timeCreated: Date(timeIntervalSince1970: 9)),
-		Quest(questType: .dailyQuest, questName: "Brush Teeth", timeRemaining: 50, timeCreated: Date(timeIntervalSince1970: 11))
-	]
+	@ObservedObject var tracker: QuestTrackerViewModel
 	
 	var body: some View {
 		NavigationStack {
 			List {
-				ForEach($questList, id: \.self) { $quest in
+				ForEach($tracker.trackerModel.questList, id: \.self) { $quest in
 					VStack{
 						HStack {
 							switch quest.questType {
@@ -32,7 +25,7 @@ struct QuestTableView: View {
 							Text(quest.questName)
 							Spacer()
 							if (quest.timeRemaining != nil) {
-								Text(String(quest.timeRemaining!))  // This needs to actually be hours and minutes eventually
+								Text(String(quest.timeRemaining!))  // TODO: This needs to actually be hours and minutes eventually
 							}
 						}
 						
@@ -61,19 +54,19 @@ struct QuestTableView: View {
 				ToolbarItem(placement: .topBarTrailing) {
 					Menu {
 						Button {
-							sortByType()
+							tracker.sortByType()
 						} label: {Text("Quest Type")}
 						Button {
-							sortByName()
+							tracker.sortByName()
 						} label: {Text("Quest Name")}
 						Button {
-							sortByRecent()
+							tracker.sortByRecent()
 						} label: {Text("Recent")}
 						Button {
-							sortByTimeRemainingAscending()
+							tracker.sortByTimeRemainingAscending()
 						} label: {Text("Time Remaining (ascending)")}
 						Button {
-							sortByTimeRemainingDescending()
+							tracker.sortByTimeRemainingDescending()
 						} label: {Text("Time Remaining (descending)")}
 					} label: {Text("Sort by:")}
 				}
@@ -82,39 +75,11 @@ struct QuestTableView: View {
 		
 	}
 	
-	func sortByType() {
-		questList = questList.sorted {
-			$0.questType.rawValue < $1.questType.rawValue
-		}
-	}
-	
-	func sortByName() {
-		questList = questList.sorted {
-			$0.questName < $1.questName
-		}
-	}
-	
-	func sortByRecent() {
-		questList = questList.sorted {
-			$0.timeCreated < $1.timeCreated
-		}
-	}
-	
-	func sortByTimeRemainingAscending() {
-		questList = questList.sorted {
-			$0.timeRemaining ?? 999999999999 < $1.timeRemaining ?? 99999999999
-		}
-	}
-	
-	func sortByTimeRemainingDescending() {
-		questList = questList.sorted {
-			$0.timeRemaining ?? 0 > $1.timeRemaining ?? 0
-		}
-	}
+
 }
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
-		QuestTableView()
+		QuestTableView(tracker: QuestTrackerViewModel())
 	}
 }
