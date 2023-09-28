@@ -55,6 +55,7 @@ struct Quest: Identifiable, Hashable {
 	var timeCreated: Date
 	var difficulty: QuestDifficulty = .average
 	var length: QuestLength = .average
+	var hasDueDate: Bool = false
 }
 
 enum QuestType: Int, CaseIterable, CustomStringConvertible {

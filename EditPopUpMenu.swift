@@ -22,6 +22,24 @@ struct EditPopUpMenu: View {
 				// TODO:			dueDateSection
 			}
 			.navigationTitle("Edit Quest")
+			.toolbar {
+				ToolbarItem(placement: .topBarTrailing) {
+					Button(
+						action: {
+							self.quest.questName = questName
+							self.quest.questType = selectedType
+							self.quest.questDescription = questDescription
+							self.quest.difficulty = selectedDifficulty
+							self.quest.length = selectedLength
+							self.quest.questBonusReward = questBonusReward
+							self.quest.hasDueDate = hasDueDate
+							// TODO: connect due date/time to quest
+						},
+						label: {Text("Save")}
+					)
+				}
+				
+			}
 		}
 	}
 	
@@ -38,15 +56,19 @@ struct EditPopUpMenu: View {
 		}
 	}
 	
+	@State var questName: String
+	
 	var nameSection: some View {
 		Section(header: Text("Quest Name")) {
-			TextField("Quest Name", text: $quest.questName)
+			TextField("Quest Name", text: $questName)
 		}
 	}
 	
+	@State var questDescription: String?
+	
 	var questDescriptionSection: some View {
 		Section(header: Text("Quest Description")) {
-			TextField("Quest Description (Optional)", text: $quest.questDescription.bound)
+			TextField("Quest Description (Optional)", text: $questDescription.bound)
 		}
 	}
 	
@@ -54,6 +76,7 @@ struct EditPopUpMenu: View {
 	@State var selectedLength: QuestLength
 	@State var date = Date()
 	@State var hasDueDate: Bool
+	@State var questBonusReward: String?
 	
 	var advancedSettingsSection: some View {
 		Section(header: Text("Advanced Settings")) {
@@ -77,7 +100,7 @@ struct EditPopUpMenu: View {
 			}
 			HStack {
 				Text("Bonus Reward:")
-				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
+				TextField("Add optional bonus here", text: $questBonusReward.bound)
 			}
 			VStack {
 				HStack {
@@ -100,5 +123,5 @@ struct EditPopUpMenu: View {
 }
 
 #Preview {
-	EditPopUpMenu(quest: .constant(Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7))), selectedType: .dailyQuest, selectedDifficulty: .average, selectedLength: .long, hasDueDate: true)
+	EditPopUpMenu(quest: .constant(Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7))), selectedType: .dailyQuest, questName: "Exercise Ankle", selectedDifficulty: .average, selectedLength: .long, hasDueDate: true)
 }

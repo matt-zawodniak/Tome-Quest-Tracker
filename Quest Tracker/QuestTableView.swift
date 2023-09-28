@@ -28,6 +28,9 @@ struct QuestTableView: View {
 								Text(String(quest.timeRemaining!))  // TODO: This needs to actually be hours and minutes eventually
 							}
 						}
+						.onTapGesture {
+							quest.isSelected.toggle()
+						}
 						
 						if quest.isSelected {
 							Text(quest.questDescription ?? "")
@@ -36,17 +39,24 @@ struct QuestTableView: View {
 							
 							Text("Quest Reward:")
 							HStack {
-								Button(action: {}, label: {Text("Edit")})
+								NavigationLink(destination: EditPopUpMenu(quest: $quest, selectedType: quest.questType, questName: quest.questName, selectedDifficulty: quest.difficulty, selectedLength: quest.length, hasDueDate: quest.hasDueDate)) {
+									Button(action: {
+										
+									}, label: {
+										Text("Edit")
+									}
+									)
+								}
+								
 								Spacer()
+								
 								Button(action: {}, label: {Text("Complete")})
 							}
 							
 						}
 						
 					}
-					.onTapGesture {
-						quest.isSelected.toggle()
-					}
+					
 					
 				}
 			}
@@ -75,7 +85,7 @@ struct QuestTableView: View {
 		
 	}
 	
-
+	
 }
 
 struct QuestTableView_Previews: PreviewProvider {
