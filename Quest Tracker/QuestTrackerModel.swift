@@ -55,10 +55,38 @@ struct Quest: Identifiable, Hashable {
 	var timeCreated: Date
 }
 
-enum QuestType: Int {
+enum QuestType: Int, CaseIterable, CustomStringConvertible {
 	case mainQuest = 0
 	case sideQuest = 1
 	case dailyQuest = 2
 	case weeklyQuest = 3
+	
+	var description: String {
+		switch self {
+		case .mainQuest: return "Main Quest"
+		case .sideQuest: return "Side Quest"
+		case .dailyQuest: return "Daily Quest"
+		case .weeklyQuest: return "Weekly Quest"
+		}
+	}
+}
+
+extension Optional where Wrapped == String {
+	var _bound: String? {
+		get {
+			return self
+		}
+		set {
+			self = newValue
+		}
+	}
+	public var bound: String {
+		get {
+			return _bound ?? ""
+		}
+		set {
+			_bound = newValue.isEmpty ? nil : newValue
+		}
+	}
 }
 
