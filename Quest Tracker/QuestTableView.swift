@@ -14,6 +14,7 @@ struct QuestTableView: View {
 		NavigationStack {
 			List {
 				ForEach($tracker.trackerModel.questList, id: \.self) { $quest in
+					
 					VStack{
 						HStack {
 							switch quest.questType {
@@ -36,10 +37,13 @@ struct QuestTableView: View {
 							Text(quest.questDescription ?? "")
 							
 							Text("Quest EXP:")
-							
-							Text("Quest Reward:")
 							HStack {
-								NavigationLink(destination: EditPopUpMenu(quest: $quest, selectedType: quest.questType, questName: quest.questName, selectedDifficulty: quest.difficulty, selectedLength: quest.length, hasDueDate: quest.hasDueDate)) {
+								Text("Quest Reward:")
+								Text(quest.questBonusReward ?? "")
+							}
+							HStack {
+
+								NavigationLink(destination: EditPopUpMenu(quest: $quest, selectedType: quest.questType, questName: quest.questName, questDescription: quest.questDescription ?? "", selectedDifficulty: quest.difficulty, selectedLength: quest.length, questBonusReward: quest.questBonusReward ?? "", hasDueDate: quest.dueDate.exists, dueDate: quest.dueDate ?? Date())) {
 									Button(action: {
 										
 									}, label: {
@@ -84,8 +88,6 @@ struct QuestTableView: View {
 		}
 		
 	}
-	
-	
 }
 
 struct QuestTableView_Previews: PreviewProvider {

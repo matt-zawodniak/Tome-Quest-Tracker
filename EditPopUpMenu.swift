@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditPopUpMenu: View {
+	
 	@Binding var quest: Quest
 	
 	var body: some View {
@@ -17,23 +18,23 @@ struct EditPopUpMenu: View {
 				nameSection
 				questDescriptionSection
 				advancedSettingsSection
-				// TODO:			difficultySection?
-				// TODO:			bonusRewardSection
-				// TODO:			dueDateSection
 			}
 			.navigationTitle("Edit Quest")
 			.toolbar {
 				ToolbarItem(placement: .topBarTrailing) {
 					Button(
 						action: {
-							self.quest.questName = questName
-							self.quest.questType = selectedType
-							self.quest.questDescription = questDescription
-							self.quest.difficulty = selectedDifficulty
-							self.quest.length = selectedLength
-							self.quest.questBonusReward = questBonusReward
-							self.quest.hasDueDate = hasDueDate
-							// TODO: connect due date/time to quest
+							quest.questName = questName
+							quest.questType = selectedType
+							quest.questDescription = questDescription
+							quest.difficulty = selectedDifficulty
+							quest.length = selectedLength
+							quest.questBonusReward = questBonusReward
+							if hasDueDate == true {
+								quest.dueDate = dueDate
+							} else {
+								quest.dueDate = nil
+							}
 						},
 						label: {Text("Save")}
 					)
@@ -64,21 +65,22 @@ struct EditPopUpMenu: View {
 		}
 	}
 	
-	@State var questDescription: String?
+	@State var questDescription: String
 	
 	var questDescriptionSection: some View {
 		Section(header: Text("Quest Description")) {
-			TextField("Quest Description (Optional)", text: $questDescription.bound)
+			TextField("Quest Description (Optional)", text: $questDescription)
 		}
 	}
 	
 	@State var selectedDifficulty: QuestDifficulty
 	@State var selectedLength: QuestLength
-	@State var date = Date()
+	@State var questBonusReward: String
 	@State var hasDueDate: Bool
-	@State var questBonusReward: String?
+	@State var dueDate: Date
 	
 	var advancedSettingsSection: some View {
+		
 		Section(header: Text("Advanced Settings")) {
 			HStack {
 				Text("Difficulty")
@@ -100,7 +102,7 @@ struct EditPopUpMenu: View {
 			}
 			HStack {
 				Text("Bonus Reward:")
-				TextField("Add optional bonus here", text: $questBonusReward.bound)
+				TextField("Add optional bonus here", text: $questBonusReward)
 			}
 			VStack {
 				HStack {
@@ -113,7 +115,7 @@ struct EditPopUpMenu: View {
 				if hasDueDate {
 					DatePicker(
 						"",
-						selection: $date,
+						selection: $dueDate,
 						displayedComponents: [.date, .hourAndMinute]
 					)
 				}
@@ -122,6 +124,7 @@ struct EditPopUpMenu: View {
 	}
 }
 
+
 #Preview {
-	EditPopUpMenu(quest: .constant(Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7))), selectedType: .dailyQuest, questName: "Exercise Ankle", selectedDifficulty: .average, selectedLength: .long, hasDueDate: true)
+	EditPopUpMenu(quest: .constant(Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7))), selectedType: .dailyQuest, questName: "Exercise Ankle", questDescription: "", selectedDifficulty: .average, selectedLength: .long, questBonusReward: "", hasDueDate: false, dueDate: Date())
 }
