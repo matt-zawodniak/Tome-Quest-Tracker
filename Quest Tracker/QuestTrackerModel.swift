@@ -9,6 +9,30 @@ import SwiftUI
 
 struct QuestTrackerModel {
 	var questList: [Quest] = []
+	var completedQuests: [Quest] = []
+	var level: Double = 1
+	var exp: Double = 0
+	var availableRewards: [String] = []
+	
+	mutating func completeQuest(quest: Quest) {
+		completedQuests.append(quest)
+		questList.removeAll(where: {$0 == quest})
+		if quest.questBonusReward != nil {
+			availableRewards.append(quest.questBonusReward!)
+		}
+		gainExp(quest: quest)
+	}
+	
+	mutating func gainExp(quest: Quest) {
+		exp = exp +	(quest.questType.standardExp * (1 + quest.difficulty.expModifier + quest.length.expModifier)) +	Double(quest.questBonusExp ?? 0)
+		
+		if exp >= level * 20 {
+			level += 1
+			exp = exp - (level * 20)
+		}
+	}
+	
+	//TODO: Adjustable levelUP requirement? 10 + level * 10 maybe? Could be a setting - either flat, linear, or exponential
 	
 	mutating func sortByType() {
 		questList = questList.sorted {
@@ -72,6 +96,15 @@ enum QuestType: Int, CaseIterable, CustomStringConvertible {
 		case .weeklyQuest: return "Weekly Quest"
 		}
 	}
+	
+	var standardExp: Double {
+		switch self {
+		case .mainQuest: return 10
+		case .sideQuest: return 4
+		case .dailyQuest: return 1
+		case .weeklyQuest: return 2
+		}
+	}
 }
 
 enum QuestDifficulty: CaseIterable, CustomStringConvertible {
@@ -86,6 +119,14 @@ enum QuestDifficulty: CaseIterable, CustomStringConvertible {
 		case .hard: return "Hard"
 		}
 	}
+	
+	var expModifier: Double {
+		switch self {
+		case .easy: return -0.25
+		case .average: return 0
+		case .hard: return 0.25
+		}
+	}
 }
 
 enum QuestLength: CaseIterable, CustomStringConvertible {
@@ -98,6 +139,14 @@ enum QuestLength: CaseIterable, CustomStringConvertible {
 		case .short: return "Short"
 		case .average: return "Average"
 		case .long: return "Long"
+		}
+	}
+	
+	var expModifier: Double {
+		switch self {
+		case .short: return -0.25
+		case .average: return 0
+		case .long: return 0.25
 		}
 	}
 }

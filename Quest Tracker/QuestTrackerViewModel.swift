@@ -20,6 +20,9 @@ class QuestTrackerViewModel: ObservableObject {
 		]
 	}
 	
+	func completeQuest(quest: Quest) {
+		trackerModel.completeQuest(quest: quest)
+	}
 		
 	func sortByName() {
 		trackerModel.sortByName()

@@ -43,7 +43,17 @@ struct QuestTableView: View {
 							}
 							HStack {
 
-								NavigationLink(destination: EditPopUpMenu(quest: $quest, selectedType: quest.questType, questName: quest.questName, questDescription: quest.questDescription ?? "", selectedDifficulty: quest.difficulty, selectedLength: quest.length, questBonusReward: quest.questBonusReward ?? "", hasDueDate: quest.dueDate.exists, dueDate: quest.dueDate ?? Date())) {
+								NavigationLink(destination: EditPopUpMenu(
+									quest: $quest,
+									selectedType: quest.questType,
+									questName: quest.questName,
+									questDescription: quest.questDescription ?? "",
+									selectedDifficulty: quest.difficulty,
+									selectedLength: quest.length,
+									questBonusReward: quest.questBonusReward ?? "",
+									hasDueDate: quest.dueDate.exists,
+									dueDate: quest.dueDate ?? Date())) {
+										
 									Button(action: {
 										
 									}, label: {
@@ -52,9 +62,12 @@ struct QuestTableView: View {
 									)
 								}
 								
-								Spacer()
+								Spacer(minLength: 20)
 								
-								Button(action: {}, label: {Text("Complete")})
+								Button(action: {
+									tracker.completeQuest(quest: quest)
+									print(tracker.trackerModel.completedQuests)
+								}, label: {Text("Complete")})
 							}
 							
 						}
