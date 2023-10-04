@@ -55,6 +55,7 @@ struct Quest: Identifiable, Hashable {
 	var timeCreated: Date
 	var difficulty: QuestDifficulty = .average
 	var length: QuestLength = .average
+	var dueDate: Date?
 }
 
 enum QuestType: Int, CaseIterable, CustomStringConvertible {
@@ -116,6 +117,16 @@ extension Optional where Wrapped == String {
 		}
 		set {
 			_bound = newValue.isEmpty ? nil : newValue
+		}
+	}
+}
+
+extension Optional where Wrapped == Date {
+	var exists: Bool {
+		if self == nil {
+			return false
+		} else {
+			return true
 		}
 	}
 }
