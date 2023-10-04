@@ -53,6 +53,8 @@ struct Quest: Identifiable, Hashable {
 	var id = UUID()
 	var isSelected: Bool = false
 	var timeCreated: Date
+	var difficulty: QuestDifficulty = .average
+	var length: QuestLength = .average
 }
 
 enum QuestType: Int, CaseIterable, CustomStringConvertible {
@@ -67,6 +69,34 @@ enum QuestType: Int, CaseIterable, CustomStringConvertible {
 		case .sideQuest: return "Side Quest"
 		case .dailyQuest: return "Daily Quest"
 		case .weeklyQuest: return "Weekly Quest"
+		}
+	}
+}
+
+enum QuestDifficulty: CaseIterable, CustomStringConvertible {
+	case easy
+	case average
+	case hard
+	
+	var description: String {
+		switch self {
+		case .easy: return "Easy"
+		case .average: return "Average"
+		case .hard: return "Hard"
+		}
+	}
+}
+
+enum QuestLength: CaseIterable, CustomStringConvertible {
+	case short
+	case average
+	case long
+	
+	var description: String {
+		switch self {
+		case .short: return "Short"
+		case .average: return "Average"
+		case .long: return "Long"
 		}
 	}
 }
