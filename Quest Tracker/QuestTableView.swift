@@ -32,6 +32,7 @@ struct QuestTableView: View {
 						.onTapGesture {
 							quest.isSelected.toggle()
 						}
+						// TODO: Let you tap anywhere to expand the view instead of just on text
 						
 						if quest.isSelected {
 							Text(quest.questDescription ?? "")
@@ -42,32 +43,28 @@ struct QuestTableView: View {
 								Text(quest.questBonusReward ?? "")
 							}
 							HStack {
-
-								NavigationLink(destination: EditPopUpMenu(
-									quest: $quest,
-									selectedType: quest.questType,
-									questName: quest.questName,
-									questDescription: quest.questDescription ?? "",
-									selectedDifficulty: quest.difficulty,
-									selectedLength: quest.length,
-									questBonusReward: quest.questBonusReward ?? "",
-									hasDueDate: quest.dueDate.exists,
-									dueDate: quest.dueDate ?? Date())) {
-										
-									Button(action: {
-										
-									}, label: {
-										Text("Edit")
-									}
+								Text("Edit").foregroundStyle(.blue)
+									.background(
+										NavigationLink("", destination: EditPopUpMenu(
+											quest: $quest,
+											selectedType: quest.questType,
+											questName: quest.questName,
+											questDescription: quest.questDescription ?? "",
+											selectedDifficulty: quest.difficulty,
+											selectedLength: quest.length,
+											questBonusReward: quest.questBonusReward ?? "",
+											hasDueDate: quest.dueDate.exists,
+											dueDate: quest.dueDate ?? Date()))
+										.opacity(0)
+										.buttonStyle(BorderlessButtonStyle())
 									)
-								}
-								
-								Spacer(minLength: 20)
+								// TODO: Fix so only clicking on edit navigates instead of entire expanded description
+								Spacer()
 								
 								Button(action: {
 									tracker.completeQuest(quest: quest)
 									print(tracker.trackerModel.completedQuests)
-								}, label: {Text("Complete")})
+								}, label: {Text("Complete")}).buttonStyle(BorderlessButtonStyle())
 							}
 							
 						}
