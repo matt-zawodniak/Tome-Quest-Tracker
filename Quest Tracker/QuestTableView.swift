@@ -76,25 +76,25 @@ struct QuestTableView: View {
 				}
 			}
 			.toolbar {
-				ToolbarItem(placement: .topBarTrailing) {
-					Menu {
-						Button {
-							tracker.sortByType()
-						} label: {Text("Quest Type")}
-						Button {
-							tracker.sortByName()
-						} label: {Text("Quest Name")}
-						Button {
-							tracker.sortByRecent()
-						} label: {Text("Recent")}
-						Button {
-							tracker.sortByTimeRemainingAscending()
-						} label: {Text("Time Remaining (ascending)")}
-						Button {
-							tracker.sortByTimeRemainingDescending()
-						} label: {Text("Time Remaining (descending)")}
-					} label: {Text("Sort by:")}
-				}
+//				ToolbarItem(placement: .topBarTrailing) {
+//					Menu {
+//						Button {
+//							tracker.sortByType()
+//						} label: {Text("Quest Type")}
+//						Button {
+//							tracker.sortByName()
+//						} label: {Text("Quest Name")}
+//						Button {
+//							tracker.sortByRecent()
+//						} label: {Text("Recent")}
+//						Button {
+//							tracker.sortByTimeRemainingAscending()
+//						} label: {Text("Time Remaining (ascending)")}
+//						Button {
+//							tracker.sortByTimeRemainingDescending()
+//						} label: {Text("Time Remaining (descending)")}
+//					} label: {Text("Sort by:")}
+//				}
 			}
 		}
 		

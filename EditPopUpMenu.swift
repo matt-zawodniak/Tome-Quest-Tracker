@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditPopUpMenu: View {
 	
-	var quest: Quest
+	@ObservedObject var quest: Quest
 	
 	var body: some View {
 		NavigationStack {
@@ -103,7 +103,7 @@ struct EditPopUpMenu: View {
 	}
 }
 
-
-#Preview {
-	EditPopUpMenu(quest: .constant(Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7))), selectedType: .dailyQuest, questName: "Exercise Ankle", questDescription: "", selectedDifficulty: .average, selectedLength: .long, questBonusReward: "", hasDueDate: false, dueDate: Date())
-}
+//
+//#Preview {
+//	EditPopUpMenu(quest: .constant(Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7))), selectedType: .dailyQuest, questName: "Exercise Ankle", questDescription: "", selectedDifficulty: .average, selectedLength: .long, questBonusReward: "", hasDueDate: false, dueDate: Date())
+//}
