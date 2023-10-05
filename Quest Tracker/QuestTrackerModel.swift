@@ -8,57 +8,58 @@
 import SwiftUI
 
 struct QuestTrackerModel {
-	var questList: [Quest] = []
-	
-	mutating func sortByType() {
-		questList = questList.sorted {
-			$0.questType.rawValue < $1.questType.rawValue
-		}
-	}
-	
-	mutating func sortByName() {
-		questList = questList.sorted {
-			$0.questName < $1.questName
-		}
-	}
-	
-	mutating func sortByRecent() {
-		questList = questList.sorted {
-			$0.timeCreated < $1.timeCreated
-		}
-	}
-	
-	mutating func sortByTimeRemainingAscending() {
-		questList = questList.sorted {
-			$0.timeRemaining ?? 999999999999 < $1.timeRemaining ?? 99999999999
-		}
-	}
-	
-	mutating func sortByTimeRemainingDescending() {
-		questList = questList.sorted {
-			$0.timeRemaining ?? 0 > $1.timeRemaining ?? 0
-		}
-	}
+//	var questList: [Quest] = []
+//	
+//	mutating func sortByType() {
+//		questList = questList.sorted {
+//			$0.questType.rawValue < $1.questType.rawValue
+//		}
+//	}
+//	
+//	mutating func sortByName() {
+//		questList = questList.sorted {
+//			$0.questName < $1.questName
+//		}
+//	}
+//	
+//	mutating func sortByRecent() {
+//		questList = questList.sorted {
+//			$0.timeCreated < $1.timeCreated
+//		}
+//	}
+//	
+//	mutating func sortByTimeRemainingAscending() {
+//		questList = questList.sorted {
+//			$0.timeRemaining ?? 999999999999 < $1.timeRemaining ?? 99999999999
+//		}
+//	}
+//	
+//	mutating func sortByTimeRemainingDescending() {
+//		questList = questList.sorted {
+//			$0.timeRemaining ?? 0 > $1.timeRemaining ?? 0
+//		}
+//	}
+		
 		
 }
+//
+//struct Quest: Identifiable, Hashable {
+//	
+//	var questType: QuestType
+//	var questName: String
+//	var timeRemaining: TimeInterval?
+//	var questDescription: String?
+//	var questBonusExp: Int?
+//	var questBonusReward: String?
+//	var id = UUID()
+//	var isSelected: Bool = false
+//	var timeCreated: Date
+//	var difficulty: QuestDifficulty = .average
+//	var length: QuestLength = .average
+//	var dueDate: Date?
+//}
 
-struct Quest: Identifiable, Hashable {
-	
-	var questType: QuestType
-	var questName: String
-	var timeRemaining: TimeInterval?
-	var questDescription: String?
-	var questBonusExp: Int?
-	var questBonusReward: String?
-	var id = UUID()
-	var isSelected: Bool = false
-	var timeCreated: Date
-	var difficulty: QuestDifficulty = .average
-	var length: QuestLength = .average
-	var dueDate: Date?
-}
-
-enum QuestType: Int, CaseIterable, CustomStringConvertible {
+enum QuestType: Int64, CaseIterable, CustomStringConvertible {
 	case mainQuest = 0
 	case sideQuest = 1
 	case dailyQuest = 2
@@ -74,10 +75,11 @@ enum QuestType: Int, CaseIterable, CustomStringConvertible {
 	}
 }
 
-enum QuestDifficulty: CaseIterable, CustomStringConvertible {
-	case easy
-	case average
-	case hard
+
+enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
+	case easy = 0
+	case average = 1
+	case hard = 2
 	
 	var description: String {
 		switch self {
@@ -88,10 +90,10 @@ enum QuestDifficulty: CaseIterable, CustomStringConvertible {
 	}
 }
 
-enum QuestLength: CaseIterable, CustomStringConvertible {
-	case short
-	case average
-	case long
+enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
+	case short = 0
+	case average = 1
+	case long = 2
 	
 	var description: String {
 		switch self {
@@ -127,6 +129,17 @@ extension Optional where Wrapped == Date {
 			return false
 		} else {
 			return true
+		}
+	}
+}
+
+extension Quest {
+	var type: QuestType {
+		get {
+			return QuestType(rawValue: self.questType)!
+		}
+		set {
+			self.questType = newValue.rawValue
 		}
 	}
 }

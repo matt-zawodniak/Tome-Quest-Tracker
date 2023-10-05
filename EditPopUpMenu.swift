@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditPopUpMenu: View {
 	
-	@Binding var quest: Quest
+	var quest: Quest
 	
 	var body: some View {
 		NavigationStack {
@@ -20,27 +20,6 @@ struct EditPopUpMenu: View {
 				advancedSettingsSection
 			}
 			.navigationTitle("Edit Quest")
-			.toolbar {
-				ToolbarItem(placement: .topBarTrailing) {
-					Button(
-						action: {
-							quest.questName = questName
-							quest.questType = selectedType
-							quest.questDescription = questDescription
-							quest.difficulty = selectedDifficulty
-							quest.length = selectedLength
-							quest.questBonusReward = questBonusReward
-							if hasDueDate == true {
-								quest.dueDate = dueDate
-							} else {
-								quest.dueDate = nil
-							}
-						},
-						label: {Text("Save")}
-					)
-				}
-				
-			}
 		}
 	}
 	
@@ -48,7 +27,7 @@ struct EditPopUpMenu: View {
 	
 	var typeSection: some View {
 		Section {
-			Picker("Quest Type", selection: $selectedType) {
+			Picker("Quest Type", selection: $quest.type) {
 				ForEach(QuestType.allCases, id: \.self) {questType in
 					let menuText = questType.description
 					Text("\(menuText)")
