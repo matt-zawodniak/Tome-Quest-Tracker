@@ -51,7 +51,7 @@ struct QuestTableView: View {
 									questName: quest.questName ?? "",
 									questDescription: quest.questDescription ?? "",
 									selectedDifficulty: QuestDifficulty(rawValue: quest.difficulty)!,
-									selectedLength: QuestLength(rawValue: quest.length as! Int64)!,
+									selectedLength: QuestLength(rawValue: quest.length)!,
 									questBonusReward: quest.questBonusReward ?? "",
 									hasDueDate: quest.dueDate.exists,
 									dueDate: quest.dueDate ?? Date())) {
@@ -65,7 +65,9 @@ struct QuestTableView: View {
 								
 								Spacer()
 								
-								Button(action: {}, label: {Text("Complete")})
+								Button(action: {
+								},
+									   label: {Text("Complete")})
 							}
 							
 						}
@@ -74,7 +76,21 @@ struct QuestTableView: View {
 					
 					
 				}
+				HStack {
+					Spacer()
+					NavigationLink(destination: NewQuestPopUpMenu()) {
+						
+						Button(
+							action: {
+							},
+							label: {
+								Image(systemName: "plus.circle")
+							})
+					}
+						Spacer()
+				}
 			}
+			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
 			.toolbar {
 //				ToolbarItem(placement: .topBarTrailing) {
 //					Menu {
@@ -103,6 +119,7 @@ struct QuestTableView: View {
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
+		// TODO: Populate Preview's coredata to fetch sample data
 		QuestTableView(tracker: QuestTrackerViewModel())
 	}
 }

@@ -1,16 +1,23 @@
 //
-//  EditPopUpMenu.swift
+//  NewQuestPopUpMenu.swift
 //  Quest Tracker
 //
-//  Created by Matt Zawodniak on 9/20/23.
+//  Created by Matt Zawodniak on 10/7/23.
 //
 
 import SwiftUI
 
-struct EditPopUpMenu: View {
+struct NewQuestPopUpMenu: View {
 	@Environment(\.managedObjectContext) var moc
 	
-	@ObservedObject var quest: Quest
+	@State var selectedType: QuestType = .mainQuest
+	@State var questName: String = ""
+	@State var questDescription: String = ""
+	@State var selectedDifficulty: QuestDifficulty = .average
+	@State var selectedLength: QuestLength = .average
+	@State var questBonusReward: String = ""
+	@State var hasDueDate: Bool = false
+	@State var dueDate: Date = Date()
 	
 	var body: some View {
 		NavigationStack {
@@ -20,15 +27,45 @@ struct EditPopUpMenu: View {
 				questDescriptionSection
 				advancedSettingsSection
 			}
-			.navigationTitle("Edit Quest")
+			.navigationTitle("New Quest")
+			.toolbar {
+				ToolbarItem(placement: .topBarLeading) {
+					Button("Cancel") {
+						
+					}
+				}
+				ToolbarItem(placement: .topBarTrailing) {
+					Button("Save") {
+						var selectedDate: Date? {
+							if hasDueDate {
+								return dueDate
+							}
+							else {
+								return nil
+							}
+						}
+						
+						DataController().addNewQuest(
+							name: questName,
+							type: selectedType,
+							description: questDescription,
+							bonusReward: questBonusReward,
+							bonusExp: 0, // TODO: Add Bonus EXP to form
+							length: selectedLength,
+							dueDate: selectedDate,
+							difficulty: selectedDifficulty,
+							context: moc
+						)
+						print("How Do I Make This Print the Quest List")
+					}
+				}
+			}
 		}
 	}
 	
-	@State var selectedType: QuestType
-	
 	var typeSection: some View {
 		Section {
-			Picker("Quest Type", selection: $quest.type) {
+			Picker("Quest Type", selection: $selectedType) {
 				ForEach(QuestType.allCases, id: \.self) {questType in
 					let menuText = questType.description
 					Text("\(menuText)")
@@ -37,7 +74,6 @@ struct EditPopUpMenu: View {
 		}
 	}
 	
-	@State var questName: String
 	
 	var nameSection: some View {
 		Section(header: Text("Quest Name")) {
@@ -45,7 +81,6 @@ struct EditPopUpMenu: View {
 		}
 	}
 	
-	@State var questDescription: String
 	
 	var questDescriptionSection: some View {
 		Section(header: Text("Quest Description")) {
@@ -53,11 +88,6 @@ struct EditPopUpMenu: View {
 		}
 	}
 	
-	@State var selectedDifficulty: QuestDifficulty
-	@State var selectedLength: QuestLength
-	@State var questBonusReward: String
-	@State var hasDueDate: Bool
-	@State var dueDate: Date
 	
 	var advancedSettingsSection: some View {
 		
@@ -85,13 +115,9 @@ struct EditPopUpMenu: View {
 				TextField("Add optional bonus here", text: $questBonusReward)
 			}
 			VStack {
-				HStack {
-					Text("Due Date?")
-					Picker("Due Date", selection: $hasDueDate) {
-						Text("No").tag(false)
-						Text("Yes").tag(true)
-					}.pickerStyle(.segmented)
-				}
+					Toggle(isOn: $hasDueDate, label: {
+						Text("Due Date:")
+					})
 				if hasDueDate {
 					DatePicker(
 						"",
@@ -100,15 +126,11 @@ struct EditPopUpMenu: View {
 					)
 				}
 			}
+			// TODO: Make Due Date reflect Reminder App structure
 		}
 	}
 }
-//
-//
-//struct EditPopUpMenu_Previews: PreviewProvider {
-//	static var previews: some View {
-//		let sampleQuest = Quest()
-//
-//		EditPopUpMenu(quest: sampleQuest, selectedType: .dailyQuest, questName: "Exercise Ankle", questDescription: "", selectedDifficulty: .average, selectedLength: .long, questBonusReward: "", hasDueDate: false, dueDate: Date())
-//	}
-//}
+
+#Preview {
+	NewQuestPopUpMenu(selectedType: .mainQuest, questName: "Test", questDescription: "Test", selectedDifficulty: .average, selectedLength: .average, questBonusReward: "Test", hasDueDate: false, dueDate: Date())
+}

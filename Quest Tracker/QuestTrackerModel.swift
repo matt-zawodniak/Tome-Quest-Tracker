@@ -142,5 +142,21 @@ extension Quest {
 			self.questType = newValue.rawValue
 		}
 	}
+	var questLength: QuestLength {
+		get {
+			return QuestLength(rawValue: self.length)!
+		}
+		set {
+			self.length = newValue.rawValue
+		}
+	}
+	var questDifficulty: QuestDifficulty {
+		get {
+			return QuestDifficulty(rawValue: self.difficulty)!
+		}
+		set {
+			self.difficulty = newValue.rawValue
+		}
+	}
 }
 
