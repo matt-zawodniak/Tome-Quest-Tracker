@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewQuestPopUpMenu: View {
 	@Environment(\.managedObjectContext) var moc
+	@Environment(\.dismiss) var dismiss
 	
 	@State var selectedType: QuestType = .mainQuest
 	@State var questName: String = ""
@@ -29,11 +30,6 @@ struct NewQuestPopUpMenu: View {
 			}
 			.navigationTitle("New Quest")
 			.toolbar {
-				ToolbarItem(placement: .topBarLeading) {
-					Button("Cancel") {
-						
-					}
-				}
 				ToolbarItem(placement: .topBarTrailing) {
 					Button("Save") {
 						var selectedDate: Date? {
@@ -56,7 +52,7 @@ struct NewQuestPopUpMenu: View {
 							difficulty: selectedDifficulty,
 							context: moc
 						)
-						print("How Do I Make This Print the Quest List")
+						dismiss()
 					}
 				}
 			}

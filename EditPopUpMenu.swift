@@ -9,9 +9,9 @@ import SwiftUI
 
 struct EditPopUpMenu: View {
 	@Environment(\.managedObjectContext) var moc
-	
+		
 	@ObservedObject var quest: Quest
-	
+		
 	var body: some View {
 		NavigationStack {
 			Form {
@@ -21,11 +21,20 @@ struct EditPopUpMenu: View {
 				advancedSettingsSection
 			}
 			.navigationTitle("Edit Quest")
-		}
+		}.onDisappear(perform: {
+			DataController().editQuest(quest: quest,
+									   name: quest.questName ?? "",
+									   type: quest.type,
+									   description: quest.questDescription,
+									   bonusReward: quest.questBonusReward,
+									   bonusExp: quest.questBonusExp,
+									   length: quest.questLength,
+									   dueDate: quest.dueDate,
+									   difficulty: quest.questDifficulty,
+									   context: moc)
+		})
 	}
-	
-	@State var selectedType: QuestType
-	
+		
 	var typeSection: some View {
 		Section {
 			Picker("Quest Type", selection: $quest.type) {
@@ -36,35 +45,25 @@ struct EditPopUpMenu: View {
 			}
 		}
 	}
-	
-	@State var questName: String
-	
+		
 	var nameSection: some View {
 		Section(header: Text("Quest Name")) {
-			TextField("Quest Name", text: $questName)
+			TextField("Quest Name", text: $quest.questName.bound)
 		}
 	}
-	
-	@State var questDescription: String
-	
+		
 	var questDescriptionSection: some View {
 		Section(header: Text("Quest Description")) {
-			TextField("Quest Description (Optional)", text: $questDescription)
+			TextField("Quest Description (Optional)", text: $quest.questDescription.bound)
 		}
 	}
-	
-	@State var selectedDifficulty: QuestDifficulty
-	@State var selectedLength: QuestLength
-	@State var questBonusReward: String
-	@State var hasDueDate: Bool
-	@State var dueDate: Date
-	
+			
 	var advancedSettingsSection: some View {
 		
 		Section(header: Text("Advanced Settings")) {
 			HStack {
 				Text("Difficulty")
-				Picker("Quest Difficulty", selection: $selectedDifficulty) {
+				Picker("Quest Difficulty", selection: $quest.questDifficulty) {
 					ForEach(QuestDifficulty.allCases, id: \.self) { difficulty in
 						let pickerText = difficulty.description
 						Text("\(pickerText)")
@@ -73,7 +72,7 @@ struct EditPopUpMenu: View {
 			}
 			HStack {
 				Text("Time")
-				Picker("Quest Length", selection: $selectedLength) {
+				Picker("Quest Length", selection: $quest.questLength) {
 					ForEach(QuestLength.allCases, id: \.self) { length in
 						let pickerText = length.description
 						Text("\(pickerText)")
@@ -82,24 +81,26 @@ struct EditPopUpMenu: View {
 			}
 			HStack {
 				Text("Bonus Reward:")
-				TextField("Add optional bonus here", text: $questBonusReward)
+				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
 			}
-			VStack {
-				HStack {
-					Text("Due Date?")
-					Picker("Due Date", selection: $hasDueDate) {
-						Text("No").tag(false)
-						Text("Yes").tag(true)
-					}.pickerStyle(.segmented)
-				}
-				if hasDueDate {
-					DatePicker(
-						"",
-						selection: $dueDate,
-						displayedComponents: [.date, .hourAndMinute]
-					)
-				}
-			}
+//			VStack {
+//				HStack {
+//					
+//					Text("Due Date?")
+//					Picker("Due Date", selection: $hasDueDate) {
+//						Text("No").tag(false)
+//						Text("Yes").tag(true)
+//					}.pickerStyle(.segmented)
+//				}
+//				if hasDueDate {
+//					DatePicker(
+//						"",
+//						selection: $quest.dueDate,
+//						displayedComponents: [.date, .hourAndMinute]
+//					)
+//				}
+//			}
+			// TODO: Adjust Due Date picker, toggle, etc to work with just importing the quest itself.
 		}
 	}
 }
