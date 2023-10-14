@@ -104,12 +104,13 @@ struct EditPopUpMenu: View {
 		}
 	}
 }
-//
-//
-//struct EditPopUpMenu_Previews: PreviewProvider {
-//	static var previews: some View {
-//		let sampleQuest = Quest()
-//
-//		EditPopUpMenu(quest: sampleQuest, selectedType: .dailyQuest, questName: "Exercise Ankle", questDescription: "", selectedDifficulty: .average, selectedLength: .long, questBonusReward: "", hasDueDate: false, dueDate: Date())
-//	}
-//}
+
+
+struct EditPopUpMenu_Previews: PreviewProvider {
+
+	static var previews: some View {
+		let previewContext = DataController().container.viewContext
+		let quest = DataController().addPreviewQuest(context: previewContext)
+		EditPopUpMenu(quest: quest)
+	}
+}

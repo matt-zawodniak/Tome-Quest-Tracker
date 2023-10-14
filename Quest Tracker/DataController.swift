@@ -81,4 +81,31 @@ class DataController: ObservableObject {
 		save(context: context)
 	}
 	
+	func addPreviewQuest (
+		name: String = "Test Name",
+		type: QuestType = .mainQuest,
+		description: String? = "Test Description",
+		bonusReward: String? = "Test Reward",
+		bonusExp: Double? = 42,
+		length: QuestLength = .long,
+		dueDate: Date? = nil,
+		difficulty: QuestDifficulty = .easy,
+		context: NSManagedObjectContext
+	) -> Quest {
+		let quest = Quest(context: context)
+		quest.questName = name
+		quest.questType = type.rawValue
+		quest.timeCreated = Date()
+		quest.questDescription = description
+		quest.questBonusReward = bonusReward
+		quest.questBonusExp = bonusExp ?? 0
+		quest.length = length.rawValue
+		quest.dueDate = dueDate
+		quest.difficulty = difficulty.rawValue
+		quest.isSelected = false
+		quest.id = UUID()
+		
+		save(context: context)
+		return quest
+	}
 }
