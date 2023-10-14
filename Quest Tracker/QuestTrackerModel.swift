@@ -124,11 +124,34 @@ extension Optional where Wrapped == String {
 }
 
 extension Optional where Wrapped == Date {
+	var _bound: Date? {
+		get {
+			return self
+		}
+		set {
+			self = newValue
+		}
+	}
+	public var bound: Date {
+		get {
+			return _bound ?? Date()
+		}
+		set {
+			_bound = newValue
+		}
+	}
 	var exists: Bool {
 		if self == nil {
 			return false
 		} else {
 			return true
+		}
+	}
+	var string: String {
+		if self == nil {
+			return ""
+		} else {
+			return DateFormatter().string(from: self!)
 		}
 	}
 }
