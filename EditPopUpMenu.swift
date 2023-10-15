@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditPopUpMenu: View {
 	@Environment(\.managedObjectContext) var moc
-
+	
 	@ObservedObject var quest: Quest
 	@State var hasDueDate: Bool
 	@State var datePickerIsExpanded: Bool = false
@@ -63,7 +63,7 @@ struct EditPopUpMenu: View {
 	
 	var advancedSettingsSection: some View {
 		Section(header: Text("Advanced Settings")) {
-
+			
 			HStack {
 				Text("Difficulty")
 				Picker("Quest Difficulty", selection: $quest.questDifficulty) {
@@ -90,33 +90,34 @@ struct EditPopUpMenu: View {
 				HStack {
 					Text("Due Date:")
 					Text(quest.dueDate.string)
+						.onTapGesture {
+							if hasDueDate {
+								datePickerIsExpanded.toggle()
+							}
+						}
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
 						.onChange(of: hasDueDate) { value in
 							if value == true {
 								quest.dueDate = Date()
-								datePickerIsExpanded = true
 							}
 							else {
 								quest.dueDate = nil
 							}
+							datePickerIsExpanded = hasDueDate
 						}
 				}
-				.onTapGesture {
-					if hasDueDate {
-						datePickerIsExpanded.toggle()
-					}
-				}
+				
 				if hasDueDate, datePickerIsExpanded == true {
-							DatePicker(
-								"" ,
-							selection: $quest.dueDate.bound,
-							displayedComponents: [.date]
-						)
-						.datePickerStyle(.graphical)
-						.onChange(of: quest.dueDate) { value in
-							datePickerIsExpanded = !datePickerIsExpanded
-						}
+					DatePicker(
+						"" ,
+						selection: $quest.dueDate.bound,
+						displayedComponents: [.date]
+					)
+					.datePickerStyle(.graphical)
+					.onChange(of: quest.dueDate) { value in
+						datePickerIsExpanded = false
+					}
 				}
 			}
 			// TODO: Adjust Due Date picker, toggle, etc to work with just importing the quest itself.
