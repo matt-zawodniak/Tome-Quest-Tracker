@@ -12,6 +12,7 @@ struct EditPopUpMenu: View {
 
 	@ObservedObject var quest: Quest
 	@State var hasDueDate: Bool
+	@State var datePickerIsExpanded: Bool = false
 	
 	var body: some View {
 		
@@ -86,23 +87,36 @@ struct EditPopUpMenu: View {
 				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
 			}
 			VStack {
-				Toggle("Date", isOn: $hasDueDate)
-					.onChange(of: hasDueDate) {value in
-						if value == true {
-							quest.dueDate = Date()
-						}
-						else {
-							quest.dueDate = nil
-						}
-					}
-				if hasDueDate {
+				HStack {
+					Text("Due Date:")
 					Text(quest.dueDate.string)
+					Spacer()
+					Toggle("", isOn: $hasDueDate)
+						.onChange(of: hasDueDate) { value in
+							if value == true {
+								quest.dueDate = Date()
+								datePickerIsExpanded = true
+							}
+							else {
+								quest.dueDate = nil
+							}
+						}
+				}
+				.onTapGesture {
+					if hasDueDate {
+						datePickerIsExpanded.toggle()
+					}
+				}
+				if hasDueDate, datePickerIsExpanded == true {
 							DatePicker(
 								"" ,
 							selection: $quest.dueDate.bound,
 							displayedComponents: [.date]
 						)
 						.datePickerStyle(.graphical)
+						.onChange(of: quest.dueDate) { value in
+							datePickerIsExpanded = !datePickerIsExpanded
+						}
 				}
 			}
 			// TODO: Adjust Due Date picker, toggle, etc to work with just importing the quest itself.
@@ -117,6 +131,6 @@ struct EditPopUpMenu_Previews: PreviewProvider {
 	static var previews: some View {
 		let previewContext = DataController().container.viewContext
 		let quest = DataController().addPreviewQuest(context: previewContext)
-		EditPopUpMenu(quest: quest, hasDueDate: false)
+		EditPopUpMenu(quest: quest, hasDueDate: true)
 	}
 }

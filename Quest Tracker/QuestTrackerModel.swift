@@ -148,10 +148,12 @@ extension Optional where Wrapped == Date {
 		}
 	}
 	var string: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
 		if self == nil {
 			return ""
 		} else {
-			return DateFormatter().string(from: self!)
+			return dateFormatter.string(from: self!)
 		}
 	}
 }

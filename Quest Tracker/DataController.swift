@@ -100,7 +100,7 @@ class DataController: ObservableObject {
 		quest.questBonusReward = bonusReward
 		quest.questBonusExp = bonusExp ?? 0
 		quest.length = length.rawValue
-		quest.dueDate = dueDate
+		quest.dueDate = Date()
 		quest.difficulty = difficulty.rawValue
 		quest.isSelected = false
 		quest.id = UUID()
