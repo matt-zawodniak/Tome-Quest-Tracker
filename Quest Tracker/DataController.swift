@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import SwiftUI
 
 class DataController: ObservableObject {
 	let container = NSPersistentContainer(name: "DataModel")
@@ -17,6 +18,35 @@ class DataController: ObservableObject {
 				print("Core Data failed to load: \(error.localizedDescription)")
 			}
 		}
+		fetchFirstOrCreate(context: container.viewContext)
+	}
+	
+	
+	func fetchFirstOrCreate(context: NSManagedObjectContext) {
+		var userSettings: [Settings] {
+			let request = NSFetchRequest<Settings>(entityName: "Settings")
+			
+			return (try? container.viewContext.fetch(request)) ?? []
+		}
+		
+		if userSettings.isEmpty {
+			let defaultSettings = Settings(context: context)
+			
+			var components = DateComponents()
+					components.day = 1
+					components.second = -1
+			
+			defaultSettings.dayOfTheWeek = 2
+			defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+			
+			save(context: context)
+		}
+//		else {
+//			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
+//			save(context: context)
+//
+//		}
+//		print(userSettings.first?.time as Any)
 	}
 	
 	func save(context: NSManagedObjectContext) {
@@ -26,6 +56,40 @@ class DataController: ObservableObject {
 		} catch {
 			print("Quest could not be saved.")
 		}
+	}
+	
+	func setDailyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
+		var components = DateComponents()
+		components.hour = Calendar.current.component(.hour, from: resetDate.time!)
+		components.minute = Calendar.current.component(.minute, from: resetDate.time!)
+		components.second = Calendar.current.component(.second, from: resetDate.time!)
+		
+		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		quest.dueDate = nextResetTime
+	}
+		
+	func setWeeklyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
+		
+		var components = DateComponents()
+		components.weekday = Int(resetDate.dayOfTheWeek)
+		components.hour = Calendar.current.component(.hour, from: resetDate.time!)
+		components.minute = Calendar.current.component(.minute, from: resetDate.time!)
+		
+		let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		
+		quest.dueDate = nextResetDay
+	}
+	
+	func editResetDayAndTime(resetDate: Settings, dayOfTheWeek: Int64?, resetTime: Date?, context: NSManagedObjectContext) {
+		
+		if let dayOfTheWeek {
+			resetDate.dayOfTheWeek = dayOfTheWeek
+		}
+		if let resetTime {
+			resetDate.time = resetTime
+		}
+		
+		save(context: context)
 	}
 	
 	func addNewQuest(

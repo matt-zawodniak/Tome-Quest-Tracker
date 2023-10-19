@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EditPopUpMenu: View {
 	@Environment(\.managedObjectContext) var moc
+	@FetchRequest(sortDescriptors: []) var resetDates: FetchedResults<Settings>
 	
 	@ObservedObject var quest: Quest
 	@State var hasDueDate: Bool
@@ -44,6 +45,13 @@ struct EditPopUpMenu: View {
 				ForEach(QuestType.allCases, id: \.self) {questType in
 					let menuText = questType.description
 					Text("\(menuText)")
+				}.onChange(of: quest.type) { value in
+					if value == .dailyQuest {
+						DataController().setDailyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+					}
+					else if value == .weeklyQuest {
+						DataController().setWeeklyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+					}
 				}
 			}
 		}
@@ -86,10 +94,50 @@ struct EditPopUpMenu: View {
 				Text("Bonus Reward:")
 				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
 			}
-			VStack {
+			dueDateView
+		}
+	}
+	
+	var dueDateView: some View {
+		VStack {
+			switch quest.type {
+			case .weeklyQuest:
 				HStack {
-					Text("Due Date:")
-					Text(quest.dueDate.string)
+					Text("Weekly Reset:")
+					Text(quest.dueDate.dateOnly)
+					Spacer()
+					Toggle("", isOn: $hasDueDate)
+						.onChange(of: hasDueDate) { value in
+							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+						}
+						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+				}
+			case .dailyQuest:
+				HStack {
+					Text("Daily Reset:")
+					Text(quest.dueDate.timeOnly)
+					Spacer()
+					Toggle("", isOn: $hasDueDate)
+						.onChange(of: hasDueDate) { value in
+							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+						}
+						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+				}
+			default:
+				HStack {
+					Text("Due:")
+						.onTapGesture {
+							if hasDueDate {
+								datePickerIsExpanded.toggle()
+							}
+						}
+					Text(quest.dueDate.dateOnly)
+						.onTapGesture {
+							if hasDueDate {
+								datePickerIsExpanded.toggle()
+							}
+						}
+					Text(quest.dueDate.timeOnly)
 						.onTapGesture {
 							if hasDueDate {
 								datePickerIsExpanded.toggle()
@@ -98,12 +146,7 @@ struct EditPopUpMenu: View {
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
 						.onChange(of: hasDueDate) { value in
-							if value == true {
-								quest.dueDate = Date()
-							}
-							else {
-								quest.dueDate = nil
-							}
+							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
 							datePickerIsExpanded = hasDueDate
 						}
 				}
@@ -112,15 +155,11 @@ struct EditPopUpMenu: View {
 					DatePicker(
 						"" ,
 						selection: $quest.dueDate.bound,
-						displayedComponents: [.date]
+						displayedComponents: [.date, .hourAndMinute]
 					)
 					.datePickerStyle(.graphical)
-					.onChange(of: quest.dueDate) { value in
-						datePickerIsExpanded = false
-					}
 				}
 			}
-			// TODO: Adjust Due Date picker, toggle, etc to work with just importing the quest itself.
 		}
 	}
 }
