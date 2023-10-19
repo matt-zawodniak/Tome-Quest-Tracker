@@ -117,10 +117,9 @@ extension Optional where Wrapped == Date {
 			return dateFormatter.string(from: self!)
 		}
 	}
-	var dateOnly: String {
+	var dayOnly: String {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .none
+		dateFormatter.dateFormat = "EEEE"
 		if self == nil {
 			return ""
 		} else {

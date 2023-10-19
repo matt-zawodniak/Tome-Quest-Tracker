@@ -104,7 +104,7 @@ struct EditPopUpMenu: View {
 			case .weeklyQuest:
 				HStack {
 					Text("Weekly Reset:")
-					Text(quest.dueDate.dateOnly)
+					Text(quest.dueDate.dayOnly)
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
 						.onChange(of: hasDueDate) { value in
@@ -131,7 +131,7 @@ struct EditPopUpMenu: View {
 								datePickerIsExpanded.toggle()
 							}
 						}
-					Text(quest.dueDate.dateOnly)
+					Text(quest.dueDate.dayOnly)
 						.onTapGesture {
 							if hasDueDate {
 								datePickerIsExpanded.toggle()
