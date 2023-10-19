@@ -131,7 +131,7 @@ struct EditPopUpMenu: View {
 								datePickerIsExpanded.toggle()
 							}
 						}
-					Text(quest.dueDate.dayOnly)
+					Text(quest.dueDate.dateOnly)
 						.onTapGesture {
 							if hasDueDate {
 								datePickerIsExpanded.toggle()
