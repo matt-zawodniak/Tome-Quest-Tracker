@@ -48,9 +48,11 @@ struct EditPopUpMenu: View {
 				}.onChange(of: quest.type) { value in
 					if value == .dailyQuest {
 						DataController().setDailyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+						hasDueDate = true
 					}
 					else if value == .weeklyQuest {
 						DataController().setWeeklyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+						hasDueDate = true
 					}
 				}
 			}
