@@ -8,56 +8,16 @@
 import SwiftUI
 
 struct QuestTrackerModel {
-//	var questList: [Quest] = []
-//	
-//	mutating func sortByType() {
-//		questList = questList.sorted {
-//			$0.questType.rawValue < $1.questType.rawValue
-//		}
-//	}
-//	
-//	mutating func sortByName() {
-//		questList = questList.sorted {
-//			$0.questName < $1.questName
-//		}
-//	}
-//	
-//	mutating func sortByRecent() {
-//		questList = questList.sorted {
-//			$0.timeCreated < $1.timeCreated
-//		}
-//	}
-//	
-//	mutating func sortByTimeRemainingAscending() {
-//		questList = questList.sorted {
-//			$0.timeRemaining ?? 999999999999 < $1.timeRemaining ?? 99999999999
-//		}
-//	}
-//	
-//	mutating func sortByTimeRemainingDescending() {
-//		questList = questList.sorted {
-//			$0.timeRemaining ?? 0 > $1.timeRemaining ?? 0
-//		}
-//	}
-		
-		
+	
+	func setDate(quest: Quest, value: Bool) {
+		if value == true {
+			quest.dueDate = Date()
+		}
+		else {
+			quest.dueDate = nil
+		}
+	}
 }
-//
-//struct Quest: Identifiable, Hashable {
-//	
-//	var questType: QuestType
-//	var questName: String
-//	var timeRemaining: TimeInterval?
-//	var questDescription: String?
-//	var questBonusExp: Int?
-//	var questBonusReward: String?
-//	var id = UUID()
-//	var isSelected: Bool = false
-//	var timeCreated: Date
-//	var difficulty: QuestDifficulty = .average
-//	var length: QuestLength = .average
-//	var dueDate: Date?
-//}
 
 enum QuestType: Int64, CaseIterable, CustomStringConvertible {
 	case mainQuest = 0
@@ -124,12 +84,87 @@ extension Optional where Wrapped == String {
 }
 
 extension Optional where Wrapped == Date {
+	var _bound: Date? {
+		get {
+			return self
+		}
+		set {
+			self = newValue
+		}
+	}
+	public var bound: Date {
+		get {
+			return _bound ?? Date()
+		}
+		set {
+			_bound = newValue
+		}
+	}
 	var exists: Bool {
 		if self == nil {
 			return false
 		} else {
 			return true
 		}
+	}
+	var string: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+	var dateOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+	var dayOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "EEEE"
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+	var timeOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .none
+		dateFormatter.timeStyle = .short
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+}
+
+extension Date {
+	var string: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: self)
+	}
+	var dayOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "EEEE"
+		
+		return dateFormatter.string(from: self)
+	}
+	var timeOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .none
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: self)
 	}
 }
 
@@ -157,6 +192,12 @@ extension Quest {
 		set {
 			self.difficulty = newValue.rawValue
 		}
+	}
+}
+
+extension Date {
+	func setDateToDailyResetTime(date: Date) -> Date {
+		Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: date)!
 	}
 }
 

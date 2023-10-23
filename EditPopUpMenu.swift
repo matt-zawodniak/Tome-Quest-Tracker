@@ -9,10 +9,14 @@ import SwiftUI
 
 struct EditPopUpMenu: View {
 	@Environment(\.managedObjectContext) var moc
-		
+	@FetchRequest(sortDescriptors: []) var resetDates: FetchedResults<Settings>
+	
 	@ObservedObject var quest: Quest
-		
+	@State var hasDueDate: Bool
+	@State var datePickerIsExpanded: Bool = false
+	
 	var body: some View {
+		
 		NavigationStack {
 			Form {
 				typeSection
@@ -34,33 +38,42 @@ struct EditPopUpMenu: View {
 									   context: moc)
 		})
 	}
-		
+	
 	var typeSection: some View {
 		Section {
 			Picker("Quest Type", selection: $quest.type) {
 				ForEach(QuestType.allCases, id: \.self) {questType in
 					let menuText = questType.description
 					Text("\(menuText)")
+				}.onChange(of: quest.type) { value in
+					if value == .dailyQuest {
+						DataController().setDailyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+						hasDueDate = true
+					}
+					else if value == .weeklyQuest {
+						DataController().setWeeklyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+						hasDueDate = true
+					}
 				}
 			}
 		}
 	}
-		
+	
 	var nameSection: some View {
 		Section(header: Text("Quest Name")) {
 			TextField("Quest Name", text: $quest.questName.bound)
 		}
 	}
-		
+	
 	var questDescriptionSection: some View {
 		Section(header: Text("Quest Description")) {
 			TextField("Quest Description (Optional)", text: $quest.questDescription.bound)
 		}
 	}
-			
+	
 	var advancedSettingsSection: some View {
-		
 		Section(header: Text("Advanced Settings")) {
+			
 			HStack {
 				Text("Difficulty")
 				Picker("Quest Difficulty", selection: $quest.questDifficulty) {
@@ -83,32 +96,84 @@ struct EditPopUpMenu: View {
 				Text("Bonus Reward:")
 				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
 			}
-//			VStack {
-//				HStack {
-//					
-//					Text("Due Date?")
-//					Picker("Due Date", selection: $hasDueDate) {
-//						Text("No").tag(false)
-//						Text("Yes").tag(true)
-//					}.pickerStyle(.segmented)
-//				}
-//				if hasDueDate {
-//					DatePicker(
-//						"",
-//						selection: $quest.dueDate,
-//						displayedComponents: [.date, .hourAndMinute]
-//					)
-//				}
-//			}
+
+			dueDateView
+		}
+	}
+	
+	var dueDateView: some View {
+		VStack {
+			switch quest.type {
+			case .weeklyQuest:
+				HStack {
+					Text("Weekly Reset:")
+					Text(quest.dueDate.dayOnly)
+					Spacer()
+					Toggle("", isOn: $hasDueDate)
+						.onChange(of: hasDueDate) { value in
+							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+						}
+						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+				}
+			case .dailyQuest:
+				HStack {
+					Text("Daily Reset:")
+					Text(quest.dueDate.timeOnly)
+					Spacer()
+					Toggle("", isOn: $hasDueDate)
+						.onChange(of: hasDueDate) { value in
+							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+						}
+						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+				}
+			default:
+				HStack {
+					Text("Due:")
+						.onTapGesture {
+							if hasDueDate {
+								datePickerIsExpanded.toggle()
+							}
+						}
+					Text(quest.dueDate.dateOnly)
+						.onTapGesture {
+							if hasDueDate {
+								datePickerIsExpanded.toggle()
+							}
+						}
+					Text(quest.dueDate.timeOnly)
+						.onTapGesture {
+							if hasDueDate {
+								datePickerIsExpanded.toggle()
+							}
+						}
+					Spacer()
+					Toggle("", isOn: $hasDueDate)
+						.onChange(of: hasDueDate) { value in
+							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+							datePickerIsExpanded = hasDueDate
+						}
+				}
+				
+				if hasDueDate, datePickerIsExpanded == true {
+					DatePicker(
+						"" ,
+						selection: $quest.dueDate.bound,
+						displayedComponents: [.date, .hourAndMinute]
+					)
+					.datePickerStyle(.graphical)
+				}
+			}
 		}
 	}
 }
-//
-//
-//struct EditPopUpMenu_Previews: PreviewProvider {
-//	static var previews: some View {
-//		let sampleQuest = Quest()
-//
-//		EditPopUpMenu(quest: sampleQuest, selectedType: .dailyQuest, questName: "Exercise Ankle", questDescription: "", selectedDifficulty: .average, selectedLength: .long, questBonusReward: "", hasDueDate: false, dueDate: Date())
-//	}
-//}
+
+
+
+struct EditPopUpMenu_Previews: PreviewProvider {
+	
+	static var previews: some View {
+		let previewContext = DataController().container.viewContext
+		let quest = DataController().addPreviewQuest(context: previewContext)
+		EditPopUpMenu(quest: quest, hasDueDate: true)
+	}
+}
