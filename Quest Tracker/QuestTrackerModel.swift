@@ -138,6 +138,27 @@ extension Optional where Wrapped == Date {
 	}
 }
 
+extension Date {
+	var string: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: self)
+	}
+	var dayOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "EEEE"
+		
+		return dateFormatter.string(from: self)
+	}
+	var timeOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .none
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: self)
+	}
+}
+
 extension Quest {
 	var type: QuestType {
 		get {
