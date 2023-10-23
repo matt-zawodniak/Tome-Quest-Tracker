@@ -28,7 +28,7 @@ struct QuestTableView: View {
 							Text(quest.questName ?? "")
 							Spacer()
 //							if (quest.timeRemaining != nil) {
-//								Text(String(quest.timeRemaining!))  // TODO: Calculate this as the difference between due date and current date1
+//								Text(String(quest.timeRemaining!))
 //							}
 						}
 						.onTapGesture {
@@ -90,7 +90,6 @@ struct QuestTableView: View {
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
-		// TODO: Populate Preview's coredata to fetch sample data
 		QuestTableView(tracker: QuestTrackerViewModel())
 	}
 }
