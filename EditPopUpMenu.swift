@@ -96,6 +96,7 @@ struct EditPopUpMenu: View {
 				Text("Bonus Reward:")
 				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
 			}
+
 			dueDateView
 		}
 	}
