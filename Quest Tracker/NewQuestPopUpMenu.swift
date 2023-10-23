@@ -46,7 +46,7 @@ struct NewQuestPopUpMenu: View {
 							type: selectedType,
 							description: questDescription,
 							bonusReward: questBonusReward,
-							bonusExp: 0, // TODO: Add Bonus EXP to form
+							bonusExp: 0,
 							length: selectedLength,
 							dueDate: selectedDate,
 							difficulty: selectedDifficulty,
@@ -122,7 +122,6 @@ struct NewQuestPopUpMenu: View {
 					)
 				}
 			}
-			// TODO: Make Due Date reflect Reminder App structure
 		}
 	}
 }
