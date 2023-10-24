@@ -118,33 +118,7 @@ class DataController: ObservableObject {
 		
 		save(context: context)
 	}
-	
-	func editQuest(
-		quest: Quest,
-		name: String,
-		type: QuestType,
-		description: String?,
-		bonusReward: String?,
-		bonusExp: Double?,
-		length: QuestLength,
-		dueDate: Date?,
-		difficulty: QuestDifficulty,
-		context: NSManagedObjectContext
-	) {
-		quest.questName = name
-		quest.questType = type.rawValue
-		quest.timeCreated = Date()
-		quest.questDescription = description
-		quest.questBonusReward = bonusReward
-		quest.questBonusExp = bonusExp ?? 0
-		quest.length = length.rawValue
-		quest.dueDate = dueDate
-		quest.difficulty = difficulty.rawValue
-		quest.isSelected = false
 		
-		save(context: context)
-	}
-	
 	func addPreviewQuest (
 		name: String = "Test Name",
 		type: QuestType = .mainQuest,

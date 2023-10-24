@@ -26,18 +26,10 @@ struct EditPopUpMenu: View {
 			}
 			.navigationTitle("Edit Quest")
 		}.onDisappear(perform: {
-			DataController().editQuest(quest: quest,
-									   name: quest.questName ?? "",
-									   type: quest.type,
-									   description: quest.questDescription,
-									   bonusReward: quest.questBonusReward,
-									   bonusExp: quest.questBonusExp,
-									   length: quest.questLength,
-									   dueDate: quest.dueDate,
-									   difficulty: quest.questDifficulty,
-									   context: moc)
+			DataController().save(context: moc)
 		})
 	}
+					  
 	
 	var typeSection: some View {
 		Section {
