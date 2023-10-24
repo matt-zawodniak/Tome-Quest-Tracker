@@ -27,9 +27,6 @@ struct QuestTableView: View {
 							}
 							Text(quest.questName ?? "")
 							Spacer()
-//							if (quest.timeRemaining != nil) {
-//								Text(String(quest.timeRemaining!))
-//							}
 						}
 						.onTapGesture {
 							quest.isSelected.toggle()
