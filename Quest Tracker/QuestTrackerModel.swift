@@ -64,6 +64,44 @@ enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
 	}
 }
 
+enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
+	case sunday = 0
+	case monday = 1
+	case tuesday = 2
+	case wednesday = 3
+	case thursday = 4
+	case friday = 5
+	case saturday = 6
+	
+	var description: String {
+		switch self {
+		case .sunday: return "Sunday"
+		case .monday: return "Monday"
+		case .tuesday: return "Tuesday"
+		case .wednesday: return "Wednesday"
+		case .thursday: return "Thursday"
+		case .friday: return "Friday"
+		case .saturday: return "Saturday"
+		}
+	}
+}
+
+enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
+	case none = 0
+	case flat = 1
+	case linear = 2
+	case exponential = 3
+	
+	var description: String {
+		switch self {
+		case .none: "None"
+		case .flat: "Flat Increase"
+		case .linear: "Linear Increase"
+		case .exponential: "Exponential"
+		}
+	}
+}
+
 extension Optional where Wrapped == String {
 	var _bound: String? {
 		get {
