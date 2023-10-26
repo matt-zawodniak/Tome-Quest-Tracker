@@ -33,8 +33,8 @@ class DataController: ObservableObject {
 			let defaultSettings = Settings(context: context)
 			
 			var components = DateComponents()
-					components.day = 1
-					components.second = -1
+			components.day = 1
+			components.second = -1
 			
 			defaultSettings.dayOfTheWeek = 2
 			defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
@@ -44,12 +44,12 @@ class DataController: ObservableObject {
 			
 			save(context: context)
 		}
-//		else {
-//			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
-//			save(context: context)
-//
-//		}
-//		print(userSettings.first?.time as Any)
+		else {
+			//						container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
+			//						save(context: context)
+			//
+			//					print(userSettings.first?.time as Any)
+		}
 	}
 	
 	func save(context: NSManagedObjectContext) {
@@ -70,7 +70,7 @@ class DataController: ObservableObject {
 		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 		quest.dueDate = nextResetTime
 	}
-		
+	
 	func setWeeklyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
 		
 		var components = DateComponents()
@@ -121,7 +121,7 @@ class DataController: ObservableObject {
 		
 		save(context: context)
 	}
-		
+	
 	func addPreviewQuest (
 		name: String = "Test Name",
 		type: QuestType = .mainQuest,
@@ -148,5 +148,22 @@ class DataController: ObservableObject {
 		
 		save(context: context)
 		return quest
+	}
+	
+	func loadPreviewSettings(context: NSManagedObjectContext) -> Settings {
+		let defaultSettings = Settings(context: context)
+		
+		var components = DateComponents()
+		components.day = 1
+		components.second = -1
+		
+		defaultSettings.dayOfTheWeek = 3
+		defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+		defaultSettings.dailyResetWarning = true
+		defaultSettings.weeklyResetWarning = false
+		defaultSettings.levelingScheme = 2
+		
+		save(context: context)
+		return defaultSettings
 	}
 }

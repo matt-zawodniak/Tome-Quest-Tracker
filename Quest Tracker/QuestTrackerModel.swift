@@ -233,6 +233,26 @@ extension Quest {
 	}
 }
 
+extension Settings {
+	var day: DayOfTheWeek {
+		get {
+			return DayOfTheWeek(rawValue: self.dayOfTheWeek)!
+		}
+		set {
+			self.dayOfTheWeek = newValue.rawValue
+		}
+	}
+	var scaling: LevelingSchemes {
+		get {
+			return LevelingSchemes(rawValue: self.levelingScheme)!
+		}
+		set {
+			self.levelingScheme = newValue.rawValue
+		}
+	}
+	
+}
+
 extension Date {
 	func setDateToDailyResetTime(date: Date) -> Date {
 		Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: date)!

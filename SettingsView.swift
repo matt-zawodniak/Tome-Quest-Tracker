@@ -10,48 +10,44 @@ import SwiftUI
 struct SettingsView: View {
 	@Environment(\.managedObjectContext) var moc
 	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
-	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	
-	@State var dailyResetTime: Date = Date()
-	@State var weeklyResetDay: DayOfTheWeek = .tuesday
-	@State var dailyResetWarning: Bool = false
-	@State var weeklyResetWarning: Bool = false
-	@State var levelingScheme: LevelingSchemes = .linear
-	
+	@ObservedObject var settings: Settings
 	var body: some View {
 		NavigationStack {
 				List {
 					VStack {
 						HStack {
 							Text("Daily Reset Time:")
-							DatePicker("", selection: $dailyResetTime, displayedComponents: .hourAndMinute)
+							DatePicker("", selection: $settings.time.bound, displayedComponents: .hourAndMinute)
 						}
 						HStack {
 							Text("Daily Reset Warning")
 							Spacer()
-							Toggle("", isOn: $dailyResetWarning)
+							Toggle("", isOn: $settings.dailyResetWarning)
 						}
 					}
 					VStack {
 						HStack {
 							Text("Weekly Reset Day:")
-							Picker("", selection: $weeklyResetDay) {
-								ForEach(DayOfTheWeek.allCases, id: \.self) {
-									Text($0.description)
+							Picker("", selection: $settings.day) {
+								ForEach(DayOfTheWeek.allCases, id: \.self) { day in
+									let pickerText = day.description
+									Text("\(pickerText)")
 								}
 							}
 						}
 						HStack {
 							Text("Weekly Reset Warning:")
 							Spacer()
-							Toggle("", isOn: $weeklyResetWarning)
+							Toggle("", isOn: $settings.weeklyResetWarning)
 						}
 					}
 					HStack {
 						Text("Level Scaling:")
-						Picker("", selection: $levelingScheme) {
-							ForEach(LevelingSchemes.allCases, id: \.self) {
-								Text($0.description)
+						Picker("", selection: $settings.scaling) {
+							ForEach(LevelingSchemes.allCases, id: \.self) { scheme in
+								let pickerText = scheme.description
+								Text("\(pickerText)")
 							}
 						}
 					}
@@ -65,13 +61,18 @@ struct SettingsView: View {
 					}
 				}
 				.navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
-				Button("Manage Rewards") {
-					
-				}.buttonStyle(.borderedProminent)
 			}
-		}
-    }
+		.onDisappear(perform: {
+			DataController().save(context: moc)
+		})
+	}
+}
 
-#Preview {
-    SettingsView()
+struct SettingsView_Previews: PreviewProvider {
+	
+	static var previews: some View {
+		let previewContext = DataController().container.viewContext
+		let settings = DataController().loadPreviewSettings(context: previewContext)
+		SettingsView(settings: settings)
+	}
 }

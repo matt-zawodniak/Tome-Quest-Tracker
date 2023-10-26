@@ -11,6 +11,8 @@ struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 	@Environment(\.managedObjectContext) var moc
 	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
+	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
+
 	
 	var body: some View {
 		NavigationStack {
@@ -77,6 +79,15 @@ struct QuestTableView: View {
 							})
 					}
 						Spacer()
+				}
+				HStack {
+					Spacer()
+					NavigationLink(destination: SettingsView(settings: settings.first!)) {
+						
+						Button(action: {}, label: {
+							Text("Settings")
+						})
+					}
 				}
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)

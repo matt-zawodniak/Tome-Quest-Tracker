@@ -37,17 +37,17 @@ struct EditPopUpMenu: View {
 				ForEach(QuestType.allCases, id: \.self) {questType in
 					let menuText = questType.description
 					Text("\(menuText)")
-				}.onChange(of: quest.type) { value in
-					if value == .dailyQuest {
-						DataController().setDailyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
-						hasDueDate = true
-					}
-					else if value == .weeklyQuest {
-						DataController().setWeeklyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
-						hasDueDate = true
-					}
 				}
-			}
+			}.onChange(of: quest.type) { value in
+				if value == .dailyQuest {
+					   DataController().setDailyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+					   hasDueDate = true
+				   }
+				   else if value == .weeklyQuest {
+					   DataController().setWeeklyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
+					   hasDueDate = true
+				   }
+			   }
 		}
 	}
 	
