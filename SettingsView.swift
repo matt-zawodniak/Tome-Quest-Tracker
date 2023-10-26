@@ -63,6 +63,14 @@ struct SettingsView: View {
 				.navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
 			}
 		.onDisappear(perform: {
+			for quest in quests {
+				if quest.type == .dailyQuest {
+					DataController().setDailyQuestResetDate(quest: quest, resetDate: settings, context: moc)
+				}
+				else if quest.type == .weeklyQuest {
+					DataController().setWeeklyQuestResetDate(quest: quest, resetDate: settings, context: moc)
+				}
+			}
 			DataController().save(context: moc)
 		})
 	}
