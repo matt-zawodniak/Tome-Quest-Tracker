@@ -9,9 +9,11 @@ import SwiftUI
 
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
-	@Environment(\.managedObjectContext) var moc
+
+  @Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
 	@State var sortType: QuestSortDescriptor = .timeCreated
+
 	
 	var body: some View {
 		NavigationStack {
