@@ -61,6 +61,11 @@ class DataController: ObservableObject {
 		}
 	}
 	
+	func deleteQuest(quest: Quest, context: NSManagedObjectContext) {
+		context.delete(quest)
+		save(context: context)
+	}
+	
 	func setDailyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
 		var components = DateComponents()
 		components.hour = Calendar.current.component(.hour, from: resetDate.time!)

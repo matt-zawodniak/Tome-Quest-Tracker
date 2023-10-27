@@ -9,17 +9,16 @@ import SwiftUI
 
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
-	@Environment(\.managedObjectContext) var moc
-	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
-	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 
+  @Environment(\.managedObjectContext) var managedObjectContext
+	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
+	@State var sortType: QuestSortDescriptor = .timeCreated
 	
 	var body: some View {
 		NavigationStack {
 			List {
 				ForEach(quests, id: \.self) { (quest: Quest) in
-					
-					VStack{
+					VStack {
 						HStack {
 							switch quest.type {
 							case .mainQuest : Text("!").foregroundStyle(.red)
@@ -43,16 +42,16 @@ struct QuestTableView: View {
 								Text(quest.questBonusReward ?? "")
 							}
 							HStack {
-
+								
 								NavigationLink(destination: EditPopUpMenu(
 									quest: quest, hasDueDate: quest.dueDate.exists)) {
-									Button(action: {
-										
-									}, label: {
-										Text("Edit")
+										Button(action: {
+											
+										}, label: {
+											Text("Edit")
+										}
+										)
 									}
-									)
-								}
 								
 								Spacer()
 								
@@ -64,9 +63,14 @@ struct QuestTableView: View {
 						}
 						
 					}
-					
-					
+					.swipeActions(edge: .leading) { Button(role: .destructive) {
+						DataController().deleteQuest(quest: quest, context: moc)
+					} label: {
+						Label("Delete", systemImage: "trash")
+					}
+					}
 				}
+				
 				HStack {
 					Spacer()
 					NavigationLink(destination: NewQuestPopUpMenu()) {
@@ -78,7 +82,7 @@ struct QuestTableView: View {
 								Image(systemName: "plus.circle")
 							})
 					}
-						Spacer()
+					Spacer()
 				}
 				HStack {
 					Spacer()
@@ -91,8 +95,32 @@ struct QuestTableView: View {
 				}
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
+			.onChange(of: sortType) {_ in
+				setSortType()
+			}
+			.toolbar {
+				ToolbarItem(placement: .topBarTrailing) {
+					HStack {
+						Text("Sort:")
+						Picker("", selection: $sortType) {
+							ForEach(QuestSortDescriptor.allCases, id: \.self) {
+								Text($0.description)
+							}
+							
+						}
+					}
+				}
+			}
 		}
-		
+	}
+	func setSortType() {
+		switch sortType {
+		case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
+		case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
+		case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
+		case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
+		case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
+		}
 	}
 }
 

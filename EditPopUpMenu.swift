@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EditPopUpMenu: View {
-	@Environment(\.managedObjectContext) var moc
-	@FetchRequest(sortDescriptors: []) var resetDates: FetchedResults<Settings>
+	@Environment(\.managedObjectContext) var managedObjectContext
+	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	
 	@ObservedObject var quest: Quest
 	@State var hasDueDate: Bool
@@ -26,7 +26,7 @@ struct EditPopUpMenu: View {
 			}
 			.navigationTitle("Edit Quest")
 		}.onDisappear(perform: {
-			DataController().save(context: moc)
+			DataController().save(context: managedObjectContext)
 		})
 	}
 					  
@@ -37,17 +37,18 @@ struct EditPopUpMenu: View {
 				ForEach(QuestType.allCases, id: \.self) {questType in
 					let menuText = questType.description
 					Text("\(menuText)")
+
+				}.onChange(of: quest.type) { value in
+					if value == .dailyQuest {
+						quest.setDateToDailyResetTime(quest: quest, settings: settings.first!)
+						hasDueDate = true
+					}
+					else if value == .weeklyQuest {
+						quest.setDateToWeeklyResetDate(quest: quest, settings: settings.first!)
+						hasDueDate = true
+					}
 				}
-			}.onChange(of: quest.type) { value in
-				if value == .dailyQuest {
-					   DataController().setDailyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
-					   hasDueDate = true
-				   }
-				   else if value == .weeklyQuest {
-					   DataController().setWeeklyQuestResetDate(quest: quest, resetDate: resetDates.first!, context: moc)
-					   hasDueDate = true
-				   }
-			   }
+			
 		}
 	}
 	
