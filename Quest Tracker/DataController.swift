@@ -63,6 +63,11 @@ class DataController: ObservableObject {
 		save(context: context)
 	}
 	
+	func completeQuest(quest: Quest, context: NSManagedObjectContext) {
+		quest.isCompleted = true
+		save(context: context)
+	}
+	
 	func setDailyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
 		var components = DateComponents()
 		components.hour = Calendar.current.component(.hour, from: resetDate.time!)
@@ -120,6 +125,7 @@ class DataController: ObservableObject {
 		quest.difficulty = difficulty.rawValue
 		quest.isSelected = false
 		quest.id = UUID()
+		quest.isCompleted = false
 		
 		save(context: context)
 	}
@@ -147,6 +153,7 @@ class DataController: ObservableObject {
 		quest.difficulty = difficulty.rawValue
 		quest.isSelected = false
 		quest.id = UUID()
+		quest.isCompleted = false
 		
 		save(context: context)
 		return quest

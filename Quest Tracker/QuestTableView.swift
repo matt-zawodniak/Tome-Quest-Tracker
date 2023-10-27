@@ -10,7 +10,7 @@ import SwiftUI
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 	@Environment(\.managedObjectContext) var moc
-	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
+	@FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "isCompleted == false") ) var quests: FetchedResults<Quest>
 	
 	var body: some View {
 		NavigationStack {
@@ -65,6 +65,12 @@ struct QuestTableView: View {
 						DataController().deleteQuest(quest: quest, context: moc)
 					} label: {
 						Label("Delete", systemImage: "trash")
+					}
+					}
+					.swipeActions(edge: .trailing) { Button() {
+						DataController().completeQuest(quest: quest, context: moc)
+					} label: {
+						Label("Complete", systemImage: "checkmark.rectangle.fill")
 					}
 					}
 				}
