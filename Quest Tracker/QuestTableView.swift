@@ -19,8 +19,7 @@ struct QuestTableView: View {
 		NavigationStack {
 			List {
 				ForEach(quests, id: \.self) { (quest: Quest) in
-					
-					VStack{
+					VStack {
 						HStack {
 							switch quest.type {
 							case .mainQuest : Text("!").foregroundStyle(.red)
@@ -65,9 +64,14 @@ struct QuestTableView: View {
 						}
 						
 					}
-					
-					
+					.swipeActions(edge: .leading) { Button(role: .destructive) {
+						DataController().deleteQuest(quest: quest, context: moc)
+					} label: {
+						Label("Delete", systemImage: "trash")
+					}
+					}
 				}
+				
 				HStack {
 					Spacer()
 					NavigationLink(destination: NewQuestPopUpMenu()) {

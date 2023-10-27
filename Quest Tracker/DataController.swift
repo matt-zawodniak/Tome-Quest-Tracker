@@ -58,6 +58,33 @@ class DataController: ObservableObject {
 		}
 	}
 	
+	func deleteQuest(quest: Quest, context: NSManagedObjectContext) {
+		context.delete(quest)
+		save(context: context)
+	}
+	
+	func setDailyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
+		var components = DateComponents()
+		components.hour = Calendar.current.component(.hour, from: resetDate.time!)
+		components.minute = Calendar.current.component(.minute, from: resetDate.time!)
+		components.second = Calendar.current.component(.second, from: resetDate.time!)
+		
+		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		quest.dueDate = nextResetTime
+	}
+		
+	func setWeeklyQuestResetDate(quest: Quest, resetDate: Settings, context: NSManagedObjectContext) {
+		
+		var components = DateComponents()
+		components.weekday = Int(resetDate.dayOfTheWeek)
+		components.hour = Calendar.current.component(.hour, from: resetDate.time!)
+		components.minute = Calendar.current.component(.minute, from: resetDate.time!)
+		
+		let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		
+		quest.dueDate = nextResetDay
+	}
+	
 	func editResetDayAndTime(resetDate: Settings, dayOfTheWeek: Int64?, resetTime: Date?, context: NSManagedObjectContext) {
 		
 		if let dayOfTheWeek {
