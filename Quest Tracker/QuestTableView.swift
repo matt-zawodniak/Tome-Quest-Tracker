@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
-	@Environment(\.managedObjectContext) var moc
+	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
 	
 	var body: some View {
