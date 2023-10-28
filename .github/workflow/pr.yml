@@ -1,0 +1,16 @@
+name: PR
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: Testing Swift Package and iOS app
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+     
+      - name: GitHub Action for SwiftLint (Only files changed in the PR)
+        uses: norio-nomura/action-swiftlint@3.2.1
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
