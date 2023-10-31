@@ -65,7 +65,7 @@ struct QuestTableView: View {
 						
 					}
 					.swipeActions(edge: .leading) { Button(role: .destructive) {
-						DataController().deleteQuest(quest: quest, context: moc)
+						DataController().deleteQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Label("Delete", systemImage: "trash")
 					}
