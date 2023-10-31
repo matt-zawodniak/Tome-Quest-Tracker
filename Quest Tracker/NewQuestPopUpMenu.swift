@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewQuestPopUpMenu: View {
-	@Environment(\.managedObjectContext) var moc
+	@Environment(\.managedObjectContext) var managedObjectContext
 	@Environment(\.dismiss) var dismiss
 	@FetchRequest(sortDescriptors: []) var resetDates: FetchedResults<Settings>
 		
@@ -52,7 +52,7 @@ struct NewQuestPopUpMenu: View {
 							length: selectedLength,
 							dueDate: selectedDate,
 							difficulty: selectedDifficulty,
-							context: moc
+							context: managedObjectContext
 						)
 						dismiss()
 					}

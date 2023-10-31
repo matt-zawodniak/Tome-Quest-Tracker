@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
-	@Environment(\.managedObjectContext) var moc
+	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "isCompleted == false") ) var quests: FetchedResults<Quest>
 	
 	var body: some View {
@@ -62,13 +62,13 @@ struct QuestTableView: View {
 						
 					}
 					.swipeActions(edge: .leading) { Button(role: .destructive) {
-						DataController().deleteQuest(quest: quest, context: moc)
+						DataController().deleteQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Label("Delete", systemImage: "trash")
 					}
 					}
 					.swipeActions(edge: .trailing) { Button() {
-						DataController().completeQuest(quest: quest, context: moc)
+						DataController().completeQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Label("Complete", systemImage: "checkmark.rectangle.fill")
 					}
