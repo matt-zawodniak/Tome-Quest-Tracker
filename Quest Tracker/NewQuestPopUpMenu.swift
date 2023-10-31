@@ -11,7 +11,7 @@ struct NewQuestPopUpMenu: View {
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@Environment(\.dismiss) var dismiss
 	@FetchRequest(sortDescriptors: []) var resetDates: FetchedResults<Settings>
-		
+
 	@State var selectedType: QuestType = .mainQuest
 	@State var questName: String = ""
 	@State var questDescription: String = ""

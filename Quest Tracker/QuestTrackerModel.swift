@@ -19,6 +19,24 @@ struct QuestTrackerModel {
 	}
 }
 
+enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
+	case timeCreated = 0
+	case oldest = 1
+	case questType = 2
+	case questName = 3
+	case dueDate = 4
+	
+	var description: String {
+		switch self {
+		case .timeCreated: return "Recent"
+		case .oldest: return "Oldest"
+		case .questType: return "Type"
+		case .questName: return "Name"
+		case .dueDate: return "Due Date"
+		}
+	}
+}
+
 enum QuestType: Int64, CaseIterable, CustomStringConvertible {
 	case mainQuest = 0
 	case sideQuest = 1
@@ -64,110 +82,6 @@ enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
 	}
 }
 
-extension Optional where Wrapped == String {
-	var _bound: String? {
-		get {
-			return self
-		}
-		set {
-			self = newValue
-		}
-	}
-	public var bound: String {
-		get {
-			return _bound ?? ""
-		}
-		set {
-			_bound = newValue.isEmpty ? nil : newValue
-		}
-	}
-}
-
-extension Optional where Wrapped == Date {
-	var _bound: Date? {
-		get {
-			return self
-		}
-		set {
-			self = newValue
-		}
-	}
-	public var bound: Date {
-		get {
-			return _bound ?? Date()
-		}
-		set {
-			_bound = newValue
-		}
-	}
-	var exists: Bool {
-		if self == nil {
-			return false
-		} else {
-			return true
-		}
-	}
-	var string: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .short
-		if self == nil {
-			return ""
-		} else {
-			return dateFormatter.string(from: self!)
-		}
-	}
-	var dateOnly: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		if self == nil {
-			return ""
-		} else {
-			return dateFormatter.string(from: self!)
-		}
-	}
-	var dayOnly: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "EEEE"
-		if self == nil {
-			return ""
-		} else {
-			return dateFormatter.string(from: self!)
-		}
-	}
-	var timeOnly: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .none
-		dateFormatter.timeStyle = .short
-		if self == nil {
-			return ""
-		} else {
-			return dateFormatter.string(from: self!)
-		}
-	}
-}
-
-extension Date {
-	var string: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .short
-		return dateFormatter.string(from: self)
-	}
-	var dayOnly: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "EEEE"
-		
-		return dateFormatter.string(from: self)
-	}
-	var timeOnly: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .none
-		dateFormatter.timeStyle = .short
-		return dateFormatter.string(from: self)
-	}
-}
-
 extension Quest {
 	var type: QuestType {
 		get {
@@ -192,6 +106,26 @@ extension Quest {
 		set {
 			self.difficulty = newValue.rawValue
 		}
+	}
+	func setDateToDailyResetTime(quest: Quest, settings: Settings) {
+		var components = DateComponents()
+		components.hour = Calendar.current.component(.hour, from: settings.time!)
+		components.minute = Calendar.current.component(.minute, from: settings.time!)
+		components.second = Calendar.current.component(.second, from: settings.time!)
+		
+		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		quest.dueDate = nextResetTime
+	}
+	func setDateToWeeklyResetDate(quest: Quest, settings: Settings) {
+
+		var components = DateComponents()
+		components.weekday = Int(settings.dayOfTheWeek)
+		components.hour = Calendar.current.component(.hour, from: settings.time!)
+		components.minute = Calendar.current.component(.minute, from: settings.time!)
+		
+		let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		
+		quest.dueDate = nextResetDay
 	}
 }
 

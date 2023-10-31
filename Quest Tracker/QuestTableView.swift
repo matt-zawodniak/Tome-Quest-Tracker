@@ -10,7 +10,8 @@ import SwiftUI
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 	@Environment(\.managedObjectContext) var managedObjectContext
-	@FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "isCompleted == false") ) var quests: FetchedResults<Quest>
+	@FetchRequest(sortDescriptors: [[SortDescriptor(\.timeCreated, order: .reverse)]], predicate: NSPredicate(format: "isCompleted == false") ) var quests: FetchedResults<Quest>
+  @State var sortType: QuestSortDescriptor = .timeCreated
 	
 	var body: some View {
 		NavigationStack {
@@ -100,8 +101,32 @@ struct QuestTableView: View {
 				}
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
+			.onChange(of: sortType) {_ in
+				setSortType()
+			}
+			.toolbar {
+				ToolbarItem(placement: .topBarTrailing) {
+					HStack {
+						Text("Sort:")
+						Picker("", selection: $sortType) {
+							ForEach(QuestSortDescriptor.allCases, id: \.self) {
+								Text($0.description)
+							}
+							
+						}
+					}
+				}
+			}
 		}
-		
+	}
+	func setSortType() {
+		switch sortType {
+		case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
+		case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
+		case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
+		case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
+		case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
+		}
 	}
 }
 
