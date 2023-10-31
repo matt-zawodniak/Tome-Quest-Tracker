@@ -61,18 +61,28 @@ struct QuestTableView: View {
 						}
 						
 					}
-					.swipeActions(edge: .leading) { Button(role: .destructive) {
+					.swipeActions(edge: .leading) { 
+						Button(role: .destructive) {
 						DataController().deleteQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Label("Delete", systemImage: "trash")
 					}
+						NavigationLink(destination: EditPopUpMenu(
+							quest: quest, hasDueDate: quest.dueDate.exists)) {
+								Button(action: {
+									
+								}, label: {
+									Text("Edit")
+								}
+								)
+							}
 					}
 					.swipeActions(edge: .trailing) { Button() {
 						DataController().completeQuest(quest: quest, context: managedObjectContext)
 					} label: {
-						Label("Complete", systemImage: "checkmark.rectangle.fill")
+						Image(systemName: "checkmark")
 					}
-					}
+						.tint(.green)					}
 				}
 				
 				HStack {
