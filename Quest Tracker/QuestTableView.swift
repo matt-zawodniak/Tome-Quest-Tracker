@@ -10,9 +10,9 @@ import SwiftUI
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 	@Environment(\.managedObjectContext) var managedObjectContext
-	@FetchRequest(sortDescriptors: [[SortDescriptor(\.timeCreated, order: .reverse)]], predicate: NSPredicate(format: "isCompleted == false") ) var quests: FetchedResults<Quest>
+	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)], predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
   @State var sortType: QuestSortDescriptor = .timeCreated
-	
+
 	var body: some View {
 		NavigationStack {
 			List {
@@ -64,7 +64,7 @@ struct QuestTableView: View {
 					}
 					.swipeActions(edge: .leading) { 
 						Button(role: .destructive) {
-						DataController().deleteQuest(quest: quest, context: managedObjectContext)
+						CoreDataController().deleteQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Label("Delete", systemImage: "trash")
 					}
@@ -79,7 +79,7 @@ struct QuestTableView: View {
 							}
 					}
 					.swipeActions(edge: .trailing) { Button() {
-						DataController().completeQuest(quest: quest, context: managedObjectContext)
+						CoreDataController().completeQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Image(systemName: "checkmark")
 					}

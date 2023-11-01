@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct Quest_TrackerApp: App {
-	@StateObject private var dataController = DataController()
+	@StateObject private var dataController = CoreDataController()
 	
     var body: some Scene {
         WindowGroup {

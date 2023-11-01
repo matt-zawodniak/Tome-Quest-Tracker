@@ -19,14 +19,13 @@ struct EditPopUpMenu: View {
 		
 		NavigationStack {
 			Form {
-				typeSection
 				nameSection
+				typeSection
 				questDescriptionSection
 				advancedSettingsSection
 			}
-			.navigationTitle("Edit Quest")
 		}.onDisappear(perform: {
-			DataController().save(context: managedObjectContext)
+			CoreDataController().save(context: managedObjectContext)
 		})
 	}
 					  
@@ -164,8 +163,8 @@ struct EditPopUpMenu: View {
 struct EditPopUpMenu_Previews: PreviewProvider {
 	
 	static var previews: some View {
-		let previewContext = DataController().container.viewContext
-		let quest = DataController().addPreviewQuest(context: previewContext)
+		let previewContext = CoreDataController().container.viewContext
+		let quest = CoreDataController().addPreviewQuest(context: previewContext)
 		EditPopUpMenu(quest: quest, hasDueDate: true)
 	}
 }

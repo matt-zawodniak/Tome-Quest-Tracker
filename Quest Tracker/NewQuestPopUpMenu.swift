@@ -43,7 +43,7 @@ struct NewQuestPopUpMenu: View {
 							}
 						}
 						
-						DataController().addNewQuest(
+						CoreDataController().addNewQuest(
 							name: questName,
 							type: selectedType,
 							description: questDescription,

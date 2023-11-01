@@ -17,7 +17,7 @@
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
 		8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */; };
 		8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */; };
-		8FB761A62ACF1E4700314400 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A52ACF1E4700314400 /* DataController.swift */; };
+		8FB761A62ACF1E4700314400 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A52ACF1E4700314400 /* CoreDataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 		8FAC38542AB396B7005CBED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB761A32ACF1E3200314400 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		8FB761A52ACF1E4700314400 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		8FB761A52ACF1E4700314400 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 				8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */,
 				8FAC38522AB396B6005CBED3 /* ContentView.swift */,
 				8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */,
-				8FB761A52ACF1E4700314400 /* DataController.swift */,
+				8FB761A52ACF1E4700314400 /* CoreDataController.swift */,
 				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
 				8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */,
 				8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */,
@@ -164,7 +164,7 @@
 				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
 				8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */,
 				8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */,
-				8FB761A62ACF1E4700314400 /* DataController.swift in Sources */,
+				8FB761A62ACF1E4700314400 /* CoreDataController.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
 				8F92E9072ABBA58C000446C6 /* EditPopUpMenu.swift in Sources */,
 			);
