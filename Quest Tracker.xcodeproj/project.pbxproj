@@ -18,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F1401DE2AF29882007BBD53 /* ,gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = ",gitignore"; sourceTree = SOURCE_ROOT; };
+		8F1401DF2AF29882007BBD53 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = file; path = Gemfile.lock; sourceTree = SOURCE_ROOT; };
+		8F1401E02AF29882007BBD53 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = text; path = fastlane; sourceTree = SOURCE_ROOT; };
+		8F1401E12AF29882007BBD53 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
 		8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTableView.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
@@ -67,6 +71,10 @@
 				8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
+				8F1401DE2AF29882007BBD53 /* ,gitignore */,
+				8F1401E02AF29882007BBD53 /* fastlane */,
+				8F1401E12AF29882007BBD53 /* Gemfile */,
+				8F1401DF2AF29882007BBD53 /* Gemfile.lock */,
 			);
 			path = "Quest Tracker";
 			sourceTree = "<group>";
