@@ -14,9 +14,7 @@ struct QuestTableView: View {
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	@State var sortType: QuestSortDescriptor = .timeCreated
-	@State var defaultQuest = Quest()
 
-	
 	var body: some View {
 		NavigationStack {
 			List {
@@ -74,9 +72,11 @@ struct QuestTableView: View {
 					}
 				}
 				HStack {
+					
+
 					Spacer()
-	
-					NavigationLink(destination: EditPopUpMenu(quest: defaultQuest, hasDueDate: false)) {
+					let quest = Quest.defaultQuest(context: managedObjectContext)
+					NavigationLink(destination: EditPopUpMenu(quest: quest, hasDueDate: false)) {
 						
 						Button(
 							action: {

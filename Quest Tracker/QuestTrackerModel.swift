@@ -37,23 +37,6 @@ enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
 	}
 }
 
-enum QuestType: Int64, CaseIterable, CustomStringConvertible {
-	case mainQuest = 0
-	case sideQuest = 1
-	case dailyQuest = 2
-	case weeklyQuest = 3
-	
-	var description: String {
-		switch self {
-		case .mainQuest: return "Main Quest"
-		case .sideQuest: return "Side Quest"
-		case .dailyQuest: return "Daily Quest"
-		case .weeklyQuest: return "Weekly Quest"
-		}
-	}
-}
-
-
 enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
 	case easy = 0
 	case average = 1

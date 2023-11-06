@@ -9,6 +9,21 @@
 import Foundation
 import CoreData
 
+enum QuestType: Int64, CaseIterable, CustomStringConvertible {
+	case mainQuest = 0
+	case sideQuest = 1
+	case dailyQuest = 2
+	case weeklyQuest = 3
+	
+	var description: String {
+		switch self {
+		case .mainQuest: return "Main Quest"
+		case .sideQuest: return "Side Quest"
+		case .dailyQuest: return "Daily Quest"
+		case .weeklyQuest: return "Weekly Quest"
+		}
+	}
+}
 
 extension Quest {
 
@@ -74,5 +89,14 @@ extension Quest : Identifiable {
 		let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 		
 		quest.dueDate = nextResetDay
+	}
+	static func defaultQuest(context: NSManagedObjectContext) -> Quest {
+		let quest = Quest(context: context)
+		quest.questName = ""
+		quest.type = .mainQuest
+		quest.difficulty = 1
+		quest.length = 1
+		
+		return quest
 	}
 }
