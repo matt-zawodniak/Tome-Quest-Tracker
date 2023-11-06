@@ -10,7 +10,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
      
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1.138.0
+        with:
+          ruby-version: 3.2.1
+          bundler-cache: true
+
       - name: GitHub Action for SwiftLint (Only files changed in the PR)
         uses: norio-nomura/action-swiftlint@3.2.1
         env:
           DIFF_BASE: ${{ github.base_ref }}
+
+      
+      - name: Upload app-store ipa and dsyms to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-store ipa & dsyms
+          path: |
+            *.ipa
+            *.app.dSYM.zip

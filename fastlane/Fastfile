@@ -18,6 +18,21 @@ default_platform(:ios)
 platform :ios do
   desc "Description of what the lane does"
   lane :build do
-    gym(scheme: "Quest Tracker", xcargs: "-allowProvisioningUpdates")
+    setup_ci if is_ci
+    
+    match(type: "development", readonly: is_ci || true)
+
+    pp lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Quest Tracker.xcodeproj",
+      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
+    
+    build_app(scheme: "Quest Tracker", destination: "platform=iOS")
+    
+    update_code_signing_settings(
+      use_automatic_signing: true,
+      path: "Quest Tracker.xcodeproj")
   end
 end
