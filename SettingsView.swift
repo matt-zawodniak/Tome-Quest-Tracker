@@ -65,10 +65,10 @@ struct SettingsView: View {
 		.onDisappear(perform: {
 			for quest in quests {
 				if quest.type == .dailyQuest {
-					DataController().setDailyQuestResetDate(quest: quest, resetDate: settings, context: moc)
+					quest.setDateToDailyResetTime(quest: quest, settings: settings)
 				}
 				else if quest.type == .weeklyQuest {
-					DataController().setWeeklyQuestResetDate(quest: quest, resetDate: settings, context: moc)
+					quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
 				}
 			}
 			DataController().save(context: moc)

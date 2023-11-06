@@ -25,5 +25,20 @@ extension Settings {
 }
 
 extension Settings : Identifiable {
-
+	var day: DayOfTheWeek {
+		get {
+			return DayOfTheWeek(rawValue: self.dayOfTheWeek)!
+		}
+		set {
+			self.dayOfTheWeek = newValue.rawValue
+		}
+	}
+	var scaling: LevelingSchemes {
+		get {
+			return LevelingSchemes(rawValue: self.levelingScheme)!
+		}
+		set {
+			self.levelingScheme = newValue.rawValue
+		}
+	}
 }

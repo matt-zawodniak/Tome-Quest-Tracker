@@ -13,8 +13,9 @@ struct QuestTableView: View {
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
-	
 	@State var sortType: QuestSortDescriptor = .timeCreated
+	@State var defaultQuest = Quest()
+
 	
 	var body: some View {
 		NavigationStack {
@@ -72,10 +73,10 @@ struct QuestTableView: View {
 					}
 					}
 				}
-				
 				HStack {
 					Spacer()
-					NavigationLink(destination: NewQuestPopUpMenu()) {
+	
+					NavigationLink(destination: EditPopUpMenu(quest: defaultQuest, hasDueDate: false)) {
 						
 						Button(
 							action: {
