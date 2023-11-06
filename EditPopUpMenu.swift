@@ -15,6 +15,10 @@ struct EditPopUpMenu: View {
 	@State var hasDueDate: Bool
 	@State var datePickerIsExpanded: Bool = false
 	
+	init(quest: Quest? = nil) {
+		self.quest = quest ?? Quest.defaultQuest(context: managedObjectContext)
+	}
+		
 	var body: some View {
 		
 		NavigationStack {
@@ -29,7 +33,6 @@ struct EditPopUpMenu: View {
 			DataController().save(context: managedObjectContext)
 		})
 	}
-					  
 	
 	var typeSection: some View {
 		Section {
@@ -159,11 +162,12 @@ struct EditPopUpMenu: View {
 	}
 }	
 	
-	struct EditPopUpMenu_Previews: PreviewProvider {
-		
-		static var previews: some View {
-			let previewContext = DataController().container.viewContext
-			let quest = DataController().addPreviewQuest(context: previewContext)
-			EditPopUpMenu(quest: quest, hasDueDate: true)
-		}
-	}
+//	struct EditPopUpMenu_Previews: PreviewProvider {
+//		
+//		static var previews: some View {
+//			let previewContext = DataController().container.viewContext
+//			let settings = DataController().loadPreviewSettings(context: previewContext)
+//			let quest = DataController().addPreviewQuest(context: previewContext)
+//			EditPopUpMenu(settings: settings, quest: quest, hasDueDate: true, datePickerIsExpanded: false)
+//		}
+//	}

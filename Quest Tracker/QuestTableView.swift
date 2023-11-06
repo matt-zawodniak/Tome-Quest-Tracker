@@ -72,11 +72,8 @@ struct QuestTableView: View {
 					}
 				}
 				HStack {
-					
-
 					Spacer()
-					let quest = Quest.defaultQuest(context: managedObjectContext)
-					NavigationLink(destination: EditPopUpMenu(quest: quest, hasDueDate: false)) {
+					NavigationLink(destination: EditPopUpMenu(quest: Quest(), hasDueDate: false)) {
 						
 						Button(
 							action: {
