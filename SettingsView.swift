@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-	@Environment(\.managedObjectContext) var moc
+	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
 	
 	@ObservedObject var settings: Settings
@@ -71,7 +71,7 @@ struct SettingsView: View {
 					quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
 				}
 			}
-			DataController().save(context: moc)
+			DataController().save(context: managedObjectContext)
 		})
 	}
 }
