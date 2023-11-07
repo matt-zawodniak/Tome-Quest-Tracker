@@ -73,6 +73,16 @@ struct QuestListView: View {
 					}
 				}
 				HStack {
+					Button(
+						action: {
+							newQuestView = true
+						},
+						label: {
+							Image(systemName: "plus.circle")
+						})
+					Spacer()
+				}
+				HStack {
 					Spacer()
 					NavigationLink(destination: SettingsView(settings: settings.first!)) {
 						
@@ -97,15 +107,6 @@ struct QuestListView: View {
 							
 						}
 					}
-				}
-				ToolbarItem(placement: .topBarLeading) {
-						Button(
-							action: {
-								newQuestView = true
-							},
-							label: {
-								Image(systemName: "plus.circle")
-							})
 				}
 			}
 			.navigationDestination(isPresented: $newQuestView) {
