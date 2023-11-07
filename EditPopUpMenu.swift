@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct EditPopUpMenu: View {
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	
 	@ObservedObject var quest: Quest
-	@State var hasDueDate: Bool
+	@State var hasDueDate: Bool = false
 	@State var datePickerIsExpanded: Bool = false
 	
-	init(quest: Quest? = nil) {
-		self.quest = quest ?? Quest.defaultQuest(context: managedObjectContext)
+  init(quest: Quest? = nil, hasDueDate: Bool, context: NSManagedObjectContext) {
+    self.quest = quest ?? Quest.defaultQuest(context: context)
+    self.hasDueDate = hasDueDate
 	}
 		
 	var body: some View {
