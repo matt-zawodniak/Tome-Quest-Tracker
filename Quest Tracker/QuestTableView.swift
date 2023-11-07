@@ -12,7 +12,9 @@ struct QuestTableView: View {
 
   @Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
+	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	@State var sortType: QuestSortDescriptor = .timeCreated
+	@State var newQuestView: Bool = false
 
 	
 	var body: some View {
@@ -44,7 +46,7 @@ struct QuestTableView: View {
 							}
 							HStack {
 								
-								NavigationLink(destination: EditPopUpMenu(
+								NavigationLink(destination: QuestView(
 									quest: quest, hasDueDate: quest.dueDate.exists)) {
 										Button(action: {
 											
@@ -73,18 +75,23 @@ struct QuestTableView: View {
 				}
 				
 				HStack {
-					Spacer()
-					NavigationLink(destination: NewQuestPopUpMenu()) {
-						
 						Button(
 							action: {
+								newQuestView = true
 							},
 							label: {
 								Image(systemName: "plus.circle")
 							})
 					}
-					Spacer()
-				}
+				HStack {
+									Spacer()
+									NavigationLink(destination: SettingsView(settings: settings.first!)) {
+										
+										Button(action: {}, label: {
+											Text("Settings")
+										})
+									}
+								}
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
 			.onChange(of: sortType) {_ in
@@ -103,6 +110,9 @@ struct QuestTableView: View {
 					}
 				}
 			}
+			.navigationDestination(isPresented: $newQuestView) {
+							QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false)
+						}
 		}
 	}
 	func setSortType() {
