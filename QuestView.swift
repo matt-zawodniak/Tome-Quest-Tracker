@@ -12,7 +12,7 @@ struct QuestView: View {
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	
-	@StateObject var quest: Quest = Quest()
+	@StateObject var quest: Quest
 	@State var hasDueDate: Bool = false
 	@State var datePickerIsExpanded: Bool = false
 			
@@ -20,16 +20,16 @@ struct QuestView: View {
 		
 		NavigationStack {
 			Form {
-				typeSection
 				nameSection
+				typeSection
 				questDescriptionSection
 				advancedSettingsSection
 			}
-			.navigationTitle("Edit Quest")
 		}.onDisappear(
 			perform: {
-			DataController().save(context: managedObjectContext)
-		})
+				DataController().save(context: managedObjectContext)
+			}
+		)
 	}
 	
 	var typeSection: some View {
@@ -160,12 +160,11 @@ struct QuestView: View {
 	}
 }	
 	
-//	struct EditPopUpMenu_Previews: PreviewProvider {
-//		
-//		static var previews: some View {
-//			let previewContext = DataController().container.viewContext
-//			let settings = DataController().loadPreviewSettings(context: previewContext)
-//			let quest = DataController().addPreviewQuest(context: previewContext)
-//			EditPopUpMenu(settings: settings, quest: quest, hasDueDate: true, datePickerIsExpanded: false)
-//		}
-//	}
+	struct QuestView_Previews: PreviewProvider {
+		
+		static var previews: some View {
+			let previewContext = DataController().container.viewContext
+			let quest = DataController().addPreviewQuest(context: previewContext)
+			QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false)
+		}
+	}
