@@ -104,7 +104,7 @@ struct QuestView: View {
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
 						.onChange(of: hasDueDate) { value in
-							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+							quest.setDateToWeeklyResetDate(quest: quest, settings: settings.first!)
 						}
 						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
 				}
@@ -115,7 +115,7 @@ struct QuestView: View {
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
 						.onChange(of: hasDueDate) { value in
-							QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+							quest.setDateToDailyResetTime(quest: quest, settings: settings.first!)
 						}
 						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
 				}
