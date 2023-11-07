@@ -9,25 +9,9 @@
 import Foundation
 import CoreData
 
-enum QuestType: Int64, CaseIterable, CustomStringConvertible {
-	case mainQuest = 0
-	case sideQuest = 1
-	case dailyQuest = 2
-	case weeklyQuest = 3
-	
-	var description: String {
-		switch self {
-		case .mainQuest: return "Main Quest"
-		case .sideQuest: return "Side Quest"
-		case .dailyQuest: return "Daily Quest"
-		case .weeklyQuest: return "Weekly Quest"
-		}
-	}
-}
-
 extension Quest {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Quest> {
+    @nonobjc public class func createFetchRequest() -> NSFetchRequest<Quest> {
         return NSFetchRequest<Quest>(entityName: "Quest")
     }
 
@@ -100,3 +84,48 @@ extension Quest : Identifiable {
 		return quest
 	}
 }
+
+enum QuestType: Int64, CaseIterable, CustomStringConvertible {
+	case mainQuest = 0
+	case sideQuest = 1
+	case dailyQuest = 2
+	case weeklyQuest = 3
+	
+	var description: String {
+		switch self {
+		case .mainQuest: return "Main Quest"
+		case .sideQuest: return "Side Quest"
+		case .dailyQuest: return "Daily Quest"
+		case .weeklyQuest: return "Weekly Quest"
+		}
+	}
+}
+
+enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
+	case easy = 0
+	case average = 1
+	case hard = 2
+	
+	var description: String {
+		switch self {
+		case .easy: return "Easy"
+		case .average: return "Average"
+		case .hard: return "Hard"
+		}
+	}
+}
+
+enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
+	case short = 0
+	case average = 1
+	case long = 2
+	
+	var description: String {
+		switch self {
+		case .short: return "Short"
+		case .average: return "Average"
+		case .long: return "Long"
+		}
+	}
+}
+

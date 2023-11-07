@@ -44,31 +44,16 @@ class DataController: ObservableObject {
 			save(context: context)
 		}
 		else {
-			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
-				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
+//			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
+//				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
+//				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
 //			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
 //			save(context: context)
 //			
 //			print(userSettings.first?.time as Any)
 		}
 	}
-	
-	func returnDefaultQuest(context: NSManagedObjectContext) -> Quest {
-		var defaultQuest: Quest {
-			let quest = Quest(context: context)
-			quest.type = .mainQuest
-			quest.questName = ""
-			quest.timeCreated = Date()
-			quest.difficulty = 1
-			quest.length = 1
-			quest.isSelected = false
-			quest.questBonusExp = 0
-			return quest
-			}
-		return defaultQuest
-	}
-	
+		
 	func save(context: NSManagedObjectContext) {
 		do {
 			try context.save()
@@ -77,39 +62,7 @@ class DataController: ObservableObject {
 			print("Quest could not be saved.")
 		}
 	}
-	
-	func deleteQuest(quest: Quest, context: NSManagedObjectContext) {
-		context.delete(quest)
-		save(context: context)
-	}
-	
-	func addNewQuest(
-		name: String,
-		type: QuestType,
-		description: String?,
-		bonusReward: String?,
-		bonusExp: Double?,
-		length: QuestLength,
-		dueDate: Date?,
-		difficulty: QuestDifficulty,
-		context: NSManagedObjectContext
-	) {
-		let quest = Quest(context: context)
-		quest.questName = name
-		quest.questType = type.rawValue
-		quest.timeCreated = Date()
-		quest.questDescription = description
-		quest.questBonusReward = bonusReward
-		quest.questBonusExp = bonusExp ?? 0
-		quest.length = length.rawValue
-		quest.dueDate = dueDate
-		quest.difficulty = difficulty.rawValue
-		quest.isSelected = false
-		quest.id = UUID()
 		
-		save(context: context)
-	}
-	
 	func addPreviewQuest (
 		name: String = "Test Name",
 		type: QuestType = .mainQuest,

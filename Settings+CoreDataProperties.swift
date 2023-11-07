@@ -59,34 +59,6 @@ enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
 	}
 }
 
-enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
-	case easy = 0
-	case average = 1
-	case hard = 2
-	
-	var description: String {
-		switch self {
-		case .easy: return "Easy"
-		case .average: return "Average"
-		case .hard: return "Hard"
-		}
-	}
-}
-
-enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
-	case short = 0
-	case average = 1
-	case long = 2
-	
-	var description: String {
-		switch self {
-		case .short: return "Short"
-		case .average: return "Average"
-		case .long: return "Long"
-		}
-	}
-}
-
 enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
 	case sunday = 1
 	case monday = 2
