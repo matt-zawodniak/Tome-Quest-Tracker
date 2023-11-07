@@ -8,19 +8,14 @@
 import SwiftUI
 import CoreData
 
-struct EditPopUpMenu: View {
+struct QuestView: View {
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	
-	@ObservedObject var quest: Quest
+	@StateObject var quest: Quest = Quest()
 	@State var hasDueDate: Bool = false
 	@State var datePickerIsExpanded: Bool = false
-	
-  init(quest: Quest? = nil, hasDueDate: Bool, context: NSManagedObjectContext) {
-    self.quest = quest ?? Quest.defaultQuest(context: context)
-    self.hasDueDate = hasDueDate
-	}
-		
+			
 	var body: some View {
 		
 		NavigationStack {
@@ -31,7 +26,8 @@ struct EditPopUpMenu: View {
 				advancedSettingsSection
 			}
 			.navigationTitle("Edit Quest")
-		}.onDisappear(perform: {
+		}.onDisappear(
+			perform: {
 			DataController().save(context: managedObjectContext)
 		})
 	}

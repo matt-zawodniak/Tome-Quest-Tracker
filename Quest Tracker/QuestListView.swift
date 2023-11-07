@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct QuestTableView: View {
+struct QuestListView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 	
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	@State var sortType: QuestSortDescriptor = .timeCreated
-
+	@State var newQuestView: Bool = false
+	
 	var body: some View {
 		NavigationStack {
 			List {
@@ -44,8 +45,8 @@ struct QuestTableView: View {
 							}
 							HStack {
 								
-								NavigationLink(destination: EditPopUpMenu(
-                  quest: quest, hasDueDate: quest.dueDate.exists, context: managedObjectContext)) {
+								NavigationLink(destination: QuestView(
+									quest: quest, hasDueDate: quest.dueDate.exists)) {
 										Button(action: {
 											
 										}, label: {
@@ -73,19 +74,6 @@ struct QuestTableView: View {
 				}
 				HStack {
 					Spacer()
-					NavigationLink(destination: NewQuestPopUpMenu()) {
-
-						Button(
-							action: {
-							},
-							label: {
-								Image(systemName: "plus.circle")
-							})
-					}
-					Spacer()
-				}
-				HStack {
-					Spacer()
 					NavigationLink(destination: SettingsView(settings: settings.first!)) {
 						
 						Button(action: {}, label: {
@@ -110,6 +98,18 @@ struct QuestTableView: View {
 						}
 					}
 				}
+				ToolbarItem(placement: .topBarLeading) {
+						Button(
+							action: {
+								newQuestView = true
+							},
+							label: {
+								Image(systemName: "plus.circle")
+							})
+				}
+			}
+			.navigationDestination(isPresented: $newQuestView) {
+				QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false)
 			}
 		}
 	}
@@ -126,6 +126,6 @@ struct QuestTableView: View {
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
-		QuestTableView(tracker: QuestTrackerViewModel())
+		QuestListView(tracker: QuestTrackerViewModel())
 	}
 }
