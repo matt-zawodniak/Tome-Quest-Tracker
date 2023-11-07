@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct QuestTableView: View {
+struct QuestListView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 
   @Environment(\.managedObjectContext) var managedObjectContext
@@ -138,6 +138,6 @@ struct ExpandableQuestView: View {
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
-		QuestTableView(tracker: QuestTrackerViewModel())
+		QuestListView(tracker: QuestTrackerViewModel())
 	}
 }
