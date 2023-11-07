@@ -1,5 +1,5 @@
 //
-//  QuestTableView.swift
+//  QuestListView.swift
 //  Quest Tracker
 //
 //  Created by Matt Zawodniak on 9/18/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct QuestTableView: View {
+struct QuestListView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
 	
 	@Environment(\.managedObjectContext) var managedObjectContext
@@ -135,6 +135,6 @@ struct QuestTableView: View {
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
-		QuestTableView(tracker: QuestTrackerViewModel())
+		QuestListView(tracker: QuestTrackerViewModel())
 	}
 }
