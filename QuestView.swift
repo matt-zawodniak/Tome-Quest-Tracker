@@ -17,7 +17,6 @@ struct QuestView: View {
 	@State var datePickerIsExpanded: Bool = false
 			
 	var body: some View {
-		
 		NavigationStack {
 			Form {
 				nameSection
@@ -66,7 +65,6 @@ struct QuestView: View {
 	
 	var advancedSettingsSection: some View {
 		Section(header: Text("Advanced Settings")) {
-			
 			HStack {
 				Text("Difficulty")
 				Picker("Quest Difficulty", selection: $quest.questDifficulty) {
@@ -89,7 +87,6 @@ struct QuestView: View {
 				Text("Bonus Reward:")
 				TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
 			}
-
 			dueDateView
 		}
 	}
@@ -103,7 +100,7 @@ struct QuestView: View {
 					Text(quest.dueDate.dayOnly)
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
-						.onChange(of: hasDueDate) { value in
+						.onChange(of: hasDueDate) { _ in
 							quest.setDateToWeeklyResetDate(quest: quest, settings: settings.first!)
 						}
 						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
@@ -114,7 +111,7 @@ struct QuestView: View {
 					Text(quest.dueDate.timeOnly)
 					Spacer()
 					Toggle("", isOn: $hasDueDate)
-						.onChange(of: hasDueDate) { value in
+						.onChange(of: hasDueDate) { _ in
 							quest.setDateToDailyResetTime(quest: quest, settings: settings.first!)
 						}
 						.disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)

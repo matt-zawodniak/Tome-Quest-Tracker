@@ -15,7 +15,6 @@ struct QuestTableView: View {
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	@State var sortType: QuestSortDescriptor = .timeCreated
 	@State var newQuestView: Bool = false
-
 	
 	var body: some View {
 		NavigationStack {

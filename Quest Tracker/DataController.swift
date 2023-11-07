@@ -89,7 +89,5 @@ class DataController: ObservableObject {
 		
 		save(context: context)
 		return quest
-	}
-	
-	
+	}	
 }

@@ -30,6 +30,50 @@ extension Quest {
 }
 
 extension Quest : Identifiable {
+	var type: QuestType {
+		get {
+			return QuestType(rawValue: self.questType)!
+		}
+		set {
+			self.questType = newValue.rawValue
+		}
+	}
+	var questLength: QuestLength {
+		get {
+			return QuestLength(rawValue: self.length)!
+		}
+		set {
+			self.length = newValue.rawValue
+		}
+	}
+	var questDifficulty: QuestDifficulty {
+		get {
+			return QuestDifficulty(rawValue: self.difficulty)!
+		}
+		set {
+			self.difficulty = newValue.rawValue
+		}
+	}
+	func setDateToDailyResetTime(quest: Quest, settings: Settings) {
+		var components = DateComponents()
+		components.hour = Calendar.current.component(.hour, from: settings.time!)
+		components.minute = Calendar.current.component(.minute, from: settings.time!)
+		components.second = Calendar.current.component(.second, from: settings.time!)
+		
+		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		quest.dueDate = nextResetTime
+	}
+	func setDateToWeeklyResetDate(quest: Quest, settings: Settings) {
+
+		var components = DateComponents()
+		components.weekday = Int(settings.dayOfTheWeek)
+		components.hour = Calendar.current.component(.hour, from: settings.time!)
+		components.minute = Calendar.current.component(.minute, from: settings.time!)
+		
+		let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+		
+		quest.dueDate = nextResetDay
+	}
 	
 	static func defaultQuest(context: NSManagedObjectContext) -> Quest {
 		let quest = Quest(context: context)
