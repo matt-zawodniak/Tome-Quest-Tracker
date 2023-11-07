@@ -10,8 +10,8 @@ import CoreData
 
 struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
-
-  @Environment(\.managedObjectContext) var managedObjectContext
+	
+	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	@State var sortType: QuestSortDescriptor = .timeCreated
@@ -21,27 +21,84 @@ struct QuestTableView: View {
 		NavigationStack {
 			List {
 				ForEach(quests, id: \.self) { (quest: Quest) in
-					ExpandableQuestView(quest: quest, managedObjectContext: managedObjectContext)
+					VStack {
+						HStack {
+							switch quest.type {
+							case .mainQuest : Text("!").foregroundStyle(.red)
+							case .sideQuest : Text("!").foregroundStyle(.yellow)
+							case .dailyQuest : Text("!").foregroundStyle(.green)
+							case .weeklyQuest : Text("!").foregroundStyle(.purple)
+							}
+							Text(quest.questName ?? "")
+							Spacer()
+						}
+						.onTapGesture {
+							for other in quests {
+								if other == quest {
+									other.isSelected.toggle()
+								}
+								else {
+									other.isSelected = false
+								}
+							}
+						}
+						
+						if quest.isSelected {
+							Text(quest.questDescription ?? "")
+							
+							Text("Quest EXP:")
+							HStack {
+								Text("Quest Reward:")
+								Text(quest.questBonusReward ?? "")
+							}
+							HStack {
+								
+								NavigationLink(destination: QuestView(
+									quest: quest, hasDueDate: quest.dueDate.exists)) {
+										Button(action: {
+											
+										}, label: {
+											Text("Edit")
+										}
+										)
+									}
+								
+								Spacer()
+								
+								Button(action: {
+								},
+									   label: {Text("Complete")})
+							}
+							
+						}
+					}
+					.swipeActions(edge: .leading) { Button(role: .destructive) {
+						managedObjectContext.delete(quest)
+						DataController().save(context: managedObjectContext)
+					} label: {
+						Label("Delete", systemImage: "trash")
+					}
+					}
 				}
 				
 				HStack {
-						Button(
-							action: {
-								newQuestView = true
-							},
-							label: {
-								Image(systemName: "plus.circle")
-							})
-					}
+					Button(
+						action: {
+							newQuestView = true
+						},
+						label: {
+							Image(systemName: "plus.circle")
+						})
+				}
 				HStack {
-									Spacer()
-									NavigationLink(destination: SettingsView(settings: settings.first!)) {
-										
-										Button(action: {}, label: {
-											Text("Settings")
-										})
-									}
-								}
+					Spacer()
+					NavigationLink(destination: SettingsView(settings: settings.first!)) {
+						
+						Button(action: {}, label: {
+							Text("Settings")
+						})
+					}
+				}
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
 			.onChange(of: sortType) {_ in
@@ -61,8 +118,8 @@ struct QuestTableView: View {
 				}
 			}
 			.navigationDestination(isPresented: $newQuestView) {
-							QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false)
-						}
+				QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false)
+			}
 		}
 	}
 	func setSortType() {
@@ -72,66 +129,6 @@ struct QuestTableView: View {
 		case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
 		case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
 		case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
-		}
-	}
-}
-
-struct ExpandableQuestView: View {
-	@State var isSelected: Bool = false
-	let quest: Quest
-	let managedObjectContext: NSManagedObjectContext
-	var body: some View {
-		VStack {
-			HStack {
-				switch quest.type {
-				case .mainQuest : Text("!").foregroundStyle(.red)
-				case .sideQuest : Text("!").foregroundStyle(.yellow)
-				case .dailyQuest : Text("!").foregroundStyle(.green)
-				case .weeklyQuest : Text("!").foregroundStyle(.purple)
-				}
-				Text(quest.questName ?? "")
-				Spacer()
-			}
-			.onTapGesture {
-				isSelected.toggle()
-			}
-			
-			if isSelected {
-				Text(quest.questDescription ?? "")
-				
-				Text("Quest EXP:")
-				HStack {
-					Text("Quest Reward:")
-					Text(quest.questBonusReward ?? "")
-				}
-				HStack {
-					
-					NavigationLink(destination: QuestView(
-						quest: quest, hasDueDate: quest.dueDate.exists)) {
-							Button(action: {
-								
-							}, label: {
-								Text("Edit")
-							}
-							)
-						}
-					
-					Spacer()
-					
-					Button(action: {
-					},
-						   label: {Text("Complete")})
-				}
-				
-			}
-			
-		}
-		.swipeActions(edge: .leading) { Button(role: .destructive) {
-			managedObjectContext.delete(quest)
-			DataController().save(context: managedObjectContext)
-		} label: {
-			Label("Delete", systemImage: "trash")
-		}
 		}
 	}
 }

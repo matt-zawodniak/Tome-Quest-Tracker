@@ -26,6 +26,7 @@ struct QuestView: View {
 			}
 		}.onDisappear(
 			perform: {
+				quest.isSelected = false
 				DataController().save(context: managedObjectContext)
 			}
 		)
