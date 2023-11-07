@@ -53,7 +53,7 @@ class DataController: ObservableObject {
 //			print(userSettings.first?.time as Any)
 		}
 	}
-		
+
 	func save(context: NSManagedObjectContext) {
 		do {
 			try context.save()
@@ -62,7 +62,7 @@ class DataController: ObservableObject {
 			print("Quest could not be saved.")
 		}
 	}
-		
+
 	func addPreviewQuest (
 		name: String = "Test Name",
 		type: QuestType = .mainQuest,
@@ -91,20 +91,5 @@ class DataController: ObservableObject {
 		return quest
 	}
 	
-	func loadPreviewSettings(context: NSManagedObjectContext) -> Settings {
-		let defaultSettings = Settings(context: context)
-		
-		var components = DateComponents()
-		components.day = 1
-		components.second = -1
-		
-		defaultSettings.dayOfTheWeek = 3
-		defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
-		defaultSettings.dailyResetWarning = true
-		defaultSettings.weeklyResetWarning = false
-		defaultSettings.levelingScheme = 2
-		
-		save(context: context)
-		return defaultSettings
-	}
+	
 }

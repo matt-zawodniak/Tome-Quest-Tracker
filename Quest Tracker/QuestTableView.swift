@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct QuestListView: View {
+struct QuestTableView: View {
 	@ObservedObject var tracker: QuestTrackerViewModel
-	
-	@Environment(\.managedObjectContext) var managedObjectContext
+
+  @Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
 	@FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
 	@State var sortType: QuestSortDescriptor = .timeCreated
 	@State var newQuestView: Bool = false
+
 	
 	var body: some View {
 		NavigationStack {
@@ -73,25 +74,25 @@ struct QuestListView: View {
 					}
 					}
 				}
+				
 				HStack {
-					Button(
-						action: {
-							newQuestView = true
-						},
-						label: {
-							Image(systemName: "plus.circle")
-						})
-					Spacer()
-				}
-				HStack {
-					Spacer()
-					NavigationLink(destination: SettingsView(settings: settings.first!)) {
-						
-						Button(action: {}, label: {
-							Text("Settings")
-						})
+						Button(
+							action: {
+								newQuestView = true
+							},
+							label: {
+								Image(systemName: "plus.circle")
+							})
 					}
-				}
+				HStack {
+									Spacer()
+									NavigationLink(destination: SettingsView(settings: settings.first!)) {
+										
+										Button(action: {}, label: {
+											Text("Settings")
+										})
+									}
+								}
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
 			.onChange(of: sortType) {_ in
@@ -111,8 +112,8 @@ struct QuestListView: View {
 				}
 			}
 			.navigationDestination(isPresented: $newQuestView) {
-				QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false)
-			}
+							QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false)
+						}
 		}
 	}
 	func setSortType() {
@@ -128,6 +129,6 @@ struct QuestListView: View {
 
 struct QuestTableView_Previews: PreviewProvider {
 	static var previews: some View {
-		QuestListView(tracker: QuestTrackerViewModel())
+		QuestTableView(tracker: QuestTrackerViewModel())
 	}
 }

@@ -13,24 +13,6 @@ class QuestTrackerViewModel: ObservableObject {
 	
 }
 
-enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
-	case timeCreated = 0
-	case oldest = 1
-	case questType = 2
-	case questName = 3
-	case dueDate = 4
-	
-	var description: String {
-		switch self {
-		case .timeCreated: return "Recent"
-		case .oldest: return "Oldest"
-		case .questType: return "Type"
-		case .questName: return "Name"
-		case .dueDate: return "Due Date"
-		}
-	}
-}
-
 extension Date {
 	var string: String {
 		let dateFormatter = DateFormatter()
