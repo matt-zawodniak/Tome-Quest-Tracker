@@ -16,10 +16,10 @@ jobs:
           ruby-version: 3.2.1
           bundler-cache: true
 
-      - name: GitHub Action for SwiftLint (Only files changed in the PR)
-        uses: norio-nomura/action-swiftlint@3.2.1
-        env:
-          DIFF_BASE: ${{ github.base_ref }}
+      - name: Build App
+        run: |
+          bundle install
+          bundle exec fastlane build
 
       
       - name: Upload app-store ipa and dsyms to artifacts
