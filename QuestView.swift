@@ -14,7 +14,7 @@ struct QuestView: View {
  @StateObject var quest: Quest
  @State var hasDueDate: Bool = false
  @State var datePickerIsExpanded: Bool = false
- @State var userSettings: Settings
+ @State var settings: Settings
  
  var body: some View {
   NavigationStack {
@@ -40,11 +40,11 @@ struct QuestView: View {
      Text("\(menuText)")
     }.onChange(of: quest.type) { value in
      if value == .dailyQuest {
-      quest.setDateToDailyResetTime(quest: quest, settings: userSettings)
+      quest.setDateToDailyResetTime(quest: quest, settings: settings)
       hasDueDate = true
      }
      else if value == .weeklyQuest {
-      quest.setDateToWeeklyResetDate(quest: quest, settings: userSettings)
+      quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
       hasDueDate = true
      }
     }
@@ -102,7 +102,7 @@ struct QuestView: View {
      Spacer()
      Toggle("", isOn: $hasDueDate)
       .onChange(of: hasDueDate) { _ in
-       quest.setDateToWeeklyResetDate(quest: quest, settings: userSettings)
+       quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
       }
       .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
     }
@@ -113,7 +113,7 @@ struct QuestView: View {
      Spacer()
      Toggle("", isOn: $hasDueDate)
       .onChange(of: hasDueDate) { _ in
-       quest.setDateToDailyResetTime(quest: quest, settings: userSettings)
+       quest.setDateToDailyResetTime(quest: quest, settings: settings)
       }
       .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
     }
@@ -178,6 +178,6 @@ struct QuestView_Previews: PreviewProvider {
   let previewContext = DataController().container.viewContext
   let quest = DataController().addPreviewQuest(context: previewContext)
   let settings = loadPreviewSettings(context: previewContext)
-  QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false, userSettings: settings)
+  QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false, settings: settings)
  }
 }

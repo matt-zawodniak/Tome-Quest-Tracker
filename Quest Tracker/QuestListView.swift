@@ -58,7 +58,7 @@ struct QuestListView: View {
        HStack {
         
         NavigationLink(destination: QuestView(
-         quest: quest, hasDueDate: quest.dueDate.exists, userSettings: settings)) {
+         quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
           Button(action: {
            
           }, label: {
@@ -122,7 +122,7 @@ struct QuestListView: View {
     }
    }
    .navigationDestination(isPresented: $newQuestView) {
-    QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, userSettings: settings)
+    QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
    }
   }
  }
