@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct Quest_TrackerApp: App {
-	@StateObject private var dataController = DataController()
-	
-    var body: some Scene {
-        WindowGroup {
-			QuestTableView(tracker: QuestTrackerViewModel())
-				.environment(\.managedObjectContext, dataController.container.viewContext)
-        }
-    }
+ @StateObject private var dataController = DataController()
+ 
+ var body: some Scene {
+  WindowGroup {
+   QuestTableView(tracker: QuestTrackerViewModel())
+    .environment(\.managedObjectContext, dataController.container.viewContext)
+  }
+ }
 }
