@@ -10,7 +10,7 @@ import SwiftUI
 class QuestTrackerViewModel: ObservableObject {
 
 	@Published var trackerModel = QuestTrackerModel()
-	
+ 
 }
 
 enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {

@@ -13,11 +13,12 @@ struct QuestListView: View {
  
  @Environment(\.managedObjectContext) var managedObjectContext
  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
- @FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
  @State var sortType: QuestSortDescriptor = .timeCreated
  @State var newQuestView: Bool = false
+ @FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
+ 
  var userSettings: Settings {
-  settings.first!
+  return settings.first!
  }
  
  var body: some View {
