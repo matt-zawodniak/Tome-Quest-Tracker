@@ -12,7 +12,7 @@ import CoreData
 
 extension Settings {
 
-    @nonobjc public class func createFetchRequest() -> NSFetchRequest<Settings> {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Settings> {
         return NSFetchRequest<Settings>(entityName: "Settings")
     }
 

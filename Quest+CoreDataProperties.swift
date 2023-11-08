@@ -11,7 +11,7 @@ import CoreData
 
 extension Quest {
 
-    @nonobjc public class func createFetchRequest() -> NSFetchRequest<Quest> {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Quest> {
         return NSFetchRequest<Quest>(entityName: "Quest")
     }
 
@@ -30,6 +30,7 @@ extension Quest {
 }
 
 extension Quest : Identifiable {
+ 
 	var type: QuestType {
 		get {
 			return QuestType(rawValue: self.questType)!
@@ -38,6 +39,7 @@ extension Quest : Identifiable {
 			self.questType = newValue.rawValue
 		}
 	}
+ 
 	var questLength: QuestLength {
 		get {
 			return QuestLength(rawValue: self.length)!
@@ -46,6 +48,7 @@ extension Quest : Identifiable {
 			self.length = newValue.rawValue
 		}
 	}
+ 
 	var questDifficulty: QuestDifficulty {
 		get {
 			return QuestDifficulty(rawValue: self.difficulty)!
@@ -54,6 +57,7 @@ extension Quest : Identifiable {
 			self.difficulty = newValue.rawValue
 		}
 	}
+ 
 	func setDateToDailyResetTime(quest: Quest, settings: Settings) {
 		var components = DateComponents()
 		components.hour = Calendar.current.component(.hour, from: settings.time!)
@@ -63,8 +67,8 @@ extension Quest : Identifiable {
 		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 		quest.dueDate = nextResetTime
 	}
+ 
 	func setDateToWeeklyResetDate(quest: Quest, settings: Settings) {
-
 		var components = DateComponents()
 		components.weekday = Int(settings.dayOfTheWeek)
 		components.hour = Calendar.current.component(.hour, from: settings.time!)
