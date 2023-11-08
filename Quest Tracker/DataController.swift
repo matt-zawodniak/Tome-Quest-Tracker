@@ -47,6 +47,7 @@ class DataController: ObservableObject {
    //			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
    //				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
    //				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
+
    //			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
    //			save(context: context)
    //			
