@@ -15,10 +15,10 @@ struct QuestListView: View {
  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
  @State var sortType: QuestSortDescriptor = .timeCreated
  @State var newQuestView: Bool = false
- @FetchRequest(sortDescriptors: []) var settings: FetchedResults<Settings>
+ @FetchRequest(sortDescriptors: []) var settingsFetchResults: FetchedResults<Settings>
  
- var userSettings: Settings {
-  return settings.first!
+ var settings: Settings {
+  return settingsFetchResults.first!
  }
  
  var body: some View {
@@ -58,7 +58,7 @@ struct QuestListView: View {
        HStack {
         
         NavigationLink(destination: QuestView(
-         quest: quest, hasDueDate: quest.dueDate.exists, userSettings: userSettings)) {
+         quest: quest, hasDueDate: quest.dueDate.exists, userSettings: settings)) {
           Button(action: {
            
           }, label: {
@@ -96,7 +96,7 @@ struct QuestListView: View {
     }
     HStack {
      Spacer()
-     NavigationLink(destination: SettingsView(settings: userSettings)) {
+     NavigationLink(destination: SettingsView(settings: settings)) {
       
       Button(action: {}, label: {
        Text("Settings")
@@ -122,7 +122,7 @@ struct QuestListView: View {
     }
    }
    .navigationDestination(isPresented: $newQuestView) {
-    QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, userSettings: userSettings)
+    QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, userSettings: settings)
    }
   }
  }
