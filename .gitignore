@@ -1,0 +1,4 @@
+.DS_Store
+fastlane/report.xml
+*.ipa
+*.zip
