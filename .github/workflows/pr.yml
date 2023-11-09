@@ -16,11 +16,19 @@ jobs:
           ruby-version: 3.2.1
           bundler-cache: true
 
+      - name: Set credentials for SPM using .netrc
+        run : |
+          NETRC="${HOME}/.netrc"
+          if [[ -f ${NETRC} ]]; then
+              echo "Clearing credentials in ${NETRC}"
+              sed -i '' -e '/^machine github.com login/d' ${NETRC}
+          fi
+          echo "machine github.com login matt-zawodniak password ${{ secrets.MATCH_PATH }}" >> "${NETRC}"
+
       - name: Build App
         run: |
           bundle install
           bundle exec fastlane build
-
       
       - name: Upload app-store ipa and dsyms to artifacts
         uses: actions/upload-artifact@v2
