@@ -14,6 +14,7 @@ struct QuestTableView: View {
  @State var activeSortType: QuestSortDescriptor = .timeCreated
  @State var completedSortType: QuestSortDescriptor = .timeCreated
  @State var showingCompletedQuests: Bool = false
+ @State var navigationTitle: String = "Quest Tracker"
  
  var body: some View {
   NavigationStack {
@@ -60,6 +61,14 @@ struct QuestTableView: View {
          Button(action: {
          },
                 label: {Text("Complete")})
+        }
+       } else {
+        Button {
+         quest.isCompleted = false
+         quest.timeCreated = Date()
+         CoreDataController().save(context: managedObjectContext)
+        } label: {
+         Text("Restore to Quest List")
         }
        }
       }
@@ -110,6 +119,7 @@ struct QuestTableView: View {
       Spacer()
       Button(
        action: {
+        deselectQuests()
         showCompletedQuests()
        },
        label: {
@@ -119,7 +129,7 @@ struct QuestTableView: View {
      }
     }
    }
-   .navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
+   .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
    .onChange(of: activeSortType) {_ in
     setSortType(sortType: activeSortType)
    }
@@ -147,7 +157,9 @@ struct QuestTableView: View {
      if showingCompletedQuests {
       Button(
        action: {
+        deselectQuests()
         showingCompletedQuests = false
+        navigationTitle = "Quest Tracker"
         quests.nsPredicate = NSPredicate(format: "isCompleted == false")
        }, label: {
         HStack {
@@ -160,7 +172,15 @@ struct QuestTableView: View {
    }
   }
  }
+ func deselectQuests() {
+  for quest in quests {
+   quest.isSelected = false
+  }
+  CoreDataController().save(context: managedObjectContext)
+
+ }
  func showCompletedQuests() {
+  navigationTitle = "Completed Quests"
   showingCompletedQuests = true
   quests.nsPredicate = NSPredicate(format: "isCompleted == true")
  }
