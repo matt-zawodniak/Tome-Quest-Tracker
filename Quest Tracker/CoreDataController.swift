@@ -65,6 +65,7 @@ class CoreDataController: ObservableObject {
 	
 	func completeQuest(quest: Quest, context: NSManagedObjectContext) {
 		quest.isCompleted = true
+  quest.timeCreated = Date()
 		save(context: context)
 	} // TODO: delete this, implement separately at calls
 	

@@ -62,7 +62,7 @@ struct QuestTableView: View {
 						}
 						
 					}
-					.swipeActions(edge: .leading) { 
+					.swipeActions(edge: .trailing) {
 						Button(role: .destructive) {
 						CoreDataController().deleteQuest(quest: quest, context: managedObjectContext)
 					} label: {
@@ -78,7 +78,7 @@ struct QuestTableView: View {
 								)
 							}
 					}
-					.swipeActions(edge: .trailing) { Button() {
+					.swipeActions(edge: .leading) { Button() {
 						CoreDataController().completeQuest(quest: quest, context: managedObjectContext)
 					} label: {
 						Image(systemName: "checkmark")
@@ -99,6 +99,19 @@ struct QuestTableView: View {
 					}
 					Spacer()
 				}
+    HStack {
+     Spacer()
+     NavigationLink(destination: CompletedQuestView()) {
+      
+      Button(
+       action: {
+       },
+       label: {
+        Text("Completed Quests")
+       })
+     }
+     Spacer()
+    }
 			}
 			.navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
 			.onChange(of: sortType) {_ in
