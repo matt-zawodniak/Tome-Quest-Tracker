@@ -60,8 +60,7 @@ struct QuestTableView: View {
 							}
 							
 						}
-						
-					}
+						}
 					.swipeActions(edge: .trailing) {
 						Button(role: .destructive) {
 						CoreDataController().deleteQuest(quest: quest, context: managedObjectContext)
