@@ -12,7 +12,6 @@
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
 		8F9042212AD1FC2200156102 /* NewQuestPopUpMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9042202AD1FC2200156102 /* NewQuestPopUpMenu.swift */; };
 		8F92E9072ABBA58C000446C6 /* EditPopUpMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* EditPopUpMenu.swift */; };
-		8F9FD27F2AFD4C2E00B0BE74 /* CompletedQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9FD27E2AFD4C2E00B0BE74 /* CompletedQuestView.swift */; };
 		8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */; };
 		8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38522AB396B6005CBED3 /* ContentView.swift */; };
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
@@ -27,7 +26,6 @@
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
 		8F9042202AD1FC2200156102 /* NewQuestPopUpMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQuestPopUpMenu.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* EditPopUpMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPopUpMenu.swift; sourceTree = SOURCE_ROOT; };
-		8F9FD27E2AFD4C2E00B0BE74 /* CompletedQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedQuestView.swift; sourceTree = "<group>"; };
 		8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quest Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest_TrackerApp.swift; sourceTree = "<group>"; };
 		8FAC38522AB396B6005CBED3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
 				8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */,
 				8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */,
-				8F9FD27E2AFD4C2E00B0BE74 /* CompletedQuestView.swift */,
 				8F9042202AD1FC2200156102 /* NewQuestPopUpMenu.swift */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
@@ -168,7 +165,6 @@
 				8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */,
 				8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */,
 				8FB761A62ACF1E4700314400 /* CoreDataController.swift in Sources */,
-				8F9FD27F2AFD4C2E00B0BE74 /* CompletedQuestView.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
 				8F92E9072ABBA58C000446C6 /* EditPopUpMenu.swift in Sources */,
 			);
