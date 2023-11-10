@@ -1,6 +1,6 @@
 
 git_url("git@github.com:matt-zawodniak/Quest-Tracker-Match.git")
-git_url("https://github.com/matt-zawodniak/Quest-Tracker-Match") if is_ci
+git_url("https://github.com/matt-zawodniak/Quest-Tracker-Match") if ENV["CI"]
 
 storage_mode("git")
 
