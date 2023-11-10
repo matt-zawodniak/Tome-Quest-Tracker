@@ -19,7 +19,7 @@ jobs:
       - name: Create basic auth
         id: basic_auth
         run : |
-          echo "basic_token=$(echo 'matt-zawodniak:${{ secrets.MATCH_PATH }}' | base64)" >> "$GITHUB_OUTPUT"
+          echo "basic_token=$(echo 'matt-zawodniak:${{ secrets.MATCH_PAT }}' | base64)" >> "$GITHUB_OUTPUT"
         
       
       - name: Build App
@@ -29,7 +29,7 @@ jobs:
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{steps.basic_auth.outputs.basic_token}}
-          
+
       - name: Upload app-store ipa and dsyms to artifacts
         uses: actions/upload-artifact@v2
         with:
