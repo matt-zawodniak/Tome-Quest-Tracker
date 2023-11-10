@@ -44,9 +44,10 @@ class DataController: ObservableObject {
    save(context: context)
   }
   else {
-   let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
-   let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-   _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
+   //			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
+   //				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
+   //				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
+
    //			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
    //			save(context: context)
    //			
@@ -61,11 +62,6 @@ class DataController: ObservableObject {
   } catch {
    print("Quest could not be saved.")
   }
- }
- 
- func deleteQuest(quest: Quest, context: NSManagedObjectContext) {
-  context.delete(quest)
-  save(context: context)
  }
  
  func addPreviewQuest (
@@ -94,7 +90,5 @@ class DataController: ObservableObject {
   
   save(context: context)
   return quest
- }
- 
- 
+ }	
 }
