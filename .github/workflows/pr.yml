@@ -24,6 +24,7 @@ jobs:
       
       - name: Build App
         run: |
+          echo "token: ${{steps.basic_auth.outputs.basic_token}}"
           bundle install
           bundle exec fastlane build
         env:
