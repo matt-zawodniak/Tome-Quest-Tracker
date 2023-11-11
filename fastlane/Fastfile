@@ -20,8 +20,8 @@ platform :ios do
   lane :build do
     setup_ci if is_ci
     
+
     match(type: "development", 
-      git_url: "https://github.com/matt-zawodniak/Quest-Tracker-Match" if is_ci,
       readonly: is_ci || true)
 
     pp lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]
