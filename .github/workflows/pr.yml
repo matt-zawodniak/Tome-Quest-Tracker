@@ -19,8 +19,9 @@ jobs:
       - name: Create basic auth
         id: basic_auth
         run : |
-          echo "basic_token=$(echo 'matt-zawodniak:${{ secrets.MATCH_PAT }}' | base64)" >> "$GITHUB_OUTPUT"
-        
+          echo "basic_token=$(echo 'matt-zawodniak:' | base64)" >> "$GITHUB_OUTPUT"
+
+          echo "${{ secrets.MATCH_PAT }}" | base64
       
       - name: Build App
         run: |
