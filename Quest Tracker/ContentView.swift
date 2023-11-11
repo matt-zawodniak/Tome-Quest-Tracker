@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-		QuestTableView(tracker: QuestTrackerViewModel())
-    }
+  var body: some View {
+    QuestTableView(tracker: QuestTrackerViewModel())
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }
