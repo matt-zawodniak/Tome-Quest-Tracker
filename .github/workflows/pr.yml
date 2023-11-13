@@ -23,16 +23,16 @@ jobs:
 
           echo "${{ secrets.MATCH_PAT }}" | base64
       
+      
       - name: Build App
         run: |
           echo "token: ${{steps.basic_auth.outputs.basic_token}}"
           bundle install
           bundle exec fastlane build
-
-          echo "$MATCH_GIT_BASIC_AUTHORIZATION"
+   
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-          MATCH_GIT_BASIC_AUTHORIZATION: ${{steps.basic_auth.outputs.basic_token}}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
 
       - name: Upload app-store ipa and dsyms to artifacts
         uses: actions/upload-artifact@v2
