@@ -10,17 +10,17 @@ import CoreData
 
 struct QuestListView: View {
  @ObservedObject var tracker: QuestTrackerViewModel
- 
+
  @Environment(\.managedObjectContext) var managedObjectContext
  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)]) var quests: FetchedResults<Quest>
  @State var sortType: QuestSortDescriptor = .timeCreated
  @State var newQuestView: Bool = false
  @FetchRequest(sortDescriptors: []) var settingsFetchResults: FetchedResults<Settings>
- 
+
  var settings: Settings {
   return settingsFetchResults.first!
  }
- 
+
  var body: some View {
   NavigationStack {
    List {
@@ -28,10 +28,10 @@ struct QuestListView: View {
      VStack {
       HStack {
        switch quest.type {
-       case .mainQuest : Text("!").foregroundStyle(.red)
-       case .sideQuest : Text("!").foregroundStyle(.yellow)
-       case .dailyQuest : Text("!").foregroundStyle(.green)
-       case .weeklyQuest : Text("!").foregroundStyle(.purple)
+       case .mainQuest: Text("!").foregroundStyle(.red)
+       case .sideQuest: Text("!").foregroundStyle(.yellow)
+       case .dailyQuest: Text("!").foregroundStyle(.green)
+       case .weeklyQuest: Text("!").foregroundStyle(.purple)
        }
        Text(quest.questName ?? "")
        Spacer()
@@ -40,40 +40,39 @@ struct QuestListView: View {
        for other in quests {
         if other == quest {
          other.isSelected.toggle()
-        }
-        else {
+        } else {
          other.isSelected = false
         }
        }
       }
-      
+
       if quest.isSelected {
        Text(quest.questDescription ?? "")
-       
+
        Text("Quest EXP:")
        HStack {
         Text("Quest Reward:")
         Text(quest.questBonusReward ?? "")
        }
        HStack {
-        
+
         NavigationLink(destination: QuestView(
          quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
           Button(action: {
-           
+
           }, label: {
            Text("Edit")
           }
           )
          }
-        
+
         Spacer()
-        
+
         Button(action: {
         },
                label: {Text("Complete")})
        }
-       
+
       }
      }
      .swipeActions(edge: .leading) { Button(role: .destructive) {
@@ -84,7 +83,7 @@ struct QuestListView: View {
      }
      }
     }
-    
+
     HStack {
      Button(
       action: {
@@ -97,7 +96,7 @@ struct QuestListView: View {
     HStack {
      Spacer()
      NavigationLink(destination: SettingsView(settings: settings)) {
-      
+
       Button(action: {}, label: {
        Text("Settings")
       })
@@ -116,7 +115,7 @@ struct QuestListView: View {
        ForEach(QuestSortDescriptor.allCases, id: \.self) {
         Text($0.description)
        }
-       
+
       }
      }
     }

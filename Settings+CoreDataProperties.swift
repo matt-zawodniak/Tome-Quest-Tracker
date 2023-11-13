@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Settings {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Settings> {
@@ -24,8 +23,8 @@ extension Settings {
 
 }
 
-extension Settings : Identifiable {
- 
+extension Settings: Identifiable {
+
 	var day: DayOfTheWeek {
 		get {
 			return DayOfTheWeek(rawValue: self.dayOfTheWeek)!
@@ -34,7 +33,7 @@ extension Settings : Identifiable {
 			self.dayOfTheWeek = newValue.rawValue
 		}
 	}
- 
+
 	var scaling: LevelingSchemes {
 		get {
 			return LevelingSchemes(rawValue: self.levelingScheme)!
@@ -50,7 +49,7 @@ enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
 	case flat = 1
 	case linear = 2
 	case exponential = 3
-	
+
 	var description: String {
 		switch self {
 		case .none: "None"
@@ -69,7 +68,7 @@ enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
 	case thursday = 5
 	case friday = 6
 	case saturday = 7
-	
+
 	var description: String {
 		switch self {
 		case .sunday: return "Sunday"
@@ -82,5 +81,3 @@ enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
 		}
 	}
 }
-
-

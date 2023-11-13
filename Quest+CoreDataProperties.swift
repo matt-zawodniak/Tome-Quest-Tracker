@@ -29,8 +29,8 @@ extension Quest {
 
 }
 
-extension Quest : Identifiable {
- 
+extension Quest: Identifiable {
+
 	var type: QuestType {
 		get {
 			return QuestType(rawValue: self.questType)!
@@ -39,7 +39,7 @@ extension Quest : Identifiable {
 			self.questType = newValue.rawValue
 		}
 	}
- 
+
 	var questLength: QuestLength {
 		get {
 			return QuestLength(rawValue: self.length)!
@@ -48,7 +48,7 @@ extension Quest : Identifiable {
 			self.length = newValue.rawValue
 		}
 	}
- 
+
 	var questDifficulty: QuestDifficulty {
 		get {
 			return QuestDifficulty(rawValue: self.difficulty)!
@@ -57,35 +57,35 @@ extension Quest : Identifiable {
 			self.difficulty = newValue.rawValue
 		}
 	}
- 
+
 	func setDateToDailyResetTime(quest: Quest, settings: Settings) {
 		var components = DateComponents()
 		components.hour = Calendar.current.component(.hour, from: settings.time!)
 		components.minute = Calendar.current.component(.minute, from: settings.time!)
 		components.second = Calendar.current.component(.second, from: settings.time!)
-		
+
 		let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 		quest.dueDate = nextResetTime
 	}
- 
+
 	func setDateToWeeklyResetDate(quest: Quest, settings: Settings) {
 		var components = DateComponents()
 		components.weekday = Int(settings.dayOfTheWeek)
 		components.hour = Calendar.current.component(.hour, from: settings.time!)
 		components.minute = Calendar.current.component(.minute, from: settings.time!)
-		
+
 		let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
-		
+
 		quest.dueDate = nextResetDay
 	}
-	
+
 	static func defaultQuest(context: NSManagedObjectContext) -> Quest {
 		let quest = Quest(context: context)
 		quest.questName = ""
 		quest.type = .mainQuest
 		quest.difficulty = 1
 		quest.length = 1
-		
+
 		return quest
 	}
 }
@@ -95,7 +95,7 @@ enum QuestType: Int64, CaseIterable, CustomStringConvertible {
 	case sideQuest = 1
 	case dailyQuest = 2
 	case weeklyQuest = 3
-	
+
 	var description: String {
 		switch self {
 		case .mainQuest: return "Main Quest"
@@ -110,7 +110,7 @@ enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
 	case easy = 0
 	case average = 1
 	case hard = 2
-	
+
 	var description: String {
 		switch self {
 		case .easy: return "Easy"
@@ -124,7 +124,7 @@ enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
 	case short = 0
 	case average = 1
 	case long = 2
-	
+
 	var description: String {
 		switch self {
 		case .short: return "Short"
@@ -133,4 +133,3 @@ enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
 		}
 	}
 }
-

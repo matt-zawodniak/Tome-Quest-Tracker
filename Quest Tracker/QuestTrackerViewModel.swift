@@ -10,7 +10,7 @@ import SwiftUI
 class QuestTrackerViewModel: ObservableObject {
 
 	@Published var trackerModel = QuestTrackerModel()
- 
+
 }
 
 enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
@@ -19,7 +19,7 @@ enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
 	case questType = 2
 	case questName = 3
 	case dueDate = 4
-	
+
 	var description: String {
 		switch self {
 		case .timeCreated: return "Recent"
@@ -41,7 +41,7 @@ extension Date {
 	var dayOnly: String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "EEEE"
-		
+
 		return dateFormatter.string(from: self)
 	}
 	var timeOnly: String {

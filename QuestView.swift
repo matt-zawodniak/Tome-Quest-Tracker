@@ -10,12 +10,12 @@ import CoreData
 
 struct QuestView: View {
  @Environment(\.managedObjectContext) var managedObjectContext
- 
+
  @StateObject var quest: Quest
  @State var hasDueDate: Bool = false
  @State var datePickerIsExpanded: Bool = false
  @State var settings: Settings
- 
+
  var body: some View {
   NavigationStack {
    Form {
@@ -31,7 +31,7 @@ struct QuestView: View {
    }
   )
  }
- 
+
  var typeSection: some View {
   Section {
    Picker("Quest Type", selection: $quest.type) {
@@ -42,8 +42,7 @@ struct QuestView: View {
      if value == .dailyQuest {
       quest.setDateToDailyResetTime(quest: quest, settings: settings)
       hasDueDate = true
-     }
-     else if value == .weeklyQuest {
+     } else if value == .weeklyQuest {
       quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
       hasDueDate = true
      }
@@ -51,19 +50,19 @@ struct QuestView: View {
    }
   }
  }
- 
+
  var nameSection: some View {
   Section(header: Text("Quest Name")) {
    TextField("Quest Name", text: $quest.questName.bound)
   }
  }
- 
+
  var questDescriptionSection: some View {
   Section(header: Text("Quest Description")) {
    TextField("Quest Description (Optional)", text: $quest.questDescription.bound)
   }
  }
- 
+
  var advancedSettingsSection: some View {
   Section(header: Text("Advanced Settings")) {
    HStack {
@@ -91,7 +90,7 @@ struct QuestView: View {
    dueDateView
   }
  }
- 
+
  var dueDateView: some View {
   VStack {
    switch quest.type {
@@ -144,10 +143,10 @@ struct QuestView: View {
        datePickerIsExpanded = hasDueDate
       }
     }
-    
+
     if hasDueDate, datePickerIsExpanded == true {
      DatePicker(
-      "" ,
+      "",
       selection: $quest.dueDate.bound,
       displayedComponents: [.date, .hourAndMinute]
      )
@@ -156,22 +155,22 @@ struct QuestView: View {
    }
   }
  }
-}	
+}
 
 struct QuestView_Previews: PreviewProvider {
  static func loadPreviewSettings(context: NSManagedObjectContext) -> Settings {
   let defaultSettings = Settings(context: context)
-  
+
   var components = DateComponents()
   components.day = 1
   components.second = -1
-  
+
   defaultSettings.dayOfTheWeek = 3
   defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
   defaultSettings.dailyResetWarning = true
   defaultSettings.weeklyResetWarning = false
   defaultSettings.levelingScheme = 2
-  
+
   return defaultSettings
  }
  static var previews: some View {
