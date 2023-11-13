@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 15.0..1
 
       - name: Checkout repository
         uses: actions/checkout@v4
