@@ -2,3 +2,5 @@
 fastlane/report.xml
 *.ipa
 *.zip
+
+**/xcuserdata/**/*
