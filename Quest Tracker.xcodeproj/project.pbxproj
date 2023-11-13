@@ -7,32 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F1401E42AF57778007BBD53 /* Settings+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */; };
+		8F1401E52AF57778007BBD53 /* Settings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
-		8F2184522AB8DCD5004CCF7A /* QuestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
-		8F9042212AD1FC2200156102 /* NewQuestPopUpMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9042202AD1FC2200156102 /* NewQuestPopUpMenu.swift */; };
-		8F92E9072ABBA58C000446C6 /* EditPopUpMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* EditPopUpMenu.swift */; };
+		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
 		8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */; };
-		8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38522AB396B6005CBED3 /* ContentView.swift */; };
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
 		8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */; };
 		8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */; };
 		8FB761A62ACF1E4700314400 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A52ACF1E4700314400 /* DataController.swift */; };
+		8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */; };
+		8FC6247D2AF942D800863AB3 /* Quest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */; };
+		8FC6BFED2AFABF79001DD91E /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */; };
+		8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */; };
+		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
-		8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTableView.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
-		8F9042202AD1FC2200156102 /* NewQuestPopUpMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQuestPopUpMenu.swift; sourceTree = "<group>"; };
-		8F92E9062ABBA58C000446C6 /* EditPopUpMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPopUpMenu.swift; sourceTree = SOURCE_ROOT; };
+		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = SOURCE_ROOT; };
 		8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quest Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest_TrackerApp.swift; sourceTree = "<group>"; };
-		8FAC38522AB396B6005CBED3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8FAC38542AB396B7005CBED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB761A32ACF1E3200314400 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		8FB761A52ACF1E4700314400 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quest+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quest+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestListView.swift; path = "Quest Tracker/QuestListView.swift"; sourceTree = SOURCE_ROOT; };
+		8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
+		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,15 +73,18 @@
 		8FAC384F2AB396B6005CBED3 /* Quest Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				8F92E9062ABBA58C000446C6 /* EditPopUpMenu.swift */,
+				8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */,
+				8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */,
+				8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */,
+				8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */,
+				8FF8D53F2AE9B432000F801F /* SettingsView.swift */,
+				8F92E9062ABBA58C000446C6 /* QuestView.swift */,
 				8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */,
-				8FAC38522AB396B6005CBED3 /* ContentView.swift */,
 				8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */,
 				8FB761A52ACF1E4700314400 /* DataController.swift */,
 				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
 				8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */,
-				8F2184512AB8DCD5004CCF7A /* QuestTableView.swift */,
-				8F9042202AD1FC2200156102 /* NewQuestPopUpMenu.swift */,
+				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
 			);
@@ -83,6 +94,7 @@
 		8FAC38562AB396B7005CBED3 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */,
 				8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -158,15 +170,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
-				8F9042212AD1FC2200156102 /* NewQuestPopUpMenu.swift in Sources */,
-				8F2184522AB8DCD5004CCF7A /* QuestTableView.swift in Sources */,
+				8FC6247D2AF942D800863AB3 /* Quest+CoreDataProperties.swift in Sources */,
+				8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */,
 				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
 				8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */,
-				8FAC38532AB396B6005CBED3 /* ContentView.swift in Sources */,
+				8FC6BFED2AFABF79001DD91E /* QuestListView.swift in Sources */,
+				8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */,
+				8F1401E42AF57778007BBD53 /* Settings+CoreDataClass.swift in Sources */,
+				8F1401E52AF57778007BBD53 /* Settings+CoreDataProperties.swift in Sources */,
 				8FB761A62ACF1E4700314400 /* DataController.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
-				8F92E9072ABBA58C000446C6 /* EditPopUpMenu.swift in Sources */,
+				8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
