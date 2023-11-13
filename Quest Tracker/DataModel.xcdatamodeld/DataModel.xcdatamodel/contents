@@ -10,15 +10,18 @@
         <attribute name="questBonusExp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="questBonusReward" optional="YES" attributeType="String"/>
         <attribute name="questDescription" optional="YES" attributeType="String"/>
-        <attribute name="questName" optional="YES" attributeType="String"/>
+        <attribute name="questName" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="questType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
+    <entity name="Settings" representedClassName="Settings" syncable="YES">
+        <attribute name="dailyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="dayOfTheWeek" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="levelingScheme" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weeklyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>
