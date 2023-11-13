@@ -38,10 +38,10 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
 
-      - name: Upload app-store ipa and dsyms to artifacts
+      - name: Upload ipa and dsyms to artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: app-store ipa & dsyms
+          name: ipa & dsyms
           path: |
             *.ipa
             *.app.dSYM.zip
