@@ -8,10 +8,13 @@
 import SwiftUI
 
 @main
-struct QuestTrackerApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
+struct Quest_TrackerApp: App {
+ @StateObject private var dataController = DataController()
+ 
+ var body: some Scene {
+  WindowGroup {
+   QuestListView(tracker: QuestTrackerViewModel())
+    .environment(\.managedObjectContext, dataController.container.viewContext)
+  }
+ }
 }
