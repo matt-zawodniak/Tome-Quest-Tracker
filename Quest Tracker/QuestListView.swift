@@ -77,7 +77,7 @@ struct QuestListView: View {
      }
      .swipeActions(edge: .leading) { Button(role: .destructive) {
       managedObjectContext.delete(quest)
-      DataController().save(context: managedObjectContext)
+      CoreDataController().save(context: managedObjectContext)
      } label: {
       Label("Delete", systemImage: "trash")
      }

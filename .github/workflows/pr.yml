@@ -1,0 +1,44 @@
+name: PR
+on:
+  pull_request:
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+  test:
+    name: Testing Swift Package and iOS app
+    runs-on: macOS-13
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 15.0.1
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+     
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1.160.0
+        with:
+          ruby-version: 3.2.1
+          bundler-cache: true
+      
+      - name: Build App
+        run: |
+          bundle install
+          bundle exec fastlane build
+   
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
+
+      - name: Upload ipa and dsyms to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ipa & dsyms
+          path: |
+            *.ipa
+            *.app.dSYM.zip
