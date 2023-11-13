@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Quest_TrackerApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
+ @StateObject private var dataController = DataController()
+ 
+ var body: some Scene {
+  WindowGroup {
+   QuestListView(tracker: QuestTrackerViewModel())
+    .environment(\.managedObjectContext, dataController.container.viewContext)
+  }
+ }
 }

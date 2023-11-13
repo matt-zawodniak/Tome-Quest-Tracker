@@ -8,32 +8,128 @@
 import SwiftUI
 
 class QuestTrackerViewModel: ObservableObject {
+
 	@Published var trackerModel = QuestTrackerModel()
+ 
+}
+
+enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
+	case timeCreated = 0
+	case oldest = 1
+	case questType = 2
+	case questName = 3
+	case dueDate = 4
 	
-	init() {
-		trackerModel.questList = [
-			Quest(questType: .sideQuest, questName: "Do Dishes", timeCreated: Date(timeIntervalSince1970: 1)),
-			Quest(questType: .mainQuest, questName: "Work on TableView", timeCreated: Date(timeIntervalSince1970: 5)),
-			Quest(questType: .dailyQuest, questName: "Exercise Ankle", timeRemaining: 50, questDescription: "Trace the alphabet, once with each foot.", timeCreated: Date(timeIntervalSince1970: 7)),
-			Quest(questType: .weeklyQuest, questName: "Food Shopping", timeRemaining: 500, timeCreated: Date(timeIntervalSince1970: 19)),
-			Quest(questType: .dailyQuest, questName: "Brush Teeth", timeRemaining: 50, timeCreated: Date(timeIntervalSince1970: 11))
-		]
+	var description: String {
+		switch self {
+		case .timeCreated: return "Recent"
+		case .oldest: return "Oldest"
+		case .questType: return "Type"
+		case .questName: return "Name"
+		case .dueDate: return "Due Date"
+		}
 	}
-	
+}
+
+extension Date {
+	var string: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: self)
+	}
+	var dayOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "EEEE"
 		
-	func sortByName() {
-		trackerModel.sortByName()
+		return dateFormatter.string(from: self)
 	}
-	func sortByType() {
-		trackerModel.sortByType()
+	var timeOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .none
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: self)
 	}
-	func sortByRecent() {
-		trackerModel.sortByRecent()
+}
+
+extension Optional where Wrapped == Date {
+	var _bound: Date? {
+		get {
+			return self
+		}
+		set {
+			self = newValue
+		}
 	}
-	func sortByTimeRemainingAscending() {
-		trackerModel.sortByTimeRemainingAscending()
+	public var bound: Date {
+		get {
+			return _bound ?? Date()
+		}
+		set {
+			_bound = newValue
+		}
 	}
-	func sortByTimeRemainingDescending() {
-		trackerModel.sortByTimeRemainingDescending()
+	var exists: Bool {
+		if self == nil {
+			return false
+		} else {
+			return true
+		}
+	}
+	var string: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+	var dateOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+	var dayOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "EEEE"
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+	var timeOnly: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .none
+		dateFormatter.timeStyle = .short
+		if self == nil {
+			return ""
+		} else {
+			return dateFormatter.string(from: self!)
+		}
+	}
+}
+extension Optional where Wrapped == String {
+	var _bound: String? {
+		get {
+			return self
+		}
+		set {
+			self = newValue
+		}
+	}
+	public var bound: String {
+		get {
+			return _bound ?? ""
+		}
+		set {
+			_bound = newValue.isEmpty ? nil : newValue
+		}
 	}
 }

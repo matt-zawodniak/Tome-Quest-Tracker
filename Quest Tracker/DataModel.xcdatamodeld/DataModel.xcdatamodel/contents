@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Quest" representedClassName="Quest" syncable="YES">
+        <attribute name="difficulty" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="length" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="questBonusExp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="questBonusReward" optional="YES" attributeType="String"/>
+        <attribute name="questDescription" optional="YES" attributeType="String"/>
+        <attribute name="questName" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="questType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Reward" representedClassName="Reward" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Settings" representedClassName="Settings" syncable="YES">
+        <attribute name="dailyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="dayOfTheWeek" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="levelingScheme" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weeklyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+</model>
