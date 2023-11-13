@@ -90,7 +90,6 @@
 				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
-				8F1401DE2AF29882007BBD53 /* ,gitignore */,
 				8F1401E02AF29882007BBD53 /* fastlane */,
 				8F1401E12AF29882007BBD53 /* Gemfile */,
 				8F1401DF2AF29882007BBD53 /* Gemfile.lock */,
@@ -117,7 +116,6 @@
 				8FAC38492AB396B6005CBED3 /* Sources */,
 				8FAC384A2AB396B6005CBED3 /* Frameworks */,
 				8FAC384B2AB396B6005CBED3 /* Resources */,
-				401C33A82AFF0163001829C2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -173,26 +171,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		401C33A82AFF0163001829C2 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8FAC38492AB396B6005CBED3 /* Sources */ = {
@@ -339,7 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4739T7R6D;
@@ -370,7 +348,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4739T7R6D;
