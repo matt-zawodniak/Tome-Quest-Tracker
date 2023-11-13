@@ -111,6 +111,7 @@ extension Optional where Wrapped == String {
 			self = newValue
 		}
 	}
+
 	public var bound: String {
 		get {
 			return _bound ?? ""

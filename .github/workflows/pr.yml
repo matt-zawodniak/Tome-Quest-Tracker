@@ -19,7 +19,7 @@ jobs:
       - name: Create basic auth
         id: basic_auth
         run : |
-          echo "basic_token=$(echo 'matt-zawodniak:' | base64)" >> "$GITHUB_OUTPUT"
+          echo "basic_token=$(echo 'matt-zawodniak:${{ secrets.MATCH_PAT }}' | base64)" >> "$GITHUB_OUTPUT"
 
           echo "${{ secrets.MATCH_PAT }}" | base64
       
@@ -28,6 +28,8 @@ jobs:
           echo "token: ${{steps.basic_auth.outputs.basic_token}}"
           bundle install
           bundle exec fastlane build
+
+          echo "$MATCH_GIT_BASIC_AUTHORIZATION"
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{steps.basic_auth.outputs.basic_token}}
