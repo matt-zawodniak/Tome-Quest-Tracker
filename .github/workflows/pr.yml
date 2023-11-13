@@ -2,6 +2,12 @@ name: PR
 on:
   pull_request:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
 jobs:
   test:
     name: Testing Swift Package and iOS app
