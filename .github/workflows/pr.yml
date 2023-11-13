@@ -19,18 +19,9 @@ jobs:
         with:
           ruby-version: 3.2.1
           bundler-cache: true
-
-      - name: Create basic auth
-        id: basic_auth
-        run : |
-          echo "basic_token=$(echo 'matt-zawodniak:${{ secrets.MATCH_PAT }}' | base64)" >> "$GITHUB_OUTPUT"
-
-          echo "${{ secrets.MATCH_PAT }}" | base64
-      
       
       - name: Build App
         run: |
-          echo "token: ${{steps.basic_auth.outputs.basic_token}}"
           bundle install
           bundle exec fastlane build
    
