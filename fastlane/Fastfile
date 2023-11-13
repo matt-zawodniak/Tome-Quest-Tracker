@@ -24,8 +24,6 @@ platform :ios do
     match(type: "development", 
       readonly: is_ci || true)
 
-    pp lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]
-
     update_code_signing_settings(
       use_automatic_signing: false,
       path: "Quest Tracker.xcodeproj",
