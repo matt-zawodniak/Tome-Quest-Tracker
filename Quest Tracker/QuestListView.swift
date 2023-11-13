@@ -20,7 +20,6 @@ struct QuestListView: View {
   var settings: Settings {
     return settingsFetchResults.first!
   }
-
   var body: some View {
     NavigationStack {
       List {
@@ -45,7 +44,6 @@ struct QuestListView: View {
                 }
               }
             }
-
             if quest.isSelected {
               Text(quest.questDescription ?? "")
               Text("Quest EXP:")
@@ -88,76 +86,74 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               NavigationLink(
                 destination: QuestView(quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                Button(action: {
-                },
-                       label: {Text("Edit")})
-              }
+                  Button(action: {
+                  },
+                         label: {Text("Edit")})
+                }
             }
           }
           .swipeActions(edge: .leading) {
-                      if !showingCompletedQuests {
-                        Button {
-                          quest.isCompleted = true
-                              quest.isSelected = false
-                              quest.timeCreated = Date()
-                          CoreDataController().save(context: managedObjectContext)
-                        } label: {
-                          Image(systemName: "checkmark")
-                        }
-                        .tint(.green)          }
-        }
-
-        HStack {
-          Button(
-            action: {
-              showingCompletedQuests = true
-            },
-            label: {
-              Image(systemName: "plus.circle")
-            })
-        }
-        HStack {
-          Spacer()
-          NavigationLink(destination: SettingsView(settings: settings)) {
-
-            Button(action: {}, label: {
-              Text("Settings")
-            })
-          }
-        }
-      }
-      .navigationTitle("Quest Tracker").navigationBarTitleDisplayMode(.inline)
-      .onChange(of: sortType) {_ in
-        setSortType()
-      }
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          HStack {
-            Text("Sort:")
-            Picker("", selection: $sortType) {
-              ForEach(QuestSortDescriptor.allCases, id: \.self) {
-                Text($0.description)
+            if !showingCompletedQuests {
+              Button {
+                quest.isCompleted = true
+                quest.isSelected = false
+                quest.timeCreated = Date()
+                CoreDataController().save(context: managedObjectContext)
+              } label: {
+                Image(systemName: "checkmark")
               }
+              .tint(.green)          }
+          }
+          HStack {
+            Button(
+              action: {
+                showingCompletedQuests = true
+              },
+              label: {
+                Image(systemName: "plus.circle")
+              })
+          }
+          HStack {
+            Spacer()
+            NavigationLink(destination: SettingsView(settings: settings)) {
+              Button(action: {}, label: {
+                Text("Settings")
+              })
             }
           }
         }
-        ToolbarItem(placement: .topBarLeading) {
-          if showingCompletedQuests {
-            Button(
-              action: {
-                deselectQuests()
-                showingCompletedQuests = false
-                navigationTitle = "Quest Tracker"
-                quests.nsPredicate = NSPredicate(format: "isCompleted == false")
-              }, label: {
-                HStack {
-                  Image(systemName: "chevron.backward")
-                  Text("Back")
-                }
-              })
-          }
+        .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
+        .onChange(of: sortType) {_ in
+          setSortType()
         }
-      }
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            HStack {
+              Text("Sort:")
+              Picker("", selection: $sortType) {
+                ForEach(QuestSortDescriptor.allCases, id: \.self) {
+                  Text($0.description)
+                }
+              }
+            }
+          }
+//          ToolbarItem(placement: .topBarLeading) {
+//            if showingCompletedQuests {
+//              Button(
+//                action: {
+//                  deselectQuests()
+//                  showingCompletedQuests = false
+//                  navigationTitle = "Quest Tracker"
+//                  quests.nsPredicate = NSPredicate(format: "isCompleted == false")
+//                }, label: {
+//                  HStack {
+//                    Image(systemName: "chevron.backward")
+//                    Text("Back")
+//                  }
+//                })
+//            }
+//          }
+        }
       }
     }
   }
@@ -169,8 +165,8 @@ struct QuestListView: View {
   }
   func showCompletedQuests() {
     navigationTitle = "Completed Quests"
-       showingCompletedQuests = true
-       quests.nsPredicate = NSPredicate(format: "isCompleted == true")
+    showingCompletedQuests = true
+    quests.nsPredicate = NSPredicate(format: "isCompleted == true")
   }
   func setSortType() {
     switch sortType {
