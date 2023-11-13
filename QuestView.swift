@@ -27,7 +27,7 @@ struct QuestView: View {
   }.onDisappear(
    perform: {
     quest.isSelected = false
-    DataController().save(context: managedObjectContext)
+    CoreDataController().save(context: managedObjectContext)
    }
   )
  }
@@ -175,8 +175,8 @@ struct QuestView_Previews: PreviewProvider {
   return defaultSettings
  }
  static var previews: some View {
-  let previewContext = DataController().container.viewContext
-  let quest = DataController().addPreviewQuest(context: previewContext)
+  let previewContext = CoreDataController().container.viewContext
+  let quest = CoreDataController().addPreviewQuest(context: previewContext)
   let settings = loadPreviewSettings(context: previewContext)
   QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false, settings: settings)
  }
