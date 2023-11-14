@@ -48,7 +48,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0  # Fetches all history for all branches and tags
       - name: GitHub Action for SwiftLint
         #Don't trust rando code on internet. Pin to a SHA so they can't rugpull you
         uses: yannpom/action-swiftlint@ae462bc2d8f56fc8564d9bae917bb230689d9644 
