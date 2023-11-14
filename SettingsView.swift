@@ -11,7 +11,7 @@ import CoreData
 struct SettingsView: View {
 	@Environment(\.managedObjectContext) var managedObjectContext
 	@FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
-	
+
 	@ObservedObject var settings: Settings
 	var body: some View {
 		NavigationStack {
@@ -54,9 +54,9 @@ struct SettingsView: View {
 					}
 					HStack {
 						Spacer()
-						
+
 						Button("Manage Rewards") {
-							
+
 						}.buttonStyle(.borderedProminent)
 						Spacer()
 					}
@@ -67,8 +67,7 @@ struct SettingsView: View {
 			for quest in quests {
 				if quest.type == .dailyQuest {
 					quest.setDateToDailyResetTime(quest: quest, settings: settings)
-				}
-				else if quest.type == .weeklyQuest {
+				} else if quest.type == .weeklyQuest {
 					quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
 				}
 			}
@@ -80,17 +79,17 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
 	static func loadPreviewSettings(context: NSManagedObjectContext) -> Settings {
 		let defaultSettings = Settings(context: context)
-		
+
 		var components = DateComponents()
 		components.day = 1
 		components.second = -1
-		
+
 		defaultSettings.dayOfTheWeek = 3
 		defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
 		defaultSettings.dailyResetWarning = true
 		defaultSettings.weeklyResetWarning = false
 		defaultSettings.levelingScheme = 2
-		
+
 		return defaultSettings
 	}
 	static var previews: some View {
