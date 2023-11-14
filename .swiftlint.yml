@@ -1,4 +1,6 @@
-type_name:
-  allowed_symbols: "_"
+# type_name:
+#   allowed_symbols: "_"
 identifier_name:
   allowed_symbols: "_"
+excluded:
+  - Vendor

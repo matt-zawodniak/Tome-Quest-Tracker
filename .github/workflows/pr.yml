@@ -27,7 +27,6 @@ jobs:
       
       - name: Build App
         run: |
-          brew install swiftlint
           bundle install
           bundle exec fastlane build
    
@@ -44,3 +43,11 @@ jobs:
             *.ipa
             *.app.dSYM.zip
             /Users/runner/Library/Logs/gym/*.log
+
+  SwiftLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: GitHub Action for SwiftLint
+        uses: norio-nomura/action-swiftlint@3.2.1
