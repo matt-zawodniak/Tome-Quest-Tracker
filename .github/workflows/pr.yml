@@ -36,9 +36,11 @@ jobs:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
 
       - name: Upload ipa and dsyms to artifacts
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: ipa & dsyms
           path: |
             *.ipa
             *.app.dSYM.zip
+            "/Users/runner/Library/Logs/gym/Quest Tracker-Quest Tracker.log"
