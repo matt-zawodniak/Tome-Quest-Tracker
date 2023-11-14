@@ -29,7 +29,7 @@ platform :ios do
       path: "Quest Tracker.xcodeproj",
       profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
     
-    build_app(scheme: "Quest Tracker", export_method: 'development')
+    build_app(scheme: "Quest Tracker", export_method: 'development', xcodebuild_formatter: '')
     
     update_code_signing_settings(
       use_automatic_signing: true,
