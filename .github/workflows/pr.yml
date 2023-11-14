@@ -28,6 +28,7 @@ jobs:
       
       - name: Build App
         run: |
+          brew install swiftlint
           bundle install
           bundle exec fastlane build
    
@@ -43,4 +44,4 @@ jobs:
           path: |
             *.ipa
             *.app.dSYM.zip
-            "/Users/runner/Library/Logs/gym/Quest Tracker-Quest Tracker.log"
+            /Users/runner/Library/Logs/gym/*.log
