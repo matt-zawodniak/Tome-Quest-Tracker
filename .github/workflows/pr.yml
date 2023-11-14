@@ -49,6 +49,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup for SwiftLint
+        run: |
+          git config --global --add safe.directory /github/workspace
+          
       - name: GitHub Action for SwiftLint
         uses: norio-nomura/action-swiftlint@3.2.1
         env:
