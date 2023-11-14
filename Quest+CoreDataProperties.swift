@@ -25,7 +25,7 @@ extension Quest {
     @NSManaged public var questDescription: String?
     @NSManaged public var questName: String?
     @NSManaged public var questType: Int64
-    @NSManaged public var timeCreated: Date? 
+    @NSManaged public var timeCreated: Date?
 
 }
 

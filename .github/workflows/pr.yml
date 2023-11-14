@@ -41,7 +41,6 @@ jobs:
           path: |
             *.ipa
             *.app.dSYM.zip
-            /Users/runner/Library/Logs/gym/*.log
 
       - name: Upload logs to artifacts
         if: always()
