@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 class CoreDataController: ObservableObject {
- let container = NSPersistentContainer(name: "DataModel")
+ let container = NSPersistentContainer(name: "DataModel") 
 
  init() {
   container.loadPersistentStores {_, error in
