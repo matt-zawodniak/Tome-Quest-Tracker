@@ -39,7 +39,7 @@ struct QuestListView: View {
             .onTapGesture {
               quest.isSelected.toggle()
               for other in quests where other != quest {
-                  other.isSelected = false
+                other.isSelected = false
               }
               CoreDataController().save(context: managedObjectContext)
             }
@@ -104,33 +104,33 @@ struct QuestListView: View {
               .tint(.green)          }
           }
         }
-          if !showingCompletedQuests {
-            HStack {
-              Button(
-                action: {
-                  newQuestView = true
-                },
-                label: {
-                  Image(systemName: "plus.circle")
-                })
+        if !showingCompletedQuests {
+          HStack {
+            Button(
+              action: {
+                newQuestView = true
+              },
+              label: {
+                Image(systemName: "plus.circle")
+              })
+          }
+          HStack {
+            Spacer()
+            NavigationLink(destination: SettingsView(settings: settings)) {
+              Button(action: {}, label: {
+                Text("Settings")
+              })
             }
-            HStack {
-              Spacer()
-              NavigationLink(destination: SettingsView(settings: settings)) {
-                Button(action: {}, label: {
-                  Text("Settings")
-                })
-              }
-            }
-            HStack {
-              Button(
-                action: {
-                  showCompletedQuests()
-                },
-                label: {
-                  Text("Completed Quests")
-                })
-            }
+          }
+          HStack {
+            Button(
+              action: {
+                showCompletedQuests()
+              },
+              label: {
+                Text("Completed Quests")
+              })
+          }
         }
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
