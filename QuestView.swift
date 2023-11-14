@@ -27,6 +27,7 @@ struct QuestView: View {
   }.onDisappear(
    perform: {
     quest.isSelected = false
+     quest.isCompleted = false
     CoreDataController().save(context: managedObjectContext)
    }
   )
