@@ -18,7 +18,6 @@ extension Quest {
   @NSManaged public var difficulty: Int64
   @NSManaged public var dueDate: Date?
   @NSManaged public var id: UUID?
-  @NSManaged public var isSelected: Bool
   @NSManaged public var isCompleted: Bool
   @NSManaged public var length: Int64
   @NSManaged public var questBonusExp: Double
@@ -30,7 +29,17 @@ extension Quest {
 }
 
 extension Quest: Identifiable {
-
+  private static var _isSelected = [String: Bool]()
+  var isSelected: Bool {
+    get {
+      let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+      return Quest._isSelected[tmpAddress] ?? false
+    }
+    set {
+      let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
+      Quest._isSelected[tmpAddress] = newValue
+    }
+  }
   var type: QuestType {
     get {
       return QuestType(rawValue: self.questType)!

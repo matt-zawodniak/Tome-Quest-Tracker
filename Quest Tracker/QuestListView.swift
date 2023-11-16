@@ -37,11 +37,7 @@ struct QuestListView: View {
               Spacer()
             }
             .onTapGesture {
-              quest.isSelected.toggle()
-              for other in quests where other != quest {
-                other.isSelected = false
-              }
-              CoreDataController().save(context: managedObjectContext)
+              selectQuest(quest: quest)
             }
             if quest.isSelected {
               Text(quest.questDescription ?? "")
@@ -166,6 +162,13 @@ struct QuestListView: View {
         QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
       }
     }
+  }
+  func selectQuest(quest: Quest) {
+    quest.isSelected.toggle()
+    for other in quests where other != quest {
+      other.isSelected = false
+    }
+    print("\(quest.questName!) selected is \(quest.isSelected)")
   }
   func deselectQuests() {
     for quest in quests {
