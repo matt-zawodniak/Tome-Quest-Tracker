@@ -37,7 +37,7 @@ struct QuestListView: View {
               Spacer()
             }
             .onTapGesture {
-              selectQuest(quest: quest)
+              tracker.selectQuest(quest: quest, quests: quests)
             }
             if quest.isSelected {
               Text(quest.questDescription ?? "")
@@ -131,7 +131,7 @@ struct QuestListView: View {
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .onChange(of: sortType) {_ in
-        setSortType()
+        tracker.setSortType(sortType: sortType, quests: quests)
       }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
@@ -163,39 +163,17 @@ struct QuestListView: View {
       }
     }
   }
-  func selectQuest(quest: Quest) {
-    quest.isSelected.toggle()
-    for other in quests where other != quest {
-      other.isSelected = false
-    }
-    print("\(quest.questName!) selected is \(quest.isSelected)")
-  }
-  func deselectQuests() {
-    for quest in quests {
-      quest.isSelected = false
-    }
-    CoreDataController().save(context: managedObjectContext)
-  }
   func showCompletedQuests() {
-    deselectQuests()
+    tracker.deselectQuests(quests: quests, context: managedObjectContext)
     navigationTitle = "Completed Quests"
     showingCompletedQuests = true
     quests.nsPredicate = NSPredicate(format: "isCompleted == true")
   }
   func showActiveQuests() {
-    deselectQuests()
+    tracker.deselectQuests(quests: quests, context: managedObjectContext)
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
     quests.nsPredicate = NSPredicate(format: "isCompleted == false")
-  }
-  func setSortType() {
-    switch sortType {
-    case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
-    case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
-    case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
-    case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
-    case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
-    }
   }
 }
 

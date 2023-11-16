@@ -6,11 +6,35 @@
 //
 
 import SwiftUI
+import CoreData
 
 class QuestTrackerViewModel: ObservableObject {
 
   @Published var trackerModel = QuestTrackerModel()
 
+  func selectQuest(quest: Quest, quests: FetchedResults<Quest>) {
+    quest.isSelected.toggle()
+    for other in quests where other != quest {
+      other.isSelected = false
+    }
+    objectWillChange.send()
+  }
+
+  func deselectQuests(quests: FetchedResults<Quest>, context: NSManagedObjectContext) {
+    for quest in quests {
+      quest.isSelected = false
+    }
+  }
+
+  func setSortType(sortType: QuestSortDescriptor, quests: FetchedResults<Quest>) {
+    switch sortType {
+    case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
+    case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
+    case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
+    case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
+    case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
+    }
+  }
 }
 
 enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
