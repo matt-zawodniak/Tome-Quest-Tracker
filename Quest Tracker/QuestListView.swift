@@ -25,55 +25,13 @@ struct QuestListView: View {
     NavigationStack {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
-          VStack {
-            HStack {
-              switch quest.type {
-              case .mainQuest: Text("!").foregroundStyle(.red)
-              case .sideQuest: Text("!").foregroundStyle(.yellow)
-              case .dailyQuest: Text("!").foregroundStyle(.green)
-              case .weeklyQuest: Text("!").foregroundStyle(.purple)
-              }
-              Text(quest.questName ?? "")
-              Spacer()
-            }
-            .onTapGesture {
-              quest.isSelected.toggle()
-              for other in quests where other != quest {
-                other.isSelected = false
-              }
-//              CoreDataController().save(context: managedObjectContext)
-            }
-            if quest.isSelected {
-              Text(quest.questDescription ?? "")
-              Text("Quest EXP:")
-              HStack {
-                Text("Quest Reward:")
-                Text(quest.questBonusReward ?? "")
-              }
-              if !showingCompletedQuests {
-                HStack {
-                  NavigationLink(destination: QuestView(
-                    quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                      Button(action: {
-                      }, label: {
-                        Text("Edit")
-                      }
-                      )
-                    }
-                  Spacer()
-                  Button(action: {
-                  },
-                         label: {Text("Complete")})
-                }
-              } else {
-                Button {
-                  quest.isCompleted = false
-                  quest.timeCreated = Date()
-                  CoreDataController().save(context: managedObjectContext)
-                } label: {
-                  Text("Restore to Quest List")
-                }
-              }
+          QuestRowView(quest: quest, settings: settings)
+          .onTapGesture {
+            quest.isSelected.toggle()
+            print("isSelected: \(quest.isSelected)")
+
+            for other in quests where other != quest {
+              other.isSelected = false
             }
           }
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
@@ -192,6 +150,59 @@ struct QuestListView: View {
     case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
     case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
     case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
+    }
+  }
+}
+
+struct QuestRowView: View {
+  @ObservedObject var quest: Quest
+  var settings: Settings
+  @Environment(\.managedObjectContext) var managedObjectContext
+
+  var body: some View {
+    VStack {
+      HStack {
+        switch quest.type {
+        case .mainQuest: Text("!").foregroundStyle(.red)
+        case .sideQuest: Text("!").foregroundStyle(.yellow)
+        case .dailyQuest: Text("!").foregroundStyle(.green)
+        case .weeklyQuest: Text("!").foregroundStyle(.purple)
+        }
+        Text(quest.questName ?? "")
+        Spacer()
+      }
+      if quest.isSelected {
+        Text(quest.questDescription ?? "")
+        Text("Quest EXP:")
+        HStack {
+          Text("Quest Reward:")
+          Text(quest.questBonusReward ?? "")
+        }
+        if !quest.isCompleted {
+          HStack {
+            NavigationLink(destination: QuestView(
+              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
+                Button(action: {
+                }, label: {
+                  Text("Edit")
+                }
+                )
+              }
+            Spacer()
+            Button(action: {
+            },
+                   label: {Text("Complete")})
+          }
+        } else {
+          Button {
+            quest.isCompleted = false
+            quest.timeCreated = Date()
+            CoreDataController().save(context: managedObjectContext)
+          } label: {
+            Text("Restore to Quest List")
+          }
+        }
+      }
     }
   }
 }
