@@ -27,12 +27,7 @@ struct QuestListView: View {
         ForEach(quests, id: \.self) { (quest: Quest) in
           QuestRowView(quest: quest, settings: settings)
           .onTapGesture {
-            quest.isSelected.toggle()
-            print("isSelected: \(quest.isSelected)")
-
-            for other in quests where other != quest {
-              other.isSelected = false
-            }
+            tracker.selectQuest(quest: quest, quests: quests)
           }
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
@@ -93,7 +88,7 @@ struct QuestListView: View {
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .onChange(of: sortType) {_ in
-        setSortType()
+        tracker.setSortType(sortType: sortType, quests: quests)
       }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
@@ -125,36 +120,23 @@ struct QuestListView: View {
       }
     }
   }
-  func deselectQuests() {
-    for quest in quests {
-      quest.isSelected = false
-    }
-    CoreDataController().save(context: managedObjectContext)
-  }
   func showCompletedQuests() {
-    deselectQuests()
+    tracker.deselectQuests(quests: quests, context: managedObjectContext)
     navigationTitle = "Completed Quests"
     showingCompletedQuests = true
     quests.nsPredicate = NSPredicate(format: "isCompleted == true")
   }
   func showActiveQuests() {
-    deselectQuests()
+    tracker.deselectQuests(quests: quests, context: managedObjectContext)
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
     quests.nsPredicate = NSPredicate(format: "isCompleted == false")
   }
-  func setSortType() {
-    switch sortType {
-    case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
-    case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
-    case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
-    case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
-    case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
-    }
-  }
 }
 
-struct QuestRowView: View {
+struct QuestRowView: View, Identifiable {
+  var id = UUID()
+
   @ObservedObject var quest: Quest
   var settings: Settings
   @Environment(\.managedObjectContext) var managedObjectContext
