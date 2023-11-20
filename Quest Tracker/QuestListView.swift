@@ -41,7 +41,7 @@ struct QuestListView: View {
               for other in quests where other != quest {
                 other.isSelected = false
               }
-              CoreDataController().save(context: managedObjectContext)
+//              CoreDataController().save(context: managedObjectContext)
             }
             if quest.isSelected {
               Text(quest.questDescription ?? "")

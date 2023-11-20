@@ -11,5 +11,5 @@ import CoreData
 
 @objc(Quest)
 public class Quest: NSManagedObject {
-
+  @Published public var isSelected: Bool = false
 }
