@@ -11,7 +11,7 @@ import CoreData
 class QuestTrackerViewModel: ObservableObject {
 
   @Published var trackerModel = QuestTrackerModel()
-  func resetQuests(quests: FetchedResults<Quest>, settings: Settings) {
+  func resetQuests(quests: FetchedResults<Quest>, settings: Settings, context: NSManagedObjectContext) {
     let now = Date.now
     if now >= settings.time! {
       settings.refreshOnDailyReset(settings: settings)
@@ -26,6 +26,7 @@ class QuestTrackerViewModel: ObservableObject {
           quest.isCompleted = false
         }
       }
+      CoreDataController().save(context: context)
     }
   }
 

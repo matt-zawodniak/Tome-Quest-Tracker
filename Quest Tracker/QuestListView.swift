@@ -21,6 +21,8 @@ struct QuestListView: View {
   @State var showingCompletedQuests: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
   @FetchRequest(sortDescriptors: []) var settingsFetchResults: FetchedResults<Settings>
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
   var settings: Settings {
     return settingsFetchResults.first!
   }
@@ -95,9 +97,8 @@ struct QuestListView: View {
       }
       .onChange(of: scenePhase) { newPhase in
         if newPhase == .active {
-          tracker.resetQuests(quests: completedQuests, settings: settings)
+          tracker.resetQuests(quests: completedQuests, settings: settings, context: managedObjectContext)
           CoreDataController().save(context: managedObjectContext)
-          // TODO: currently reset is only operating on the incompleted predicate
         }
       }
       .toolbar {
@@ -131,6 +132,9 @@ struct QuestListView: View {
         QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
       }
     }
+    .onReceive(timer, perform: { _ in
+      tracker.resetQuests(quests: completedQuests, settings: settings, context: managedObjectContext)
+    })
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: managedObjectContext)
