@@ -26,9 +26,6 @@ struct QuestListView: View {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
           QuestRowView(quest: quest, settings: settings)
-          .onTapGesture {
-            tracker.selectQuest(quest: quest, quests: quests)
-          }
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
             CoreDataController().save(context: managedObjectContext)
@@ -138,6 +135,8 @@ struct QuestRowView: View, Identifiable {
   var id = UUID()
 
   @ObservedObject var quest: Quest
+  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
+                predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
   var settings: Settings
   @Environment(\.managedObjectContext) var managedObjectContext
 
@@ -152,6 +151,9 @@ struct QuestRowView: View, Identifiable {
         }
         Text(quest.questName ?? "")
         Spacer()
+      }
+      .onTapGesture {
+        selectQuest(quest: quest, quests: quests)
       }
       if quest.isSelected {
         Text(quest.questDescription ?? "")
@@ -177,8 +179,7 @@ struct QuestRowView: View, Identifiable {
           }
         } else {
           Button {
-            quest.isCompleted = false
-            quest.timeCreated = Date()
+            restoreQuest(quest: quest)
             CoreDataController().save(context: managedObjectContext)
           } label: {
             Text("Restore to Quest List")
@@ -187,6 +188,17 @@ struct QuestRowView: View, Identifiable {
       }
     }
   }
+  func restoreQuest(quest: Quest) {
+    quest.isCompleted = false
+    quest.timeCreated = Date.now
+    print("\(quest.questName!) is \(quest.isCompleted)")
+  }
+  func selectQuest(quest: Quest, quests: FetchedResults<Quest>) {
+      quest.isSelected.toggle()
+      for other in quests where other != quest {
+        other.isSelected = false
+      }
+    }
 }
 
 struct QuestTableView_Previews: PreviewProvider {
