@@ -64,6 +64,7 @@ struct SettingsView: View {
       .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
     .onDisappear(perform: {
+      settings.setNewResetTime(settings: settings)
       for quest in quests {
         if quest.type == .dailyQuest {
           quest.setDateToDailyResetTime(quest: quest, settings: settings)

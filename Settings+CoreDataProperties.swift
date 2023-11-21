@@ -24,6 +24,11 @@ extension Settings {
 }
 
 extension Settings: Identifiable {
+  func setNewResetTime(settings: Settings) {
+    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time!)
+    let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
+    settings.time = newResetTime
+  }
   func refreshOnDailyReset(settings: Settings) {
     var components = DateComponents()
     components.day = 1

@@ -30,7 +30,7 @@ class CoreDataController: ObservableObject {
       components.day = 1
       components.second = -1
       defaultSettings.dayOfTheWeek = 2
-      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date.now))
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
       defaultSettings.levelingScheme = 2
