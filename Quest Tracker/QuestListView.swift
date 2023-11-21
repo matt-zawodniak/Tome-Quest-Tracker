@@ -14,6 +14,8 @@ struct QuestListView: View {
   @Environment(\.scenePhase) var scenePhase
   @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
                 predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
+  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
+                predicate: NSPredicate(format: "isCompleted == true")) var completedQuests: FetchedResults<Quest>
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
   @State var showingCompletedQuests: Bool = false
@@ -93,7 +95,9 @@ struct QuestListView: View {
       }
       .onChange(of: scenePhase) { newPhase in
         if newPhase == .active {
-          tracker.resetQuests(quests: quests, settings: settings, context: managedObjectContext)
+          tracker.resetQuests(quests: completedQuests, settings: settings)
+          CoreDataController().save(context: managedObjectContext)
+          // TODO: currently reset is only operating on the incompleted predicate
         }
       }
       .toolbar {
