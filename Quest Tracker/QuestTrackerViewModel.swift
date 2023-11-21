@@ -22,10 +22,18 @@ class QuestTrackerViewModel: ObservableObject {
       let weekday = Calendar.current.component(.weekday, from: now)
       if weekday >= settings.dayOfTheWeek {
         for quest in quests where quest.type == .weeklyQuest {
-          quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
-          quest.isCompleted = false
+          let components = DateComponents(weekday: Int(settings.dayOfTheWeek))
+          let mostRecentWeeklyReset = Calendar.current.nextDate(
+            after: now,
+            matching: components,
+            matchingPolicy: .previousTimePreservingSmallerComponents)!
+          if quest.timeCreated! < mostRecentWeeklyReset || weekday == settings.dayOfTheWeek {
+            quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+            quest.isCompleted = false
+          }
         }
       }
+      // TODO: Weekly quests now don't reset if it's a later day in the week, but will reset on earlier days of the week
       CoreDataController().save(context: context)
     }
   }
