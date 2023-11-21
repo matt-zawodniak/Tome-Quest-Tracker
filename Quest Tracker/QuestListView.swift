@@ -11,7 +11,6 @@ import CoreData
 struct QuestListView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
   @Environment(\.managedObjectContext) var managedObjectContext
-  @Environment(\.scenePhase) var scenePhase
   @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
                 predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
   @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
@@ -95,12 +94,6 @@ struct QuestListView: View {
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .onChange(of: sortType) {_ in
         tracker.setSortType(sortType: sortType, quests: quests)
-      }
-      .onChange(of: scenePhase) { newPhase in
-        if newPhase == .active {
-          tracker.resetQuests(quests: completedQuests, settings: settings, context: managedObjectContext)
-          CoreDataController().save(context: managedObjectContext)
-        }
       }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {

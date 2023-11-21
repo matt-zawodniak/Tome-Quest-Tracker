@@ -33,7 +33,6 @@ class QuestTrackerViewModel: ObservableObject {
             quest.isCompleted = false
           }
       }
-      // TODO: Weekly quests now don't reset if it's a later day in the week, but will reset on earlier days of the week
       CoreDataController().save(context: context)
     }
   }
