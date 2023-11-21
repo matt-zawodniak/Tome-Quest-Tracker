@@ -24,6 +24,12 @@ extension Settings {
 }
 
 extension Settings: Identifiable {
+  func refreshOnDailyReset(settings: Settings) {
+    var components = DateComponents()
+    components.day = 1
+    components.second = -1
+    settings.time = Calendar.current.date(byAdding: components, to: settings.time!)
+  }
 
   var day: DayOfTheWeek {
     get {

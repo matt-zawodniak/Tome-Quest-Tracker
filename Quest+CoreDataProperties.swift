@@ -64,7 +64,7 @@ extension Quest: Identifiable {
     components.minute = Calendar.current.component(.minute, from: settings.time!)
     components.second = Calendar.current.component(.second, from: settings.time!)
 
-    let nextResetTime = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
+    let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
     quest.dueDate = nextResetTime
   }
 
