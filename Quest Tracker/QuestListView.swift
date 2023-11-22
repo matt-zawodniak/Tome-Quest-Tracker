@@ -11,6 +11,7 @@ import CoreData
 struct QuestListView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
   @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.scenePhase) var scenePhase
   @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
                 predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
   @State var sortType: QuestSortDescriptor = .timeCreated
@@ -127,6 +128,10 @@ struct QuestListView: View {
     .onReceive(timer, perform: { _ in
       CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
     })
+    .onChange(of: scenePhase) { _ in
+      CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
+      print("Scene has changed to \(scenePhase)")
+    }
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: managedObjectContext)
