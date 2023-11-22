@@ -13,8 +13,6 @@ struct QuestListView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
   @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
                 predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
-                predicate: NSPredicate(format: "isCompleted == true")) var completedQuests: FetchedResults<Quest>
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
   @State var showingCompletedQuests: Bool = false
@@ -127,7 +125,7 @@ struct QuestListView: View {
       }
     }
     .onReceive(timer, perform: { _ in
-      tracker.resetQuests(quests: completedQuests, settings: settings, context: managedObjectContext)
+      CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
     })
   }
   func showCompletedQuests() {

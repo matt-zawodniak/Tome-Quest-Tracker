@@ -11,31 +11,6 @@ import CoreData
 class QuestTrackerViewModel: ObservableObject {
 
   @Published var trackerModel = QuestTrackerModel()
-  func resetQuests(quests: FetchedResults<Quest>, settings: Settings, context: NSManagedObjectContext) {
-    let now = Date.now
-    if now >= settings.time! {
-      settings.refreshOnDailyReset(settings: settings)
-      for quest in quests where quest.type == .dailyQuest {
-        quest.setDateToDailyResetTime(quest: quest, settings: settings)
-        quest.isCompleted = false
-      }
-      let weekday = Calendar.current.component(.weekday, from: now)
-        for quest in quests where quest.type == .weeklyQuest {
-          let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: now) ?? Date.distantPast
-          let components = DateComponents(weekday: Int(settings.dayOfTheWeek))
-          let mostRecentWeeklyReset = Calendar.current.nextDate(
-            after: lastWeek,
-            matching: components,
-            matchingPolicy: .nextTime)!
-          print(mostRecentWeeklyReset)
-          if quest.timeCreated! < mostRecentWeeklyReset || weekday == settings.dayOfTheWeek {
-            quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
-            quest.isCompleted = false
-          }
-      }
-      CoreDataController().save(context: context)
-    }
-  }
 
   func selectQuest(quest: Quest, quests: FetchedResults<Quest>) {
       quest.isSelected.toggle()
