@@ -28,7 +28,7 @@ struct QuestListView: View {
     NavigationStack {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
-          QuestRowView(quest: quest, settings: settings)
+          QuestRowView(quest: quest, tracker: tracker, settings: settings)
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
             CoreDataController().save(context: managedObjectContext)
@@ -125,12 +125,12 @@ struct QuestListView: View {
     .onReceive(timer, perform: { _ in
       CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
     })
-    .onChange(of: scenePhase) { phase in
-      if phase == .active {
-        CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
-      }
-      print("Scene has changed to \(phase)")
-    }
+//    .onChange(of: scenePhase) { phase in
+//      if phase == .active {
+//        CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
+//      }
+//      print("Scene has changed to \(phase)")
+//    }
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: managedObjectContext)
@@ -150,8 +150,11 @@ struct QuestRowView: View, Identifiable {
   var id = UUID()
 
   @ObservedObject var quest: Quest
+  @ObservedObject var tracker: QuestTrackerViewModel
   var settings: Settings
   @Environment(\.managedObjectContext) var managedObjectContext
+  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
+                predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
 
   var body: some View {
     VStack {
@@ -164,6 +167,9 @@ struct QuestRowView: View, Identifiable {
         }
         Text(quest.questName ?? "")
         Spacer()
+      }
+      .onTapGesture {
+        tracker.selectQuest(quest: quest, quests: quests)
       }
       if quest.isSelected {
         Text(quest.questDescription ?? "")
