@@ -28,7 +28,10 @@ struct QuestListView: View {
     NavigationStack {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
-          QuestRowView(quest: quest, tracker: tracker, settings: settings)
+          QuestRowView(quest: quest, settings: settings)
+            .onTapGesture {
+              tracker.selectQuest(quest: quest, quests: quests)
+            }
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
             CoreDataController().save(context: managedObjectContext)
@@ -122,15 +125,17 @@ struct QuestListView: View {
         QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
       }
     }
-    .onReceive(timer, perform: { _ in
-      CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
+    .onReceive(timer, perform: { time in
+      if time >= settings.time! {
+        CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
+      }
     })
-//    .onChange(of: scenePhase) { phase in
-//      if phase == .active {
-//        CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
-//      }
-//      print("Scene has changed to \(phase)")
-//    }
+    .onChange(of: scenePhase) { phase in
+      if phase == .active {
+        CoreDataController().resetQuestsOnActiveScene(settings: settings, context: managedObjectContext)
+      }
+      print("Scene has changed to \(phase)")
+    }
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: managedObjectContext)
@@ -150,11 +155,8 @@ struct QuestRowView: View, Identifiable {
   var id = UUID()
 
   @ObservedObject var quest: Quest
-  @ObservedObject var tracker: QuestTrackerViewModel
   var settings: Settings
   @Environment(\.managedObjectContext) var managedObjectContext
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
-                predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
 
   var body: some View {
     VStack {
@@ -167,9 +169,6 @@ struct QuestRowView: View, Identifiable {
         }
         Text(quest.questName ?? "")
         Spacer()
-      }
-      .onTapGesture {
-        tracker.selectQuest(quest: quest, quests: quests)
       }
       if quest.isSelected {
         Text(quest.questDescription ?? "")
@@ -196,6 +195,7 @@ struct QuestRowView: View, Identifiable {
         } else {
           Button {
             quest.isCompleted = false
+            quest.isSelected = false
             quest.timeCreated = Date()
             CoreDataController().save(context: managedObjectContext)
           } label: {
