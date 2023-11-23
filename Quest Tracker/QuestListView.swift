@@ -29,9 +29,6 @@ struct QuestListView: View {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
           QuestRowView(quest: quest, settings: settings)
-          .onTapGesture {
-            tracker.selectQuest(quest: quest, quests: quests)
-          }
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
             CoreDataController().save(context: managedObjectContext)
@@ -126,11 +123,13 @@ struct QuestListView: View {
       }
     }
     .onReceive(timer, perform: { _ in
-      CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
+      CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
     })
-    .onChange(of: scenePhase) { _ in
-      CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
-      print("Scene has changed to \(scenePhase)")
+    .onChange(of: scenePhase) { phase in
+      if phase == .active {
+        CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
+      }
+      print("Scene has changed to \(phase)")
     }
   }
   func showCompletedQuests() {
