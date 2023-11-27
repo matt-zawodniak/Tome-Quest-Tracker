@@ -53,7 +53,7 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               Button {
                 quest.isCompleted = true
-                quest.timeCreated = Date.now
+                quest.timeCompleted = Date.now
                 CoreDataController().save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")

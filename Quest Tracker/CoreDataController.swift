@@ -30,7 +30,9 @@ class CoreDataController: ObservableObject {
       components.day = 1
       components.second = -1
       defaultSettings.dayOfTheWeek = 2
-      defaultSettings.resetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date.now))
+      defaultSettings.resetTime = Calendar.current.date(
+        byAdding: components,
+        to: Calendar.current.startOfDay(for: Date.now))
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
       defaultSettings.levelingScheme = 2
@@ -55,7 +57,7 @@ class CoreDataController: ObservableObject {
       print("Quest could not be saved.")
     }
   }
-  
+
   func resetQuests(settings: Settings, context: NSManagedObjectContext) {
     var completedQuests: [Quest] {
       let request = NSFetchRequest<Quest>(entityName: "Quest")
@@ -63,7 +65,7 @@ class CoreDataController: ObservableObject {
       return (try? context.fetch(request)) ?? []
     }
     let now = Date.now
-    
+
     if now >= settings.resetTime! {
       settings.refreshOnDailyReset(settings: settings)
     }
@@ -85,13 +87,13 @@ class CoreDataController: ObservableObject {
       after: lastWeek,
       matching: weeklyComponents,
       matchingPolicy: .nextTime)!
-    print(mostRecentWeeklyReset) // TODO: This doesn't use the time from settings right now
+    print(mostRecentWeeklyReset)
 
-    for quest in completedQuests where (quest.type == .dailyQuest) && (quest.timeCreated! <= mostRecentDailyReset) {
+    for quest in completedQuests where (quest.type == .dailyQuest) && (quest.timeCompleted! <= mostRecentDailyReset) {
       quest.setDateToDailyResetTime(quest: quest, settings: settings)
       quest.isCompleted = false
     }
-    for quest in completedQuests where (quest.type == .weeklyQuest) && (quest.timeCreated! <= mostRecentWeeklyReset) {
+    for quest in completedQuests where (quest.type == .weeklyQuest) && (quest.timeCompleted! <= mostRecentWeeklyReset) {
       quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
       quest.isCompleted = false
     }
