@@ -95,12 +95,13 @@ class CoreDataController: ObservableObject {
       quest.setDateToDailyResetTime(quest: quest, settings: settings)
       quest.isCompleted = false
     }
-    let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: now) ?? Date.distantPast
+    let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: now)!
     let weeklyComponents = DateComponents(weekday: Int(settings.dayOfTheWeek))
     let mostRecentWeeklyReset = Calendar.current.nextDate(
       after: lastWeek,
       matching: weeklyComponents,
       matchingPolicy: .nextTime)!
+    print(mostRecentWeeklyReset) // TODO: This doesn't use the time from settings right now
     for quest in completedQuests where (quest.type == .weeklyQuest) && (quest.timeCreated! < mostRecentWeeklyReset) {
       quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
       quest.isCompleted = false
