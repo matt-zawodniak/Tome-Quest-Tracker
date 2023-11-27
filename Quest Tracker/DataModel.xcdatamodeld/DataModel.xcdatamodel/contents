@@ -21,7 +21,7 @@
         <attribute name="dailyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="dayOfTheWeek" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="levelingScheme" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="time" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="resetTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weeklyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>

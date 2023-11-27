@@ -117,7 +117,7 @@ struct QuestListView: View {
                 }
               })
           } else {
-            Text(settings.time!, style: .timer)
+            Text(settings.resetTime!, style: .timer)
           }
         }
       }
@@ -126,7 +126,7 @@ struct QuestListView: View {
       }
     }
     .onReceive(timer, perform: { time in
-      if time >= settings.time! {
+      if time >= settings.resetTime! {
         CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
       }
     })

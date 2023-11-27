@@ -30,7 +30,7 @@ class CoreDataController: ObservableObject {
       components.day = 1
       components.second = -1
       defaultSettings.dayOfTheWeek = 2
-      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date.now))
+      defaultSettings.resetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date.now))
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
       defaultSettings.levelingScheme = 2
@@ -64,11 +64,11 @@ class CoreDataController: ObservableObject {
     }
     let now = Date.now
     
-    if now >= settings.time! {
+    if now >= settings.resetTime! {
       settings.refreshOnDailyReset(settings: settings)
     }
 
-    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time!)
+    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.resetTime!)
     let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now)!
     let mostRecentDailyReset = Calendar.current.nextDate(
       after: yesterday,
@@ -78,9 +78,9 @@ class CoreDataController: ObservableObject {
     let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date.now)!
     var weeklyComponents = DateComponents()
     weeklyComponents.weekday = Int(settings.dayOfTheWeek)
-    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.time!)
-    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.time!)
-    weeklyComponents.second = Calendar.current.component(.second, from: settings.time!)
+    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.resetTime!)
+    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.resetTime!)
+    weeklyComponents.second = Calendar.current.component(.second, from: settings.resetTime!)
     let mostRecentWeeklyReset = Calendar.current.nextDate(
       after: lastWeek,
       matching: weeklyComponents,

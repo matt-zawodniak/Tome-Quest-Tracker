@@ -60,9 +60,9 @@ extension Quest: Identifiable {
 
   func setDateToDailyResetTime(quest: Quest, settings: Settings) {
     var components = DateComponents()
-    components.hour = Calendar.current.component(.hour, from: settings.time!)
-    components.minute = Calendar.current.component(.minute, from: settings.time!)
-    components.second = Calendar.current.component(.second, from: settings.time!)
+    components.hour = Calendar.current.component(.hour, from: settings.resetTime!)
+    components.minute = Calendar.current.component(.minute, from: settings.resetTime!)
+    components.second = Calendar.current.component(.second, from: settings.resetTime!)
 
     let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
     quest.dueDate = nextResetTime
@@ -71,8 +71,8 @@ extension Quest: Identifiable {
   func setDateToWeeklyResetDate(quest: Quest, settings: Settings) {
     var components = DateComponents()
     components.weekday = Int(settings.dayOfTheWeek)
-    components.hour = Calendar.current.component(.hour, from: settings.time!)
-    components.minute = Calendar.current.component(.minute, from: settings.time!)
+    components.hour = Calendar.current.component(.hour, from: settings.resetTime!)
+    components.minute = Calendar.current.component(.minute, from: settings.resetTime!)
 
     let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 
