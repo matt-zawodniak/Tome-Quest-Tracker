@@ -61,7 +61,7 @@ class CoreDataController: ObservableObject {
   func resetQuests(settings: Settings, context: NSManagedObjectContext) {
     var completedQuests: [Quest] {
       let request = NSFetchRequest<Quest>(entityName: "Quest")
-      request.predicate = NSPredicate(format: "isCompleted == true")
+      request.predicate = NSPredicate(format: "(isCompleted == true) AND ((questType == 2) OR (questType == 3))")
       return (try? context.fetch(request)) ?? []
     }
     let now = Date.now
