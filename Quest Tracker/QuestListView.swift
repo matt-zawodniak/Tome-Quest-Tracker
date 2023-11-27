@@ -127,12 +127,12 @@ struct QuestListView: View {
     }
     .onReceive(timer, perform: { time in
       if time >= settings.time! {
-        CoreDataController().resetQuestsOnResetTimer(settings: settings, context: managedObjectContext)
+        CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
-        CoreDataController().resetQuestsOnActiveScene(settings: settings, context: managedObjectContext)
+        CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
       }
       print("Scene has changed to \(phase)")
     }
