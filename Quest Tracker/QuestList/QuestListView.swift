@@ -131,8 +131,6 @@ struct QuestListView: View {
   }
 }
 
-
-
 struct QuestTableView_Previews: PreviewProvider {
   static var previews: some View {
     QuestListView(tracker: QuestTrackerViewModel())
