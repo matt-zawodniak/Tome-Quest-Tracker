@@ -25,57 +25,7 @@ struct QuestListView: View {
     NavigationStack {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
-          VStack {
-            HStack {
-              switch quest.type {
-              case .mainQuest: Text("!").foregroundStyle(.red)
-              case .sideQuest: Text("!").foregroundStyle(.yellow)
-              case .dailyQuest: Text("!").foregroundStyle(.green)
-              case .weeklyQuest: Text("!").foregroundStyle(.purple)
-              }
-              Text(quest.questName ?? "")
-              Spacer()
-            }
-            .onTapGesture {
-              quest.isSelected.toggle()
-              for other in quests where other != quest {
-                other.isSelected = false
-              }
-              CoreDataController().save(context: managedObjectContext)
-            }
-            if quest.isSelected {
-              Text(quest.questDescription ?? "")
-              Text("Quest EXP:")
-              HStack {
-                Text("Quest Reward:")
-                Text(quest.questBonusReward ?? "")
-              }
-              if !showingCompletedQuests {
-                HStack {
-                  NavigationLink(destination: QuestView(
-                    quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                      Button(action: {
-                      }, label: {
-                        Text("Edit")
-                      }
-                      )
-                    }
-                  Spacer()
-                  Button(action: {
-                  },
-                         label: {Text("Complete")})
-                }
-              } else {
-                Button {
-                  quest.isCompleted = false
-                  quest.timeCreated = Date()
-                  CoreDataController().save(context: managedObjectContext)
-                } label: {
-                  Text("Restore to Quest List")
-                }
-              }
-            }
-          }
+          QuestRowView(quest: quest, settings: settings)
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
             CoreDataController().save(context: managedObjectContext)
@@ -135,7 +85,7 @@ struct QuestListView: View {
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .onChange(of: sortType) {_ in
-        setSortType()
+        tracker.setSortType(sortType: sortType, quests: quests)
       }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
@@ -167,34 +117,21 @@ struct QuestListView: View {
       }
     }
   }
-  func deselectQuests() {
-    for quest in quests {
-      quest.isSelected = false
-    }
-    CoreDataController().save(context: managedObjectContext)
-  }
   func showCompletedQuests() {
-    deselectQuests()
+    tracker.deselectQuests(quests: quests, context: managedObjectContext)
     navigationTitle = "Completed Quests"
     showingCompletedQuests = true
     quests.nsPredicate = NSPredicate(format: "isCompleted == true")
   }
   func showActiveQuests() {
-    deselectQuests()
+    tracker.deselectQuests(quests: quests, context: managedObjectContext)
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
     quests.nsPredicate = NSPredicate(format: "isCompleted == false")
   }
-  func setSortType() {
-    switch sortType {
-    case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
-    case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
-    case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
-    case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
-    case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
-    }
-  }
 }
+
+
 
 struct QuestTableView_Previews: PreviewProvider {
   static var previews: some View {
