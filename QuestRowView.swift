@@ -57,7 +57,7 @@ struct QuestRowView: View, Identifiable {
         } else {
           Button {
             restoreQuest(quest: quest)
-            CoreDataController().save(context: managedObjectContext)
+            CoreDataController.shared.save(context: managedObjectContext)
           } label: {
             Text("Restore to Quest List")
           }

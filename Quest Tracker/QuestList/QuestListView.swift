@@ -28,7 +28,7 @@ struct QuestListView: View {
           QuestRowView(quest: quest, settings: settings)
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
-            CoreDataController().save(context: managedObjectContext)
+            CoreDataController.shared.save(context: managedObjectContext)
           } label: {
             Label("Delete", systemImage: "trash")
           }
@@ -47,7 +47,7 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               Button {
                 quest.isCompleted = true
-                CoreDataController().save(context: managedObjectContext)
+                CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")
               }
