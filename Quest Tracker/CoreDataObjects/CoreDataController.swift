@@ -10,8 +10,11 @@ import Foundation
 import SwiftUI
 
 class CoreDataController: ObservableObject {
+  static let shared = CoreDataController()
+
   let container = NSPersistentContainer(name: "DataModel")
-  init() {
+
+  private init() {
     container.loadPersistentStores {_, error in
       if let error = error {
         print("Core Data failed to load: \(error.localizedDescription)")
@@ -19,21 +22,27 @@ class CoreDataController: ObservableObject {
     }
     fetchFirstOrCreate(context: container.viewContext)
   }
+
   func fetchFirstOrCreate(context: NSManagedObjectContext) {
     var userSettings: [Settings] {
       let request = NSFetchRequest<Settings>(entityName: "Settings")
       return (try? container.viewContext.fetch(request)) ?? []
     }
+
     if userSettings.isEmpty {
       let defaultSettings = Settings(context: context)
+
       var components = DateComponents()
       components.day = 1
       components.second = -1
-      defaultSettings.dayOfTheWeek = 2
+
       defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+
+      defaultSettings.dayOfTheWeek = 2
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
       defaultSettings.levelingScheme = 2
+
       save(context: context)
     } else {
       //			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()

@@ -28,7 +28,7 @@ struct QuestView: View {
       perform: {
         quest.isSelected = false
         quest.isCompleted = false
-        CoreDataController().save(context: managedObjectContext)
+        CoreDataController.shared.save(context: managedObjectContext)
       }
     )
   }
@@ -175,8 +175,8 @@ struct QuestView_Previews: PreviewProvider {
     return defaultSettings
   }
   static var previews: some View {
-    let previewContext = CoreDataController().container.viewContext
-    let quest = CoreDataController().addPreviewQuest(context: previewContext)
+    let previewContext = CoreDataController.shared.container.viewContext
+    let quest = CoreDataController.shared.addPreviewQuest(context: previewContext)
     let settings = loadPreviewSettings(context: previewContext)
     QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false, settings: settings)
   }
