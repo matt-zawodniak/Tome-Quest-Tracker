@@ -116,6 +116,8 @@ struct QuestListView: View {
         QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
       }
     }
+    LevelAndExpUI()
+      .padding(.horizontal)
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: managedObjectContext)
@@ -130,8 +132,6 @@ struct QuestListView: View {
     quests.nsPredicate = NSPredicate(format: "isCompleted == false")
   }
 }
-
-
 
 struct QuestTableView_Previews: PreviewProvider {
   static var previews: some View {
