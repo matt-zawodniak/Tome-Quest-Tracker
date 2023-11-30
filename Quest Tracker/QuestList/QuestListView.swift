@@ -29,12 +29,9 @@ struct QuestListView: View {
       List {
         ForEach(quests, id: \.self) { (quest: Quest) in
           QuestRowView(quest: quest, settings: settings)
-            .onTapGesture {
-              tracker.selectQuest(quest: quest, quests: quests)
-            }
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             managedObjectContext.delete(quest)
-            CoreDataController().save(context: managedObjectContext)
+            CoreDataController.shared.save(context: managedObjectContext)
           } label: {
             Label("Delete", systemImage: "trash")
           }
@@ -54,7 +51,7 @@ struct QuestListView: View {
               Button {
                 quest.isCompleted = true
                 quest.timeCompleted = Date.now
-                CoreDataController().save(context: managedObjectContext)
+                CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")
               }
@@ -127,12 +124,12 @@ struct QuestListView: View {
     }
     .onReceive(timer, perform: { time in
       if time >= settings.resetTime! {
-        CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
+        CoreDataController.shared.resetQuests(settings: settings, context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
-        CoreDataController().resetQuests(settings: settings, context: managedObjectContext)
+        CoreDataController.shared.resetQuests(settings: settings, context: managedObjectContext)
       }
       print("Scene has changed to \(phase)")
     }
@@ -148,62 +145,6 @@ struct QuestListView: View {
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
     quests.nsPredicate = NSPredicate(format: "isCompleted == false")
-  }
-}
-
-struct QuestRowView: View, Identifiable {
-  var id = UUID()
-
-  @ObservedObject var quest: Quest
-  var settings: Settings
-  @Environment(\.managedObjectContext) var managedObjectContext
-
-  var body: some View {
-    VStack {
-      HStack {
-        switch quest.type {
-        case .mainQuest: Text("!").foregroundStyle(.red)
-        case .sideQuest: Text("!").foregroundStyle(.yellow)
-        case .dailyQuest: Text("!").foregroundStyle(.green)
-        case .weeklyQuest: Text("!").foregroundStyle(.purple)
-        }
-        Text(quest.questName ?? "")
-        Spacer()
-      }
-      if quest.isSelected {
-        Text(quest.questDescription ?? "")
-        Text("Quest EXP:")
-        HStack {
-          Text("Quest Reward:")
-          Text(quest.questBonusReward ?? "")
-        }
-        if !quest.isCompleted {
-          HStack {
-            NavigationLink(destination: QuestView(
-              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
-                }
-                )
-              }
-            Spacer()
-            Button(action: {
-            },
-                   label: {Text("Complete")})
-          }
-        } else {
-          Button {
-            quest.isCompleted = false
-            quest.isSelected = false
-            quest.timeCreated = Date()
-            CoreDataController().save(context: managedObjectContext)
-          } label: {
-            Text("Restore to Quest List")
-          }
-        }
-      }
-    }
   }
 }
 

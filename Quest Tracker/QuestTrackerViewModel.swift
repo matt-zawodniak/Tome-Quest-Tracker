@@ -12,14 +12,7 @@ class QuestTrackerViewModel: ObservableObject {
 
   @Published var trackerModel = QuestTrackerModel()
 
-  func selectQuest(quest: Quest, quests: FetchedResults<Quest>) {
-      quest.isSelected.toggle()
-      for other in quests where other != quest {
-        other.isSelected = false
-      }
-    }
-
-    func deselectQuests(quests: FetchedResults<Quest>, context: NSManagedObjectContext) {
+  func deselectQuests(quests: FetchedResults<Quest>, context: NSManagedObjectContext) {
       for quest in quests {
         quest.isSelected = false
       }

@@ -72,7 +72,7 @@ struct SettingsView: View {
           quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
         }
       }
-      CoreDataController().save(context: managedObjectContext)
+      CoreDataController.shared.save(context: managedObjectContext)
     })
   }
 }
@@ -96,7 +96,7 @@ struct SettingsView_Previews: PreviewProvider {
     return defaultSettings
   }
   static var previews: some View {
-    let previewContext = CoreDataController().container.viewContext
+    let previewContext = CoreDataController.shared.container.viewContext
     let settings = loadPreviewSettings(context: previewContext)
     SettingsView(settings: settings)
   }

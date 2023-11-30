@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8F1401E42AF57778007BBD53 /* Settings+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */; };
 		8F1401E52AF57778007BBD53 /* Settings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */; };
+		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
@@ -27,8 +28,9 @@
 		8F1401DF2AF29882007BBD53 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = SOURCE_ROOT; };
 		8F1401E02AF29882007BBD53 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = text; path = fastlane; sourceTree = SOURCE_ROOT; };
 		8F1401E12AF29882007BBD53 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
-		8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Settings+CoreDataClass.swift"; path = "Quest Tracker/CoreDataObjects/Settings+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Settings+CoreDataProperties.swift"; path = "Quest Tracker/CoreDataObjects/Settings+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = SOURCE_ROOT; };
@@ -38,8 +40,8 @@
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB761A32ACF1E3200314400 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		8FB761A52ACF1E4700314400 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
-		8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quest+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quest+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Quest+CoreDataClass.swift"; path = "Quest Tracker/CoreDataObjects/Quest+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Quest+CoreDataProperties.swift"; path = "Quest Tracker/CoreDataObjects/Quest+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestListView.swift; path = "Quest Tracker/QuestListView.swift"; sourceTree = SOURCE_ROOT; };
 		8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
@@ -56,6 +58,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F1EEEDA2B151CF20097AB03 /* QuestList */ = {
+			isa = PBXGroup;
+			children = (
+				8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */,
+				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
+			);
+			path = QuestList;
+			sourceTree = "<group>";
+		};
+		8F1EEEDB2B151D120097AB03 /* CoreDataObjects */ = {
+			isa = PBXGroup;
+			children = (
+				8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */,
+				8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */,
+				8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */,
+				8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */,
+				8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */,
+				8FB761A52ACF1E4700314400 /* CoreDataController.swift */,
+			);
+			path = CoreDataObjects;
+			sourceTree = "<group>";
+		};
 		8FAC38442AB396B6005CBED3 = {
 			isa = PBXGroup;
 			children = (
@@ -75,18 +99,13 @@
 		8FAC384F2AB396B6005CBED3 /* Quest Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */,
-				8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */,
-				8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */,
-				8F1401E32AF57778007BBD53 /* Settings+CoreDataProperties.swift */,
+				8F1EEEDB2B151D120097AB03 /* CoreDataObjects */,
 				8FF8D53F2AE9B432000F801F /* SettingsView.swift */,
 				8F92E9062ABBA58C000446C6 /* QuestView.swift */,
 				8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */,
-				8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */,
-				8FB761A52ACF1E4700314400 /* CoreDataController.swift */,
 				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
 				8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */,
-				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
+				8F1EEEDA2B151CF20097AB03 /* QuestList */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
 				8F1401E02AF29882007BBD53 /* fastlane */,
@@ -202,6 +221,7 @@
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
 				8FC6247D2AF942D800863AB3 /* Quest+CoreDataProperties.swift in Sources */,
 				8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */,
+				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
 				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
 				8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */,
 				8FB761A62ACF1E4700314400 /* CoreDataController.swift in Sources */,
