@@ -24,6 +24,19 @@ class CoreDataController: ObservableObject {
   }
 
   func fetchFirstOrCreate(context: NSManagedObjectContext) {
+
+    var currentUser: [User] {
+      let request = User.fetchRequest()
+      return (try? container.viewContext.fetch(request)) ?? []
+    }
+
+    if currentUser.isEmpty {
+      let newUser = User(context: context)
+      newUser.currentExp = 0
+      newUser.expToLevel = 100
+      newUser.level = 1
+    }
+
     var userSettings: [Settings] {
       let request = NSFetchRequest<Settings>(entityName: "Settings")
       return (try? container.viewContext.fetch(request)) ?? []
@@ -41,7 +54,7 @@ class CoreDataController: ObservableObject {
       defaultSettings.dayOfTheWeek = 2
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
-      defaultSettings.levelingScheme = 2
+      defaultSettings.levelingScheme = 0
 
       save(context: context)
     } else {

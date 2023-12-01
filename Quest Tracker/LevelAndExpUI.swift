@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct LevelAndExpUI: View {
-  @State var level: Int = 3
-  @State var experience: Double = 27
-  @State var experienceToLevelUp: Double = 40
+
+  @FetchRequest(sortDescriptors: []) var userFetchResults: FetchedResults<User>
+  var user: User {
+    return userFetchResults.first!
+  }
 
   var body: some View {
     HStack {
-      Text("LVL \(level)")
-      ProgressView(value: experience, total: experienceToLevelUp)
-      Text("\(String(format: "%.0f", experience.rounded())) / \(String(format: "%.0f", experienceToLevelUp.rounded()))")
+      Text("LVL \(user.level)")
+      ProgressView(value: user.currentExp, total: user.expToLevel)
+      Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
     }
   }
 }

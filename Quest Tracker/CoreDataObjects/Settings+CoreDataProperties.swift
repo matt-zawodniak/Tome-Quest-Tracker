@@ -45,17 +45,13 @@ extension Settings: Identifiable {
 }
 
 enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
-  case none = 0
-  case flat = 1
-  case linear = 2
-  case exponential = 3
+  case normal = 0
+  case hard = 1
 
   var description: String {
     switch self {
-    case .none: "None"
-    case .flat: "Flat Increase"
-    case .linear: "Linear Increase"
-    case .exponential: "Exponential"
+    case .normal: "Normal"
+    case .hard: "Hard"
     }
   }
 }

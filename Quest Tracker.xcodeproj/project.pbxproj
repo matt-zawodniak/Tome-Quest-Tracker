@@ -17,6 +17,8 @@
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
 		8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */; };
 		8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */; };
+		8FB5D19B2B1A7224008EB1F0 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D1992B1A7224008EB1F0 /* User+CoreDataClass.swift */; };
+		8FB5D19C2B1A7224008EB1F0 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D19A2B1A7224008EB1F0 /* User+CoreDataProperties.swift */; };
 		8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A22ACF1E3200314400 /* DataModel.xcdatamodeld */; };
 		8FB761A62ACF1E4700314400 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB761A52ACF1E4700314400 /* CoreDataController.swift */; };
 		8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */; };
@@ -40,6 +42,8 @@
 		8FAC38542AB396B7005CBED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LevelAndExpUI.swift; path = "Quest Tracker/LevelAndExpUI.swift"; sourceTree = SOURCE_ROOT; };
+		8FB5D1992B1A7224008EB1F0 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		8FB5D19A2B1A7224008EB1F0 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		8FB761A32ACF1E3200314400 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		8FB761A52ACF1E4700314400 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Quest+CoreDataClass.swift"; path = "Quest Tracker/CoreDataObjects/Quest+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -73,6 +77,8 @@
 		8F1EEEDB2B151D120097AB03 /* CoreDataObjects */ = {
 			isa = PBXGroup;
 			children = (
+				8FB5D1992B1A7224008EB1F0 /* User+CoreDataClass.swift */,
+				8FB5D19A2B1A7224008EB1F0 /* User+CoreDataProperties.swift */,
 				8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */,
 				8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */,
 				8F1401E22AF57778007BBD53 /* Settings+CoreDataClass.swift */,
@@ -223,6 +229,7 @@
 			files = (
 				8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
+				8FB5D19C2B1A7224008EB1F0 /* User+CoreDataProperties.swift in Sources */,
 				8FC6247D2AF942D800863AB3 /* Quest+CoreDataProperties.swift in Sources */,
 				8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
@@ -235,6 +242,7 @@
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
 				8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */,
 				8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */,
+				8FB5D19B2B1A7224008EB1F0 /* User+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

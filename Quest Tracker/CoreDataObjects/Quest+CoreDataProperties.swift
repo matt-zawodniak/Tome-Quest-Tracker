@@ -104,6 +104,15 @@ enum QuestType: Int64, CaseIterable, CustomStringConvertible {
     case .weeklyQuest: return "Weekly Quest"
     }
   }
+
+  var experience: Double {
+    switch self {
+    case .mainQuest: return 40
+    case .sideQuest: return 10
+    case .dailyQuest: return 4
+    case .weeklyQuest: return 20
+    }
+  }
 }
 
 enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
@@ -118,6 +127,14 @@ enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
     case .hard: return "Hard"
     }
   }
+
+  var expMultiplier: Double {
+    switch self {
+    case .easy: 0.75
+    case .average: 1
+    case .hard: 1.25
+    }
+  }
 }
 
 enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
@@ -130,6 +147,14 @@ enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
     case .short: return "Short"
     case .average: return "Average"
     case .long: return "Long"
+    }
+  }
+
+  var expMultiplier: Double {
+    switch self {
+    case .short: 0.75
+    case .average: 1
+    case .long: 1.25
     }
   }
 }
