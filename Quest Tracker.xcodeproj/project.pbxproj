@@ -63,7 +63,6 @@
 		8F1EEEDA2B151CF20097AB03 /* QuestList */ = {
 			isa = PBXGroup;
 			children = (
-				8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */,
 				8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */,
 				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
 			);
@@ -108,6 +107,7 @@
 				8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */,
 				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
 				8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */,
+				8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */,
 				8F1EEEDA2B151CF20097AB03 /* QuestList */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
