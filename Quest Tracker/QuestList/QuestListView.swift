@@ -143,6 +143,8 @@ struct QuestListView: View {
       }
       print("Scene has changed to \(phase)")
     }
+    LevelAndExpUI()
+      .padding(.horizontal)
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: managedObjectContext)
