@@ -169,7 +169,7 @@ struct QuestView_Previews: PreviewProvider {
     defaultSettings.dayOfTheWeek = 3
     defaultSettings.resetTime = Calendar.current.date(
       byAdding: components,
-      to: Calendar.current.startOfDay(for: Date()))
+      to: Calendar.current.startOfDay(for: Date()))!
     defaultSettings.dailyResetWarning = true
     defaultSettings.weeklyResetWarning = false
     defaultSettings.levelingScheme = 2

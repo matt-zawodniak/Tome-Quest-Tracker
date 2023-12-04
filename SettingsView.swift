@@ -19,7 +19,7 @@ struct SettingsView: View {
         VStack {
           HStack {
             Text("Daily Reset Time:")
-            DatePicker("", selection: $settings.resetTime.bound, displayedComponents: .hourAndMinute)
+            DatePicker("", selection: $settings.resetTime, displayedComponents: .hourAndMinute)
           }
           HStack {
             Text("Daily Reset Warning")
@@ -88,7 +88,7 @@ struct SettingsView_Previews: PreviewProvider {
     defaultSettings.dayOfTheWeek = 3
     defaultSettings.resetTime = Calendar.current.date(
       byAdding: components,
-      to: Calendar.current.startOfDay(for: Date()))
+      to: Calendar.current.startOfDay(for: Date()))!
     defaultSettings.dailyResetWarning = true
     defaultSettings.weeklyResetWarning = false
     defaultSettings.levelingScheme = 2

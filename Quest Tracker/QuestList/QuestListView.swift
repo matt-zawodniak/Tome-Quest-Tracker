@@ -114,7 +114,7 @@ struct QuestListView: View {
                 }
               })
           } else {
-            Text(settings.resetTime!, style: .timer)
+            Text(settings.resetTime, style: .timer)
           }
         }
       }
@@ -123,13 +123,23 @@ struct QuestListView: View {
       }
     }
     .onReceive(timer, perform: { time in
-      if time >= settings.resetTime! {
-        CoreDataController.shared.resetQuests(settings: settings, context: managedObjectContext)
+      if time >= settings.resetTime {
+        CoreDataController.shared.refreshResetTime(settings: settings, context: managedObjectContext)
+        CoreDataController.shared.resetDailyQuests(settings: settings, context: managedObjectContext)
+        if Calendar.current.component(.weekday, from: Date.now) == settings.dayOfTheWeek {
+          CoreDataController.shared.resetWeeklyQuests(settings: settings, context: managedObjectContext)
+        }
+        CoreDataController.shared.save(context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
-        CoreDataController.shared.resetQuests(settings: settings, context: managedObjectContext)
+        if Date.now >= settings.resetTime {
+          CoreDataController.shared.refreshResetTime(settings: settings, context: managedObjectContext)
+          CoreDataController.shared.resetDailyQuests(settings: settings, context: managedObjectContext)
+          CoreDataController.shared.resetWeeklyQuests(settings: settings, context: managedObjectContext)
+          CoreDataController.shared.save(context: managedObjectContext)
+        }
       }
       print("Scene has changed to \(phase)")
     }
