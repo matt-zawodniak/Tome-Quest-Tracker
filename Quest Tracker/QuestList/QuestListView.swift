@@ -21,6 +21,12 @@ struct QuestListView: View {
   var settings: Settings {
     return settingsFetchResults.first!
   }
+
+  @FetchRequest(sortDescriptors: []) var userFetchResults: FetchedResults<User>
+  var user: User {
+    return userFetchResults.first!
+  }
+
   var body: some View {
     NavigationStack {
       List {
@@ -47,6 +53,7 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               Button {
                 quest.isCompleted = true
+                user.giveExp(quest: quest, settings: settings)
                 CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")
