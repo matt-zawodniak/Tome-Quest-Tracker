@@ -16,7 +16,7 @@ struct RewardsView: View {
                   format: "questBonusReward != nil")) var questsWithBonusRewards: FetchedResults<Quest>
   @FetchRequest(sortDescriptors: [SortDescriptor(\.sortId)],
                 predicate: NSPredicate(
-                  format: "isEarned == true && isClaimed == false")) var availableRewards: FetchedResults<Reward>
+                  format: "isEarned == true")) var availableRewards: FetchedResults<Reward>
   @FetchRequest(sortDescriptors: [SortDescriptor(\.sortId)],
                 predicate: NSPredicate(format: "isEarned == false")) var earnableRewards: FetchedResults<Reward>
   @FetchRequest(sortDescriptors: []) var userFetchResults: FetchedResults<User>
@@ -45,7 +45,7 @@ struct RewardsView: View {
               Text(reward.name!)
               Spacer()
               Button("Claim Reward!") {
-                reward.isClaimed = true
+                
               }
             }
           }

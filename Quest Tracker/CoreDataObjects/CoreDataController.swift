@@ -19,14 +19,21 @@ class CoreDataController: ObservableObject {
       let newReward = Reward(context: viewContext)
       newReward.name = "Reward \(number)"
       newReward.isEarned = true
-      newReward.isClaimed = false
+      newReward.isMilestoneReward = false
       newReward.sortId = Int64(number)
     }
-    for number in 4..<9 {
+    for number in 3..<9 {
       let newReward = Reward(context: viewContext)
       newReward.name = "Reward \(number)"
       newReward.isEarned = false
-      newReward.isClaimed = false
+      newReward.isMilestoneReward = false
+      newReward.sortId = Int64(number)
+    }
+    for number in 10..<12 {
+      let newReward = Reward(context: viewContext)
+      newReward.name = "Milestone Reward \(number)"
+      newReward.isEarned = false
+      newReward.isMilestoneReward = true
       newReward.sortId = Int64(number)
     }
     let previewUser = User(context: viewContext)
