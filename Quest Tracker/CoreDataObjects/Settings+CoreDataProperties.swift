@@ -25,6 +25,32 @@ extension Settings {
 
 extension Settings: Identifiable {
 
+  static func fetchFirstOrCreate(context: NSManagedObjectContext) {
+
+    var userSettings: Settings? {
+      let request = NSFetchRequest<Settings>(entityName: "Settings")
+      var userSettingsFetchResults = (try? context.fetch(request)) ?? []
+      return userSettingsFetchResults.first ?? nil
+    }
+
+    if userSettings == nil {
+      let defaultSettings = Settings(context: context)
+
+      var components = DateComponents()
+      components.day = 1
+      components.second = -1
+
+      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+
+      defaultSettings.dayOfTheWeek = 2
+      defaultSettings.dailyResetWarning = false
+      defaultSettings.weeklyResetWarning = false
+      defaultSettings.levelingScheme = 0
+
+      CoreDataController.shared.save(context: context)
+    }
+  }
+
   var day: DayOfTheWeek {
     get {
       return DayOfTheWeek(rawValue: self.dayOfTheWeek)!

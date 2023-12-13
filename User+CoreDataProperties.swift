@@ -23,6 +23,24 @@ extension User {
 
 extension User: Identifiable {
 
+  static func fetchFirstOrCreate(context: NSManagedObjectContext) {
+
+    var currentUser: User? {
+      let request = User.fetchRequest()
+      var fetchedUserResults = (try? context.fetch(request)) ?? []
+      return fetchedUserResults.first ?? nil
+    }
+
+    if currentUser == nil {
+      let newUser = User(context: context)
+      newUser.currentExp = 0
+      newUser.expToLevel = 100
+      newUser.level = 1
+
+      CoreDataController.shared.save(context: context)
+    }
+  }
+
   func giveExp(quest: Quest, settings: Settings) {
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
     currentExp += questExp
