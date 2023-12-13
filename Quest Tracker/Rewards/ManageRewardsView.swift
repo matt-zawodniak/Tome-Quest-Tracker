@@ -29,12 +29,26 @@ struct ManageRewardsView: View {
             Section(header: Text("Minor Rewards")) {
               ForEach(minorRewards, id: \.self) { reward in
                 Text(reward.name ?? "")
+                  .swipeActions(edge: .trailing) { Button(role: .destructive) {
+                    managedObjectContext.delete(reward)
+                    CoreDataController.shared.save(context: managedObjectContext)
+                  } label: {
+                    Label("Delete", systemImage: "trash")
+                  }
+                  }
               }
               .onMove(perform: moveMinorRewards)
             }
             Section(header: Text("Milestone Rewards")) {
               ForEach(milestoneRewards, id: \.self) { reward in
                 Text(reward.name ?? "")
+                  .swipeActions(edge: .trailing) { Button(role: .destructive) {
+                    managedObjectContext.delete(reward)
+                    CoreDataController.shared.save(context: managedObjectContext)
+                  } label: {
+                    Label("Delete", systemImage: "trash")
+                  }
+                  }
               }
               .onMove(perform: moveMilestoneRewards)
             }
