@@ -17,7 +17,6 @@ extension Settings {
 
   @NSManaged public var dailyResetWarning: Bool
   @NSManaged public var dayOfTheWeek: Int64
-  @NSManaged public var levelingScheme: Int64
   @NSManaged public var time: Date?
   @NSManaged public var weeklyResetWarning: Bool
 
@@ -29,7 +28,7 @@ extension Settings: Identifiable {
 
     var userSettings: Settings? {
       let request = NSFetchRequest<Settings>(entityName: "Settings")
-      var userSettingsFetchResults = (try? context.fetch(request)) ?? []
+      let userSettingsFetchResults = (try? context.fetch(request)) ?? []
       return userSettingsFetchResults.first ?? nil
     }
 
@@ -45,9 +44,6 @@ extension Settings: Identifiable {
       defaultSettings.dayOfTheWeek = 2
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
-      defaultSettings.levelingScheme = 0
-
-      CoreDataController.shared.save(context: context)
     }
   }
 
@@ -57,27 +53,6 @@ extension Settings: Identifiable {
     }
     set {
       self.dayOfTheWeek = newValue.rawValue
-    }
-  }
-
-  var scaling: LevelingSchemes {
-    get {
-      return LevelingSchemes(rawValue: self.levelingScheme)!
-    }
-    set {
-      self.levelingScheme = newValue.rawValue
-    }
-  }
-}
-
-enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
-  case normal = 0
-  case hard = 1
-
-  var description: String {
-    switch self {
-    case .normal: "Normal"
-    case .hard: "Hard"
     }
   }
 }

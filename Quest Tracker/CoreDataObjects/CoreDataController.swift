@@ -22,6 +22,7 @@ class CoreDataController: ObservableObject {
     }
     User.fetchFirstOrCreate(context: container.viewContext)
     Settings.fetchFirstOrCreate(context: container.viewContext)
+    save(context: container.viewContext)
   }
 
   func save(context: NSManagedObjectContext) {

@@ -18,6 +18,7 @@ extension User {
     @NSManaged public var level: Int64
     @NSManaged public var currentExp: Double
     @NSManaged public var expToLevel: Double
+  @NSManaged public var levelingScheme: Int64
 
 }
 
@@ -27,7 +28,7 @@ extension User: Identifiable {
 
     var currentUser: User? {
       let request = User.fetchRequest()
-      var fetchedUserResults = (try? context.fetch(request)) ?? []
+      let fetchedUserResults = (try? context.fetch(request)) ?? []
       return fetchedUserResults.first ?? nil
     }
 
@@ -36,24 +37,44 @@ extension User: Identifiable {
       newUser.currentExp = 0
       newUser.expToLevel = 100
       newUser.level = 1
-
-      CoreDataController.shared.save(context: context)
+      newUser.levelingScheme = 0
     }
   }
 
-  func giveExp(quest: Quest, settings: Settings) {
+  func giveExp(quest: Quest) {
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
     currentExp += questExp
     if currentExp >= expToLevel {
-      levelUp(settings: settings)
+      levelUp()
     }
   }
 
-  func levelUp(settings: Settings) {
+  func levelUp() {
     level += 1
     currentExp -= expToLevel
-    if settings.levelingScheme == 1 {
+    if levelingScheme == 1 {
       expToLevel += 20
+    }
+  }
+
+  var scaling: LevelingSchemes {
+    get {
+      return LevelingSchemes(rawValue: self.levelingScheme)!
+    }
+    set {
+      self.levelingScheme = newValue.rawValue
+    }
+  }
+}
+
+enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
+  case normal = 0
+  case hard = 1
+
+  var description: String {
+    switch self {
+    case .normal: "Normal"
+    case .hard: "Hard"
     }
   }
 }
