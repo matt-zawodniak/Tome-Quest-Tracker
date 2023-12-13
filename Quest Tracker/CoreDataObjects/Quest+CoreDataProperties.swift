@@ -59,17 +59,17 @@ extension Quest: Identifiable {
     }
   }
 
-  func setDateToDailyResetTime(quest: Quest, settings: Settings) {
+  func setDateToDailyResetTime(settings: Settings) {
     var components = DateComponents()
     components.hour = Calendar.current.component(.hour, from: settings.resetTime)
     components.minute = Calendar.current.component(.minute, from: settings.resetTime)
     components.second = Calendar.current.component(.second, from: settings.resetTime)
 
     let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
-    quest.dueDate = nextResetTime
+    dueDate = nextResetTime
   }
 
-  func setDateToWeeklyResetDate(quest: Quest, settings: Settings) {
+  func setDateToWeeklyResetDate(settings: Settings) {
     var components = DateComponents()
     components.weekday = Int(settings.dayOfTheWeek)
     components.hour = Calendar.current.component(.hour, from: settings.resetTime)
@@ -77,7 +77,7 @@ extension Quest: Identifiable {
 
     let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 
-    quest.dueDate = nextResetDay
+    dueDate = nextResetDay
   }
 
   static func defaultQuest(context: NSManagedObjectContext) -> Quest {

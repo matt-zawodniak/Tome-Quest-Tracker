@@ -83,7 +83,7 @@ class CoreDataController: ObservableObject {
       matchingPolicy: .nextTime)!
 
     for quest in completedDailyQuests where quest.timeCompleted! <= mostRecentDailyReset {
-      quest.setDateToDailyResetTime(quest: quest, settings: settings)
+      quest.setDateToDailyResetTime(settings: settings)
       quest.isCompleted = false
     }
   }
@@ -109,13 +109,9 @@ class CoreDataController: ObservableObject {
       matchingPolicy: .nextTime)!
 
     for quest in completedWeeklyQuests where quest.timeCompleted! <= mostRecentWeeklyReset {
-      quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+      quest.setDateToWeeklyResetDate(settings: settings)
       quest.isCompleted = false
     }
-  }
-
-  func refreshResetTime(settings: Settings, context: NSManagedObjectContext) {
-       settings.refreshOnDailyReset(settings: settings)
   }
 
   func addPreviewQuest (

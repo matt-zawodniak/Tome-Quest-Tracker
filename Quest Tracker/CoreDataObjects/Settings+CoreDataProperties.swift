@@ -24,16 +24,16 @@ extension Settings {
 }
 
 extension Settings: Identifiable {
-  func setNewResetTime(settings: Settings) {
-    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.resetTime)
+  func setNewResetTime() {
+    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: resetTime)
     let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
-    settings.resetTime = newResetTime!
+    resetTime = newResetTime!
   }
-  func refreshOnDailyReset(settings: Settings) {
+  func refreshDailyReset() {
     var components = DateComponents()
     components.day = 1
     components.second = -1
-    settings.resetTime = Calendar.current.date(byAdding: components, to: settings.resetTime)!
+    resetTime = Calendar.current.date(byAdding: components, to: resetTime)!
   }
 
   var day: DayOfTheWeek {

@@ -124,7 +124,7 @@ struct QuestListView: View {
     }
     .onReceive(timer, perform: { time in
       if time >= settings.resetTime {
-        CoreDataController.shared.refreshResetTime(settings: settings, context: managedObjectContext)
+        settings.refreshDailyReset()
         CoreDataController.shared.resetDailyQuests(settings: settings, context: managedObjectContext)
         if Calendar.current.component(.weekday, from: Date.now) == settings.dayOfTheWeek {
           CoreDataController.shared.resetWeeklyQuests(settings: settings, context: managedObjectContext)
@@ -135,7 +135,7 @@ struct QuestListView: View {
     .onChange(of: scenePhase) { phase in
       if phase == .active {
         if Date.now >= settings.resetTime {
-          CoreDataController.shared.refreshResetTime(settings: settings, context: managedObjectContext)
+          settings.refreshDailyReset()
           CoreDataController.shared.resetDailyQuests(settings: settings, context: managedObjectContext)
           CoreDataController.shared.resetWeeklyQuests(settings: settings, context: managedObjectContext)
           CoreDataController.shared.save(context: managedObjectContext)
