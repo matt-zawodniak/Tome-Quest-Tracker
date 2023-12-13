@@ -67,9 +67,9 @@ struct SettingsView: View {
       settings.setNewResetTime()
       for quest in quests {
         if quest.type == .dailyQuest {
-          quest.setDateToDailyResetTime(quest: quest, settings: settings)
+          quest.setDateToDailyResetTime(settings: settings)
         } else if quest.type == .weeklyQuest {
-          quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+          quest.setDateToWeeklyResetDate(settings: settings)
         }
       }
       CoreDataController.shared.save(context: managedObjectContext)

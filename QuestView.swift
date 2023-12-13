@@ -41,10 +41,10 @@ struct QuestView: View {
           Text("\(menuText)")
         }.onChange(of: quest.type) { value in
           if value == .dailyQuest {
-            quest.setDateToDailyResetTime(quest: quest, settings: settings)
+            quest.setDateToDailyResetTime(settings: settings)
             hasDueDate = true
           } else if value == .weeklyQuest {
-            quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+            quest.setDateToWeeklyResetDate(settings: settings)
             hasDueDate = true
           }
         }
@@ -102,7 +102,7 @@ struct QuestView: View {
           Spacer()
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) { _ in
-              quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+              quest.setDateToWeeklyResetDate(settings: settings)
             }
             .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         }
@@ -113,7 +113,7 @@ struct QuestView: View {
           Spacer()
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) { _ in
-              quest.setDateToDailyResetTime(quest: quest, settings: settings)
+              quest.setDateToDailyResetTime(settings: settings)
             }
             .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         }
