@@ -18,47 +18,51 @@ struct ManageRewardsView: View {
                 predicate: NSPredicate(
                   format: "isMilestoneReward == true && isEarned == false"))
   var milestoneRewards: FetchedResults<Reward>
+  @State var presentingAddRewardView: Bool = false
 
-    var body: some View {
-      NavigationStack {
-        VStack {
-          Button("Add Reward") {
-
-          }.buttonStyle(.borderedProminent)
-          List {
-            Section(header: Text("Minor Rewards")) {
-              ForEach(minorRewards, id: \.self) { reward in
-                Text(reward.name ?? "")
-                  .swipeActions(edge: .trailing) { Button(role: .destructive) {
-                    managedObjectContext.delete(reward)
-                    CoreDataController.shared.save(context: managedObjectContext)
-                  } label: {
-                    Label("Delete", systemImage: "trash")
-                  }
-                  }
-              }
-              .onMove(perform: moveMinorRewards)
+  var body: some View {
+    NavigationStack {
+      VStack {
+        Button("Add Reward") {
+          presentingAddRewardView = true
+        }.buttonStyle(.borderedProminent)
+        List {
+          Section(header: Text("Minor Rewards")) {
+            ForEach(minorRewards, id: \.self) { reward in
+              Text(reward.name ?? "")
+                .swipeActions(edge: .trailing) { Button(role: .destructive) {
+                  managedObjectContext.delete(reward)
+                  CoreDataController.shared.save(context: managedObjectContext)
+                } label: {
+                  Label("Delete", systemImage: "trash")
+                }
+                }
             }
-            Section(header: Text("Milestone Rewards")) {
-              ForEach(milestoneRewards, id: \.self) { reward in
-                Text(reward.name ?? "")
-                  .swipeActions(edge: .trailing) { Button(role: .destructive) {
-                    managedObjectContext.delete(reward)
-                    CoreDataController.shared.save(context: managedObjectContext)
-                  } label: {
-                    Label("Delete", systemImage: "trash")
-                  }
-                  }
-              }
-              .onMove(perform: moveMilestoneRewards)
-            }
+            .onMove(perform: moveMinorRewards)
           }
-          .toolbar {
-            EditButton()
+          Section(header: Text("Milestone Rewards")) {
+            ForEach(milestoneRewards, id: \.self) { reward in
+              Text(reward.name ?? "")
+                .swipeActions(edge: .trailing) { Button(role: .destructive) {
+                  managedObjectContext.delete(reward)
+                  CoreDataController.shared.save(context: managedObjectContext)
+                } label: {
+                  Label("Delete", systemImage: "trash")
+                }
+                }
+            }
+            .onMove(perform: moveMilestoneRewards)
           }
         }
+        .toolbar {
+          EditButton()
+        }
+      }
+      .popover(isPresented: $presentingAddRewardView) {
+        AddRewardView(minorRewardCount: minorRewards.count, milestoneRewardCount: milestoneRewards.count)
       }
     }
+  }
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {
     var updatedMinorRewards: [Reward] = minorRewards.map({ $0 })
     updatedMinorRewards.move(fromOffsets: source, toOffset: destination)
@@ -80,5 +84,5 @@ struct ManageRewardsView: View {
 }
 
 #Preview {
-    ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
 }

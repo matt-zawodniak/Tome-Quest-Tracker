@@ -88,6 +88,14 @@ struct QuestListView: View {
                 Text("Completed Quests")
               })
           }
+          HStack {
+            Spacer()
+            NavigationLink(destination: RewardsView()) {
+              Button(action: {}, label: {
+                Text("View Rewards")
+              })
+            }
+          }
         }
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
