@@ -14,7 +14,7 @@ struct RewardsView: View {
   @FetchRequest(sortDescriptors: [],
                 predicate: NSPredicate(
                   format: "questBonusReward != nil")) var questsWithBonusRewards: FetchedResults<Quest>
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.sortId)],
+  @FetchRequest(sortDescriptors: [SortDescriptor(\.dateEarned)],
                 predicate: NSPredicate(
                   format: "isEarned == true")) var availableRewards: FetchedResults<Reward>
   @FetchRequest(sortDescriptors: [SortDescriptor(\.sortId)],
