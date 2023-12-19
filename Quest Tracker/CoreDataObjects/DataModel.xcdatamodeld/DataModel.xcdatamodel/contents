@@ -15,6 +15,7 @@
         <attribute name="timeCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES" codeGenerationType="class">
+        <attribute name="dateEarned" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isEarned" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isMilestoneReward" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>

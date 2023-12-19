@@ -53,7 +53,7 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               Button {
                 quest.isCompleted = true
-                user.giveExp(quest: quest, settings: settings)
+                user.giveExp(quest: quest, settings: settings, context: managedObjectContext)
                 CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")

@@ -50,7 +50,7 @@ struct RewardsView: View {
                 Text(reward.name!)
                 Spacer()
                 Button("Claim Reward!") {
-
+                  managedObjectContext.delete(reward)
                 }
               }
             }
