@@ -124,21 +124,13 @@ struct QuestListView: View {
     }
     .onReceive(timer, perform: { time in
       if time >= settings.resetTime {
-        settings.refreshDailyReset()
-        CoreDataController.shared.resetDailyQuests(settings: settings, context: managedObjectContext)
-        if Calendar.current.component(.weekday, from: Date.now) == settings.dayOfTheWeek {
-          CoreDataController.shared.resetWeeklyQuests(settings: settings, context: managedObjectContext)
-        }
-        CoreDataController.shared.save(context: managedObjectContext)
+        settings.refreshDailyResetAndQuests(context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
         if Date.now >= settings.resetTime {
-          settings.refreshDailyReset()
-          CoreDataController.shared.resetDailyQuests(settings: settings, context: managedObjectContext)
-          CoreDataController.shared.resetWeeklyQuests(settings: settings, context: managedObjectContext)
-          CoreDataController.shared.save(context: managedObjectContext)
+          settings.refreshDailyResetAndQuests(context: managedObjectContext)
         }
       }
       print("Scene has changed to \(phase)")
