@@ -124,13 +124,13 @@ struct QuestListView: View {
     }
     .onReceive(timer, perform: { time in
       if time >= settings.resetTime {
-        settings.refreshDailyResetAndQuests(context: managedObjectContext)
+        tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
         if Date.now >= settings.resetTime {
-          settings.refreshDailyResetAndQuests(context: managedObjectContext)
+          tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
         }
       }
       print("Scene has changed to \(phase)")

@@ -59,6 +59,60 @@ extension Quest: Identifiable {
     }
   }
 
+  static func resetQuests(settings: Settings, context: NSManagedObjectContext) {
+    resetDailyQuests(settings: settings, context: context)
+    resetWeeklyQuests(settings: settings, context: context)
+  }
+
+  static func resetDailyQuests(settings: Settings, context: NSManagedObjectContext) {
+    var completedDailyQuests: [Quest] {
+      let request = NSFetchRequest<Quest>(entityName: "Quest")
+      request.predicate = NSPredicate(format:
+                                        "(isCompleted == true) AND (questType == \(QuestType.dailyQuest.rawValue))")
+      return (try? context.fetch(request)) ?? []
+    }
+
+    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.resetTime)
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
+
+    let mostRecentDailyReset = Calendar.current.nextDate(
+      after: yesterday,
+      matching: dailyComponents,
+      matchingPolicy: .nextTime)!
+
+    for quest in completedDailyQuests where quest.timeCompleted! <= mostRecentDailyReset {
+      quest.setDateToDailyResetTime(settings: settings)
+      quest.isCompleted = false
+    }
+  }
+
+  static func resetWeeklyQuests(settings: Settings, context: NSManagedObjectContext) {
+    var completedWeeklyQuests: [Quest] {
+      let request = NSFetchRequest<Quest>(entityName: "Quest")
+      request.predicate = NSPredicate(format:
+                                        "(isCompleted == true) AND (questType == \(QuestType.weeklyQuest.rawValue))")
+      return (try? context.fetch(request)) ?? []
+    }
+
+    var weeklyComponents = DateComponents()
+    weeklyComponents.weekday = Int(settings.dayOfTheWeek)
+    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.resetTime)
+    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.resetTime)
+    weeklyComponents.second = Calendar.current.component(.second, from: settings.resetTime)
+    let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date.now)!
+
+    let mostRecentWeeklyReset = Calendar.current.nextDate(
+      after: lastWeek,
+      matching: weeklyComponents,
+      matchingPolicy: .nextTime)!
+
+    for quest in completedWeeklyQuests where quest.timeCompleted! <= mostRecentWeeklyReset {
+      quest.setDateToWeeklyResetDate(settings: settings)
+      quest.isCompleted = false
+    }
+  }
+
+
   func setDateToDailyResetTime(settings: Settings) {
     var components = DateComponents()
     components.hour = Calendar.current.component(.hour, from: settings.resetTime)
