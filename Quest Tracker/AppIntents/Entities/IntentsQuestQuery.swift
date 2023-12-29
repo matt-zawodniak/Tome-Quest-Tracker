@@ -32,7 +32,18 @@ struct IntentsQuestQuery: EntityPropertyQuery {
   }
 
   func entities(matching query: String) async throws -> [ShortcutsQuestEntity] {
-    return []
+
+    let request: NSFetchRequest<Quest> = Quest.fetchRequest()
+    let predicate = NSPredicate(format: "questName == \(query)")
+    request.predicate = predicate
+
+    if let matchingQuests = try? CoreDataController.shared.container.viewContext.fetch(request) {
+      return matchingQuests.map { quest in
+        ShortcutsQuestEntity(quest: quest)
+      }
+    } else {
+        return []
+    }
   }
 
   static var properties = QueryProperties {
