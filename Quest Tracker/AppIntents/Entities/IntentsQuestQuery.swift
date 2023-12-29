@@ -11,7 +11,7 @@ import CoreData
 
 struct IntentsQuestQuery: EntityPropertyQuery {
 
-  func entities(for identifiers: [UUID]) async throws -> [QuestShortcuts] {
+  func entities(for identifiers: [UUID]) async throws -> [ShortcutsQuestEntity] {
     return identifiers.compactMap { identifier in
       
       let request: NSFetchRequest<Quest> = Quest.fetchRequest()
@@ -19,7 +19,7 @@ struct IntentsQuestQuery: EntityPropertyQuery {
       request.predicate = NSPredicate(format: "id = $@")
 
       if let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first {
-        return QuestShortcuts(quest: foundQuest)
+        return ShortcutsQuestEntity(quest: foundQuest)
       } else {
         return nil
       }
@@ -27,38 +27,38 @@ struct IntentsQuestQuery: EntityPropertyQuery {
     }
   }
 
-  func suggestedEntities() async throws -> [QuestShortcuts] {
+  func suggestedEntities() async throws -> [ShortcutsQuestEntity] {
     return []
   }
 
-  func entities(matching query: String) async throws -> [QuestShortcuts] {
+  func entities(matching query: String) async throws -> [ShortcutsQuestEntity] {
     return []
   }
 
   static var properties = QueryProperties {
-    Property(\QuestShortcuts.$questName) {
+    Property(\ShortcutsQuestEntity.$questName) {
       EqualToComparator { NSPredicate(format: "questName = %@", $0) }
       ContainsComparator { NSPredicate(format: "questName CONTAINS %@", $0) }
     }
-    Property(\QuestShortcuts.$questType) {
+    Property(\ShortcutsQuestEntity.$questType) {
       EqualToComparator { NSPredicate(format: "questType = %@", $0) }
     }
-    Property(\QuestShortcuts.$isCompleted) {
+    Property(\ShortcutsQuestEntity.$isCompleted) {
       EqualToComparator { NSPredicate(format: "isCompleted = %@", $0) }
     }
   }
 
   static var sortingOptions = SortingOptions {
-    SortableBy(\QuestShortcuts.$questName)
-    SortableBy(\QuestShortcuts.$questType)
+    SortableBy(\ShortcutsQuestEntity.$questName)
+    SortableBy(\ShortcutsQuestEntity.$questType)
   }
 
   func entities(
     matching comparators: [NSPredicate],
     mode: ComparatorMode,
-    sortedBy: [Sort<QuestShortcuts>],
+    sortedBy: [Sort<ShortcutsQuestEntity>],
     limit: Int?
-  ) async throws -> [QuestShortcuts] {
+  ) async throws -> [ShortcutsQuestEntity] {
     print("Fetching quests")
     let context = CoreDataController.shared.container.viewContext
     let request: NSFetchRequest<Quest> = Quest.fetchRequest()
@@ -68,7 +68,7 @@ struct IntentsQuestQuery: EntityPropertyQuery {
 
     let matchingQuests = try context.fetch(request)
     return matchingQuests.map { quest in
-      QuestShortcuts(quest: quest)
+      ShortcutsQuestEntity(quest: quest)
     }
   }
 }

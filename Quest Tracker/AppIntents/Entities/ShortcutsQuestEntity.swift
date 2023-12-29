@@ -8,7 +8,7 @@
 import Foundation
 import AppIntents
 
-struct QuestShortcuts: Identifiable, Hashable, Equatable, AppEntity {
+struct ShortcutsQuestEntity: Identifiable, Hashable, Equatable, AppEntity {
 
   static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Quest")
   typealias DefaultQueryType = IntentsQuestQuery
@@ -38,13 +38,13 @@ struct QuestShortcuts: Identifiable, Hashable, Equatable, AppEntity {
   }
 }
 
-extension QuestShortcuts {
+extension ShortcutsQuestEntity {
 
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }
 
-  static func ==(lhs: QuestShortcuts, rhs: QuestShortcuts) -> Bool {
+  static func ==(lhs: ShortcutsQuestEntity, rhs: ShortcutsQuestEntity) -> Bool {
     return lhs.id == rhs.id
   
   }
