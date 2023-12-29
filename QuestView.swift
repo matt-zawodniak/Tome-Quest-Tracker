@@ -54,7 +54,7 @@ struct QuestView: View {
 
   var nameSection: some View {
     Section(header: Text("Quest Name")) {
-      TextField("Quest Name", text: $quest.questName.bound)
+      TextField("Quest Name", text: $quest.questName)
     }
   }
 

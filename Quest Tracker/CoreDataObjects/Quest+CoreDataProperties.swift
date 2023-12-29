@@ -17,14 +17,14 @@ extension Quest {
 
   @NSManaged public var difficulty: Int64
   @NSManaged public var dueDate: Date?
-  @NSManaged public var id: UUID?
+  @NSManaged public var id: UUID
   @NSManaged public var isSelected: Bool
   @NSManaged public var isCompleted: Bool
   @NSManaged public var length: Int64
   @NSManaged public var questBonusExp: Double
   @NSManaged public var questBonusReward: String?
   @NSManaged public var questDescription: String?
-  @NSManaged public var questName: String?
+  @NSManaged public var questName: String
   @NSManaged public var questType: Int64
   @NSManaged public var timeCreated: Date?
 }

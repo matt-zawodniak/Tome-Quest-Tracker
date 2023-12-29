@@ -68,7 +68,7 @@ struct QuestRowView: View, Identifiable {
   func restoreQuest(quest: Quest) {
     quest.isCompleted = false
     quest.timeCreated = Date.now
-    print("\(quest.questName!) is \(quest.isCompleted)")
+    print("\(quest.questName) is \(quest.isCompleted)")
   }
   func toggleQuest(quest: Quest, quests: FetchedResults<Quest>) {
       quest.isSelected.toggle()
