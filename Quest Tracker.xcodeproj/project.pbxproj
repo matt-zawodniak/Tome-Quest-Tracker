@@ -12,6 +12,9 @@
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
+		8F6462C12B4DDF30000DE6A3 /* QuestIntentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C02B4DDF30000DE6A3 /* QuestIntentEntity.swift */; };
+		8F6462C32B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */; };
+		8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */; };
 		8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6B15052B2E25AC00784BCE /* AddRewardView.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
@@ -27,8 +30,6 @@
 		8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6247A2AF942D800863AB3 /* Quest+CoreDataClass.swift */; };
 		8FC6247D2AF942D800863AB3 /* Quest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */; };
 		8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */; };
-		8FD463682B3E9C9A000FDEF8 /* ShortcutsQuestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD463672B3E9C9A000FDEF8 /* ShortcutsQuestEntity.swift */; };
-		8FD4636A2B3E9F11000FDEF8 /* IntentsQuestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD463692B3E9F11000FDEF8 /* IntentsQuestQuery.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,9 @@
 		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
 		8F48FD412B1FCDE800A88E96 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RewardsView.swift; path = "Quest Tracker/Rewards/RewardsView.swift"; sourceTree = SOURCE_ROOT; };
+		8F6462C02B4DDF30000DE6A3 /* QuestIntentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestIntentEntity.swift; sourceTree = SOURCE_ROOT; };
+		8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestTrackerShortcuts.swift; path = "Quest Tracker/QuestTrackerShortcuts.swift"; sourceTree = SOURCE_ROOT; };
+		8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestIntent.swift; sourceTree = "<group>"; };
 		8F6B15052B2E25AC00784BCE /* AddRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRewardView.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = SOURCE_ROOT; };
@@ -58,8 +62,6 @@
 		8FC6247B2AF942D800863AB3 /* Quest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Quest+CoreDataProperties.swift"; path = "Quest Tracker/CoreDataObjects/Quest+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestListView.swift; path = "Quest Tracker/QuestListView.swift"; sourceTree = SOURCE_ROOT; };
 		8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
-		8FD463672B3E9C9A000FDEF8 /* ShortcutsQuestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsQuestEntity.swift; sourceTree = "<group>"; };
-		8FD463692B3E9F11000FDEF8 /* IntentsQuestQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentsQuestQuery.swift; sourceTree = "<group>"; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,8 @@
 		8FD4635D2B3E021E000FDEF8 /* AppIntents */ = {
 			isa = PBXGroup;
 			children = (
+				8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */,
+				8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */,
 				8FD463622B3E0BAB000FDEF8 /* Entities */,
 			);
 			path = AppIntents;
@@ -166,8 +170,7 @@
 		8FD463622B3E0BAB000FDEF8 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				8FD463692B3E9F11000FDEF8 /* IntentsQuestQuery.swift */,
-				8FD463672B3E9C9A000FDEF8 /* ShortcutsQuestEntity.swift */,
+				8F6462C02B4DDF30000DE6A3 /* QuestIntentEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -205,7 +208,6 @@
 				TargetAttributes = {
 					8FAC384C2AB396B6005CBED3 = {
 						CreatedOnToolsVersion = 14.3.1;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -269,21 +271,22 @@
 				8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */,
 				8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
-				8FD4636A2B3E9F11000FDEF8 /* IntentsQuestQuery.swift in Sources */,
 				8FB5D19C2B1A7224008EB1F0 /* User+CoreDataProperties.swift in Sources */,
-				8FD463682B3E9C9A000FDEF8 /* ShortcutsQuestEntity.swift in Sources */,
 				8FC6247D2AF942D800863AB3 /* Quest+CoreDataProperties.swift in Sources */,
 				8FC6247C2AF942D800863AB3 /* Quest+CoreDataClass.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
+				8F6462C12B4DDF30000DE6A3 /* QuestIntentEntity.swift in Sources */,
 				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
 				8FB761A42ACF1E3200314400 /* DataModel.xcdatamodeld in Sources */,
 				8FB761A62ACF1E4700314400 /* CoreDataController.swift in Sources */,
 				8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */,
+				8F6462C32B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift in Sources */,
 				8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */,
 				8F1401E42AF57778007BBD53 /* Settings+CoreDataClass.swift in Sources */,
 				8F1401E52AF57778007BBD53 /* Settings+CoreDataProperties.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
 				8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */,
+				8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */,
 				8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */,
 				8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */,
 				8FB5D19B2B1A7224008EB1F0 /* User+CoreDataClass.swift in Sources */,
@@ -414,10 +417,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = Y4739T7R6D;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y4739T7R6D;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -433,7 +438,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.gmail.mdzawodniak.Quest-Tracker";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -445,10 +451,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = Y4739T7R6D;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y4739T7R6D;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -464,7 +472,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.gmail.mdzawodniak.Quest-Tracker";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -30,6 +30,15 @@ extension Quest {
 }
 
 extension Quest: Identifiable {
+  static func findQuest(withId id: UUID) -> Quest? {
+    let request: NSFetchRequest<Quest> = Quest.fetchRequest()
+    request.fetchLimit = 1
+    request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+
+   let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first ?? nil
+
+    return foundQuest
+  }
 
   var type: QuestType {
     get {

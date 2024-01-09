@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import AppIntents
 
 @main
 struct Quest_TrackerApp: App {
   @StateObject private var dataController = CoreDataController.shared
+
+  init() {
+
+    QuestTrackerShortcuts.updateAppShortcutParameters()
+
+  }
 
   var body: some Scene {
     WindowGroup {
