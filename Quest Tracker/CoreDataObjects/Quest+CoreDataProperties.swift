@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import AppIntents
 
 extension Quest {
 
@@ -99,7 +100,16 @@ extension Quest: Identifiable {
   }
 }
 
-enum QuestType: Int64, CaseIterable, CustomStringConvertible {
+enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
+  static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Quest Type")
+
+  static var caseDisplayRepresentations: [QuestType : DisplayRepresentation] = [
+    .mainQuest: "Main Quest",
+    .sideQuest: "Side Quest",
+    .dailyQuest: "Daily Quest",
+    .weeklyQuest: "Weekly Quest"
+  ]
+
   case mainQuest = 0
   case sideQuest = 1
   case dailyQuest = 2

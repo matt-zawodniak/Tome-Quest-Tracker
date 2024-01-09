@@ -7,6 +7,7 @@
 
 import Foundation
 import AppIntents
+import SwiftUI
 
 struct AddQuestIntent: AppIntent {
   static let title: LocalizedStringResource = "Add Quest"
@@ -16,12 +17,17 @@ struct AddQuestIntent: AppIntent {
              requestValueDialog: IntentDialog("What quest would you like to add?"))
   var questName: String
 
+  @Parameter(title: "Quest Type",
+             description: "The type of the new quest.",
+             requestValueDialog: IntentDialog("What type of quest is it?"))
+  var questType: QuestType
+
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
     let context = CoreDataController.shared.container.viewContext
     let quest = Quest(context: context)
     quest.questName = questName
-    quest.questType = 0
+    quest.questType = questType.rawValue
     quest.difficulty = 1
     quest.length = 1
     quest.id = UUID()
