@@ -31,14 +31,44 @@ extension Quest {
 }
 
 extension Quest: Identifiable {
+
   static func findQuest(withId id: UUID) -> Quest? {
+
     let request: NSFetchRequest<Quest> = Quest.fetchRequest()
     request.fetchLimit = 1
-    request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+    request.predicate = NSPredicate(format: "id = $@", id as CVarArg)
 
    let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first ?? nil
 
     return foundQuest
+  }
+
+  static func findQuestToComplete(name: String) -> Quest? {
+    let request: NSFetchRequest<Quest> = Quest.fetchRequest()
+    request.fetchLimit = 1
+    request.predicate = NSPredicate(format: "questName = %@", name)
+
+   let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first ?? nil
+
+    return foundQuest
+  }
+
+  static func completeQuest(name: String) {
+    let quest = findQuestToComplete(name: name)
+    if quest != nil {
+
+      let context = CoreDataController.shared.container.viewContext
+
+      let userRequest: NSFetchRequest<User> = User.fetchRequest()
+      let user = try? context.fetch(userRequest).first
+
+      let settingsRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
+      let settings = try? context.fetch(settingsRequest).first
+
+      quest?.isCompleted = true
+      user!.giveExp(quest: quest!, settings: settings!, context: context)
+      CoreDataController.shared.save(context: context)
+    }
   }
 
   var type: QuestType {
@@ -103,11 +133,11 @@ extension Quest: Identifiable {
 enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
   static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Quest Type")
 
-  static var caseDisplayRepresentations: [QuestType : DisplayRepresentation] = [
-    .mainQuest: "Main Quest",
-    .sideQuest: "Side Quest",
-    .dailyQuest: "Daily Quest",
-    .weeklyQuest: "Weekly Quest"
+  static var caseDisplayRepresentations: [QuestType: DisplayRepresentation] = [
+    .mainQuest: "Main",
+    .sideQuest: "Side",
+    .dailyQuest: "Daily",
+    .weeklyQuest: "Weekly"
   ]
 
   case mainQuest = 0

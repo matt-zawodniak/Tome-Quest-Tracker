@@ -26,7 +26,7 @@ struct QuestRowView: View, Identifiable {
         case .dailyQuest: Text("!").foregroundStyle(.green)
         case .weeklyQuest: Text("!").foregroundStyle(.purple)
         }
-        Text(quest.questName ?? "")
+        Text(quest.questName)
         Spacer()
       }
       .onTapGesture {
