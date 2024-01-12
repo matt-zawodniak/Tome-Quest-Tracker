@@ -36,6 +36,6 @@ struct AddQuestIntent: AppIntent {
 
     CoreDataController.shared.save(context: context)
 
-    return .result(dialog: "Added quest with Siri.")
+    return .result(dialog: "Added \(questName) to Quest Tracker.")
   }
 }
