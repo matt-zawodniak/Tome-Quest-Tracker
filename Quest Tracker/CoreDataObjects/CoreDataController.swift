@@ -51,7 +51,7 @@ class CoreDataController: ObservableObject {
   }()
 
   init(inMemory: Bool = false) {
-      container = NSPersistentContainer(name: "DataModel")
+      container = NSPersistentCloudKitContainer(name: "DataModel")
       if inMemory {
           container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
       }
@@ -63,7 +63,7 @@ class CoreDataController: ObservableObject {
       container.viewContext.automaticallyMergesChangesFromParent = true
   }
 
-  var container = NSPersistentContainer(name: "DataModel")
+  var container = NSPersistentCloudKitContainer(name: "DataModel")
 
   private init() {
     container.loadPersistentStores {_, error in

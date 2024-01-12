@@ -39,6 +39,8 @@
 		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
 		8F48FD412B1FCDE800A88E96 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RewardsView.swift; path = "Quest Tracker/Rewards/RewardsView.swift"; sourceTree = SOURCE_ROOT; };
+		8F6462CD2B51E089000DE6A3 /* Quest Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Quest Tracker.entitlements"; sourceTree = "<group>"; };
+		8F6462CE2B51E1CE000DE6A3 /* Quest-Tracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Quest-Tracker-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8F6B15052B2E25AC00784BCE /* AddRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRewardView.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = SOURCE_ROOT; };
@@ -123,6 +125,8 @@
 		8FAC384F2AB396B6005CBED3 /* Quest Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				8F6462CE2B51E1CE000DE6A3 /* Quest-Tracker-Info.plist */,
+				8F6462CD2B51E089000DE6A3 /* Quest Tracker.entitlements */,
 				8F1EEEDB2B151D120097AB03 /* CoreDataObjects */,
 				8FF8D53F2AE9B432000F801F /* SettingsView.swift */,
 				8FA12A542B27A1D9005838FE /* Rewards */,
@@ -390,6 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Quest Tracker/Quest Tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
@@ -397,6 +402,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Quest-Tracker-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -409,7 +415,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -421,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Quest Tracker/Quest Tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
@@ -428,6 +435,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Quest-Tracker-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -440,7 +448,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
