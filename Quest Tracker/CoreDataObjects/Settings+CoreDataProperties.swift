@@ -24,7 +24,7 @@ extension Settings {
 
 extension Settings: Identifiable {
 
-  static func fetchFirstOrCreate(context: NSManagedObjectContext) {
+  static func fetchFirstOrCreate(context: NSManagedObjectContext) -> Settings {
 
     var userSettings: Settings? {
       let request = NSFetchRequest<Settings>(entityName: "Settings")
@@ -44,7 +44,17 @@ extension Settings: Identifiable {
       defaultSettings.dayOfTheWeek = 2
       defaultSettings.dailyResetWarning = false
       defaultSettings.weeklyResetWarning = false
+
+      CoreDataController.shared.save(context: context)
+
+      return defaultSettings
+    } else {
+      
+      CoreDataController.shared.save(context: context)
+
+      return userSettings!
     }
+
   }
 
   var day: DayOfTheWeek {
