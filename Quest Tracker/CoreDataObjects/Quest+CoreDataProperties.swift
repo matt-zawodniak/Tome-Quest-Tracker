@@ -32,17 +32,6 @@ extension Quest {
 
 extension Quest: Identifiable {
 
-  static func findQuestBy(id: UUID) -> Quest? {
-
-    let request: NSFetchRequest<Quest> = Quest.fetchRequest()
-    request.fetchLimit = 1
-    request.predicate = NSPredicate(format: "id = $@", id as CVarArg)
-
-   let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first ?? nil
-
-    return foundQuest
-  }
-
   static func findQuestBy(name: String) -> Quest? {
     let request: NSFetchRequest<Quest> = Quest.fetchRequest()
     request.fetchLimit = 1
@@ -66,7 +55,7 @@ extension Quest: Identifiable {
 
           quest.isCompleted = true
           user.giveExp(quest: quest, settings: settings, context: context)
-          
+
           CoreDataController.shared.save(context: context)
         }
       }
