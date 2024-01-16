@@ -19,7 +19,7 @@ struct SettingsView: View {
         VStack {
           HStack {
             Text("Daily Reset Time:")
-            DatePicker("", selection: $settings.time.bound, displayedComponents: .hourAndMinute)
+            DatePicker("", selection: $settings.resetTime, displayedComponents: .hourAndMinute)
           }
           HStack {
             Text("Daily Reset Warning")
@@ -64,11 +64,12 @@ struct SettingsView: View {
       .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
     .onDisappear(perform: {
+      settings.setNewResetTime()
       for quest in quests {
         if quest.type == .dailyQuest {
-          quest.setDateToDailyResetTime(quest: quest, settings: settings)
+          quest.setDateToDailyResetTime(settings: settings)
         } else if quest.type == .weeklyQuest {
-          quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+          quest.setDateToWeeklyResetDate(settings: settings)
         }
       }
       CoreDataController.shared.save(context: managedObjectContext)
@@ -85,7 +86,9 @@ struct SettingsView_Previews: PreviewProvider {
     components.second = -1
 
     defaultSettings.dayOfTheWeek = 3
-    defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+    defaultSettings.resetTime = Calendar.current.date(
+      byAdding: components,
+      to: Calendar.current.startOfDay(for: Date()))!
     defaultSettings.dailyResetWarning = true
     defaultSettings.weeklyResetWarning = false
     defaultSettings.levelingScheme = 2

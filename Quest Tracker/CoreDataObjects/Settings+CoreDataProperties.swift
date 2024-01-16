@@ -18,12 +18,23 @@ extension Settings {
   @NSManaged public var dailyResetWarning: Bool
   @NSManaged public var dayOfTheWeek: Int64
   @NSManaged public var levelingScheme: Int64
-  @NSManaged public var time: Date?
+  @NSManaged public var resetTime: Date
   @NSManaged public var weeklyResetWarning: Bool
 
 }
 
 extension Settings: Identifiable {
+  func setNewResetTime() {
+    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: resetTime)
+    let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
+    resetTime = newResetTime!
+  }
+
+  func refreshDailyReset() {
+    var components = DateComponents()
+    components.day = 1
+    resetTime = Calendar.current.date(byAdding: components, to: resetTime)!
+  }
 
   var day: DayOfTheWeek {
     get {
