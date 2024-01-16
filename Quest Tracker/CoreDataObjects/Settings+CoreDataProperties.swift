@@ -17,22 +17,22 @@ extension Settings {
 
   @NSManaged public var dailyResetWarning: Bool
   @NSManaged public var dayOfTheWeek: Int64
-  @NSManaged public var time: Date?
+  @NSManaged public var time: Date
   @NSManaged public var weeklyResetWarning: Bool
 
 }
 
 extension Settings: Identifiable {
   func setNewResetTime() {
-    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: resetTime)
+    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: time)
     let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
-    resetTime = newResetTime!
+    time = newResetTime!
   }
 
   func refreshDailyReset() {
     var components = DateComponents()
     components.day = 1
-    resetTime = Calendar.current.date(byAdding: components, to: resetTime)!
+    time = Calendar.current.date(byAdding: components, to: time)!
   }
 
   static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> Settings {
@@ -50,7 +50,7 @@ extension Settings: Identifiable {
       components.day = 1
       components.second = -1
 
-      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
+      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
 
       defaultSettings.dayOfTheWeek = 2
       defaultSettings.dailyResetWarning = false
@@ -58,7 +58,7 @@ extension Settings: Identifiable {
 
       return defaultSettings
     } else {
-  
+
       return userSettings!
     }
 

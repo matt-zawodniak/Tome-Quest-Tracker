@@ -72,7 +72,7 @@ extension Quest: Identifiable {
       return (try? context.fetch(request)) ?? []
     }
 
-    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.resetTime)
+    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
     let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
 
     let mostRecentDailyReset = Calendar.current.nextDate(
@@ -96,9 +96,9 @@ extension Quest: Identifiable {
 
     var weeklyComponents = DateComponents()
     weeklyComponents.weekday = Int(settings.dayOfTheWeek)
-    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.resetTime)
-    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.resetTime)
-    weeklyComponents.second = Calendar.current.component(.second, from: settings.resetTime)
+    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.time)
+    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.time)
+    weeklyComponents.second = Calendar.current.component(.second, from: settings.time)
     let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date.now)!
 
     let mostRecentWeeklyReset = Calendar.current.nextDate(
@@ -115,9 +115,9 @@ extension Quest: Identifiable {
 
   func setDateToDailyResetTime(settings: Settings) {
     var components = DateComponents()
-    components.hour = Calendar.current.component(.hour, from: settings.resetTime)
-    components.minute = Calendar.current.component(.minute, from: settings.resetTime)
-    components.second = Calendar.current.component(.second, from: settings.resetTime)
+    components.hour = Calendar.current.component(.hour, from: settings.time)
+    components.minute = Calendar.current.component(.minute, from: settings.time)
+    components.second = Calendar.current.component(.second, from: settings.time)
 
     let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
     dueDate = nextResetTime
@@ -126,8 +126,8 @@ extension Quest: Identifiable {
   func setDateToWeeklyResetDate(settings: Settings) {
     var components = DateComponents()
     components.weekday = Int(settings.dayOfTheWeek)
-    components.hour = Calendar.current.component(.hour, from: settings.resetTime)
-    components.minute = Calendar.current.component(.minute, from: settings.resetTime)
+    components.hour = Calendar.current.component(.hour, from: settings.time)
+    components.minute = Calendar.current.component(.minute, from: settings.time)
 
     let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 

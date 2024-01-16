@@ -21,7 +21,7 @@ struct SettingsView: View {
         VStack {
           HStack {
             Text("Daily Reset Time:")
-            DatePicker("", selection: $settings.resetTime, displayedComponents: .hourAndMinute)
+            DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute)
           }
           HStack {
             Text("Daily Reset Warning")

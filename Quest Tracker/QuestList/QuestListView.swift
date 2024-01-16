@@ -120,7 +120,7 @@ struct QuestListView: View {
                 }
               })
           } else {
-            Text(settings.resetTime, style: .timer)
+            Text(settings.time, style: .timer)
           }
         }
       }
@@ -129,13 +129,13 @@ struct QuestListView: View {
       }
     }
     .onReceive(timer, perform: { time in
-      if time >= settings.resetTime {
+      if time >= settings.time {
         tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
-        if Date.now >= settings.resetTime {
+        if Date.now >= settings.time {
           tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
         }
       }
