@@ -32,7 +32,7 @@ extension Quest {
 
 extension Quest: Identifiable {
 
-  static func findQuest(withId id: UUID) -> Quest? {
+  static func findQuestBy(id: UUID) -> Quest? {
 
     let request: NSFetchRequest<Quest> = Quest.fetchRequest()
     request.fetchLimit = 1
@@ -43,7 +43,7 @@ extension Quest: Identifiable {
     return foundQuest
   }
 
-  static func findQuestToComplete(name: String) -> Quest? {
+  static func findQuestBy(name: String) -> Quest? {
     let request: NSFetchRequest<Quest> = Quest.fetchRequest()
     request.fetchLimit = 1
     request.predicate = NSPredicate(format: "questName = %@", name)
@@ -54,20 +54,22 @@ extension Quest: Identifiable {
   }
 
   static func completeQuest(name: String) {
-    let quest = findQuestToComplete(name: name)
-    if quest != nil {
+    if let quest: Quest = findQuestBy(name: name) {
 
       let context = CoreDataController.shared.container.viewContext
 
       let userRequest: NSFetchRequest<User> = User.fetchRequest()
-      let user = try? context.fetch(userRequest).first
+      if let user: User = try? context.fetch(userRequest).first {
 
-      let settingsRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
-      let settings = try? context.fetch(settingsRequest).first
+        let settingsRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
+        if let settings: Settings = try? context.fetch(settingsRequest).first {
 
-      quest?.isCompleted = true
-      user!.giveExp(quest: quest!, settings: settings!, context: context)
-      CoreDataController.shared.save(context: context)
+          quest.isCompleted = true
+          user.giveExp(quest: quest, settings: settings, context: context)
+          
+          CoreDataController.shared.save(context: context)
+        }
+      }
     }
   }
 
