@@ -56,6 +56,7 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               Button {
                 quest.isCompleted = true
+                quest.timeCompleted = Date.now
                 user.giveExp(quest: quest)
                 CoreDataController.shared.save(context: managedObjectContext)
               } label: {
