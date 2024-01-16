@@ -31,32 +31,32 @@ extension User: Identifiable {
 
       if level % 5 == 0 {
 
-        var milestoneRewardFetchedResults: [Reward] {
+        var milestoneRewardFetchedResults: [Reward]? {
           let request = NSFetchRequest<Reward>(entityName: "Reward")
           request.predicate = NSPredicate(format: "isMilestoneReward == true && isEarned == false")
           request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
-          return (try? context.fetch(request)) ?? []
+          return (try? context.fetch(request))
         }
 
-        if milestoneRewardFetchedResults != [] {
+        if let milestoneRewardFetchedResults {
           let firstMilestoneReward = milestoneRewardFetchedResults.first
-          makeEarnedCopyOfRewardAndSendToEndOfArray(
+          createUnearnedCopyOfRewardAtEndOfArray(
             earnedReward: firstMilestoneReward!,
             rewardArray: milestoneRewardFetchedResults,
             context: context)
         }
       } else {
 
-        var minorRewardFetchedResults: [Reward] {
+        var minorRewardFetchedResults: [Reward]? {
           let request = NSFetchRequest<Reward>(entityName: "Reward")
           request.predicate = NSPredicate(format: "isMilestoneReward == false && isEarned == false")
           request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
-          return (try? context.fetch(request)) ?? []
+          return (try? context.fetch(request))
         }
 
-        if minorRewardFetchedResults != [] {
+        if let minorRewardFetchedResults {
           let firstMinorReward = minorRewardFetchedResults.first
-          makeEarnedCopyOfRewardAndSendToEndOfArray(earnedReward: firstMinorReward!,
+          createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward!,
                                                     rewardArray: minorRewardFetchedResults,
                                                     context: context)
         }
@@ -66,7 +66,7 @@ extension User: Identifiable {
     }
   }
 
-  func makeEarnedCopyOfRewardAndSendToEndOfArray(
+  func createUnearnedCopyOfRewardAtEndOfArray(
     earnedReward: Reward,
     rewardArray: [Reward],
     context: NSManagedObjectContext) {
