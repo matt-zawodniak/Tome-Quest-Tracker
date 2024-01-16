@@ -112,7 +112,6 @@ extension Quest: Identifiable {
     }
   }
 
-
   func setDateToDailyResetTime(settings: Settings) {
     var components = DateComponents()
     components.hour = Calendar.current.component(.hour, from: settings.time)
