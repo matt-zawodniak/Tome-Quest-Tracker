@@ -27,6 +27,12 @@ class QuestTrackerViewModel: ObservableObject {
       case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
       }
     }
+
+  func refreshSettingsAndQuests(settings: Settings, context: NSManagedObjectContext) {
+    settings.refreshDailyReset()
+    Quest.resetQuests(settings: settings, context: context)
+    CoreDataController.shared.save(context: context)
+  }
 }
 
 enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {

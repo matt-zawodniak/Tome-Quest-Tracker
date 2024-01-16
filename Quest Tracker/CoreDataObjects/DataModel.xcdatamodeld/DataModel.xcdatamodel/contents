@@ -11,7 +11,8 @@
         <attribute name="questBonusReward" optional="YES" attributeType="String"/>
         <attribute name="questDescription" optional="YES" attributeType="String"/>
         <attribute name="questName" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="questType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="questType" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeCompleted" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES" codeGenerationType="class">

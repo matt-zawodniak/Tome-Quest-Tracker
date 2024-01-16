@@ -23,6 +23,17 @@ extension Settings {
 }
 
 extension Settings: Identifiable {
+  func setNewResetTime() {
+    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: resetTime)
+    let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
+    resetTime = newResetTime!
+  }
+
+  func refreshDailyReset() {
+    var components = DateComponents()
+    components.day = 1
+    resetTime = Calendar.current.date(byAdding: components, to: resetTime)!
+  }
 
   static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> Settings {
 
