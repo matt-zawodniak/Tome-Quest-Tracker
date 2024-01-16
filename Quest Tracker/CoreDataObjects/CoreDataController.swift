@@ -20,8 +20,8 @@ class CoreDataController: ObservableObject {
         print("Core Data failed to load: \(error.localizedDescription)")
       }
     }
-    User.fetchFirstOrCreate(context: container.viewContext)
-    Settings.fetchFirstOrCreate(context: container.viewContext)
+    _ = User.fetchFirstOrInitialize(context: container.viewContext)
+    _ = Settings.fetchFirstOrInitialize(context: container.viewContext)
     save(context: container.viewContext)
   }
 

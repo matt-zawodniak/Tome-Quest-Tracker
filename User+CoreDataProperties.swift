@@ -24,7 +24,7 @@ extension User {
 
 extension User: Identifiable {
 
-  static func fetchFirstOrCreate(context: NSManagedObjectContext) -> User {
+  static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> User {
 
     var currentUser: User? {
       let request = User.fetchRequest()
@@ -39,11 +39,9 @@ extension User: Identifiable {
       newUser.level = 1
       newUser.levelingScheme = 0
 
-      CoreDataController.shared.save(context: context)
       return newUser
     } else {
 
-      CoreDataController.shared.save(context: context)
       return currentUser!
     }
   }
