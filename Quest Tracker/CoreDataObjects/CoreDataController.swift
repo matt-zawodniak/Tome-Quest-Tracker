@@ -33,53 +33,11 @@ class CoreDataController: ObservableObject {
         print("Core Data failed to load: \(error.localizedDescription)")
       }
     }
-    fetchFirstOrCreate(context: container.viewContext)
-  }
 
-  func fetchFirstOrCreate(context: NSManagedObjectContext) {
+    _ = User.fetchFirstOrInitialize(context: container.viewContext)
+    _ = Settings.fetchFirstOrInitialize(context: container.viewContext)
+    save(context: container.viewContext)
 
-    var currentUser: [User] {
-      let request = User.fetchRequest()
-      return (try? container.viewContext.fetch(request)) ?? []
-    }
-
-    if currentUser.isEmpty {
-      let newUser = User(context: context)
-      newUser.currentExp = 0
-      newUser.expToLevel = 100
-      newUser.level = 1
-    }
-
-    var userSettings: [Settings] {
-      let request = NSFetchRequest<Settings>(entityName: "Settings")
-      return (try? container.viewContext.fetch(request)) ?? []
-    }
-
-    if userSettings.isEmpty {
-      let defaultSettings = Settings(context: context)
-
-      var components = DateComponents()
-      components.day = 1
-      components.second = -1
-
-      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
-
-      defaultSettings.dayOfTheWeek = 2
-      defaultSettings.dailyResetWarning = false
-      defaultSettings.weeklyResetWarning = false
-      defaultSettings.levelingScheme = 0
-
-      save(context: context)
-    } else {
-      //			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
-      //				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-      //				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
-
-      //			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
-      //			save(context: context)
-      //			
-      //			print(userSettings.first?.time as Any)
-    }
   }
 
   func save(context: NSManagedObjectContext) {

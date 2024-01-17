@@ -11,6 +11,7 @@ import CoreData
 struct QuestListView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
   @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.scenePhase) var scenePhase
   @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
                 predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
   @State var sortType: QuestSortDescriptor = .timeCreated
@@ -18,6 +19,8 @@ struct QuestListView: View {
   @State var showingCompletedQuests: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
   @FetchRequest(sortDescriptors: []) var settingsFetchResults: FetchedResults<Settings>
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
   var settings: Settings {
     return settingsFetchResults.first!
   }
@@ -54,6 +57,7 @@ struct QuestListView: View {
               Button {
                 quest.isCompleted = true
                 user.giveExp(quest: quest, settings: settings, context: managedObjectContext)
+                quest.timeCompleted = Date.now
                 CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")
@@ -73,7 +77,7 @@ struct QuestListView: View {
           }
           HStack {
             Spacer()
-            NavigationLink(destination: SettingsView(settings: settings)) {
+            NavigationLink(destination: SettingsView(settings: settings, user: user)) {
               Button(action: {}, label: {
                 Text("Settings")
               })
@@ -124,12 +128,27 @@ struct QuestListView: View {
                   Text("Back")
                 }
               })
+          } else {
+            Text(settings.time, style: .timer)
           }
         }
       }
       .navigationDestination(isPresented: $newQuestView) {
         QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
       }
+    }
+    .onReceive(timer, perform: { time in
+      if time >= settings.time {
+        tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
+      }
+    })
+    .onChange(of: scenePhase) { phase in
+      if phase == .active {
+        if Date.now >= settings.time {
+          tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
+        }
+      }
+      print("Scene has changed to \(phase)")
     }
     LevelAndExpUI()
       .padding(.horizontal)
