@@ -26,9 +26,13 @@ struct QuestView: View {
       }
     }.onDisappear(
       perform: {
-        quest.isSelected = false
-        quest.isCompleted = false
-        CoreDataController.shared.save(context: managedObjectContext)
+        if quest.questName.bound.count > 0 {
+          quest.isSelected = false
+          quest.isCompleted = false
+          CoreDataController.shared.save(context: managedObjectContext)
+        } else {
+          managedObjectContext.delete(quest)
+        }
       }
     )
   }

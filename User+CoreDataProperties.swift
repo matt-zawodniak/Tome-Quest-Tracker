@@ -92,7 +92,9 @@ extension User: Identifiable {
       return fetchedUserResults.first ?? nil
     }
 
-    if currentUser == nil {
+    if let currentUser {
+      return currentUser
+    } else {
       let newUser = User(context: context)
       newUser.currentExp = 0
       newUser.expToLevel = 100
@@ -100,9 +102,6 @@ extension User: Identifiable {
       newUser.levelingScheme = 0
 
       return newUser
-    } else {
-
-      return currentUser!
     }
   }
 

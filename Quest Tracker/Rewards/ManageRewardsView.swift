@@ -30,25 +30,48 @@ struct ManageRewardsView: View {
           Section(header: Text("Minor Rewards")) {
             ForEach(minorRewards, id: \.self) { reward in
               Text(reward.name ?? "")
-                .swipeActions(edge: .trailing) { Button(role: .destructive) {
-                  managedObjectContext.delete(reward)
-                  CoreDataController.shared.save(context: managedObjectContext)
-                } label: {
-                  Label("Delete", systemImage: "trash")
-                }
-                }
-            }
+                .swipeActions(edge: .trailing) {
+
+                  Button(role: .destructive) {
+                    managedObjectContext.delete(reward)
+                    CoreDataController.shared.save(context: managedObjectContext)
+                  } label: {
+                    Label("Delete", systemImage: "trash")
+                  }
+
+                  NavigationLink(destination: AddRewardView(reward: reward,
+                                                            minorRewardCount: minorRewards.count,
+                                                            milestoneRewardCount: milestoneRewards.count)) {
+                    Button(action: {
+                    }, label: {
+                      Text("Edit")
+                    }
+                    )
+                  }
+                }            }
             .onMove(perform: moveMinorRewards)
           }
           Section(header: Text("Milestone Rewards")) {
             ForEach(milestoneRewards, id: \.self) { reward in
               Text(reward.name ?? "")
-                .swipeActions(edge: .trailing) { Button(role: .destructive) {
-                  managedObjectContext.delete(reward)
-                  CoreDataController.shared.save(context: managedObjectContext)
-                } label: {
-                  Label("Delete", systemImage: "trash")
-                }
+                .swipeActions(edge: .trailing) {
+
+                  Button(role: .destructive) {
+                    managedObjectContext.delete(reward)
+                    CoreDataController.shared.save(context: managedObjectContext)
+                  } label: {
+                    Label("Delete", systemImage: "trash")
+                  }
+
+                  NavigationLink(destination: AddRewardView(reward: reward,
+                                                            minorRewardCount: minorRewards.count,
+                                                            milestoneRewardCount: milestoneRewards.count)) {
+                    Button(action: {
+                    }, label: {
+                      Text("Edit")
+                    }
+                    )
+                  }
                 }
             }
             .onMove(perform: moveMilestoneRewards)
@@ -59,7 +82,9 @@ struct ManageRewardsView: View {
         }
       }
       .popover(isPresented: $presentingAddRewardView) {
-        AddRewardView(minorRewardCount: minorRewards.count, milestoneRewardCount: milestoneRewards.count)
+        AddRewardView(reward: Reward(context: managedObjectContext),
+                      minorRewardCount: minorRewards.count,
+                      milestoneRewardCount: milestoneRewards.count)
       }
     }
   }
