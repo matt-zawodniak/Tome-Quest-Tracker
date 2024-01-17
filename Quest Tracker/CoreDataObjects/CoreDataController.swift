@@ -72,6 +72,8 @@ class CoreDataController: ObservableObject {
       }
     }
 
+    container.viewContext.automaticallyMergesChangesFromParent
+
     return container
   }()
   
