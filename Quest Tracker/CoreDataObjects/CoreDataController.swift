@@ -66,17 +66,17 @@ class CoreDataController: ObservableObject {
   lazy var persistentContainer: NSPersistentCloudKitContainer = {
     let container = NSPersistentCloudKitContainer(name: "DataModel")
 
-    container.loadPersistentStores { storeDescription, error in
+    container.loadPersistentStores { _, error in
       guard error == nil else {
         fatalError("Could not load persistent stores. \(error!)")
       }
     }
 
-    container.viewContext.automaticallyMergesChangesFromParent
+    container.viewContext.automaticallyMergesChangesFromParent = true
 
     return container
   }()
-  
+
   private init() {
     persistentContainer.loadPersistentStores {_, error in
       if let error = error {
