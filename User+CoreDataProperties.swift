@@ -14,7 +14,7 @@ extension User {
   @nonobjc public class func fetchRequest() -> NSFetchRequest<User> {
     return NSFetchRequest<User>(entityName: "User")
   }
-  
+
   @NSManaged public var level: Int64
   @NSManaged public var currentExp: Double
   @NSManaged public var expToLevel: Double
