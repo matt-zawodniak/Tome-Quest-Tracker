@@ -56,10 +56,11 @@ extension User: Identifiable {
         }
 
         if let minorRewardFetchedResults {
-          let firstMinorReward = minorRewardFetchedResults.first
-          createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward!,
-                                                    rewardArray: minorRewardFetchedResults,
-                                                    context: context)
+          if let firstMinorReward = minorRewardFetchedResults.first {
+            createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
+                                                   rewardArray: minorRewardFetchedResults,
+                                                   context: context)
+          }
         }
       }
 
@@ -82,7 +83,6 @@ extension User: Identifiable {
 
     CoreDataController.shared.save(context: context)
   }
-
 
   static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> User {
 
