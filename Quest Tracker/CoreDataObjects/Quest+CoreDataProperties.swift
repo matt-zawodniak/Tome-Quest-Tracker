@@ -48,18 +48,14 @@ extension Quest: Identifiable {
 
       let context = CoreDataController.shared.container.viewContext
 
-      let userRequest: NSFetchRequest<User> = User.fetchRequest()
-      if let user: User = try? context.fetch(userRequest).first {
+      let user: User = User.fetchFirstOrInitialize(context: context)
 
-        let settingsRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
-        if let settings: Settings = try? context.fetch(settingsRequest).first {
+      let settings: Settings = Settings.fetchFirstOrInitialize(context: context)
 
-          quest.isCompleted = true
-          user.giveExp(quest: quest, settings: settings, context: context)
+      quest.isCompleted = true
+      user.giveExp(quest: quest, settings: settings, context: context)
 
-          CoreDataController.shared.save(context: context)
-        }
-      }
+      CoreDataController.shared.save(context: context)
     }
   }
 
