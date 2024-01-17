@@ -12,44 +12,6 @@ import SwiftUI
 class CoreDataController: ObservableObject {
   static let shared = CoreDataController()
 
-  static var preview: CoreDataController = {
-    let result = CoreDataController(inMemory: true)
-    let viewContext = result.container.viewContext
-    for number in 1..<3 {
-      let newReward = Reward(context: viewContext)
-      newReward.name = "Reward \(number)"
-      newReward.isEarned = true
-      newReward.isMilestoneReward = false
-      newReward.sortId = Int64(number)
-    }
-    for number in 3..<9 {
-      let newReward = Reward(context: viewContext)
-      newReward.name = "Reward \(number)"
-      newReward.isEarned = false
-      newReward.isMilestoneReward = false
-      newReward.sortId = Int64(number)
-    }
-    for number in 10..<12 {
-      let newReward = Reward(context: viewContext)
-      newReward.name = "Milestone Reward \(number)"
-      newReward.isEarned = false
-      newReward.isMilestoneReward = true
-      newReward.sortId = Int64(number)
-    }
-    let previewUser = User(context: viewContext)
-    previewUser.currentExp = 27
-    previewUser.expToLevel = 40
-    previewUser.level = 3
-
-    do {
-      try viewContext.save()
-    } catch {
-      let nsError = error as NSError
-      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-    }
-    return result
-  }()
-
   init(inMemory: Bool = false) {
       container = NSPersistentContainer(name: "DataModel")
       if inMemory {
@@ -71,53 +33,11 @@ class CoreDataController: ObservableObject {
         print("Core Data failed to load: \(error.localizedDescription)")
       }
     }
-    fetchFirstOrCreate(context: container.viewContext)
-  }
 
-  func fetchFirstOrCreate(context: NSManagedObjectContext) {
+    _ = User.fetchFirstOrInitialize(context: container.viewContext)
+    _ = Settings.fetchFirstOrInitialize(context: container.viewContext)
+    save(context: container.viewContext)
 
-    var currentUser: [User] {
-      let request = User.fetchRequest()
-      return (try? container.viewContext.fetch(request)) ?? []
-    }
-
-    if currentUser.isEmpty {
-      let newUser = User(context: context)
-      newUser.currentExp = 0
-      newUser.expToLevel = 100
-      newUser.level = 1
-    }
-
-    var userSettings: [Settings] {
-      let request = NSFetchRequest<Settings>(entityName: "Settings")
-      return (try? container.viewContext.fetch(request)) ?? []
-    }
-
-    if userSettings.isEmpty {
-      let defaultSettings = Settings(context: context)
-
-      var components = DateComponents()
-      components.day = 1
-      components.second = -1
-
-      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
-
-      defaultSettings.dayOfTheWeek = 2
-      defaultSettings.dailyResetWarning = false
-      defaultSettings.weeklyResetWarning = false
-      defaultSettings.levelingScheme = 0
-
-      save(context: context)
-    } else {
-      //			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
-      //				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-      //				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
-
-      //			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
-      //			save(context: context)
-      //			
-      //			print(userSettings.first?.time as Any)
-    }
   }
 
   func save(context: NSManagedObjectContext) {

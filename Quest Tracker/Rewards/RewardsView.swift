@@ -47,7 +47,7 @@ struct RewardsView: View {
           } else {
             ForEach(availableRewards, id: \.self) { reward in
               HStack {
-                Text(reward.name!)
+                Text(reward.name.bound)
                 Spacer()
                 Button("Claim Reward!") {
                   managedObjectContext.delete(reward)

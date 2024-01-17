@@ -41,10 +41,10 @@ struct QuestView: View {
           Text("\(menuText)")
         }.onChange(of: quest.type) { value in
           if value == .dailyQuest {
-            quest.setDateToDailyResetTime(quest: quest, settings: settings)
+            quest.setDateToDailyResetTime(settings: settings)
             hasDueDate = true
           } else if value == .weeklyQuest {
-            quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+            quest.setDateToWeeklyResetDate(settings: settings)
             hasDueDate = true
           }
         }
@@ -102,7 +102,7 @@ struct QuestView: View {
           Spacer()
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) { _ in
-              quest.setDateToWeeklyResetDate(quest: quest, settings: settings)
+              quest.setDateToWeeklyResetDate(settings: settings)
             }
             .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         }
@@ -113,7 +113,7 @@ struct QuestView: View {
           Spacer()
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) { _ in
-              quest.setDateToDailyResetTime(quest: quest, settings: settings)
+              quest.setDateToDailyResetTime(settings: settings)
             }
             .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         }
@@ -155,29 +155,5 @@ struct QuestView: View {
         }
       }
     }
-  }
-}
-
-struct QuestView_Previews: PreviewProvider {
-  static func loadPreviewSettings(context: NSManagedObjectContext) -> Settings {
-    let defaultSettings = Settings(context: context)
-
-    var components = DateComponents()
-    components.day = 1
-    components.second = -1
-
-    defaultSettings.dayOfTheWeek = 3
-    defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))
-    defaultSettings.dailyResetWarning = true
-    defaultSettings.weeklyResetWarning = false
-    defaultSettings.levelingScheme = 2
-
-    return defaultSettings
-  }
-  static var previews: some View {
-    let previewContext = CoreDataController.shared.container.viewContext
-    let quest = CoreDataController.shared.addPreviewQuest(context: previewContext)
-    let settings = loadPreviewSettings(context: previewContext)
-    QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false, settings: settings)
   }
 }

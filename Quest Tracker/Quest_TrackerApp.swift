@@ -10,6 +10,7 @@ import AppIntents
 
 @main
 struct Quest_TrackerApp: App {
+
   @StateObject private var dataController = CoreDataController.shared
 
   init() {

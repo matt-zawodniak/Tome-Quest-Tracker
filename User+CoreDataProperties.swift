@@ -18,6 +18,7 @@ extension User {
   @NSManaged public var level: Int64
   @NSManaged public var currentExp: Double
   @NSManaged public var expToLevel: Double
+  @NSManaged public var levelingScheme: Int64
 
 }
 
@@ -31,34 +32,35 @@ extension User: Identifiable {
 
       if level % 5 == 0 {
 
-        var milestoneRewardFetchedResults: [Reward] {
+        var milestoneRewardFetchedResults: [Reward]? {
           let request = NSFetchRequest<Reward>(entityName: "Reward")
           request.predicate = NSPredicate(format: "isMilestoneReward == true && isEarned == false")
           request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
-          return (try? context.fetch(request)) ?? []
+          return (try? context.fetch(request))
         }
 
-        if milestoneRewardFetchedResults != [] {
+        if let milestoneRewardFetchedResults {
           let firstMilestoneReward = milestoneRewardFetchedResults.first
-          makeEarnedCopyOfRewardAndSendToEndOfArray(
+          createUnearnedCopyOfRewardAtEndOfArray(
             earnedReward: firstMilestoneReward!,
             rewardArray: milestoneRewardFetchedResults,
             context: context)
         }
       } else {
 
-        var minorRewardFetchedResults: [Reward] {
+        var minorRewardFetchedResults: [Reward]? {
           let request = NSFetchRequest<Reward>(entityName: "Reward")
           request.predicate = NSPredicate(format: "isMilestoneReward == false && isEarned == false")
           request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
-          return (try? context.fetch(request)) ?? []
+          return (try? context.fetch(request))
         }
 
-        if minorRewardFetchedResults != [] {
-          let firstMinorReward = minorRewardFetchedResults.first
-          makeEarnedCopyOfRewardAndSendToEndOfArray(earnedReward: firstMinorReward!,
-                                                    rewardArray: minorRewardFetchedResults,
-                                                    context: context)
+        if let minorRewardFetchedResults {
+          if let firstMinorReward = minorRewardFetchedResults.first {
+            createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
+                                                   rewardArray: minorRewardFetchedResults,
+                                                   context: context)
+          }
         }
       }
 
@@ -66,7 +68,7 @@ extension User: Identifiable {
     }
   }
 
-  func makeEarnedCopyOfRewardAndSendToEndOfArray(
+  func createUnearnedCopyOfRewardAtEndOfArray(
     earnedReward: Reward,
     rewardArray: [Reward],
     context: NSManagedObjectContext) {
@@ -82,11 +84,55 @@ extension User: Identifiable {
     CoreDataController.shared.save(context: context)
   }
 
-  func levelUp(settings: Settings) {
+  static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> User {
+
+    var currentUser: User? {
+      let request = User.fetchRequest()
+      let fetchedUserResults = (try? context.fetch(request)) ?? []
+      return fetchedUserResults.first ?? nil
+    }
+
+    if currentUser == nil {
+      let newUser = User(context: context)
+      newUser.currentExp = 0
+      newUser.expToLevel = 100
+      newUser.level = 1
+      newUser.levelingScheme = 0
+
+      return newUser
+    } else {
+
+      return currentUser!
+    }
+  }
+
+ func levelUp(settings: Settings) {
+
     level += 1
     currentExp -= expToLevel
-    if settings.levelingScheme == 1 {
+    if levelingScheme == 1 {
       expToLevel += 20
+    }
+  }
+
+  var scaling: LevelingSchemes {
+    get {
+      return LevelingSchemes(rawValue: self.levelingScheme)!
+    }
+    set {
+      self.levelingScheme = newValue.rawValue
+    }
+  }
+}
+
+enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
+  case normal = 0
+  case hard = 1
+
+  var description: String {
+    switch self {
+    case .normal: "Normal"
+    case .hard: "Hard"
     }
   }
 }
