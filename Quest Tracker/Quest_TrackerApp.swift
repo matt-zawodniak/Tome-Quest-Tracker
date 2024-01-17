@@ -14,7 +14,7 @@ struct Quest_TrackerApp: App {
   var body: some Scene {
     WindowGroup {
       QuestListView(tracker: QuestTrackerViewModel())
-        .environment(\.managedObjectContext, dataController.container.viewContext)
+        .environment(\.managedObjectContext, dataController.persistentContainer.viewContext)
     }
   }
 }

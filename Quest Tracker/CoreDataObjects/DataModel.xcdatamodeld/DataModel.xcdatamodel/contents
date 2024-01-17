@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="Quest" representedClassName="Quest" syncable="YES">
         <attribute name="difficulty" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -18,12 +18,12 @@
         <attribute name="dateEarned" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isEarned" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isMilestoneReward" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="sortId" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES">
         <attribute name="dailyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="dayOfTheWeek" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="dayOfTheWeek" attributeType="Integer 64" defaultValueString="3" usesScalarValueType="YES"/>
         <attribute name="levelingScheme" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weeklyResetWarning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

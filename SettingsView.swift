@@ -93,7 +93,7 @@ struct SettingsView_Previews: PreviewProvider {
     return defaultSettings
   }
   static var previews: some View {
-    let previewContext = CoreDataController.shared.container.viewContext
+    let previewContext = CoreDataController.shared.persistentContainer.viewContext
     let settings = loadPreviewSettings(context: previewContext)
     SettingsView(settings: settings)
   }

@@ -14,7 +14,7 @@ class CoreDataController: ObservableObject {
 
   static var preview: CoreDataController = {
     let result = CoreDataController(inMemory: true)
-    let viewContext = result.container.viewContext
+    let viewContext = result.persistentContainer.viewContext
     for number in 1..<3 {
       let newReward = Reward(context: viewContext)
       newReward.name = "Reward \(number)"
@@ -51,34 +51,44 @@ class CoreDataController: ObservableObject {
   }()
 
   init(inMemory: Bool = false) {
-      container = NSPersistentCloudKitContainer(name: "DataModel")
+      persistentContainer = NSPersistentCloudKitContainer(name: "DataModel")
       if inMemory {
-          container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+          persistentContainer.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
       }
-      container.loadPersistentStores(completionHandler: { (_, error) in
+      persistentContainer.loadPersistentStores(completionHandler: { (_, error) in
           if let error = error as NSError? {
               fatalError("Unresolved error \(error), \(error.userInfo)")
           }
       })
-      container.viewContext.automaticallyMergesChangesFromParent = true
+      persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
   }
 
-  var container = NSPersistentCloudKitContainer(name: "DataModel")
+  lazy var persistentContainer: NSPersistentCloudKitContainer = {
+    let container = NSPersistentCloudKitContainer(name: "DataModel")
 
+    container.loadPersistentStores { storeDescription, error in
+      guard error == nil else {
+        fatalError("Could not load persistent stores. \(error!)")
+      }
+    }
+
+    return container
+  }()
+  
   private init() {
-    container.loadPersistentStores {_, error in
+    persistentContainer.loadPersistentStores {_, error in
       if let error = error {
         print("Core Data failed to load: \(error.localizedDescription)")
       }
     }
-    fetchFirstOrCreate(context: container.viewContext)
+    fetchFirstOrCreate(context: persistentContainer.viewContext)
   }
 
   func fetchFirstOrCreate(context: NSManagedObjectContext) {
 
     var currentUser: [User] {
       let request = User.fetchRequest()
-      return (try? container.viewContext.fetch(request)) ?? []
+      return (try? persistentContainer.viewContext.fetch(request)) ?? []
     }
 
     if currentUser.isEmpty {
@@ -90,7 +100,7 @@ class CoreDataController: ObservableObject {
 
     var userSettings: [Settings] {
       let request = NSFetchRequest<Settings>(entityName: "Settings")
-      return (try? container.viewContext.fetch(request)) ?? []
+      return (try? persistentContainer.viewContext.fetch(request)) ?? []
     }
 
     if userSettings.isEmpty {

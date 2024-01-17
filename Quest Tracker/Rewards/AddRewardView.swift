@@ -51,5 +51,5 @@ struct AddRewardView: View {
 #Preview {
   AddRewardView(minorRewardCount: 5,
                 milestoneRewardCount: 3)
-  .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+  .environment(\.managedObjectContext, CoreDataController.preview.persistentContainer.viewContext)
 }

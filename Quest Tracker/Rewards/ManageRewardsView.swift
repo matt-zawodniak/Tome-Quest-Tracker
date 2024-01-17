@@ -84,5 +84,5 @@ struct ManageRewardsView: View {
 }
 
 #Preview {
-  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.persistentContainer.viewContext)
 }

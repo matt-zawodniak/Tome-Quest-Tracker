@@ -175,7 +175,7 @@ struct QuestView_Previews: PreviewProvider {
     return defaultSettings
   }
   static var previews: some View {
-    let previewContext = CoreDataController.shared.container.viewContext
+    let previewContext = CoreDataController.shared.persistentContainer.viewContext
     let quest = CoreDataController.shared.addPreviewQuest(context: previewContext)
     let settings = loadPreviewSettings(context: previewContext)
     QuestView(quest: quest, hasDueDate: true, datePickerIsExpanded: false, settings: settings)

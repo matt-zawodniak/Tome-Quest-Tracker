@@ -85,5 +85,5 @@ struct RewardsView: View {
 }
 
 #Preview {
-  RewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+  RewardsView().environment(\.managedObjectContext, CoreDataController.preview.persistentContainer.viewContext)
 }
