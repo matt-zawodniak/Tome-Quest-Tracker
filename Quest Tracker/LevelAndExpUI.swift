@@ -24,5 +24,5 @@ struct LevelAndExpUI: View {
 }
 
 #Preview {
-    LevelAndExpUI()
+    LevelAndExpUI().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
 }
