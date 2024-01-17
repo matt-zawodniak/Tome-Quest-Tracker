@@ -43,7 +43,9 @@ extension Settings: Identifiable {
       return userSettingsFetchResults.first ?? nil
     }
 
-    if userSettings == nil {
+    if let userSettings {
+      return userSettings
+    } else {
       let defaultSettings = Settings(context: context)
 
       var components = DateComponents()
@@ -57,11 +59,7 @@ extension Settings: Identifiable {
       defaultSettings.weeklyResetWarning = false
 
       return defaultSettings
-    } else {
-
-      return userSettings!
     }
-
   }
 
   var day: DayOfTheWeek {
