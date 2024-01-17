@@ -32,13 +32,17 @@ struct AddRewardView: View {
         }
       }
       .onDisappear(perform: {
-        if reward.isMilestoneReward {
+        if reward.name.bound.count > 0 {
+          if reward.isMilestoneReward {
             reward.sortId = Int64(milestoneRewardCount)
           } else {
             reward.sortId = Int64(minorRewardCount)
           }
           CoreDataController.shared.save(context: managedObjectContext)
+        } else {
+          managedObjectContext.delete(reward)
         }
+      }
       )
     }
 }
