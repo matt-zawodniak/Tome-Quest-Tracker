@@ -11,8 +11,8 @@ import SwiftUI
 struct AddRewardView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
 
-  @State var rewardName: String = ""
-  @State var rewardIsMileStone: Bool = false
+  @StateObject var reward: Reward
+
   @State var minorRewardCount: Int
   @State var milestoneRewardCount: Int
 
@@ -20,10 +20,10 @@ struct AddRewardView: View {
       NavigationStack {
         Form {
           Section(header: Text("Reward Name")) {
-            TextField("Reward Name", text: $rewardName)
+            TextField("Reward Name", text: $reward.name.bound)
           }
           Section(header: Text("Reward Type")) {
-            Picker("Reward Type", selection: $rewardIsMileStone) {
+            Picker("Reward Type", selection: $reward.isMilestoneReward) {
               Text("Minor").tag(false)
               Text("Milestone").tag(true)
             }
@@ -32,24 +32,19 @@ struct AddRewardView: View {
         }
       }
       .onDisappear(perform: {
-        if rewardName != "" {
-          let newReward = Reward(context: managedObjectContext)
-          newReward.name = rewardName
-          newReward.isMilestoneReward = rewardIsMileStone
-          newReward.isEarned = false
-          if rewardIsMileStone {
-            newReward.sortId = Int64(milestoneRewardCount)
+        if reward.isMilestoneReward {
+            reward.sortId = Int64(milestoneRewardCount)
           } else {
-            newReward.sortId = Int64(minorRewardCount)
+            reward.sortId = Int64(minorRewardCount)
           }
           CoreDataController.shared.save(context: managedObjectContext)
         }
-      })
+      )
     }
 }
 
 #Preview {
-  AddRewardView(minorRewardCount: 5,
+  AddRewardView(reward: Reward(context: CoreDataController.preview.container.viewContext), minorRewardCount: 5,
                 milestoneRewardCount: 3)
   .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
 }
