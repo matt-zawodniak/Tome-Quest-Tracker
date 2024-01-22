@@ -60,7 +60,6 @@ class CoreDataController: ObservableObject {
               fatalError("Unresolved error \(error), \(error.userInfo)")
           }
       })
-      persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
   }
 
   lazy var persistentContainer: NSPersistentCloudKitContainer = {
@@ -72,6 +71,7 @@ class CoreDataController: ObservableObject {
       }
     }
 
+    container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     container.viewContext.automaticallyMergesChangesFromParent = true
 
     return container
@@ -83,7 +83,11 @@ class CoreDataController: ObservableObject {
         print("Core Data failed to load: \(error.localizedDescription)")
       }
     }
-    fetchFirstOrCreate(context: persistentContainer.viewContext)
+    let mainContext = persistentContainer.viewContext
+
+    let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+    privateContext.parent = mainContext
+    fetchFirstOrCreate(context: privateContext)
   }
 
   func fetchFirstOrCreate(context: NSManagedObjectContext) {

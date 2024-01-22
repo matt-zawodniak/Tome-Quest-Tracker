@@ -61,6 +61,26 @@ struct QuestListView: View {
               .tint(.green)          }
           }
         }
+        ForEach(userFetchResults, id: \.self) { (user: User) in
+          Text("User record \(user.currentExp)")
+            .swipeActions(edge: .trailing) { Button(role: .destructive) {
+              managedObjectContext.delete(user)
+              CoreDataController.shared.save(context: managedObjectContext)
+            } label: {
+              Label("Delete", systemImage: "trash")
+            }
+            }
+        }
+        ForEach(settingsFetchResults, id: \.self) { (settings: Settings) in
+          Text("Settings Record \(settings.dayOfTheWeek)")
+            .swipeActions(edge: .trailing) { Button(role: .destructive) {
+              managedObjectContext.delete(settings)
+              CoreDataController.shared.save(context: managedObjectContext)
+            } label: {
+              Label("Delete", systemImage: "trash")
+            }
+            }
+        }
         if !showingCompletedQuests {
           HStack {
             Button(
