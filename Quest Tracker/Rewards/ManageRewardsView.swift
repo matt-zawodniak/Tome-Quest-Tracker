@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct ManageRewardsView: View {
-  @Environment(\.managedObjectContext) var managedObjectContext
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.sortId)],
-                predicate: NSPredicate(
-                  format: "isMilestoneReward == false && isEarned == false"))
-  var minorRewards: FetchedResults<Reward>
-
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.sortId)],
-                predicate: NSPredicate(
-                  format: "isMilestoneReward == true && isEarned == false"))
-  var milestoneRewards: FetchedResults<Reward>
+  @Environment(\.modelContext) var modelContext
+  
+  @State var minorRewards: [Reward]
+  @State var milestoneRewards: [Reward]
   @State var presentingAddRewardView: Bool = false
 
   var body: some View {
@@ -29,12 +23,11 @@ struct ManageRewardsView: View {
         List {
           Section(header: Text("Minor Rewards")) {
             ForEach(minorRewards, id: \.self) { reward in
-              Text(reward.name ?? "")
+              Text(reward.name)
                 .swipeActions(edge: .trailing) {
 
                   Button(role: .destructive) {
-                    managedObjectContext.delete(reward)
-                    CoreDataController.shared.save(context: managedObjectContext)
+                    modelContext.delete(reward)
                   } label: {
                     Label("Delete", systemImage: "trash")
                   }
@@ -53,12 +46,11 @@ struct ManageRewardsView: View {
           }
           Section(header: Text("Milestone Rewards")) {
             ForEach(milestoneRewards, id: \.self) { reward in
-              Text(reward.name ?? "")
+              Text(reward.name)
                 .swipeActions(edge: .trailing) {
 
                   Button(role: .destructive) {
-                    managedObjectContext.delete(reward)
-                    CoreDataController.shared.save(context: managedObjectContext)
+                    modelContext.delete(reward)
                   } label: {
                     Label("Delete", systemImage: "trash")
                   }
@@ -82,7 +74,7 @@ struct ManageRewardsView: View {
         }
       }
       .popover(isPresented: $presentingAddRewardView) {
-        AddRewardView(reward: Reward(context: managedObjectContext),
+        AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
                       minorRewardCount: minorRewards.count,
                       milestoneRewardCount: milestoneRewards.count)
       }
@@ -107,7 +99,7 @@ struct ManageRewardsView: View {
     }
   }
 }
-
-#Preview {
-  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-}
+//
+//#Preview {
+//  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+//}

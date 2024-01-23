@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct SettingsView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
-  @FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
+  @Query() var quests: [Quest]
 
-  @ObservedObject var settings: Settings
-  @ObservedObject var user: User
+  @Binding var settings: Settings
+  @Binding var user: User
 
   var body: some View {
     NavigationStack {

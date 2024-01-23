@@ -7,8 +7,10 @@
 
 import Foundation
 import AppIntents
+import SwiftData
 
 struct CompleteQuestIntent: AppIntent {
+
   static let title: LocalizedStringResource = "Complete Quest"
 
   @Parameter(title: "Quest",
@@ -19,7 +21,10 @@ struct CompleteQuestIntent: AppIntent {
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
 
-    Quest.completeQuest(name: questName)
+    let container = try! ModelContainer(for: Quest.self)
+    let context = ModelContext(container)
+
+    Quest.completeQuest(name: questName, context: context)
 
     return .result(dialog: "\(questName) marked complete.")
   }

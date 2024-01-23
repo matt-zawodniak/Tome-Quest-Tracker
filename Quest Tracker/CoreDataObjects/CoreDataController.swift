@@ -60,19 +60,19 @@ class CoreDataController: ObservableObject {
     difficulty: QuestDifficulty = .easy,
     context: NSManagedObjectContext
   ) -> Quest {
-    let quest = Quest(context: context)
-    quest.questName = name
-    quest.questType = type.rawValue
-    quest.timeCreated = Date()
-    quest.questDescription = description
-    quest.questBonusReward = bonusReward
-    quest.questBonusExp = bonusExp ?? 0
-    quest.length = length.rawValue
-    quest.dueDate = Date()
-    quest.difficulty = difficulty.rawValue
-    quest.isSelected = false
-    quest.id = UUID()
-    save(context: context)
-    return quest
+//    let quest = Quest(context: context)
+//    quest.questName = name
+//    quest.questType = type.rawValue
+//    quest.timeCreated = Date()
+//    quest.questDescription = description
+//    quest.questBonusReward = bonusReward
+//    quest.questBonusExp = bonusExp ?? 0
+//    quest.length = length.rawValue
+//    quest.dueDate = Date()
+//    quest.difficulty = difficulty.rawValue
+//    quest.isSelected = false
+//    quest.id = UUID()
+//    save(context: context)
+//    return quest
   }
 }

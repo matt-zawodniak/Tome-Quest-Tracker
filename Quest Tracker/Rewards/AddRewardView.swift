@@ -9,46 +9,45 @@ import CoreData
 import SwiftUI
 
 struct AddRewardView: View {
-  @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.modelContext) var modelContext
 
-  @StateObject var reward: Reward
-
+  @State var reward: Reward
   @State var minorRewardCount: Int
   @State var milestoneRewardCount: Int
 
-    var body: some View {
-      NavigationStack {
-        Form {
-          Section(header: Text("Reward Name")) {
-            TextField("Reward Name", text: $reward.name.bound)
+  var body: some View {
+    NavigationStack {
+      Form {
+        Section(header: Text("Reward Name")) {
+          TextField("Reward Name", text: $reward.name)
+        }
+        Section(header: Text("Reward Type")) {
+          Picker("Reward Type", selection: $reward.isMilestoneReward) {
+            Text("Minor").tag(false)
+            Text("Milestone").tag(true)
           }
-          Section(header: Text("Reward Type")) {
-            Picker("Reward Type", selection: $reward.isMilestoneReward) {
-              Text("Minor").tag(false)
-              Text("Milestone").tag(true)
-            }
-            .pickerStyle(.segmented)
-          }
+          .pickerStyle(.segmented)
         }
       }
-      .onDisappear(perform: {
-        if reward.name.bound.count > 0 {
-          if reward.isMilestoneReward {
-            reward.sortId = Int64(milestoneRewardCount)
-          } else {
-            reward.sortId = Int64(minorRewardCount)
-          }
-          CoreDataController.shared.save(context: managedObjectContext)
-        } else {
-          managedObjectContext.delete(reward)
-        }
-      }
-      )
     }
+    .onDisappear(perform: {
+      if reward.name.count > 0 {
+        if reward.isMilestoneReward {
+          reward.sortId = Int64(milestoneRewardCount)
+        } else {
+          reward.sortId = Int64(minorRewardCount)
+        }
+        modelContext.insert(reward)
+      } else {
+        //          modelContext.delete(reward)
+      }
+    }
+    )
+  }
 }
-
-#Preview {
-  AddRewardView(reward: Reward(context: CoreDataController.preview.container.viewContext), minorRewardCount: 5,
-                milestoneRewardCount: 3)
-  .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-}
+//
+//#Preview {
+//  AddRewardView(reward: Reward(context: CoreDataController.preview.container.viewContext), minorRewardCount: 5,
+//                milestoneRewardCount: 3)
+//  .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+//}

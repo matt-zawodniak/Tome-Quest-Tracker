@@ -1,30 +1,34 @@
 //
-//  User+CoreDataProperties.swift
+//  User.swift
 //  Quest Tracker
 //
-//  Created by Matt Zawodniak on 12/1/23.
+//  Created by Matt Zawodniak on 1/22/24.
 //
 //
 
 import Foundation
-import CoreData
+import SwiftData
 
-extension User {
 
-  @nonobjc public class func fetchRequest() -> NSFetchRequest<User> {
-    return NSFetchRequest<User>(entityName: "User")
+@Model public class User {
+    var currentExp: Double = 0.0
+    var expToLevel: Double = 0.0
+    var level: Int64 = 0
+    var levelingScheme: Int64 = 0
+
+  public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64) {
+    self.currentExp = currentExp
+    self.expToLevel = expToLevel
+    self.level = level
+    self.levelingScheme = levelingScheme
+    
   }
-
-  @NSManaged public var level: Int64
-  @NSManaged public var currentExp: Double
-  @NSManaged public var expToLevel: Double
-  @NSManaged public var levelingScheme: Int64
 
 }
 
 extension User: Identifiable {
 
-  func giveExp(quest: Quest, settings: Settings, context: NSManagedObjectContext) {
+  func giveExp(quest: Quest, settings: Settings, context: ModelContext) {
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
     currentExp += questExp
     if currentExp >= expToLevel {
@@ -33,9 +37,8 @@ extension User: Identifiable {
       if level % 5 == 0 {
 
         var milestoneRewardFetchedResults: [Reward]? {
-          let request = NSFetchRequest<Reward>(entityName: "Reward")
-          request.predicate = NSPredicate(format: "isMilestoneReward == true && isEarned == false")
-          request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
+          let request = FetchDescriptor<Reward>(predicate: #Predicate { $0.isMilestoneReward == true && $0.isEarned == false }, sortBy: [SortDescriptor(\.sortId)])
+
           return (try? context.fetch(request))
         }
 
@@ -49,9 +52,8 @@ extension User: Identifiable {
       } else {
 
         var minorRewardFetchedResults: [Reward]? {
-          let request = NSFetchRequest<Reward>(entityName: "Reward")
-          request.predicate = NSPredicate(format: "isMilestoneReward == false && isEarned == false")
-          request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
+          let request = FetchDescriptor<Reward>(predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false}, sortBy: [SortDescriptor(\.sortId)])
+
           return (try? context.fetch(request))
         }
 
@@ -63,31 +65,24 @@ extension User: Identifiable {
           }
         }
       }
-
-      CoreDataController.shared.save(context: context)
     }
   }
 
   func createUnearnedCopyOfRewardAtEndOfArray(
     earnedReward: Reward,
     rewardArray: [Reward],
-    context: NSManagedObjectContext) {
+    context: ModelContext) {
 
-    let copyOfEarnedReward = Reward(context: context)
-    copyOfEarnedReward.name = earnedReward.name
-    copyOfEarnedReward.isMilestoneReward = earnedReward.isMilestoneReward
-    copyOfEarnedReward.isEarned = true
-    copyOfEarnedReward.dateEarned = Date.now
+      let endOfArraySortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
 
-    earnedReward.sortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
+      let unearnedCopyofReward = Reward(isMilestoneReward: earnedReward.isMilestoneReward, name: earnedReward.name, sortId: endOfArraySortId)
 
-    CoreDataController.shared.save(context: context)
   }
 
-  static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> User {
+  static func fetchFirstOrInitialize(context: ModelContext) -> User {
 
     var currentUser: User? {
-      let request = User.fetchRequest()
+      let request = FetchDescriptor<User>()
       let fetchedUserResults = (try? context.fetch(request)) ?? []
       return fetchedUserResults.first ?? nil
     }
@@ -95,11 +90,7 @@ extension User: Identifiable {
     if let currentUser {
       return currentUser
     } else {
-      let newUser = User(context: context)
-      newUser.currentExp = 0
-      newUser.expToLevel = 100
-      newUser.level = 1
-      newUser.levelingScheme = 0
+      let newUser = User(currentExp: 0, expToLevel: 100, level: 1, levelingScheme: 0)
 
       return newUser
     }

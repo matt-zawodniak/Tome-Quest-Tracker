@@ -9,9 +9,9 @@ import SwiftUI
 import CoreData
 
 struct QuestView: View {
-  @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.modelContext) var modelContext
 
-  @StateObject var quest: Quest
+  @State var quest: Quest
   @State var hasDueDate: Bool = false
   @State var datePickerIsExpanded: Bool = false
   @State var settings: Settings
@@ -29,9 +29,10 @@ struct QuestView: View {
         if quest.questName.count > 0 {
           quest.isSelected = false
           quest.isCompleted = false
-          CoreDataController.shared.save(context: managedObjectContext)
+
+          modelContext.insert(quest)
         } else {
-          managedObjectContext.delete(quest)
+//          managedObjectContext.delete(quest)
         }
       }
     )
@@ -43,11 +44,11 @@ struct QuestView: View {
         ForEach(QuestType.allCases, id: \.self) {questType in
           let menuText = questType.description
           Text("\(menuText)")
-        }.onChange(of: quest.type) { value in
-          if value == .dailyQuest {
+        }.onChange(of: quest.type) {
+          if quest.type == .dailyQuest {
             quest.setDateToDailyResetTime(settings: settings)
             hasDueDate = true
-          } else if value == .weeklyQuest {
+          } else if quest.type == .weeklyQuest {
             quest.setDateToWeeklyResetDate(settings: settings)
             hasDueDate = true
           }
@@ -105,7 +106,7 @@ struct QuestView: View {
           Text(quest.dueDate.dayOnly)
           Spacer()
           Toggle("", isOn: $hasDueDate)
-            .onChange(of: hasDueDate) { _ in
+            .onChange(of: hasDueDate) {
               quest.setDateToWeeklyResetDate(settings: settings)
             }
             .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
@@ -116,7 +117,7 @@ struct QuestView: View {
           Text(quest.dueDate.timeOnly)
           Spacer()
           Toggle("", isOn: $hasDueDate)
-            .onChange(of: hasDueDate) { _ in
+            .onChange(of: hasDueDate) {
               quest.setDateToDailyResetTime(settings: settings)
             }
             .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
@@ -143,8 +144,8 @@ struct QuestView: View {
             }
           Spacer()
           Toggle("", isOn: $hasDueDate)
-            .onChange(of: hasDueDate) { value in
-              QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: value)
+            .onChange(of: hasDueDate) {
+              QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: hasDueDate)
               datePickerIsExpanded = hasDueDate
             }
         }

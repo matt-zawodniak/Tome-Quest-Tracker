@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct LevelAndExpUI: View {
 
-  @FetchRequest(sortDescriptors: []) var userFetchResults: FetchedResults<User>
+  @Query() var users: [User]
+
   var user: User {
-    return userFetchResults.first!
+    return users.first!
   }
 
   var body: some View {
@@ -22,7 +24,7 @@ struct LevelAndExpUI: View {
     }
   }
 }
-
-#Preview {
-    LevelAndExpUI().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-}
+//
+//#Preview {
+//    LevelAndExpUI().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+//}
