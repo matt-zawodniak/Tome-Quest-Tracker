@@ -14,11 +14,7 @@ struct RewardsView: View {
 
   @Query() var rewards: [Reward]
 
-  @Query() var users: [User]
-
-  var user: User {
-    return users.first!
-  }
+  var user: User
 
   var nextMilestoneLevel: Int64 {
     var milestoneCandidate: Int64 = 0
@@ -28,15 +24,20 @@ struct RewardsView: View {
     return milestoneCandidate
   }
 
+  var availableRewards: [Reward] { rewards.filter({ $0.isEarned == true }).sorted { $0.dateEarned! < $1.dateEarned! }
+  }
+
+  var minorRewards: [Reward] {
+    rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false})
+      .sorted { $0.sortId < $1.sortId }
+  }
+
+  var milestoneRewards: [Reward] {
+    rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false})
+      .sorted { $0.sortId < $1.sortId }
+  }
+
   var body: some View {
-
-    @State var availableRewards = rewards.filter({ $0.isEarned == true }).sorted { $0.dateEarned! < $1.dateEarned! }
-
-    @State var minorRewards = rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false}).sorted { $0.sortId < $1.sortId }
-
-    @State var milestoneRewards = rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false}).sorted { $0.sortId < $1.sortId }
-
-    // These might not update with the state being in the body. might have to move it up and make them each computed vars.
 
     NavigationStack {
       List {
@@ -83,6 +84,6 @@ struct RewardsView: View {
   }
 }
 //
-//#Preview {
+// #Preview {
 //  RewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-//}
+// }

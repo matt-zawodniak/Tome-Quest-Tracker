@@ -9,11 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct LevelAndExpUI: View {
+  @Environment(\.modelContext) var modelContext
 
   @Query() var users: [User]
 
   var user: User {
-    return users.first!
+    return users.first ?? User.fetchFirstOrInitialize(context: modelContext)
   }
 
   var body: some View {

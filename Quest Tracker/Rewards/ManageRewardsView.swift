@@ -10,8 +10,8 @@ import SwiftUI
 struct ManageRewardsView: View {
   @Environment(\.modelContext) var modelContext
 
-  @State var minorRewards: [Reward]
-  @State var milestoneRewards: [Reward]
+  var minorRewards: [Reward]
+  var milestoneRewards: [Reward]
   @State var presentingAddRewardView: Bool = false
 
   var body: some View {

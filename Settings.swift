@@ -20,12 +20,6 @@ import SwiftData
       self.dayOfTheWeek = dayOfTheWeek
       self.time = time
       self.weeklyResetWarning = weeklyResetWarning
-
-    let container = try? ModelContainer(for: Settings.self)
-    let context = ModelContext(container!)
-
-    Settings.fetchFirstOrInitialize(context: context)
-
     }
 }
 
@@ -52,7 +46,10 @@ extension Settings: Identifiable {
     }
 
     if let userSettings {
+
+      context.insert(userSettings)
       return userSettings
+
     } else {
       var components = DateComponents()
       components.day = 1
@@ -66,6 +63,7 @@ extension Settings: Identifiable {
         dailyResetWarning: false,
         weeklyResetWarning: false)
 
+      context.insert(defaultSettings)
       return defaultSettings
     }
   }

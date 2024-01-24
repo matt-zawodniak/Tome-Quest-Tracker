@@ -20,13 +20,7 @@ import SwiftData
     self.expToLevel = expToLevel
     self.level = level
     self.levelingScheme = levelingScheme
-
-    let container = try? ModelContainer(for: User.self)
-    let context = ModelContext(container!)
-
-    User.fetchFirstOrInitialize(context: context)
   }
-
 }
 
 extension User: Identifiable {
@@ -53,6 +47,9 @@ extension User: Identifiable {
             earnedReward: firstMilestoneReward!,
             rewardArray: milestoneRewardFetchedResults,
             context: context)
+
+          firstMilestoneReward?.isEarned = true
+          firstMilestoneReward?.dateEarned = Date()
         }
       } else {
 
@@ -69,6 +66,9 @@ extension User: Identifiable {
             createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
                                                    rewardArray: minorRewardFetchedResults,
                                                    context: context)
+            
+            firstMinorReward.isEarned = true
+            firstMinorReward.dateEarned = Date()
           }
         }
       }
@@ -100,10 +100,14 @@ extension User: Identifiable {
     }
 
     if let currentUser {
+
+      context.insert(currentUser)
       return currentUser
+
     } else {
       let newUser = User(currentExp: 0, expToLevel: 100, level: 1, levelingScheme: 0)
 
+      context.insert(newUser)
       return newUser
     }
   }

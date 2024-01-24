@@ -104,7 +104,7 @@ struct QuestListView: View {
           }
           HStack {
             Spacer()
-            NavigationLink(destination: RewardsView()) {
+            NavigationLink(destination: RewardsView(user: user)) {
               Button(action: {}, label: {
                 Text("View Rewards")
               })
