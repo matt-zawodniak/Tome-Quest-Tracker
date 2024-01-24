@@ -10,7 +10,6 @@ import Foundation
 import SwiftData
 import AppIntents
 
-
 @Model class Quest {
     var difficulty: Int64 = 0
     var dueDate: Date?
@@ -25,7 +24,19 @@ import AppIntents
     var questType: Int64 = 0
     var timeCompleted: Date?
     var timeCreated: Date?
-  public init(difficulty: Int64, dueDate: Date? = nil, id: UUID, isCompleted: Bool, isSelected: Bool, length: Int64, questBonusExp: Double, questBonusReward: String? = nil, questDescription: String? = nil, questName: String, questType: Int64, timeCompleted: Date? = nil, timeCreated: Date? = nil) {
+  public init(
+    difficulty: Int64,
+    dueDate: Date? = nil,
+    id: UUID,
+    isCompleted: Bool,
+    isSelected: Bool,
+    length: Int64,
+    questBonusExp: Double,
+    questBonusReward: String? = nil,
+    questDescription: String? = nil,
+    questName: String, questType: Int64,
+    timeCompleted: Date? = nil,
+    timeCreated: Date? = nil) {
     self.difficulty = difficulty
     self.dueDate = dueDate
     self.id = id
@@ -100,7 +111,10 @@ extension Quest: Identifiable {
 
   static func resetDailyQuests(settings: Settings, context: ModelContext) {
     var completedDailyQuests: [Quest] {
-      let request = FetchDescriptor<Quest>(predicate: #Predicate { $0.isCompleted == true && $0.questType == QuestType.dailyQuest.rawValue})
+      let dailyRawValue = QuestType.dailyQuest.rawValue
+
+      let request = FetchDescriptor<Quest>(
+        predicate: #Predicate { $0.isCompleted == true && $0.questType == dailyRawValue})
 
       return (try? context.fetch(request)) ?? []
     }
@@ -121,7 +135,10 @@ extension Quest: Identifiable {
 
   static func resetWeeklyQuests(settings: Settings, context: ModelContext) {
     var completedWeeklyQuests: [Quest] {
-      let request = FetchDescriptor<Quest>(predicate: #Predicate { $0.isCompleted == true && $0.questType == QuestType.weeklyQuest.rawValue})
+      let weeklyRawValue = QuestType.weeklyQuest.rawValue
+
+      let request = FetchDescriptor<Quest>(
+        predicate: #Predicate { $0.isCompleted == true && $0.questType == weeklyRawValue})
 
       return (try? context.fetch(request)) ?? []
     }
@@ -166,7 +183,14 @@ extension Quest: Identifiable {
   }
 
   static func defaultQuest(context: ModelContext) -> Quest {
-    let quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: QuestLength.average.rawValue, questBonusExp: 0, questName: "", questType: QuestType.mainQuest.rawValue)
+    let quest = Quest(difficulty: 1,
+                      id: UUID(),
+                      isCompleted: false,
+                      isSelected: false,
+                      length: QuestLength.average.rawValue,
+                      questBonusExp: 0,
+                      questName: "",
+                      questType: QuestType.mainQuest.rawValue)
 
     return quest
   }

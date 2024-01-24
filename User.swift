@@ -9,7 +9,6 @@
 import Foundation
 import SwiftData
 
-
 @Model public class User {
     var currentExp: Double = 0.0
     var expToLevel: Double = 0.0
@@ -21,7 +20,11 @@ import SwiftData
     self.expToLevel = expToLevel
     self.level = level
     self.levelingScheme = levelingScheme
-    
+
+    let container = try? ModelContainer(for: User.self)
+    let context = ModelContext(container!)
+
+    User.fetchFirstOrInitialize(context: context)
   }
 
 }
@@ -37,7 +40,9 @@ extension User: Identifiable {
       if level % 5 == 0 {
 
         var milestoneRewardFetchedResults: [Reward]? {
-          let request = FetchDescriptor<Reward>(predicate: #Predicate { $0.isMilestoneReward == true && $0.isEarned == false }, sortBy: [SortDescriptor(\.sortId)])
+          let request = FetchDescriptor<Reward>(
+            predicate: #Predicate { $0.isMilestoneReward == true && $0.isEarned == false },
+            sortBy: [SortDescriptor(\.sortId)])
 
           return (try? context.fetch(request))
         }
@@ -52,7 +57,9 @@ extension User: Identifiable {
       } else {
 
         var minorRewardFetchedResults: [Reward]? {
-          let request = FetchDescriptor<Reward>(predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false}, sortBy: [SortDescriptor(\.sortId)])
+          let request = FetchDescriptor<Reward>(
+            predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false},
+            sortBy: [SortDescriptor(\.sortId)])
 
           return (try? context.fetch(request))
         }
@@ -75,7 +82,12 @@ extension User: Identifiable {
 
       let endOfArraySortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
 
-      let unearnedCopyofReward = Reward(isMilestoneReward: earnedReward.isMilestoneReward, name: earnedReward.name, sortId: endOfArraySortId)
+      let unearnedCopyofReward = Reward(
+        isMilestoneReward: earnedReward.isMilestoneReward,
+        name: earnedReward.name,
+        sortId: endOfArraySortId)
+
+      context.insert(unearnedCopyofReward)
 
   }
 

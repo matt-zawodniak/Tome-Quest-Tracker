@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ManageRewardsView: View {
   @Environment(\.modelContext) var modelContext
-  
+
   @State var minorRewards: [Reward]
   @State var milestoneRewards: [Reward]
   @State var presentingAddRewardView: Bool = false
@@ -100,6 +100,6 @@ struct ManageRewardsView: View {
   }
 }
 //
-//#Preview {
+// #Preview {
 //  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-//}
+// }

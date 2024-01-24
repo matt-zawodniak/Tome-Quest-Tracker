@@ -17,22 +17,22 @@ struct QuestListView: View {
 
   var filteredQuests: [Quest] {
     if showingCompletedQuests {
-      return quests.filter(predicate: #Predicate { $0.isCompleted == true})
-        .sorted { sortType }
+      return quests.filter({ $0.isCompleted == true})
+//        .sorted { _,_ in sortType }
     } else {
-      return quests.filter(predicate: #Predicate { $0.isCompleted == false})
-        .sorted { sortType }
+      return quests.filter({ $0.isCompleted == false})
+//        .sorted { sortType }
     }
   }
 
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
-    return settingsQueryResults.first!
+    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
   }
 
   @Query() var userQueryResults: [User]
   var user: User {
-    return userQueryResults.first!
+    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
   }
 
   @State var sortType: QuestSortDescriptor = .timeCreated
@@ -152,13 +152,13 @@ struct QuestListView: View {
         tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
       }
     })
-    .onChange(of: scenePhase) { phase in
-      if phase == .active {
+    .onChange(of: scenePhase) {
+      if scenePhase == .active {
         if Date.now >= settings.time {
           tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
         }
       }
-      print("Scene has changed to \(phase)")
+      print("Scene has changed to \(scenePhase)")
     }
     LevelAndExpUI()
       .padding(.horizontal)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-//extension CoreDataController {
+// extension CoreDataController {
 //  static var preview: CoreDataController = {
 //    let result = CoreDataController(inMemory: true)
 //    let viewContext = result.container.viewContext
@@ -36,4 +36,4 @@ import Foundation
 //    }
 //    return result
 //  }()
-//}
+// }

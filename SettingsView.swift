@@ -12,8 +12,8 @@ struct SettingsView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
   @Query() var quests: [Quest]
 
-  @Binding var settings: Settings
-  @Binding var user: User
+  @State var settings: Settings
+  @State var user: User
 
   var body: some View {
     NavigationStack {
@@ -74,7 +74,6 @@ struct SettingsView: View {
           quest.setDateToWeeklyResetDate(settings: settings)
         }
       }
-      CoreDataController.shared.save(context: managedObjectContext)
     })
   }
 }

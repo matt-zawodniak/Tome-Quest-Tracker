@@ -14,7 +14,7 @@ struct QuestRowView: View, Identifiable {
 
   var id = UUID()
 
-  @Binding var quest: Quest
+  @State var quest: Quest
   @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) var quests: [Quest]
 
   var settings: Settings

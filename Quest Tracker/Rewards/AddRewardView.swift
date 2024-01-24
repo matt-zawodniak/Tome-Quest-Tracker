@@ -46,8 +46,8 @@ struct AddRewardView: View {
   }
 }
 //
-//#Preview {
+// #Preview {
 //  AddRewardView(reward: Reward(context: CoreDataController.preview.container.viewContext), minorRewardCount: 5,
 //                milestoneRewardCount: 3)
 //  .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-//}
+// }

@@ -9,7 +9,6 @@
 import Foundation
 import SwiftData
 
-
 @Model public class Settings {
     var dailyResetWarning: Bool
     var dayOfTheWeek: Int64
@@ -22,8 +21,12 @@ import SwiftData
       self.time = time
       self.weeklyResetWarning = weeklyResetWarning
 
+    let container = try? ModelContainer(for: Settings.self)
+    let context = ModelContext(container!)
+
+    Settings.fetchFirstOrInitialize(context: context)
+
     }
-    
 }
 
 extension Settings: Identifiable {
@@ -57,7 +60,11 @@ extension Settings: Identifiable {
 
       let resetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
 
-      let defaultSettings = Settings(dayOfTheWeek: 2, time: resetTime, dailyResetWarning: false, weeklyResetWarning: false)
+      let defaultSettings = Settings(
+        dayOfTheWeek: 2,
+        time: resetTime,
+        dailyResetWarning: false,
+        weeklyResetWarning: false)
 
       return defaultSettings
     }

@@ -30,11 +30,11 @@ struct RewardsView: View {
 
   var body: some View {
 
-    @State var availableRewards = rewards.filter( { $0.isEarned == true }).sorted { $0.dateEarned! < $1.dateEarned! }
+    @State var availableRewards = rewards.filter({ $0.isEarned == true }).sorted { $0.dateEarned! < $1.dateEarned! }
 
-    @State var minorRewards = rewards.filter( { $0.isMilestoneReward == false && $0.isEarned == false}).sorted { $0.sortId < $1.sortId }
+    @State var minorRewards = rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false}).sorted { $0.sortId < $1.sortId }
 
-    @State var milestoneRewards = rewards.filter( { $0.isMilestoneReward == true && $0.isEarned == false}).sorted { $0.sortId < $1.sortId }
+    @State var milestoneRewards = rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false}).sorted { $0.sortId < $1.sortId }
 
     // These might not update with the state being in the body. might have to move it up and make them each computed vars.
 

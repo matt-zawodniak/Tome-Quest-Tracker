@@ -9,7 +9,6 @@
 import Foundation
 import SwiftData
 
-
 @Model public class Reward {
     var dateEarned: Date?
     var isEarned: Bool = false
@@ -22,5 +21,5 @@ import SwiftData
     self.name = name
     self.sortId = sortId
     }
-    
+
 }

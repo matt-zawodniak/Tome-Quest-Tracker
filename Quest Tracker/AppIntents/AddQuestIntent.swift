@@ -26,10 +26,18 @@ struct AddQuestIntent: AppIntent {
 
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
-    let quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: questName, questType: questType.rawValue)
+    let quest = Quest(
+      difficulty: 1,
+      id: UUID(),
+      isCompleted: false,
+      isSelected: false,
+      length: 1,
+      questBonusExp: 0,
+      questName: questName,
+      questType: questType.rawValue)
 
-    let container = try! ModelContainer(for: Quest.self)
-    let context = ModelContext(container)
+    let container = try? ModelContainer(for: Quest.self)
+    let context = ModelContext(container!)
 
     context.insert(quest)
 //
@@ -37,7 +45,7 @@ struct AddQuestIntent: AppIntent {
 //    let modelContext = ModelContext(modelContainer)
 //
 //    modelContext.insert(quest)
-    //MARK: This seems like jank. How do I get the universal modelContext in here? Environment doesn't work.
+    // MARK: This seems like jank. How do I get the universal modelContext in here? Environment doesn't work.
     return .result(dialog: "Added \(questName) to Quest Tracker.")
   }
 }
