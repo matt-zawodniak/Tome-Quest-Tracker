@@ -43,36 +43,10 @@ struct QuestListView: View {
   var body: some View {
     NavigationStack {
       List {
-        ForEach(filteredQuests, id: \.self) { (quest: Quest) in
-          QuestRowView(quest: quest, settings: settings)
-          .swipeActions(edge: .trailing) { Button(role: .destructive) {
-            modelContext.delete(quest)
-          } label: {
-            Label("Delete", systemImage: "trash")
-          }
-            if !showingCompletedQuests {
-              NavigationLink(destination: QuestView(
-                quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                  Button(action: {
-                  }, label: {
-                    Text("Edit")
-                  }
-                  )
-                }
-            }
-          }
-          .swipeActions(edge: .leading) {
-            if !showingCompletedQuests {
-              Button {
-                quest.isCompleted = true
-                user.giveExp(quest: quest, settings: settings, context: modelContext)
-                quest.timeCompleted = Date.now
-              } label: {
-                Image(systemName: "checkmark")
-              }
-              .tint(.green)          }
-          }
-        }
+        QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                  settings: settings,
+                  showingCompletedQuests: showingCompletedQuests,
+                  user: user)
         if !showingCompletedQuests {
           HStack {
             Button(

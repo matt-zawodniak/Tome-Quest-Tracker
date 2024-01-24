@@ -66,7 +66,7 @@ extension User: Identifiable {
             createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
                                                    rewardArray: minorRewardFetchedResults,
                                                    context: context)
-            
+
             firstMinorReward.isEarned = true
             firstMinorReward.dateEarned = Date()
           }

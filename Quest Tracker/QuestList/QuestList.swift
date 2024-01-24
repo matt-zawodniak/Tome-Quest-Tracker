@@ -6,13 +6,58 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct QuestList: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+  @Environment(\.modelContext) var modelContext
 
-#Preview {
-    QuestList()
+  @Query var quests: [Quest]
+
+  var settings: Settings
+  var showingCompletedQuests: Bool
+  var user: User
+
+  init(sortDescriptor: SortDescriptor<Quest>, settings: Settings, showingCompletedQuests: Bool, user: User) {
+    _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests},
+                    sort: [sortDescriptor])
+    self.settings = settings
+    self.showingCompletedQuests = showingCompletedQuests
+    self.user = user
+  }
+
+    var body: some View {
+      ForEach(quests, id: \.self) { (quest: Quest) in
+        QuestRowView(quest: quest, settings: settings)
+        .swipeActions(edge: .trailing) { Button(role: .destructive) {
+          modelContext.delete(quest)
+        } label: {
+          Label("Delete", systemImage: "trash")
+        }
+          if !showingCompletedQuests {
+            NavigationLink(destination: QuestView(
+              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
+                Button(action: {
+                }, label: {
+                  Text("Edit")
+                }
+                )
+              }
+          }
+        }
+        .swipeActions(edge: .leading) {
+          if !showingCompletedQuests {
+            Button {
+              quest.isCompleted = true
+              user.giveExp(quest: quest, settings: settings, context: modelContext)
+              quest.timeCompleted = Date.now
+            } label: {
+              Image(systemName: "checkmark")
+            }
+            .tint(.green)          }
+        }
+      }    }
 }
+//
+// #Preview {
+//    QuestList()
+// }

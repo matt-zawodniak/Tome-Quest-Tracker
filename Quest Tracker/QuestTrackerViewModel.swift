@@ -18,6 +18,16 @@ class QuestTrackerViewModel: ObservableObject {
       }
     }
 
+  func sortDescriptorFromSortType(sortType: QuestSortDescriptor) -> SortDescriptor<Quest> {
+    switch sortType {
+    case .dueDate: SortDescriptor(\Quest.dueDate, order: .reverse)
+    case .oldest: SortDescriptor(\Quest.timeCreated, order: .forward)
+    case .timeCreated: SortDescriptor(\Quest.timeCreated, order: .reverse)
+    case .questName: SortDescriptor(\Quest.questName, comparator: .lexical)
+    case .questType: SortDescriptor(\Quest.questType)
+    }
+  }
+
   func refreshSettingsAndQuests(settings: Settings, context: ModelContext) {
     settings.refreshDailyReset()
     Quest.resetQuests(settings: settings, context: context)
