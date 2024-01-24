@@ -55,6 +55,16 @@ import AppIntents
 
 extension Quest: Identifiable {
 
+  func save() {
+          if let context = self.modelContext {
+              do {
+                  try context.save()
+              } catch {
+                  print("error: \(error.localizedDescription)")
+              }
+          }
+      }
+
   static func findQuestBy(name: String, context: ModelContext) -> Quest? {
     var request = FetchDescriptor<Quest>(predicate: #Predicate { $0.questName == name })
     request.fetchLimit = 1

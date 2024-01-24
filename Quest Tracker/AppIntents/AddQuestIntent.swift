@@ -36,16 +36,8 @@ struct AddQuestIntent: AppIntent {
       questName: questName,
       questType: questType.rawValue)
 
-    let container = try? ModelContainer(for: Quest.self)
-    let context = ModelContext(container!)
+    quest.save()
 
-    context.insert(quest)
-//
-//    let modelContainer = try! ModelContainer()
-//    let modelContext = ModelContext(modelContainer)
-//
-//    modelContext.insert(quest)
-    // MARK: This seems like jank. How do I get the universal modelContext in here? Environment doesn't work.
     return .result(dialog: "Added \(questName) to Quest Tracker.")
   }
 }

@@ -17,7 +17,10 @@ struct QuestTrackerShortcuts: AppShortcutsProvider {
                 "Add \(.applicationName)",
                 "New \(.applicationName)",
                 "Create \(.applicationName)"
-               ]
+               ],
+      shortTitle: "Add Quest",
+      systemImageName: "plus.circle"
+
       )
     AppShortcut(
     intent: CompleteQuestIntent(),
@@ -26,7 +29,9 @@ struct QuestTrackerShortcuts: AppShortcutsProvider {
               "Complete a \(.applicationName).",
               "Mark \(.applicationName) as complete.",
               "Mark a \(.applicationName) as complete."
-             ]
+             ],
+    shortTitle: "Complete Quest",
+    systemImageName: "checkmark"
     )
   }
 }
