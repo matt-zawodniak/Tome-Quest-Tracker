@@ -18,16 +18,6 @@ class QuestTrackerViewModel: ObservableObject {
       }
     }
 
-//    func setSortType(sortType: QuestSortDescriptor, quests: [Quest]) {
-//      switch sortType {
-//      case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
-//      case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
-//      case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
-//      case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
-//      case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
-//      }
-//    }
-
   func refreshSettingsAndQuests(settings: Settings, context: ModelContext) {
     settings.refreshDailyReset()
     Quest.resetQuests(settings: settings, context: context)

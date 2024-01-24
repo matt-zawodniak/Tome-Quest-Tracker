@@ -18,10 +18,8 @@ struct QuestListView: View {
   var filteredQuests: [Quest] {
     if showingCompletedQuests {
       return quests.filter({ $0.isCompleted == true})
-//        .sorted { _,_ in sortType }
     } else {
       return quests.filter({ $0.isCompleted == false})
-//        .sorted { sortType }
     }
   }
 
@@ -113,9 +111,6 @@ struct QuestListView: View {
         }
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
-//      .onChange(of: sortType) {_ in
-//        tracker.setSortType(sortType: sortType, quests: quests)
-//      }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
           HStack {
