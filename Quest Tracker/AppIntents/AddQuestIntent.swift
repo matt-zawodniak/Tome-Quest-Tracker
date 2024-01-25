@@ -36,8 +36,7 @@ struct AddQuestIntent: AppIntent {
       questName: questName,
       questType: questType.rawValue)
 
-    Quest.sharedModelContext.insert(quest)
-
+    ModelController.shared.modelContainer.mainContext.insert(quest)
     return .result(dialog: "Added \(questName) to Quest Tracker.")
   }
 }

@@ -12,6 +12,8 @@ import SwiftData
 @main
 struct Quest_TrackerApp: App {
 
+  var container: ModelContainer = ModelController.shared.modelContainer
+
   init() {
 
     QuestTrackerShortcuts.updateAppShortcutParameters()
@@ -22,6 +24,6 @@ struct Quest_TrackerApp: App {
     WindowGroup {
       QuestListView(tracker: QuestTrackerViewModel())
     }
-    .modelContainer(for: [Settings.self, Quest.self, User.self, Reward.self])
+    .modelContainer(container)
   }
 }

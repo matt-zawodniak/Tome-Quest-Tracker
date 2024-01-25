@@ -21,8 +21,7 @@ struct CompleteQuestIntent: AppIntent {
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
 
-    let container = try? ModelContainer(for: Quest.self)
-    let context = ModelContext(container!)
+    let context = ModelController.shared.modelContainer.mainContext
 
     Quest.completeQuest(name: questName, context: context)
 
