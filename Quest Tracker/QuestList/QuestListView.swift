@@ -41,6 +41,7 @@ struct QuestListView: View {
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   var body: some View {
+
     NavigationStack {
       List {
         QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
@@ -143,9 +144,9 @@ struct QuestListView: View {
     showingCompletedQuests = false
   }
 }
-
-struct QuestTableView_Previews: PreviewProvider {
-  static var previews: some View {
-    QuestListView(tracker: QuestTrackerViewModel())
-  }
-}
+//
+// struct QuestTableView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    QuestListView(tracker: QuestTrackerViewModel())
+//  }
+// }
