@@ -10,10 +10,10 @@ import Foundation
 import SwiftData
 
 @Model public class Settings {
-    var dailyResetWarning: Bool
-    var dayOfTheWeek: Int64
-    var time: Date
-    var weeklyResetWarning: Bool
+    var dailyResetWarning: Bool = false
+    var dayOfTheWeek: Int64 = 2
+  var time: Date = Settings.defaultResetTime
+    var weeklyResetWarning: Bool = false
 
   public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
       self.dailyResetWarning = dailyResetWarning
