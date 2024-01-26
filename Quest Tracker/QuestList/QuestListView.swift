@@ -48,24 +48,6 @@ struct QuestListView: View {
                   settings: settings,
                   showingCompletedQuests: showingCompletedQuests,
                   user: user)
-        ForEach(userQueryResults) { user in
-          Text("User \(user.currentExp)")
-        }
-        .swipeActions(edge: .trailing) { Button(role: .destructive) {
-          modelContext.delete(user)
-        } label: {
-          Label("Delete", systemImage: "trash")
-        }
-        }
-          ForEach(settingsQueryResults) { settings in
-            Text("Settings \(settings.dayOfTheWeek)")
-          }
-          .swipeActions(edge: .trailing) { Button(role: .destructive) {
-            modelContext.delete(settings)
-          } label: {
-            Label("Delete", systemImage: "trash")
-          }
-          }
         if !showingCompletedQuests {
           HStack {
             Button(
