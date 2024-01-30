@@ -23,8 +23,19 @@ struct CompleteQuestIntent: AppIntent {
 
     let context = ModelController.shared.modelContainer.mainContext
 
-    Quest.completeQuest(name: questName, context: context)
+    if let foundQuest = Quest.findQuestBy(name: questName, context: context) {
 
-    return .result(dialog: "\(questName) marked complete.")
+      if foundQuest.isCompleted {
+        return .result(dialog: "That quest is already marked complete.")
+      } else {
+
+        Quest.completeQuest(name: questName, context: context)
+
+        return .result(dialog: "\(questName) marked complete.")
+      }
+      
+    } else {
+      return .result(dialog: "Sorry, I couldn't find a quest called \(questName). Use Add Quest to add it.")
+    }
   }
 }
