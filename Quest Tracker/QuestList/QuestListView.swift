@@ -35,13 +35,16 @@ struct QuestListView: View {
 
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
+  @State var rewardsView: Bool = false
   @State var showingCompletedQuests: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
+  @State var showingLevelUpNotification: Bool = false
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   var body: some View {
     NavigationStack {
+      ZStack {
       List {
         QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
                   settings: settings,
@@ -84,6 +87,16 @@ struct QuestListView: View {
           }
         }
       }
+        if showingLevelUpNotification {
+          LevelUpNotification(user: user,
+                              isPresented: $showingLevelUpNotification,
+                              navigateToRewardsView: $rewardsView)
+          .frame(maxWidth: 300)
+          .padding()
+          .border(.blue)
+          .background(.white)
+        }
+    }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
@@ -115,6 +128,9 @@ struct QuestListView: View {
       .navigationDestination(isPresented: $newQuestView) {
         QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
       }
+      .navigationDestination(isPresented: $rewardsView) {
+        RewardsView(user: user)
+      }
     }
     .onReceive(timer, perform: { time in
       if time >= settings.time {
@@ -128,6 +144,9 @@ struct QuestListView: View {
         }
       }
       print("Scene has changed to \(scenePhase)")
+    }
+    .onChange(of: user.level) {
+      showingLevelUpNotification = true
     }
     LevelAndExpUI()
       .padding(.horizontal)
