@@ -86,7 +86,7 @@ struct QuestListView: View {
             }
           }
         }
-      }
+      }.disabled(showingLevelUpNotification)
         if showingLevelUpNotification {
           LevelUpNotification(user: user,
                               isPresented: $showingLevelUpNotification,
