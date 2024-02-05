@@ -67,57 +67,42 @@ struct QuestListView: View {
                     showingCompletedQuests: showingCompletedQuests,
                     user: user)
         }
-        if !showingCompletedQuests {
-          HStack {
-            Button(
-              action: {
-                newQuestView = true
-              },
-              label: {
-                Image(systemName: "plus.circle")
-              })
-          }
-          HStack {
-            Spacer()
-            NavigationLink(destination: SettingsView(settings: settings, user: user)) {
-              Button(action: {}, label: {
-                Text("Settings")
-              })
-            }
-          }
-          HStack {
-            Button(
-              action: {
-                showCompletedQuests()
-              },
-              label: {
-                Text("Completed Quests")
-              })
-          }
-          HStack {
-            Spacer()
-            NavigationLink(destination: RewardsView(user: user)) {
-              Button(action: {}, label: {
-                Text("View Rewards")
-              })
-            }
-          }
-        }
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .toolbar {
+
         ToolbarItem(placement: .topBarTrailing) {
-          HStack {
-            Text("Sort:")
+          Menu {
             Picker("", selection: $sortType) {
               ForEach(QuestSortDescriptor.allCases, id: \.self) {
                 Text($0.description)
               }
             }
+          } label: {
+            Image(systemName: "arrow.up.arrow.down")
           }
         }
-        ToolbarItem(placement: .topBarLeading) {
+
+        ToolbarItem(placement: .topBarTrailing) {
+          Button(
+            action: {
+              newQuestView = true
+            },
+            label: {
+              Image(systemName: "plus.circle")
+            })
+        }
+
+        ToolbarItem(placement: .principal) {
           if showingCompletedQuests {
+            Text("Completed Quests")
+          } else {
+            Text(settings.time, style: .timer)
+          }
+        }
+
+          ToolbarItem(placement: .topBarLeading) {
+            if showingCompletedQuests {
             Button(
               action: {
                 showActiveQuests()
@@ -128,7 +113,31 @@ struct QuestListView: View {
                 }
               })
           } else {
-            Text(settings.time, style: .timer)
+            Menu {
+              Button("Home", action: { showActiveQuests()})
+
+              Button(
+                action: {
+                  showCompletedQuests()
+                },
+                label: {
+                  Text("Completed Quests")
+                })
+
+              NavigationLink(destination: RewardsView(user: user)) {
+                Button(action: {}, label: {
+                  Text("View Rewards")
+                })
+              }              
+
+              NavigationLink(destination: SettingsView(settings: settings, user: user)) {
+                Button(action: {}, label: {
+                  Text("Settings")
+                })
+              }
+            } label: {
+                Image(systemName: "list.bullet")
+              }
           }
         }
       }
@@ -161,11 +170,5 @@ struct QuestListView: View {
     tracker.deselectQuests(quests: quests, context: modelContext)
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
-  }
-}
-
-struct QuestTableView_Previews: PreviewProvider {
-  static var previews: some View {
-    QuestListView(tracker: QuestTrackerViewModel())
   }
 }
