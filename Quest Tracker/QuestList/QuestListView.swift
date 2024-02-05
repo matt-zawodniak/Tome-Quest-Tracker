@@ -128,7 +128,7 @@ struct QuestListView: View {
                 Button(action: {}, label: {
                   Text("View Rewards")
                 })
-              }              
+              }
 
               NavigationLink(destination: SettingsView(settings: settings, user: user)) {
                 Button(action: {}, label: {
