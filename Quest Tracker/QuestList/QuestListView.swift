@@ -33,6 +33,8 @@ struct QuestListView: View {
     return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
   }
 
+  @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
+
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
   @State var showingCompletedQuests: Bool = false
@@ -143,6 +145,11 @@ struct QuestListView: View {
       }
       .navigationDestination(isPresented: $newQuestView) {
         QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
+      }
+      if earnedRewards.count > 0 {
+        NavigationLink(destination: RewardsView(user: user)) {
+          Text("You have earned rewards! Tap here to view them.").font(.footnote)
+        }
       }
     }
     .onReceive(timer, perform: { time in
