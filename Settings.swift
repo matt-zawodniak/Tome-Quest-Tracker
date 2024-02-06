@@ -41,9 +41,7 @@ extension Settings: Identifiable {
     components.day = 1
     components.second = -1
 
-    let resetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
-
-    return resetTime
+    return Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
   }
 
   static var defaultSettings = Settings(
