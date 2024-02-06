@@ -20,7 +20,7 @@ struct LevelAndExpUI: View {
   var body: some View {
     HStack {
       Text("LVL \(user.level)")
-      ProgressView(value: user.currentExp, total: user.expToLevel).animation(.linear, value: user.currentExp)
+      ProgressView(value: user.currentExp, total: user.expToLevel).animation(.easeInOut, value: user.currentExp)
       Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
     }
   }
