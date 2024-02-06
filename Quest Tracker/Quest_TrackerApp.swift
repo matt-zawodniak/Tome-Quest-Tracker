@@ -7,11 +7,12 @@
 
 import SwiftUI
 import AppIntents
+import SwiftData
 
 @main
 struct Quest_TrackerApp: App {
 
-  @StateObject private var dataController = CoreDataController.shared
+  var container: ModelContainer = ModelController.shared.modelContainer
 
   init() {
 
@@ -22,7 +23,7 @@ struct Quest_TrackerApp: App {
   var body: some Scene {
     WindowGroup {
       QuestListView(tracker: QuestTrackerViewModel())
-        .environment(\.managedObjectContext, dataController.container.viewContext)
     }
+    .modelContainer(container)
   }
 }

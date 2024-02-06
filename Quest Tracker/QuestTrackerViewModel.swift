@@ -6,32 +6,31 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 class QuestTrackerViewModel: ObservableObject {
 
   @Published var trackerModel = QuestTrackerModel()
 
-  func deselectQuests(quests: FetchedResults<Quest>, context: NSManagedObjectContext) {
+  func deselectQuests(quests: [Quest], context: ModelContext) {
       for quest in quests {
         quest.isSelected = false
       }
     }
 
-    func setSortType(sortType: QuestSortDescriptor, quests: FetchedResults<Quest>) {
-      switch sortType {
-      case .dueDate: quests.sortDescriptors = [SortDescriptor(\Quest.dueDate)]
-      case .oldest: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .forward)]
-      case .timeCreated: quests.sortDescriptors = [SortDescriptor(\Quest.timeCreated, order: .reverse)]
-      case .questName: quests.sortDescriptors = [SortDescriptor(\Quest.questName, comparator: .lexical)]
-      case .questType: quests.sortDescriptors = [SortDescriptor(\Quest.questType)]
-      }
+  func sortDescriptorFromSortType(sortType: QuestSortDescriptor) -> SortDescriptor<Quest> {
+    switch sortType {
+    case .dueDate: SortDescriptor(\Quest.dueDate, order: .reverse)
+    case .oldest: SortDescriptor(\Quest.timeCreated, order: .forward)
+    case .timeCreated: SortDescriptor(\Quest.timeCreated, order: .reverse)
+    case .questName: SortDescriptor(\Quest.questName, comparator: .lexical)
+    case .questType: SortDescriptor(\Quest.questType)
     }
+  }
 
-  func refreshSettingsAndQuests(settings: Settings, context: NSManagedObjectContext) {
+  func refreshSettingsAndQuests(settings: Settings, context: ModelContext) {
     settings.refreshDailyReset()
     Quest.resetQuests(settings: settings, context: context)
-    CoreDataController.shared.save(context: context)
   }
 }
 

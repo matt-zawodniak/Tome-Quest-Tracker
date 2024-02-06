@@ -8,8 +8,10 @@
 import Foundation
 import AppIntents
 import SwiftUI
+import SwiftData
 
 struct AddQuestIntent: AppIntent {
+
   static let title: LocalizedStringResource = "Add Quest"
 
   @Parameter(title: "Quest Name",
@@ -24,18 +26,17 @@ struct AddQuestIntent: AppIntent {
 
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
-    let context = CoreDataController.shared.container.viewContext
-    let quest = Quest(context: context)
-    quest.questName = questName
-    quest.questType = questType.rawValue
-    quest.difficulty = 1
-    quest.length = 1
-    quest.id = UUID()
-    quest.isSelected = false
-    quest.isCompleted = false
+    let quest = Quest(
+      difficulty: 1,
+      id: UUID(),
+      isCompleted: false,
+      isSelected: false,
+      length: 1,
+      questBonusExp: 0,
+      questName: questName,
+      questType: questType.rawValue)
 
-    CoreDataController.shared.save(context: context)
-
+    ModelController.shared.modelContainer.mainContext.insert(quest)
     return .result(dialog: "Added \(questName) to Quest Tracker.")
   }
 }

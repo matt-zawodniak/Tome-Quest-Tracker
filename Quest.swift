@@ -1,52 +1,71 @@
 //
-//  Quest+CoreDataProperties.swift
+//  Quest.swift
 //  Quest Tracker
 //
-//  Created by Matt Zawodniak on 11/6/23.
+//  Created by Matt Zawodniak on 1/22/24.
 //
 //
 
 import Foundation
-import CoreData
+import SwiftData
 import AppIntents
 
-extension Quest {
-
-  @nonobjc public class func fetchRequest() -> NSFetchRequest<Quest> {
-    return NSFetchRequest<Quest>(entityName: "Quest")
+@Model class Quest {
+    var difficulty: Int64 = 0
+    var dueDate: Date?
+   var id: UUID
+    var isCompleted: Bool
+    @Attribute(.ephemeral) var isSelected: Bool = false
+    var length: Int64 = 0
+    var questBonusExp: Double = 0.0
+    var questBonusReward: String?
+    var questDescription: String?
+    var questName: String = ""
+    var questType: Int64 = 0
+    var timeCompleted: Date?
+    var timeCreated: Date?
+  public init(
+    difficulty: Int64,
+    dueDate: Date? = nil,
+    id: UUID,
+    isCompleted: Bool,
+    isSelected: Bool,
+    length: Int64,
+    questBonusExp: Double,
+    questBonusReward: String? = nil,
+    questDescription: String? = nil,
+    questName: String, questType: Int64,
+    timeCompleted: Date? = nil,
+    timeCreated: Date? = nil) {
+    self.difficulty = difficulty
+    self.dueDate = dueDate
+    self.id = id
+    self.isCompleted = isCompleted
+    self.isSelected = isSelected
+    self.length = length
+    self.questBonusExp = questBonusExp
+    self.questBonusReward = questBonusReward
+    self.questDescription = questDescription
+    self.questName = questName
+    self.questType = questType
+    self.timeCompleted = timeCompleted
+    self.timeCreated = timeCreated
   }
-
-  @NSManaged public var difficulty: Int64
-  @NSManaged public var dueDate: Date?
-  @NSManaged public var id: UUID
-  @NSManaged public var isSelected: Bool
-  @NSManaged public var isCompleted: Bool
-  @NSManaged public var length: Int64
-  @NSManaged public var questBonusExp: Double
-  @NSManaged public var questBonusReward: String?
-  @NSManaged public var questDescription: String?
-  @NSManaged public var questName: String
-  @NSManaged public var questType: Int64
-  @NSManaged public var timeCreated: Date?
-  @NSManaged public var timeCompleted: Date?
 }
 
 extension Quest: Identifiable {
 
-  static func findQuestBy(name: String) -> Quest? {
-    let request: NSFetchRequest<Quest> = Quest.fetchRequest()
+  static func findQuestBy(name: String, context: ModelContext) -> Quest? {
+    var request = FetchDescriptor<Quest>(predicate: #Predicate { $0.questName == name })
     request.fetchLimit = 1
-    request.predicate = NSPredicate(format: "questName = %@", name)
 
-   let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first ?? nil
+   let foundQuest = try? context.fetch(request).first ?? nil
 
     return foundQuest
   }
 
-  static func completeQuest(name: String) {
-    if let quest: Quest = findQuestBy(name: name) {
-
-      let context = CoreDataController.shared.container.viewContext
+  static func completeQuest(name: String, context: ModelContext) {
+    if let quest: Quest = findQuestBy(name: name, context: context) {
 
       let user: User = User.fetchFirstOrInitialize(context: context)
 
@@ -55,7 +74,6 @@ extension Quest: Identifiable {
       quest.isCompleted = true
       user.giveExp(quest: quest, settings: settings, context: context)
 
-      CoreDataController.shared.save(context: context)
     }
   }
 
@@ -86,16 +104,18 @@ extension Quest: Identifiable {
     }
   }
 
-  static func resetQuests(settings: Settings, context: NSManagedObjectContext) {
+  static func resetQuests(settings: Settings, context: ModelContext) {
     resetDailyQuests(settings: settings, context: context)
     resetWeeklyQuests(settings: settings, context: context)
   }
 
-  static func resetDailyQuests(settings: Settings, context: NSManagedObjectContext) {
+  static func resetDailyQuests(settings: Settings, context: ModelContext) {
     var completedDailyQuests: [Quest] {
-      let request = NSFetchRequest<Quest>(entityName: "Quest")
-      request.predicate = NSPredicate(format:
-                                        "(isCompleted == true) AND (questType == \(QuestType.dailyQuest.rawValue))")
+      let dailyRawValue = QuestType.dailyQuest.rawValue
+
+      let request = FetchDescriptor<Quest>(
+        predicate: #Predicate { $0.isCompleted == true && $0.questType == dailyRawValue})
+
       return (try? context.fetch(request)) ?? []
     }
 
@@ -113,11 +133,13 @@ extension Quest: Identifiable {
     }
   }
 
-  static func resetWeeklyQuests(settings: Settings, context: NSManagedObjectContext) {
+  static func resetWeeklyQuests(settings: Settings, context: ModelContext) {
     var completedWeeklyQuests: [Quest] {
-      let request = NSFetchRequest<Quest>(entityName: "Quest")
-      request.predicate = NSPredicate(format:
-                                        "(isCompleted == true) AND (questType == \(QuestType.weeklyQuest.rawValue))")
+      let weeklyRawValue = QuestType.weeklyQuest.rawValue
+
+      let request = FetchDescriptor<Quest>(
+        predicate: #Predicate { $0.isCompleted == true && $0.questType == weeklyRawValue})
+
       return (try? context.fetch(request)) ?? []
     }
 
@@ -160,12 +182,15 @@ extension Quest: Identifiable {
     dueDate = nextResetDay
   }
 
-  static func defaultQuest(context: NSManagedObjectContext) -> Quest {
-    let quest = Quest(context: context)
-    quest.questName = ""
-    quest.type = .mainQuest
-    quest.difficulty = 1
-    quest.length = 1
+  static func defaultQuest(context: ModelContext) -> Quest {
+    let quest = Quest(difficulty: 1,
+                      id: UUID(),
+                      isCompleted: false,
+                      isSelected: false,
+                      length: QuestLength.average.rawValue,
+                      questBonusExp: 0,
+                      questName: "",
+                      questType: QuestType.mainQuest.rawValue)
 
     return quest
   }

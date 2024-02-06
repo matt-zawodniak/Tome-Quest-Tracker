@@ -5,17 +5,19 @@
 //  Created by Matt Zawodniak on 11/27/23.
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct QuestRowView: View, Identifiable {
+
+  @Environment(\.modelContext) var modelContext
+
   var id = UUID()
 
-  @ObservedObject var quest: Quest
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
-                predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
+  @State var quest: Quest
+  @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) var quests: [Quest]
+
   var settings: Settings
-  @Environment(\.managedObjectContext) var managedObjectContext
 
   var body: some View {
     VStack {
@@ -57,7 +59,6 @@ struct QuestRowView: View, Identifiable {
         } else {
           Button {
             restoreQuest(quest: quest)
-            CoreDataController.shared.save(context: managedObjectContext)
           } label: {
             Text("Restore to Quest List")
           }
@@ -71,7 +72,7 @@ struct QuestRowView: View, Identifiable {
     quest.timeCreated = Date.now
     print("\(quest.questName) is \(quest.isCompleted)")
   }
-  func toggleQuest(quest: Quest, quests: FetchedResults<Quest>) {
+  func toggleQuest(quest: Quest, quests: [Quest]) {
       quest.isSelected.toggle()
       for other in quests where other != quest {
         other.isSelected = false

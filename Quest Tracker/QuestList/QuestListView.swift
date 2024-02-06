@@ -6,65 +6,47 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct QuestListView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
-  @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.modelContext) var modelContext
   @Environment(\.scenePhase) var scenePhase
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
-                predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
+
+  @Query<Quest>(sort: [SortDescriptor(\Quest.timeCreated, order: .reverse)]) var quests: [Quest]
+
+  var filteredQuests: [Quest] {
+    if showingCompletedQuests {
+      return quests.filter({ $0.isCompleted == true})
+    } else {
+      return quests.filter({ $0.isCompleted == false})
+    }
+  }
+
+  @Query() var settingsQueryResults: [Settings]
+  var settings: Settings {
+    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+  }
+
+  @Query() var userQueryResults: [User]
+  var user: User {
+    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+  }
+
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
   @State var showingCompletedQuests: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
-  @FetchRequest(sortDescriptors: []) var settingsFetchResults: FetchedResults<Settings>
+
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
-  var settings: Settings {
-    return settingsFetchResults.first!
-  }
-
-  @FetchRequest(sortDescriptors: []) var userFetchResults: FetchedResults<User>
-  var user: User {
-    return userFetchResults.first!
-  }
 
   var body: some View {
     NavigationStack {
       List {
-        ForEach(quests, id: \.self) { (quest: Quest) in
-          QuestRowView(quest: quest, settings: settings)
-          .swipeActions(edge: .trailing) { Button(role: .destructive) {
-            managedObjectContext.delete(quest)
-            CoreDataController.shared.save(context: managedObjectContext)
-          } label: {
-            Label("Delete", systemImage: "trash")
-          }
-            if !showingCompletedQuests {
-              NavigationLink(destination: QuestView(
-                quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                  Button(action: {
-                  }, label: {
-                    Text("Edit")
-                  }
-                  )
-                }
-            }
-          }
-          .swipeActions(edge: .leading) {
-            if !showingCompletedQuests {
-              Button {
-                quest.isCompleted = true
-                user.giveExp(quest: quest, settings: settings, context: managedObjectContext)
-                quest.timeCompleted = Date.now
-                CoreDataController.shared.save(context: managedObjectContext)
-              } label: {
-                Image(systemName: "checkmark")
-              }
-              .tint(.green)          }
-          }
-        }
+        QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                  settings: settings,
+                  showingCompletedQuests: showingCompletedQuests,
+                  user: user)
         if !showingCompletedQuests {
           HStack {
             Button(
@@ -94,7 +76,7 @@ struct QuestListView: View {
           }
           HStack {
             Spacer()
-            NavigationLink(destination: RewardsView()) {
+            NavigationLink(destination: RewardsView(user: user)) {
               Button(action: {}, label: {
                 Text("View Rewards")
               })
@@ -103,9 +85,6 @@ struct QuestListView: View {
         }
       }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
-      .onChange(of: sortType) {_ in
-        tracker.setSortType(sortType: sortType, quests: quests)
-      }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
           HStack {
@@ -134,36 +113,34 @@ struct QuestListView: View {
         }
       }
       .navigationDestination(isPresented: $newQuestView) {
-        QuestView(quest: Quest.defaultQuest(context: managedObjectContext), hasDueDate: false, settings: settings)
+        QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
       }
     }
     .onReceive(timer, perform: { time in
       if time >= settings.time {
-        tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
+        tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
       }
     })
-    .onChange(of: scenePhase) { phase in
-      if phase == .active {
+    .onChange(of: scenePhase) {
+      if scenePhase == .active {
         if Date.now >= settings.time {
-          tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
+          tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
         }
       }
-      print("Scene has changed to \(phase)")
+      print("Scene has changed to \(scenePhase)")
     }
     LevelAndExpUI()
       .padding(.horizontal)
   }
   func showCompletedQuests() {
-    tracker.deselectQuests(quests: quests, context: managedObjectContext)
+    tracker.deselectQuests(quests: quests, context: modelContext)
     navigationTitle = "Completed Quests"
     showingCompletedQuests = true
-    quests.nsPredicate = NSPredicate(format: "isCompleted == true")
   }
   func showActiveQuests() {
-    tracker.deselectQuests(quests: quests, context: managedObjectContext)
+    tracker.deselectQuests(quests: quests, context: modelContext)
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
-    quests.nsPredicate = NSPredicate(format: "isCompleted == false")
   }
 }
 

@@ -1,25 +1,26 @@
 //
-//  Settings+CoreDataProperties.swift
+//  Settings.swift
 //  Quest Tracker
 //
-//  Created by Matt Zawodniak on 11/3/23.
+//  Created by Matt Zawodniak on 1/22/24.
 //
 //
 
 import Foundation
-import CoreData
+import SwiftData
 
-extension Settings {
+@Model public class Settings {
+    var dailyResetWarning: Bool
+    var dayOfTheWeek: Int64
+    var time: Date
+    var weeklyResetWarning: Bool
 
-  @nonobjc public class func fetchRequest() -> NSFetchRequest<Settings> {
-    return NSFetchRequest<Settings>(entityName: "Settings")
-  }
-
-  @NSManaged public var dailyResetWarning: Bool
-  @NSManaged public var dayOfTheWeek: Int64
-  @NSManaged public var time: Date
-  @NSManaged public var weeklyResetWarning: Bool
-
+  public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
+      self.dailyResetWarning = dailyResetWarning
+      self.dayOfTheWeek = dayOfTheWeek
+      self.time = time
+      self.weeklyResetWarning = weeklyResetWarning
+    }
 }
 
 extension Settings: Identifiable {
@@ -35,29 +36,34 @@ extension Settings: Identifiable {
     time = Calendar.current.date(byAdding: components, to: time)!
   }
 
-  static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> Settings {
+  static func fetchFirstOrInitialize(context: ModelContext) -> Settings {
 
     var userSettings: Settings? {
-      let request = NSFetchRequest<Settings>(entityName: "Settings")
-      let userSettingsFetchResults = (try? context.fetch(request)) ?? []
-      return userSettingsFetchResults.first ?? nil
+      let settings = FetchDescriptor<Settings>()
+      let results = try? context.fetch(settings)
+
+      return results?.first ?? nil
     }
 
     if let userSettings {
-      return userSettings
-    } else {
-      let defaultSettings = Settings(context: context)
 
+      context.insert(userSettings)
+      return userSettings
+
+    } else {
       var components = DateComponents()
       components.day = 1
       components.second = -1
 
-      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
+      let resetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
 
-      defaultSettings.dayOfTheWeek = 2
-      defaultSettings.dailyResetWarning = false
-      defaultSettings.weeklyResetWarning = false
+      let defaultSettings = Settings(
+        dayOfTheWeek: 2,
+        time: resetTime,
+        dailyResetWarning: false,
+        weeklyResetWarning: false)
 
+      context.insert(defaultSettings)
       return defaultSettings
     }
   }

@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct SettingsView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
-  @FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
+  @Query() var quests: [Quest]
 
-  @ObservedObject var settings: Settings
-  @ObservedObject var user: User
+  @State var settings: Settings
+  @State var user: User
 
   var body: some View {
     NavigationStack {
@@ -74,7 +74,6 @@ struct SettingsView: View {
           quest.setDateToWeeklyResetDate(settings: settings)
         }
       }
-      CoreDataController.shared.save(context: managedObjectContext)
     })
   }
 }
