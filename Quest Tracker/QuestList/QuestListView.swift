@@ -40,13 +40,33 @@ struct QuestListView: View {
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+  @ObservedObject private var sections = SectionModel()
+
   var body: some View {
     NavigationStack {
       List {
-        QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                  settings: settings,
-                  showingCompletedQuests: showingCompletedQuests,
-                  user: user)
+        if sortType == .questType {
+          ForEach(QuestType.allCases, id: \.self) { type in
+            let title: String = type.description + "s"
+            var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
+
+            Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+              if self.sections.isOpen(title: title) {
+                QuestSection(settings: settings,
+                             showingCompletedQuests: showingCompletedQuests,
+                             user: user,
+                             questType: type)
+              } else {
+                EmptyView()
+              }
+            }
+          }
+        } else {
+          QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                    settings: settings,
+                    showingCompletedQuests: showingCompletedQuests,
+                    user: user)
+        }
         if !showingCompletedQuests {
           HStack {
             Button(
