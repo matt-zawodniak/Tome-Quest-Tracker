@@ -37,6 +37,7 @@
 		8F1401E12AF29882007BBD53 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
 		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
+		8F65228A2B69B93A00603D49 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8F48FD412B1FCDE800A88E96 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RewardsView.swift; path = "Quest Tracker/Rewards/RewardsView.swift"; sourceTree = SOURCE_ROOT; };
 		8F6368562B62F94800D524A1 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestTrackerShortcuts.swift; path = "Quest Tracker/QuestTrackerShortcuts.swift"; sourceTree = SOURCE_ROOT; };
@@ -108,6 +109,7 @@
 		8FAC38442AB396B6005CBED3 = {
 			isa = PBXGroup;
 			children = (
+				8F65228A2B69B93A00603D49 /* README.md */,
 				8FAC384F2AB396B6005CBED3 /* Quest Tracker */,
 				8FAC384E2AB396B6005CBED3 /* Products */,
 			);
