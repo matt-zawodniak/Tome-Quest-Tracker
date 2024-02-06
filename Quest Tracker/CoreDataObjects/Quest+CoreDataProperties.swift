@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import AppIntents
 
 extension Quest {
 
@@ -17,20 +18,46 @@ extension Quest {
 
   @NSManaged public var difficulty: Int64
   @NSManaged public var dueDate: Date?
-  @NSManaged public var id: UUID?
+  @NSManaged public var id: UUID
   @NSManaged public var isSelected: Bool
   @NSManaged public var isCompleted: Bool
   @NSManaged public var length: Int64
   @NSManaged public var questBonusExp: Double
   @NSManaged public var questBonusReward: String?
   @NSManaged public var questDescription: String?
-  @NSManaged public var questName: String?
+  @NSManaged public var questName: String
   @NSManaged public var questType: Int64
   @NSManaged public var timeCreated: Date?
   @NSManaged public var timeCompleted: Date?
 }
 
 extension Quest: Identifiable {
+
+  static func findQuestBy(name: String) -> Quest? {
+    let request: NSFetchRequest<Quest> = Quest.fetchRequest()
+    request.fetchLimit = 1
+    request.predicate = NSPredicate(format: "questName = %@", name)
+
+   let foundQuest = try? CoreDataController.shared.container.viewContext.fetch(request).first ?? nil
+
+    return foundQuest
+  }
+
+  static func completeQuest(name: String) {
+    if let quest: Quest = findQuestBy(name: name) {
+
+      let context = CoreDataController.shared.container.viewContext
+
+      let user: User = User.fetchFirstOrInitialize(context: context)
+
+      let settings: Settings = Settings.fetchFirstOrInitialize(context: context)
+
+      quest.isCompleted = true
+      user.giveExp(quest: quest, settings: settings, context: context)
+
+      CoreDataController.shared.save(context: context)
+    }
+  }
 
   var type: QuestType {
     get {
@@ -144,7 +171,16 @@ extension Quest: Identifiable {
   }
 }
 
-enum QuestType: Int64, CaseIterable, CustomStringConvertible {
+enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
+  static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Quest Type")
+
+  static var caseDisplayRepresentations: [QuestType: DisplayRepresentation] = [
+    .mainQuest: "Main",
+    .sideQuest: "Side",
+    .dailyQuest: "Daily",
+    .weeklyQuest: "Weekly"
+  ]
+
   case mainQuest = 0
   case sideQuest = 1
   case dailyQuest = 2

@@ -26,7 +26,7 @@ struct QuestView: View {
       }
     }.onDisappear(
       perform: {
-        if quest.questName.bound.count > 0 {
+        if quest.questName.count > 0 {
           quest.isSelected = false
           quest.isCompleted = false
           CoreDataController.shared.save(context: managedObjectContext)
@@ -58,7 +58,7 @@ struct QuestView: View {
 
   var nameSection: some View {
     Section(header: Text("Quest Name")) {
-      TextField("Quest Name", text: $quest.questName.bound)
+      TextField("Quest Name", text: $quest.questName)
     }
   }
 

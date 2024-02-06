@@ -26,7 +26,7 @@ struct QuestRowView: View, Identifiable {
         case .dailyQuest: Text("!").foregroundStyle(.green)
         case .weeklyQuest: Text("!").foregroundStyle(.purple)
         }
-        Text(quest.questName ?? "")
+        Text(quest.questName)
         Spacer()
       }
       .onTapGesture {
@@ -69,7 +69,7 @@ struct QuestRowView: View, Identifiable {
     quest.isCompleted = false
     quest.isSelected = false
     quest.timeCreated = Date.now
-    print("\(quest.questName!) is \(quest.isCompleted)")
+    print("\(quest.questName) is \(quest.isCompleted)")
   }
   func toggleQuest(quest: Quest, quests: FetchedResults<Quest>) {
       quest.isSelected.toggle()
