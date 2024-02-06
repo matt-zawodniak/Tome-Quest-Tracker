@@ -41,15 +41,15 @@ extension User: Identifiable {
           return (try? context.fetch(request))
         }
 
-        if let milestoneRewardFetchedResults {
-          let firstMilestoneReward = milestoneRewardFetchedResults.first
+        if let milestoneRewardFetchedResults,
+            let firstMilestoneReward = milestoneRewardFetchedResults.first {
           createUnearnedCopyOfRewardAtEndOfArray(
-            earnedReward: firstMilestoneReward!,
+            earnedReward: firstMilestoneReward,
             rewardArray: milestoneRewardFetchedResults,
             context: context)
 
-          firstMilestoneReward?.isEarned = true
-          firstMilestoneReward?.dateEarned = Date()
+          firstMilestoneReward.isEarned = true
+          firstMilestoneReward.dateEarned = Date()
         }
       } else {
 
@@ -61,15 +61,13 @@ extension User: Identifiable {
           return (try? context.fetch(request))
         }
 
-        if let minorRewardFetchedResults {
-          if let firstMinorReward = minorRewardFetchedResults.first {
+        if let minorRewardFetchedResults, let firstMinorReward = minorRewardFetchedResults.first {
             createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
                                                    rewardArray: minorRewardFetchedResults,
                                                    context: context)
 
             firstMinorReward.isEarned = true
             firstMinorReward.dateEarned = Date()
-          }
         }
       }
     }
