@@ -72,7 +72,7 @@ extension Quest: Identifiable {
       return (try? context.fetch(request)) ?? []
     }
 
-    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.resetTime)
+    let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
     let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
 
     let mostRecentDailyReset = Calendar.current.nextDate(
@@ -96,9 +96,9 @@ extension Quest: Identifiable {
 
     var weeklyComponents = DateComponents()
     weeklyComponents.weekday = Int(settings.dayOfTheWeek)
-    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.resetTime)
-    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.resetTime)
-    weeklyComponents.second = Calendar.current.component(.second, from: settings.resetTime)
+    weeklyComponents.hour = Calendar.current.component(.hour, from: settings.time)
+    weeklyComponents.minute = Calendar.current.component(.minute, from: settings.time)
+    weeklyComponents.second = Calendar.current.component(.second, from: settings.time)
     let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date.now)!
 
     let mostRecentWeeklyReset = Calendar.current.nextDate(
@@ -112,12 +112,11 @@ extension Quest: Identifiable {
     }
   }
 
-
   func setDateToDailyResetTime(settings: Settings) {
     var components = DateComponents()
-    components.hour = Calendar.current.component(.hour, from: settings.resetTime)
-    components.minute = Calendar.current.component(.minute, from: settings.resetTime)
-    components.second = Calendar.current.component(.second, from: settings.resetTime)
+    components.hour = Calendar.current.component(.hour, from: settings.time)
+    components.minute = Calendar.current.component(.minute, from: settings.time)
+    components.second = Calendar.current.component(.second, from: settings.time)
 
     let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
     dueDate = nextResetTime
@@ -126,8 +125,8 @@ extension Quest: Identifiable {
   func setDateToWeeklyResetDate(settings: Settings) {
     var components = DateComponents()
     components.weekday = Int(settings.dayOfTheWeek)
-    components.hour = Calendar.current.component(.hour, from: settings.resetTime)
-    components.minute = Calendar.current.component(.minute, from: settings.resetTime)
+    components.hour = Calendar.current.component(.hour, from: settings.time)
+    components.minute = Calendar.current.component(.minute, from: settings.time)
 
     let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 
@@ -159,6 +158,15 @@ enum QuestType: Int64, CaseIterable, CustomStringConvertible {
     case .weeklyQuest: return "Weekly Quest"
     }
   }
+
+  var experience: Double {
+    switch self {
+    case .mainQuest: return 40
+    case .sideQuest: return 10
+    case .dailyQuest: return 4
+    case .weeklyQuest: return 20
+    }
+  }
 }
 
 enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
@@ -173,6 +181,14 @@ enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
     case .hard: return "Hard"
     }
   }
+
+  var expMultiplier: Double {
+    switch self {
+    case .easy: 0.75
+    case .average: 1
+    case .hard: 1.25
+    }
+  }
 }
 
 enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
@@ -185,6 +201,14 @@ enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
     case .short: return "Short"
     case .average: return "Average"
     case .long: return "Long"
+    }
+  }
+
+  var expMultiplier: Double {
+    switch self {
+    case .short: 0.75
+    case .average: 1
+    case .long: 1.25
     }
   }
 }

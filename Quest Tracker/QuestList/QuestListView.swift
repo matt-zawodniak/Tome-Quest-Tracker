@@ -24,6 +24,12 @@ struct QuestListView: View {
   var settings: Settings {
     return settingsFetchResults.first!
   }
+
+  @FetchRequest(sortDescriptors: []) var userFetchResults: FetchedResults<User>
+  var user: User {
+    return userFetchResults.first!
+  }
+
   var body: some View {
     NavigationStack {
       List {
@@ -51,6 +57,7 @@ struct QuestListView: View {
               Button {
                 quest.isCompleted = true
                 quest.timeCompleted = Date.now
+                user.giveExp(quest: quest)
                 CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")
@@ -70,7 +77,7 @@ struct QuestListView: View {
           }
           HStack {
             Spacer()
-            NavigationLink(destination: SettingsView(settings: settings)) {
+            NavigationLink(destination: SettingsView(settings: settings, user: user)) {
               Button(action: {}, label: {
                 Text("Settings")
               })
@@ -114,7 +121,7 @@ struct QuestListView: View {
                 }
               })
           } else {
-            Text(settings.resetTime, style: .timer)
+            Text(settings.time, style: .timer)
           }
         }
       }
@@ -123,13 +130,13 @@ struct QuestListView: View {
       }
     }
     .onReceive(timer, perform: { time in
-      if time >= settings.resetTime {
+      if time >= settings.time {
         tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
       }
     })
     .onChange(of: scenePhase) { phase in
       if phase == .active {
-        if Date.now >= settings.resetTime {
+        if Date.now >= settings.time {
           tracker.refreshSettingsAndQuests(settings: settings, context: managedObjectContext)
         }
       }

@@ -12,7 +12,20 @@ import SwiftUI
 class CoreDataController: ObservableObject {
   static let shared = CoreDataController()
 
-  let container = NSPersistentContainer(name: "DataModel")
+  init(inMemory: Bool = false) {
+      container = NSPersistentContainer(name: "DataModel")
+      if inMemory {
+          container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+      }
+      container.loadPersistentStores(completionHandler: { (_, error) in
+          if let error = error as NSError? {
+              fatalError("Unresolved error \(error), \(error.userInfo)")
+          }
+      })
+      container.viewContext.automaticallyMergesChangesFromParent = true
+  }
+
+  var container = NSPersistentContainer(name: "DataModel")
 
   private init() {
     container.loadPersistentStores {_, error in
@@ -20,41 +33,11 @@ class CoreDataController: ObservableObject {
         print("Core Data failed to load: \(error.localizedDescription)")
       }
     }
-    fetchFirstOrCreate(context: container.viewContext)
-  }
 
-  func fetchFirstOrCreate(context: NSManagedObjectContext) {
-    var userSettings: [Settings] {
-      let request = NSFetchRequest<Settings>(entityName: "Settings")
-      return (try? container.viewContext.fetch(request)) ?? []
-    }
+    _ = User.fetchFirstOrInitialize(context: container.viewContext)
+    _ = Settings.fetchFirstOrInitialize(context: container.viewContext)
+    save(context: container.viewContext)
 
-    if userSettings.isEmpty {
-      let defaultSettings = Settings(context: context)
-
-      var components = DateComponents()
-      components.day = 1
-      components.second = -1
-      defaultSettings.dayOfTheWeek = 2
-      defaultSettings.resetTime = Calendar.current.date(
-        byAdding: components,
-        to: Calendar.current.startOfDay(for: Date.now))!
-
-      defaultSettings.dailyResetWarning = false
-      defaultSettings.weeklyResetWarning = false
-      defaultSettings.levelingScheme = 2
-
-      save(context: context)
-    } else {
-      //			let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Quest.fetchRequest()
-      //				 let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-      //				 _ = try? container.viewContext.execute(batchDeleteRequest1) // Use this to delete Quest data
-
-      //			container.viewContext.delete(userSettings.first!) // Use this to delete the Settings
-      //			save(context: context)
-      //			
-      //			print(userSettings.first?.time as Any)
-    }
   }
 
   func save(context: NSManagedObjectContext) {

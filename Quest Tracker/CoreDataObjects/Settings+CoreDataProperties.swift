@@ -17,23 +17,49 @@ extension Settings {
 
   @NSManaged public var dailyResetWarning: Bool
   @NSManaged public var dayOfTheWeek: Int64
-  @NSManaged public var levelingScheme: Int64
-  @NSManaged public var resetTime: Date
+  @NSManaged public var time: Date
   @NSManaged public var weeklyResetWarning: Bool
 
 }
 
 extension Settings: Identifiable {
   func setNewResetTime() {
-    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: resetTime)
+    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: time)
     let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
-    resetTime = newResetTime!
+    time = newResetTime!
   }
 
   func refreshDailyReset() {
     var components = DateComponents()
     components.day = 1
-    resetTime = Calendar.current.date(byAdding: components, to: resetTime)!
+    time = Calendar.current.date(byAdding: components, to: time)!
+  }
+
+  static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> Settings {
+
+    var userSettings: Settings? {
+      let request = NSFetchRequest<Settings>(entityName: "Settings")
+      let userSettingsFetchResults = (try? context.fetch(request)) ?? []
+      return userSettingsFetchResults.first ?? nil
+    }
+
+    if let userSettings {
+      return userSettings
+    } else {
+      let defaultSettings = Settings(context: context)
+
+      var components = DateComponents()
+      components.day = 1
+      components.second = -1
+
+      defaultSettings.time = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
+
+      defaultSettings.dayOfTheWeek = 2
+      defaultSettings.dailyResetWarning = false
+      defaultSettings.weeklyResetWarning = false
+
+      return defaultSettings
+    }
   }
 
   var day: DayOfTheWeek {
@@ -42,31 +68,6 @@ extension Settings: Identifiable {
     }
     set {
       self.dayOfTheWeek = newValue.rawValue
-    }
-  }
-
-  var scaling: LevelingSchemes {
-    get {
-      return LevelingSchemes(rawValue: self.levelingScheme)!
-    }
-    set {
-      self.levelingScheme = newValue.rawValue
-    }
-  }
-}
-
-enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
-  case none = 0
-  case flat = 1
-  case linear = 2
-  case exponential = 3
-
-  var description: String {
-    switch self {
-    case .none: "None"
-    case .flat: "Flat Increase"
-    case .linear: "Linear Increase"
-    case .exponential: "Exponential"
     }
   }
 }
