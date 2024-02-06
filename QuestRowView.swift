@@ -5,17 +5,19 @@
 //  Created by Matt Zawodniak on 11/27/23.
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct QuestRowView: View, Identifiable {
+
+  @Environment(\.modelContext) var modelContext
+
   var id = UUID()
 
-  @ObservedObject var quest: Quest
-  @FetchRequest(sortDescriptors: [SortDescriptor(\.timeCreated, order: .reverse)],
-                predicate: NSPredicate(format: "isCompleted == false")) var quests: FetchedResults<Quest>
+  @State var quest: Quest
+  @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) var quests: [Quest]
+
   var settings: Settings
-  @Environment(\.managedObjectContext) var managedObjectContext
 
   var body: some View {
     VStack {
@@ -26,7 +28,7 @@ struct QuestRowView: View, Identifiable {
         case .dailyQuest: Text("!").foregroundStyle(.green)
         case .weeklyQuest: Text("!").foregroundStyle(.purple)
         }
-        Text(quest.questName ?? "")
+        Text(quest.questName)
         Spacer()
       }
       .onTapGesture {
@@ -34,30 +36,25 @@ struct QuestRowView: View, Identifiable {
       }
       if quest.isSelected {
         Text(quest.questDescription ?? "")
-        Text("Quest EXP:")
-        HStack {
-          Text("Quest Reward:")
-          Text(quest.questBonusReward ?? "")
+        Text("Quest EXP: \(Int(quest.type.experience))")
+        if quest.questBonusReward != nil {
+          HStack {
+            Text("Quest Reward:")
+            Text(quest.questBonusReward ?? "")
+          }
         }
         if !quest.isCompleted {
-          HStack {
-            NavigationLink(destination: QuestView(
-              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
-                }
-                )
+          if quest.type == .weeklyQuest ||
+              quest.type == .dailyQuest {
+              Button {
+                quest.isCompleted = true
+              } label: {
+                Text("Skip Quest")
               }
-            Spacer()
-            Button(action: {
-            },
-                   label: {Text("Complete")})
-          }
+            }
         } else {
           Button {
             restoreQuest(quest: quest)
-            CoreDataController.shared.save(context: managedObjectContext)
           } label: {
             Text("Restore to Quest List")
           }
@@ -69,9 +66,9 @@ struct QuestRowView: View, Identifiable {
     quest.isCompleted = false
     quest.isSelected = false
     quest.timeCreated = Date.now
-    print("\(quest.questName!) is \(quest.isCompleted)")
+    print("\(quest.questName) is \(quest.isCompleted)")
   }
-  func toggleQuest(quest: Quest, quests: FetchedResults<Quest>) {
+  func toggleQuest(quest: Quest, quests: [Quest]) {
       quest.isSelected.toggle()
       for other in quests where other != quest {
         other.isSelected = false

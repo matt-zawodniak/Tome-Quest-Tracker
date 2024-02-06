@@ -6,20 +6,22 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct SettingsView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
-  @FetchRequest(sortDescriptors: []) var quests: FetchedResults<Quest>
+  @Query() var quests: [Quest]
 
-  @ObservedObject var settings: Settings
+  @State var settings: Settings
+  @State var user: User
+
   var body: some View {
     NavigationStack {
       List {
         VStack {
           HStack {
             Text("Daily Reset Time:")
-            DatePicker("", selection: $settings.resetTime, displayedComponents: .hourAndMinute)
+            DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute)
           }
           HStack {
             Text("Daily Reset Warning")
@@ -45,7 +47,7 @@ struct SettingsView: View {
         }
         HStack {
           Text("Level Scaling:")
-          Picker("", selection: $settings.scaling) {
+          Picker("", selection: $user.scaling) {
             ForEach(LevelingSchemes.allCases, id: \.self) { scheme in
               let pickerText = scheme.description
               Text("\(pickerText)")
@@ -72,32 +74,6 @@ struct SettingsView: View {
           quest.setDateToWeeklyResetDate(settings: settings)
         }
       }
-      CoreDataController.shared.save(context: managedObjectContext)
     })
-  }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-  static func loadPreviewSettings(context: NSManagedObjectContext) -> Settings {
-    let defaultSettings = Settings(context: context)
-
-    var components = DateComponents()
-    components.day = 1
-    components.second = -1
-
-    defaultSettings.dayOfTheWeek = 3
-    defaultSettings.resetTime = Calendar.current.date(
-      byAdding: components,
-      to: Calendar.current.startOfDay(for: Date()))!
-    defaultSettings.dailyResetWarning = true
-    defaultSettings.weeklyResetWarning = false
-    defaultSettings.levelingScheme = 2
-
-    return defaultSettings
-  }
-  static var previews: some View {
-    let previewContext = CoreDataController.shared.container.viewContext
-    let settings = loadPreviewSettings(context: previewContext)
-    SettingsView(settings: settings)
   }
 }
