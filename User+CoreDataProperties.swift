@@ -24,6 +24,66 @@ extension User {
 
 extension User: Identifiable {
 
+  func giveExp(quest: Quest, settings: Settings, context: NSManagedObjectContext) {
+    let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
+    currentExp += questExp
+    if currentExp >= expToLevel {
+      levelUp(settings: settings)
+
+      if level % 5 == 0 {
+
+        var milestoneRewardFetchedResults: [Reward]? {
+          let request = NSFetchRequest<Reward>(entityName: "Reward")
+          request.predicate = NSPredicate(format: "isMilestoneReward == true && isEarned == false")
+          request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
+          return (try? context.fetch(request))
+        }
+
+        if let milestoneRewardFetchedResults {
+          let firstMilestoneReward = milestoneRewardFetchedResults.first
+          createUnearnedCopyOfRewardAtEndOfArray(
+            earnedReward: firstMilestoneReward!,
+            rewardArray: milestoneRewardFetchedResults,
+            context: context)
+        }
+      } else {
+
+        var minorRewardFetchedResults: [Reward]? {
+          let request = NSFetchRequest<Reward>(entityName: "Reward")
+          request.predicate = NSPredicate(format: "isMilestoneReward == false && isEarned == false")
+          request.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
+          return (try? context.fetch(request))
+        }
+
+        if let minorRewardFetchedResults {
+          if let firstMinorReward = minorRewardFetchedResults.first {
+            createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
+                                                   rewardArray: minorRewardFetchedResults,
+                                                   context: context)
+          }
+        }
+      }
+
+      CoreDataController.shared.save(context: context)
+    }
+  }
+
+  func createUnearnedCopyOfRewardAtEndOfArray(
+    earnedReward: Reward,
+    rewardArray: [Reward],
+    context: NSManagedObjectContext) {
+
+    let copyOfEarnedReward = Reward(context: context)
+    copyOfEarnedReward.name = earnedReward.name
+    copyOfEarnedReward.isMilestoneReward = earnedReward.isMilestoneReward
+    copyOfEarnedReward.isEarned = true
+    copyOfEarnedReward.dateEarned = Date.now
+
+    earnedReward.sortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
+
+    CoreDataController.shared.save(context: context)
+  }
+
   static func fetchFirstOrInitialize(context: NSManagedObjectContext) -> User {
 
     var currentUser: User? {
@@ -45,15 +105,8 @@ extension User: Identifiable {
     }
   }
 
-  func giveExp(quest: Quest) {
-    let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
-    currentExp += questExp
-    if currentExp >= expToLevel {
-      levelUp()
-    }
-  }
+ func levelUp(settings: Settings) {
 
-  func levelUp() {
     level += 1
     currentExp -= expToLevel
     if levelingScheme == 1 {

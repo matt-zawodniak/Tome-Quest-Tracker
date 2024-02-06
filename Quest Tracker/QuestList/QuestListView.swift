@@ -56,8 +56,8 @@ struct QuestListView: View {
             if !showingCompletedQuests {
               Button {
                 quest.isCompleted = true
+                user.giveExp(quest: quest, settings: settings, context: managedObjectContext)
                 quest.timeCompleted = Date.now
-                user.giveExp(quest: quest)
                 CoreDataController.shared.save(context: managedObjectContext)
               } label: {
                 Image(systemName: "checkmark")
@@ -91,6 +91,14 @@ struct QuestListView: View {
               label: {
                 Text("Completed Quests")
               })
+          }
+          HStack {
+            Spacer()
+            NavigationLink(destination: RewardsView()) {
+              Button(action: {}, label: {
+                Text("View Rewards")
+              })
+            }
           }
         }
       }
