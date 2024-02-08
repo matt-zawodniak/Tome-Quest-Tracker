@@ -20,5 +20,4 @@ class ModelController {
       fatalError("Failed to configure SwiftData container.")
     }
   }
-
 }

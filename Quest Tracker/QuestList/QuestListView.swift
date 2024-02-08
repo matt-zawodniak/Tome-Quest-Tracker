@@ -160,8 +160,9 @@ struct QuestListView: View {
   }
 }
 
-struct QuestTableView_Previews: PreviewProvider {
-  static var previews: some View {
+#Preview {
+  MainActor.assumeIsolated {
     QuestListView(tracker: QuestTrackerViewModel())
+      .modelContainer(PreviewSampleData.container)
   }
 }

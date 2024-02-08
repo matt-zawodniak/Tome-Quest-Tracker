@@ -57,7 +57,13 @@ struct QuestList: View {
         }
       }    }
 }
-//
-// #Preview {
-//    QuestList()
-// }
+
+#Preview {
+  MainActor.assumeIsolated {
+    QuestList(sortDescriptor: QuestTrackerViewModel().sortDescriptorFromSortType(sortType: .questType),
+              settings: PreviewSampleData.previewSettings,
+              showingCompletedQuests: false,
+              user: PreviewSampleData.previewUser)
+        .modelContainer(PreviewSampleData.container)
+  }
+}
