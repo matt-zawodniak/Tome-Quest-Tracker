@@ -70,7 +70,11 @@ struct RewardsView: View {
 
         Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
           if let nextMilestoneReward = milestoneRewards.first {
-            Text("Keep up the good work! Reach level \(nextMilestoneLevel) and earn yourself \(nextMilestoneReward.name).")
+            Text("""
+                 Keep up the good work! \
+                 Reach level \(nextMilestoneLevel) \
+                 and earn yourself \(nextMilestoneReward.name).
+                 """)
           } else {
             Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
           }
@@ -83,7 +87,10 @@ struct RewardsView: View {
     }
   }
 }
-//
-// #Preview {
-//  RewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-// }
+
+#Preview {
+  MainActor.assumeIsolated {
+    RewardsView(user: PreviewSampleData.previewUser)
+      .modelContainer(PreviewSampleData.container)
+  }
+}

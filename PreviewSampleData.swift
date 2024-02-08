@@ -24,12 +24,54 @@ class PreviewSampleData {
       let previewSettings: Settings = Settings.fetchFirstOrInitialize(context: container.mainContext)
 
       let previewQuests: [Quest] = [
-        Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Main", questType: 0),
-        Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Side", questType: 1),
-        Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Daily", questType: 2),
-        Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Weekly", questType: 3),
-        Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Second Main", questType: 0),
-        Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Second Side", questType: 1),
+        Quest(difficulty: 1,
+              id: UUID(),
+              isCompleted: false,
+              isSelected: false,
+              length: 1,
+              questBonusExp: 0,
+              questName: "Main",
+              questType: 0),
+        Quest(difficulty: 1,
+              id: UUID(),
+              isCompleted: false,
+              isSelected: false,
+              length: 1,
+              questBonusExp: 0,
+              questName: "Side",
+              questType: 1),
+        Quest(difficulty: 1,
+              id: UUID(),
+              isCompleted: false,
+              isSelected: false,
+              length: 1,
+              questBonusExp: 0,
+              questName: "Daily",
+              questType: 2),
+        Quest(difficulty: 1,
+              id: UUID(),
+              isCompleted: false,
+              isSelected: false,
+              length: 1,
+              questBonusExp: 0,
+              questName: "Weekly",
+              questType: 3),
+        Quest(difficulty: 1,
+              id: UUID(),
+              isCompleted: false,
+              isSelected: false,
+              length: 1,
+              questBonusExp: 0,
+              questName: "Second Main",
+              questType: 0),
+        Quest(difficulty: 1,
+              id: UUID(),
+              isCompleted: false,
+              isSelected: false,
+              length: 1,
+              questBonusExp: 0,
+              questName: "Second Side",
+              questType: 1)
       ]
 
       previewQuests.forEach {
@@ -44,7 +86,7 @@ class PreviewSampleData {
       previewRewards.forEach {
         container.mainContext.insert($0)
       }
-      
+
       return container
     } catch {
       fatalError("Failed to create preview container.")
@@ -53,8 +95,22 @@ class PreviewSampleData {
 
   static var previewUser: User = User(currentExp: 27, expToLevel: 80, level: 4, levelingScheme: 1)
 
-  static var previewSettings: Settings = Settings(dayOfTheWeek: 3, time: Date(), dailyResetWarning: false, weeklyResetWarning: false)
+  static var previewSettings: Settings = Settings(
+    dayOfTheWeek: 3,
+    time: Date(),
+    dailyResetWarning: false,
+    weeklyResetWarning: false
+  )
 
-  static var previewQuest: Quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, isSelected: false, length: 1, questBonusExp: 0, questName: "Main", questType: 0)
+  static var previewQuest: Quest = Quest(
+    difficulty: 1,
+    id: UUID(),
+    isCompleted: false,
+    isSelected: false,
+    length: 1,
+    questBonusExp: 0,
+    questName: "Main",
+    questType: 0
+  )
 
 }

@@ -45,9 +45,12 @@ struct AddRewardView: View {
     )
   }
 }
-//
-// #Preview {
-//  AddRewardView(reward: Reward(context: CoreDataController.preview.container.viewContext), minorRewardCount: 5,
-//                milestoneRewardCount: 3)
-//  .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-// }
+
+#Preview {
+  MainActor.assumeIsolated {
+    AddRewardView(reward: Reward(isMilestoneReward: false, name: "Test Reward", sortId: 0),
+                  minorRewardCount: 0,
+                  milestoneRewardCount: 0)
+      .modelContainer(PreviewSampleData.container)
+  }
+}
