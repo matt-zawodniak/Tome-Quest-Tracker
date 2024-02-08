@@ -91,10 +91,7 @@ struct QuestListView: View {
           LevelUpNotification(user: user,
                               isPresented: $showingLevelUpNotification,
                               navigateToRewardsView: $rewardsView)
-          .frame(maxWidth: 300)
           .padding()
-          .border(.blue)
-          .background(.white)
         }
     }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)

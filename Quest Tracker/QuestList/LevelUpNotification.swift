@@ -15,8 +15,6 @@ struct LevelUpNotification: View {
 
   var body: some View {
     NavigationStack {
-      ZStack {
-        RoundedRectangle(cornerRadius: 20)
         VStack {
           HStack {
             Image(systemName: "party.popper")
@@ -43,7 +41,10 @@ struct LevelUpNotification: View {
             }
           }
         }
-      }
+        .padding()
+        .background(.white)
+        .cornerRadius(20)
+        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.blue))
     }
   }
 }
