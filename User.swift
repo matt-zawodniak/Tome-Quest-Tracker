@@ -10,7 +10,6 @@ import Foundation
 import SwiftData
 
 @Model public class User {
-  @Relationship() var unique: Bool = true
     var currentExp: Double = 0.0
     var expToLevel: Double = 0.0
     var level: Int64 = 0
@@ -21,7 +20,6 @@ import SwiftData
     self.expToLevel = expToLevel
     self.level = level
     self.levelingScheme = levelingScheme
-    self.unique = true
   }
 }
 

@@ -13,7 +13,7 @@ import AppIntents
 @Model class Quest {
     var difficulty: Int64 = 0
     var dueDate: Date?
-    var id: UUID?
+    var id = UUID()
     var isCompleted: Bool = false
     @Attribute(.ephemeral) var isSelected: Bool = false
     var length: Int64 = 0
