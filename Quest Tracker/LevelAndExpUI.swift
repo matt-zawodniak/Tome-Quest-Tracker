@@ -23,6 +23,8 @@ struct LevelAndExpUI: View {
       ProgressView(value: user.currentExp, total: user.expToLevel).animation(.easeInOut, value: user.currentExp)
       Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
     }
+    .background(.black)
+    .foregroundStyle(.cyan)
   }
 }
 //

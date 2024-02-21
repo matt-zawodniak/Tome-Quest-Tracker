@@ -46,5 +46,6 @@ struct CategoryHeader: View {
     .onTapGesture {
       self.model.toggle(title: self.title)
     }
+    .foregroundStyle(.cyan)
   }
 }

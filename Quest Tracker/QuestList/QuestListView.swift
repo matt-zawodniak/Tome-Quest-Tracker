@@ -13,7 +13,7 @@ struct QuestListView: View {
   @Environment(\.modelContext) var modelContext
   @Environment(\.scenePhase) var scenePhase
 
-  @Query<Quest>(sort: [SortDescriptor(\Quest.timeCreated, order: .reverse)]) var quests: [Quest]
+  @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
 
   var filteredQuests: [Quest] {
     if showingCompletedQuests {
@@ -35,7 +35,7 @@ struct QuestListView: View {
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
 
-  @State var sortType: QuestSortDescriptor = .timeCreated
+  @State var sortType: QuestSortDescriptor = .questType
   @State var newQuestView: Bool = false
   @State var showingCompletedQuests: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
@@ -45,112 +45,50 @@ struct QuestListView: View {
   @ObservedObject private var sections = SectionModel()
 
   var body: some View {
-    NavigationStack {
-      List {
-        if sortType == .questType {
-          ForEach(QuestType.allCases, id: \.self) { type in
-            let title: String = type.description + "s"
-            var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
+    VStack {
+      NavigationBar()
+      NavigationStack {
+        List {
+          if sortType == .questType {
+            ForEach(QuestType.allCases, id: \.self) { type in
+              let title: String = type.description + "s"
+              var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
 
-            Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
-              if self.sections.isOpen(title: title) {
-                QuestSection(settings: settings,
-                             showingCompletedQuests: showingCompletedQuests,
-                             user: user,
-                             questType: type)
-              } else {
-                EmptyView()
-              }
-            }
-          }
-        } else {
-          QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                    settings: settings,
-                    showingCompletedQuests: showingCompletedQuests,
-                    user: user)
-        }
-      }
-      .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-
-        ToolbarItem(placement: .topBarTrailing) {
-          Menu {
-            Picker("", selection: $sortType) {
-              ForEach(QuestSortDescriptor.allCases, id: \.self) {
-                Text($0.description)
-              }
-            }
-          } label: {
-            Image(systemName: "arrow.up.arrow.down")
-          }
-        }
-
-        ToolbarItem(placement: .topBarTrailing) {
-          Button(
-            action: {
-              newQuestView = true
-            },
-            label: {
-              Image(systemName: "plus.circle")
-            })
-        }
-
-        ToolbarItem(placement: .principal) {
-          if showingCompletedQuests {
-            Text("Completed Quests")
-          } else {
-            Text(settings.time, style: .timer)
-          }
-        }
-
-          ToolbarItem(placement: .topBarLeading) {
-            if showingCompletedQuests {
-            Button(
-              action: {
-                showActiveQuests()
-              }, label: {
-                HStack {
-                  Image(systemName: "chevron.backward")
-                  Text("Back")
+              Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+                if self.sections.isOpen(title: title) {
+                  QuestSection(settings: settings,
+                               showingCompletedQuests: showingCompletedQuests,
+                               user: user,
+                               questType: type)
+                } else {
+                  EmptyView()
                 }
-              })
+              }
+            }
+            .listRowBackground(Color(red: 13/255, green: 14/255, blue: 68/255))
+            .foregroundStyle(.cyan)
           } else {
-            Menu {
-              Button("Home", action: { showActiveQuests()})
-
-              Button(
-                action: {
-                  showCompletedQuests()
-                },
-                label: {
-                  Text("Completed Quests")
-                })
-
-              NavigationLink(destination: RewardsView(user: user)) {
-                Button(action: {}, label: {
-                  Text("View Rewards")
-                })
-              }
-
-              NavigationLink(destination: SettingsView(settings: settings, user: user)) {
-                Button(action: {}, label: {
-                  Text("Settings")
-                })
-              }
-            } label: {
-                Image(systemName: "list.bullet")
-              }
+            QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                      settings: settings,
+                      showingCompletedQuests: showingCompletedQuests,
+                      user: user)
           }
         }
-      }
-      .navigationDestination(isPresented: $newQuestView) {
-        QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
-      }
-      if earnedRewards.count > 0 {
-        NavigationLink(destination: RewardsView(user: user)) {
-          Text("You have earned rewards! Tap here to view them.").font(.footnote)
+        .listStyle(.grouped)
+        .scrollContentBackground(.hidden)
+        .background(.black)
+
+        .navigationDestination(isPresented: $newQuestView) {
+          QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
         }
+//        if earnedRewards.count > 0 {
+//          NavigationLink(destination: RewardsView(user: user)) {
+//            Text("You have earned rewards! Tap here to view them.").font(.footnote)
+//              .foregroundStyle(.cyan)
+//          }
+//        }
       }
+      .layoutPriority(1)
     }
     .onReceive(timer, perform: { time in
       if time >= settings.time {
@@ -165,8 +103,10 @@ struct QuestListView: View {
       }
       print("Scene has changed to \(scenePhase)")
     }
+    .background(.black)
     LevelAndExpUI()
-      .padding(.horizontal)
+      .padding()
+      .background(.black)
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
