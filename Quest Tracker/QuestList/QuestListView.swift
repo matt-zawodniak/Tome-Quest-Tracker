@@ -36,8 +36,11 @@ struct QuestListView: View {
   @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
 
   @State var sortType: QuestSortDescriptor = .questType
+
   @State var newQuestView: Bool = false
+  @State var rewardsView: Bool = false
   @State var showingCompletedQuests: Bool = false
+  @State var settingsView: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -47,68 +50,61 @@ struct QuestListView: View {
   var body: some View {
     ZStack {
       Rectangle().background(.black)
-        VStack {
-          VStack {
+      VStack {
 
-            LevelAndExpUI()
-              .padding(.horizontal)
+        NavigationStack {
+          List {
+            if sortType == .questType {
+              ForEach(QuestType.allCases, id: \.self) { type in
+                let title: String = type.description + "s"
+                var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
 
-            Divider()
-              .frame(height: 2)
-              .overlay(.cyan)
-          }
-
-          NavigationStack {
-            List {
-              if sortType == .questType {
-                ForEach(QuestType.allCases, id: \.self) { type in
-                  let title: String = type.description + "s"
-                  var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
-
-                  Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
-                    if self.sections.isOpen(title: title) {
-                      QuestSection(settings: settings,
-                                   showingCompletedQuests: showingCompletedQuests,
-                                   user: user,
-                                   questType: type)
-                    } else {
-                      EmptyView()
-                    }
+                Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+                  if self.sections.isOpen(title: title) {
+                    QuestSection(settings: settings,
+                                 showingCompletedQuests: showingCompletedQuests,
+                                 user: user,
+                                 questType: type)
+                  } else {
+                    EmptyView()
                   }
-                  .listRowBackground(CustomListBackground(type: type))
                 }
-                .foregroundStyle(.cyan)
-              } else {
-                QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                          settings: settings,
-                          showingCompletedQuests: showingCompletedQuests,
-                          user: user)
+                .listRowBackground(CustomListBackground(type: type))
               }
-            }
-            .listStyle(.grouped)
-            .scrollContentBackground(.hidden)
-            .background(.black)
-
-            .navigationDestination(isPresented: $newQuestView) {
-              QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
+              .foregroundStyle(.cyan)
+            } else {
+              QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                        settings: settings,
+                        showingCompletedQuests: showingCompletedQuests,
+                        user: user)
             }
           }
-          .layoutPriority(1)
+          .listStyle(.grouped)
+          .scrollContentBackground(.hidden)
+          .background(.black)
 
-          ZStack {
-            NavigationBar()
-              .background(.cyan.opacity(0.2))
-
-//            HStack {
-//              Rectangle().opacity(0).border(.red)
-//              Rectangle().opacity(0).border(.red)
-//              Rectangle().opacity(0).border(.red)
-//              Rectangle().opacity(0).border(.red)
-//              Rectangle().opacity(0).border(.red)
-//            }
-//            .padding()
+          .navigationDestination(isPresented: $newQuestView) {
+            QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
+          }
+          .navigationDestination(isPresented: $settingsView) {
+            SettingsView(settings: settings, user: user)
+          }
+          .navigationDestination(isPresented: $rewardsView) {
+            RewardsView(user: user)
           }
         }
+        .layoutPriority(1)
+
+        VStack {
+
+          NavigationBar(newQuestView: $newQuestView, rewardsView: $rewardsView, settingsView: $settingsView, showingCompletedQuests: $showingCompletedQuests)
+
+          LevelAndExpUI()
+            .padding(.horizontal)
+
+        }
+      }
+
         .onReceive(timer, perform: { time in
           if time >= settings.time {
             tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)

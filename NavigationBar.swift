@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct NavigationBar: View {
+
+  @Binding var newQuestView: Bool
+  @Binding var rewardsView: Bool
+  @Binding var settingsView: Bool
+  @Binding var showingCompletedQuests: Bool
+
   var body: some View {
     ZStack {
       VStack(spacing: 15) {
@@ -19,14 +25,38 @@ struct NavigationBar: View {
         HStack {
           Spacer()
           Image(systemName: "house")
+            .onTapGesture {
+              showingCompletedQuests = false
+              newQuestView = false
+              rewardsView = false
+              settingsView = false
+            }
           Spacer()
           Image(systemName: "book.closed")
+            .onTapGesture {
+              showingCompletedQuests = true
+              newQuestView = false
+              rewardsView = false
+              settingsView = false
+            }
           Spacer()
           Spacer()
           Spacer()
           Image(systemName: "gift.fill")
+            .onTapGesture {
+              showingCompletedQuests = false
+              newQuestView = false
+              rewardsView = true
+              settingsView = false
+            }
           Spacer()
           Image(systemName: "gearshape")
+            .onTapGesture {
+              showingCompletedQuests = false
+              newQuestView = false
+              rewardsView = false
+              settingsView = true
+            }
           Spacer()
         }
         .foregroundColor(.white)
@@ -40,12 +70,15 @@ struct NavigationBar: View {
 
       Image(systemName: "plus.square.dashed").font(.largeTitle)
           .foregroundColor(.cyan)
+          .onTapGesture {
+            showingCompletedQuests = false
+            newQuestView = true
+            rewardsView = false
+            settingsView = false
+            print("Tapped +")
+          }
 
     }
     .background(.black)
   }
-}
-
-#Preview {
-    NavigationBar()
 }
