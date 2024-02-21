@@ -10,7 +10,12 @@ import SwiftUI
 struct NavigationBar: View {
   var body: some View {
     ZStack {
-      VStack {
+      VStack(spacing: 15) {
+
+        Divider()
+          .frame(height: 2)
+          .overlay(.cyan)
+
         HStack {
           Spacer()
           Image(systemName: "house")
@@ -26,10 +31,6 @@ struct NavigationBar: View {
         }
         .foregroundColor(.white)
 
-        Divider()
-          .frame(height: 2)
-          .overlay(.cyan)
-          .background(.indigo)
       }
       .padding()
 
@@ -37,10 +38,9 @@ struct NavigationBar: View {
       PlusNavBackground().fill().foregroundStyle(.cyan.opacity(0.2))
         .background(PlusNavBackground().stroke(.cyan, lineWidth: 5))
 
-      VStack {
-        Image(systemName: "plus.square.dashed").font(.largeTitle)
+      Image(systemName: "plus.square.dashed").font(.largeTitle)
           .foregroundColor(.cyan)
-      }
+
     }
     .background(.black)
   }

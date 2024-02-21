@@ -48,17 +48,14 @@ struct QuestListView: View {
     ZStack {
       Rectangle().background(.black)
         VStack {
-          ZStack {
-            NavigationBar()
+          VStack {
 
-            HStack {
-              Rectangle().opacity(0).border(.red)
-              Rectangle().opacity(0).border(.red)
-              Rectangle().opacity(0).border(.red)
-              Rectangle().opacity(0).border(.red)
-              Rectangle().opacity(0).border(.red)
-            }
-            .padding()
+            LevelAndExpUI()
+              .padding(.horizontal)
+
+            Divider()
+              .frame(height: 2)
+              .overlay(.cyan)
           }
 
           NavigationStack {
@@ -98,14 +95,18 @@ struct QuestListView: View {
           }
           .layoutPriority(1)
 
-          VStack {
+          ZStack {
+            NavigationBar()
+              .background(.cyan.opacity(0.2))
 
-            Divider()
-              .frame(height: 2)
-              .overlay(.cyan)
-
-            LevelAndExpUI()
-              .padding(.horizontal)
+//            HStack {
+//              Rectangle().opacity(0).border(.red)
+//              Rectangle().opacity(0).border(.red)
+//              Rectangle().opacity(0).border(.red)
+//              Rectangle().opacity(0).border(.red)
+//              Rectangle().opacity(0).border(.red)
+//            }
+//            .padding()
           }
         }
         .onReceive(timer, perform: { time in

@@ -16,13 +16,13 @@ struct PlusNavBackground: Shape {
     var path = Path()
 
     path.move(to: CGPoint(x: rect.size.width * 0.4,
-                          y: 0))
+                          y: rect.size.height))
     path.addLine(to: CGPoint(x: rect.size.width * 0.45,
-                             y: rect.size.height * 0.95))
+                             y: rect.size.height * 0.05))
     path.addLine(to: CGPoint(x: rect.size.width * 0.55,
-                             y: rect.size.height * 0.95))
+                             y: rect.size.height * 0.05))
     path.addLine(to: CGPoint(x: rect.size.width * 0.6,
-                             y: 0))
+                             y: rect.size.height))
 
     return path
  }
