@@ -34,6 +34,7 @@ struct NavigationBar: View {
       .padding()
 
       PlusNavBackground().fill().foregroundStyle(.black)
+      PlusNavBackground().fill().foregroundStyle(.cyan.opacity(0.2))
         .background(PlusNavBackground().stroke(.cyan, lineWidth: 5))
 
       VStack {

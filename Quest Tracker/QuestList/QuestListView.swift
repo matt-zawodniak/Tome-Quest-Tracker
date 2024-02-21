@@ -45,68 +45,81 @@ struct QuestListView: View {
   @ObservedObject private var sections = SectionModel()
 
   var body: some View {
-    VStack {
-      NavigationBar()
-      NavigationStack {
-        List {
-          if sortType == .questType {
-            ForEach(QuestType.allCases, id: \.self) { type in
-              let title: String = type.description + "s"
-              var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
+    ZStack {
+      Rectangle().background(.black)
+        VStack {
+          NavigationBar()
+          NavigationStack {
+            List {
+              if sortType == .questType {
+                ForEach(QuestType.allCases, id: \.self) { type in
+                  let title: String = type.description + "s"
+                  var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
 
-              Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
-                if self.sections.isOpen(title: title) {
-                  QuestSection(settings: settings,
-                               showingCompletedQuests: showingCompletedQuests,
-                               user: user,
-                               questType: type)
-                } else {
-                  EmptyView()
+                  Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+                    if self.sections.isOpen(title: title) {
+                      QuestSection(settings: settings,
+                                   showingCompletedQuests: showingCompletedQuests,
+                                   user: user,
+                                   questType: type)
+                    } else {
+                      EmptyView()
+                    }
+                  }
+                  .listRowBackground(CustomListBackground(type: type))
                 }
+                .foregroundStyle(.cyan)
+              } else {
+                QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                          settings: settings,
+                          showingCompletedQuests: showingCompletedQuests,
+                          user: user)
               }
             }
-            .listRowBackground(Color(red: 13/255, green: 14/255, blue: 68/255))
-            .foregroundStyle(.cyan)
-          } else {
-            QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                      settings: settings,
-                      showingCompletedQuests: showingCompletedQuests,
-                      user: user)
+            .listStyle(.grouped)
+            .scrollContentBackground(.hidden)
+            .background(.black)
+
+            .navigationDestination(isPresented: $newQuestView) {
+              QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
+            }
+//                    if earnedRewards.count > 0 {
+//                      NavigationLink(destination: RewardsView(user: user)) {
+//                        Text("You have earned rewards! Tap here to view them.").font(.footnote)
+//                          .foregroundStyle(.cyan)
+//                      }
+//                    }
+          }
+          .layoutPriority(1)
+
+          ZStack {
+            Rectangle().fill(.cyan.opacity(0.2))
+
+            VStack {
+
+              Divider()
+                .frame(height: 2)
+                .overlay(.cyan)
+
+              LevelAndExpUI()
+                .padding(.horizontal)
+            }
           }
         }
-        .listStyle(.grouped)
-        .scrollContentBackground(.hidden)
-        .background(.black)
-
-        .navigationDestination(isPresented: $newQuestView) {
-          QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
+        .onReceive(timer, perform: { time in
+          if time >= settings.time {
+            tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+          }
+        })
+        .onChange(of: scenePhase) {
+          if scenePhase == .active {
+            if Date.now >= settings.time {
+              tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+            }
+          }
+          print("Scene has changed to \(scenePhase)")
         }
-//        if earnedRewards.count > 0 {
-//          NavigationLink(destination: RewardsView(user: user)) {
-//            Text("You have earned rewards! Tap here to view them.").font(.footnote)
-//              .foregroundStyle(.cyan)
-//          }
-//        }
-      }
-      .layoutPriority(1)
     }
-    .onReceive(timer, perform: { time in
-      if time >= settings.time {
-        tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
-      }
-    })
-    .onChange(of: scenePhase) {
-      if scenePhase == .active {
-        if Date.now >= settings.time {
-          tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
-        }
-      }
-      print("Scene has changed to \(scenePhase)")
-    }
-    .background(.black)
-    LevelAndExpUI()
-      .padding()
-      .background(.black)
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)

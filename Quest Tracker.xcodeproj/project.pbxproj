@@ -32,6 +32,7 @@
 		8FD590522B60A07200DF5325 /* QuestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590512B60A07200DF5325 /* QuestList.swift */; };
 		8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174172B7FE6BF006885F8 /* NavigationBar.swift */; };
 		8FE1741A2B7FEFB6006885F8 /* PlusNavBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */; };
+		8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1741B2B869051006885F8 /* CustomListBackground.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		8FD590512B60A07200DF5325 /* QuestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestList.swift; sourceTree = "<group>"; };
 		8FE174172B7FE6BF006885F8 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = SOURCE_ROOT; };
 		8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNavBackground.swift; sourceTree = "<group>"; };
+		8FE1741B2B869051006885F8 /* CustomListBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListBackground.swift; sourceTree = "<group>"; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 				8F796E882B6C38BA007E0608 /* QuestSection.swift */,
 				8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */,
 				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
+				8FE1741B2B869051006885F8 /* CustomListBackground.swift */,
 			);
 			path = QuestList;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
 				8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */,
+				8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */,
 				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
 				8FD5904E2B5F151700DF5325 /* Quest.swift in Sources */,
 				8FD590522B60A07200DF5325 /* QuestList.swift in Sources */,
