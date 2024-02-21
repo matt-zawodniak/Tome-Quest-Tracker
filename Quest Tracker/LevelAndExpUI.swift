@@ -21,6 +21,7 @@ struct LevelAndExpUI: View {
     HStack {
       Text("LVL \(user.level)")
       ProgressView(value: user.currentExp, total: user.expToLevel).animation(.easeInOut, value: user.currentExp)
+        .tint(.cyan)
       Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
     }
     .foregroundStyle(.cyan)

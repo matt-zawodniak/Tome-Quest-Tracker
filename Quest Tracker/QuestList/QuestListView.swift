@@ -48,7 +48,19 @@ struct QuestListView: View {
     ZStack {
       Rectangle().background(.black)
         VStack {
-          NavigationBar()
+          ZStack {
+            NavigationBar()
+
+            HStack {
+              Rectangle().opacity(0).border(.red)
+              Rectangle().opacity(0).border(.red)
+              Rectangle().opacity(0).border(.red)
+              Rectangle().opacity(0).border(.red)
+              Rectangle().opacity(0).border(.red)
+            }
+            .padding()
+          }
+
           NavigationStack {
             List {
               if sortType == .questType {
@@ -83,27 +95,17 @@ struct QuestListView: View {
             .navigationDestination(isPresented: $newQuestView) {
               QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
             }
-//                    if earnedRewards.count > 0 {
-//                      NavigationLink(destination: RewardsView(user: user)) {
-//                        Text("You have earned rewards! Tap here to view them.").font(.footnote)
-//                          .foregroundStyle(.cyan)
-//                      }
-//                    }
           }
           .layoutPriority(1)
 
-          ZStack {
-            Rectangle().fill(.cyan.opacity(0.2))
+          VStack {
 
-            VStack {
+            Divider()
+              .frame(height: 2)
+              .overlay(.cyan)
 
-              Divider()
-                .frame(height: 2)
-                .overlay(.cyan)
-
-              LevelAndExpUI()
-                .padding(.horizontal)
-            }
+            LevelAndExpUI()
+              .padding(.horizontal)
           }
         }
         .onReceive(timer, perform: { time in
