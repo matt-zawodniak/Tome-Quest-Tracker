@@ -50,7 +50,7 @@ struct QuestRowView: View, Identifiable {
                 quest.timeCompleted = Date()
                 quest.isCompleted = true
               } label: {
-                Text("Skip Quest")
+                Text("Skip Quest").foregroundStyle(.orange)
               }
             }
         } else {
