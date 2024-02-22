@@ -20,9 +20,17 @@ struct QuestView: View {
     NavigationStack {
       Form {
         nameSection
+          .listRowBackground(Color.cyan.opacity(0.2))
+
         typeSection
+          .listRowBackground(Color.cyan.opacity(0.2))
+
         questDescriptionSection
+          .listRowBackground(Color.cyan.opacity(0.2))
+
         advancedSettingsSection
+          .listRowBackground(Color.cyan.opacity(0.2))
+
       }
     }.onDisappear(
       perform: {
@@ -34,6 +42,13 @@ struct QuestView: View {
         }
       }
     )
+    .foregroundStyle(.cyan)
+    .scrollContentBackground(.hidden)
+    .listStyle(.grouped)
+    .background(AngularGradient(colors: [.cyan, .black],
+                                center: UnitPoint(x: -0.1, y: -0.1),
+                                startAngle: Angle(degrees: -30),
+                                endAngle: Angle(degrees: 60)))
   }
 
   var typeSection: some View {

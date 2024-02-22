@@ -20,16 +20,31 @@ struct AddRewardView: View {
       Form {
         Section(header: Text("Reward Name")) {
           TextField("Reward Name", text: $reward.name)
+            .foregroundStyle(.cyan)
         }
+        .listRowBackground(Color.cyan.opacity(0.2))
+
         Section(header: Text("Reward Type")) {
           Picker("Reward Type", selection: $reward.isMilestoneReward) {
             Text("Minor").tag(false)
             Text("Milestone").tag(true)
+
           }
           .pickerStyle(.segmented)
+          .colorMultiply(.cyan)
+
         }
+        .listRowBackground(Color.cyan.opacity(0.2))
+
       }
     }
+    .foregroundStyle(.cyan)
+    .scrollContentBackground(.hidden)
+    .listStyle(.grouped)
+    .background(AngularGradient(colors: [.cyan, .black],
+                                            center: UnitPoint(x: -0.1, y: -0.1),
+                                            startAngle: Angle(degrees: -30),
+                                            endAngle: Angle(degrees: 60)))
     .onDisappear(perform: {
       if reward.name.count > 0 {
         if reward.isMilestoneReward {
@@ -45,9 +60,3 @@ struct AddRewardView: View {
     )
   }
 }
-//
-// #Preview {
-//  AddRewardView(reward: Reward(context: CoreDataController.preview.container.viewContext), minorRewardCount: 5,
-//                milestoneRewardCount: 3)
-//  .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-// }

@@ -40,7 +40,6 @@ struct SettingsView: View {
             Toggle("", isOn: $settings.dailyResetWarning)
           }
         }
-        .foregroundStyle(.cyan)
         .listRowBackground(Color.cyan.opacity(0.2))
 
         VStack {
@@ -52,7 +51,8 @@ struct SettingsView: View {
                 Text("\(pickerText)")
               }
             }
-            .foregroundStyle(.cyan)
+            .tint(.cyan)
+
           }
           HStack {
             Text("Weekly Reset Warning:")
@@ -60,7 +60,6 @@ struct SettingsView: View {
             Toggle("", isOn: $settings.weeklyResetWarning)
           }
         }
-        .foregroundStyle(.cyan)
         .listRowBackground(Color.cyan.opacity(0.2))
 
         HStack {
@@ -69,23 +68,26 @@ struct SettingsView: View {
             ForEach(LevelingSchemes.allCases, id: \.self) { scheme in
               let pickerText = scheme.description
               Text("\(pickerText)")
-                .foregroundStyle(.cyan)
             }
           }
         }
-        .foregroundStyle(.cyan)
         .listRowBackground(Color.cyan.opacity(0.2))
 
         NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
           Button("Manage Rewards") {
           }
         }
-        .foregroundStyle(.cyan)
+
         .listRowBackground(Color.cyan.opacity(0.2))
       }
+      .tint(.cyan)
+      .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-      .background(.black)
+      .background(AngularGradient(colors: [.cyan, .black],
+                                              center: UnitPoint(x: -0.1, y: -0.1),
+                                              startAngle: Angle(degrees: -30),
+                                              endAngle: Angle(degrees: 60)))
 
       .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }

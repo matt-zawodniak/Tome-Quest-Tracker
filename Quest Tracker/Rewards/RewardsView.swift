@@ -56,6 +56,8 @@ struct RewardsView: View {
             }
           }
         }
+        .listRowBackground(Color.cyan.opacity(0.2))
+
         Section(header: Text("Next Level")) {
           if (user.level + 1) % 5 == 0 {
             Text("You earn a Milestone reward next level!")
@@ -67,6 +69,7 @@ struct RewardsView: View {
             }
           }
         }
+        .listRowBackground(Color.cyan.opacity(0.2))
 
         Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
           if let nextMilestoneReward = milestoneRewards.first {
@@ -75,11 +78,22 @@ struct RewardsView: View {
             Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
           }
         }
+        .listRowBackground(Color.cyan.opacity(0.2))
+
         NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
           Button("Manage Rewards") {
           }
         }
+        .listRowBackground(Color.cyan.opacity(0.2))
+
       }
+      .foregroundStyle(.cyan)
+      .scrollContentBackground(.hidden)
+      .listStyle(.grouped)
+      .background(AngularGradient(colors: [.cyan, .black],
+                                              center: UnitPoint(x: -0.1, y: -0.1),
+                                              startAngle: Angle(degrees: -30),
+                                              endAngle: Angle(degrees: 60)))
     }
   }
 }

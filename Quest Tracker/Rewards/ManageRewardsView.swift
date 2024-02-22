@@ -12,14 +12,20 @@ struct ManageRewardsView: View {
 
   var minorRewards: [Reward]
   var milestoneRewards: [Reward]
-  @State var presentingAddRewardView: Bool = false
 
   var body: some View {
     NavigationStack {
       VStack {
-        Button("Add Reward") {
-          presentingAddRewardView = true
-        }.buttonStyle(.borderedProminent)
+
+        NavigationLink(destination: AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
+                                                  minorRewardCount: minorRewards.count,
+                                                  milestoneRewardCount: milestoneRewards.count)) {
+          Button("Add Reward") {
+          }
+          .buttonStyle(.borderedProminent)
+             .foregroundStyle(.black)
+        }
+
         List {
           Section(header: Text("Minor Rewards")) {
             ForEach(minorRewards, id: \.self) { reward in
@@ -44,6 +50,8 @@ struct ManageRewardsView: View {
                 }            }
             .onMove(perform: moveMinorRewards)
           }
+          .listRowBackground(Color.cyan.opacity(0.2))
+
           Section(header: Text("Milestone Rewards")) {
             ForEach(milestoneRewards, id: \.self) { reward in
               Text(reward.name)
@@ -68,16 +76,22 @@ struct ManageRewardsView: View {
             }
             .onMove(perform: moveMilestoneRewards)
           }
+          .listRowBackground(Color.cyan.opacity(0.2))
+
         }
         .toolbar {
           EditButton()
         }
       }
-      .popover(isPresented: $presentingAddRewardView) {
-        AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
-                      minorRewardCount: minorRewards.count,
-                      milestoneRewardCount: milestoneRewards.count)
-      }
+      .tint(.cyan)
+      .foregroundStyle(.cyan)
+      .scrollContentBackground(.hidden)
+      .listStyle(.grouped)
+      .background(AngularGradient(colors: [.cyan, .black],
+                                              center: UnitPoint(x: -0.1, y: -0.1),
+                                              startAngle: Angle(degrees: -30),
+                                              endAngle: Angle(degrees: 60)))
+
     }
   }
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {

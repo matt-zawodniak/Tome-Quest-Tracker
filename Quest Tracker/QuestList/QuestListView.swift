@@ -81,7 +81,10 @@ struct QuestListView: View {
           }
           .listStyle(.grouped)
           .scrollContentBackground(.hidden)
-          .background(.black)
+          .background(AngularGradient(colors: [.cyan, .black],
+                                      center: UnitPoint(x: -0.1, y: -0.1),
+                                      startAngle: Angle(degrees: -30),
+                                      endAngle: Angle(degrees: 60)))
 
           .navigationDestination(isPresented: $newQuestView) {
             QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
@@ -97,7 +100,11 @@ struct QuestListView: View {
 
         VStack {
 
-          NavigationBar(newQuestView: $newQuestView, rewardsView: $rewardsView, settingsView: $settingsView, showingCompletedQuests: $showingCompletedQuests)
+          NavigationBar(
+            newQuestView: $newQuestView,
+            rewardsView: $rewardsView,
+            settingsView: $settingsView,
+            showingCompletedQuests: $showingCompletedQuests)
 
           LevelAndExpUI()
             .padding(.horizontal)
