@@ -12,20 +12,15 @@ struct ManageRewardsView: View {
 
   var minorRewards: [Reward]
   var milestoneRewards: [Reward]
+  @State var presentingAddRewardView: Bool = false
 
   var body: some View {
     NavigationStack {
       VStack {
-
-        NavigationLink(destination: AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
-                                                  minorRewardCount: minorRewards.count,
-                                                  milestoneRewardCount: milestoneRewards.count)) {
-          Button("Add Reward") {
-          }
-          .buttonStyle(.borderedProminent)
-             .foregroundStyle(.black)
-        }
-
+        Button("Add Reward") {
+          presentingAddRewardView = true
+        }.buttonStyle(.borderedProminent)
+          .foregroundStyle(.black)
         List {
           Section(header: Text("Minor Rewards")) {
             ForEach(minorRewards, id: \.self) { reward in
@@ -91,7 +86,11 @@ struct ManageRewardsView: View {
                                               center: UnitPoint(x: -0.1, y: -0.1),
                                               startAngle: Angle(degrees: -30),
                                               endAngle: Angle(degrees: 60)))
-
+      .navigationDestination(isPresented: $presentingAddRewardView) {
+        AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
+                      minorRewardCount: minorRewards.count,
+                      milestoneRewardCount: milestoneRewards.count)
+      }
     }
   }
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {

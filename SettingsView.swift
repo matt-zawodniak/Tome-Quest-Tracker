@@ -51,8 +51,6 @@ struct SettingsView: View {
                 Text("\(pickerText)")
               }
             }
-            .tint(.cyan)
-
           }
           HStack {
             Text("Weekly Reset Warning:")
@@ -80,7 +78,6 @@ struct SettingsView: View {
 
         .listRowBackground(Color.cyan.opacity(0.2))
       }
-      .tint(.cyan)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
@@ -89,8 +86,8 @@ struct SettingsView: View {
                                               startAngle: Angle(degrees: -30),
                                               endAngle: Angle(degrees: 60)))
 
-      .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
+    .tint(.cyan)
     .onDisappear(perform: {
       settings.setNewResetTime()
       for quest in quests {
