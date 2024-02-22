@@ -40,6 +40,9 @@ struct SettingsView: View {
             Toggle("", isOn: $settings.dailyResetWarning)
           }
         }
+        .foregroundStyle(.cyan)
+        .listRowBackground(Color.cyan.opacity(0.2))
+
         VStack {
           HStack {
             Text("Weekly Reset Day:")
@@ -49,6 +52,7 @@ struct SettingsView: View {
                 Text("\(pickerText)")
               }
             }
+            .foregroundStyle(.cyan)
           }
           HStack {
             Text("Weekly Reset Warning:")
@@ -56,20 +60,33 @@ struct SettingsView: View {
             Toggle("", isOn: $settings.weeklyResetWarning)
           }
         }
+        .foregroundStyle(.cyan)
+        .listRowBackground(Color.cyan.opacity(0.2))
+
         HStack {
           Text("Level Scaling:")
           Picker("", selection: $user.scaling) {
             ForEach(LevelingSchemes.allCases, id: \.self) { scheme in
               let pickerText = scheme.description
               Text("\(pickerText)")
+                .foregroundStyle(.cyan)
             }
           }
         }
+        .foregroundStyle(.cyan)
+        .listRowBackground(Color.cyan.opacity(0.2))
+
         NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
           Button("Manage Rewards") {
           }
         }
+        .foregroundStyle(.cyan)
+        .listRowBackground(Color.cyan.opacity(0.2))
       }
+      .scrollContentBackground(.hidden)
+      .listStyle(.grouped)
+      .background(.black)
+
       .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
     .onDisappear(perform: {
