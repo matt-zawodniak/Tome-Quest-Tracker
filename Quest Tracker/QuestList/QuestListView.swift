@@ -85,7 +85,7 @@ struct QuestListView: View {
           .background(
               Image("IMG_1591")
                 .resizable()
-                .opacity(0.1)
+                .opacity(0.2)
                 .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
                                      startPoint: .top,
                                      endPoint: .bottom)))
