@@ -79,12 +79,19 @@ struct QuestListView: View {
                         user: user)
             }
           }
+          .padding(.horizontal)
           .listStyle(.grouped)
           .scrollContentBackground(.hidden)
-          .background(AngularGradient(colors: [.cyan, .black],
-                                      center: UnitPoint(x: -0.1, y: -0.1),
-                                      startAngle: Angle(degrees: -30),
-                                      endAngle: Angle(degrees: 60)))
+          .background(
+            ZStack {
+              Rectangle().ignoresSafeArea().foregroundStyle(.black)
+              Image("IMG_1591")
+                .resizable()
+                .opacity(0.1)
+                .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                                     startPoint: .top,
+                                     endPoint: .bottom))
+            })
 
           .navigationDestination(isPresented: $newQuestView) {
             QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
@@ -111,6 +118,7 @@ struct QuestListView: View {
 
         }
       }
+      .background(.black)
 
         .onReceive(timer, perform: { time in
           if time >= settings.time {
