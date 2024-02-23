@@ -41,10 +41,13 @@ struct AddRewardView: View {
     .foregroundStyle(.cyan)
     .scrollContentBackground(.hidden)
     .listStyle(.grouped)
-    .background(AngularGradient(colors: [.cyan, .black],
-                                            center: UnitPoint(x: -0.1, y: -0.1),
-                                            startAngle: Angle(degrees: -30),
-                                            endAngle: Angle(degrees: 60)))
+    .background(
+        Image("IMG_1591")
+          .resizable()
+          .opacity(0.1)
+          .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                               startPoint: .top,
+                               endPoint: .bottom)))
     .onDisappear(perform: {
       if reward.name.count > 0 {
         if reward.isMilestoneReward {

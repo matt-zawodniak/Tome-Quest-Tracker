@@ -82,10 +82,13 @@ struct ManageRewardsView: View {
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-      .background(AngularGradient(colors: [.cyan, .black],
-                                              center: UnitPoint(x: -0.1, y: -0.1),
-                                              startAngle: Angle(degrees: -30),
-                                              endAngle: Angle(degrees: 60)))
+      .background(
+          Image("IMG_1591")
+            .resizable()
+            .opacity(0.1)
+            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                                 startPoint: .top,
+                                 endPoint: .bottom)))
       .navigationDestination(isPresented: $presentingAddRewardView) {
         AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
                       minorRewardCount: minorRewards.count,

@@ -83,15 +83,12 @@ struct QuestListView: View {
           .listStyle(.grouped)
           .scrollContentBackground(.hidden)
           .background(
-            ZStack {
-              Rectangle().ignoresSafeArea().foregroundStyle(.black)
               Image("IMG_1591")
                 .resizable()
                 .opacity(0.1)
                 .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
                                      startPoint: .top,
-                                     endPoint: .bottom))
-            })
+                                     endPoint: .bottom)))
 
           .navigationDestination(isPresented: $newQuestView) {
             QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
