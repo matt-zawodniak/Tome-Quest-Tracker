@@ -41,6 +41,49 @@ struct RewardsView: View {
 
     NavigationStack {
       List {
+        Section(header: Text("")) {
+
+              HStack {
+                Spacer()
+                Text("Manage Rewards")
+                Spacer()
+              }
+              .overlay(
+                NavigationLink("", destination: ManageRewardsView(
+                  minorRewards: minorRewards,
+                  milestoneRewards: milestoneRewards))
+                  .opacity(0)
+              )
+        }
+        .listRowBackground(StylizedOutline()
+          .stroke(.cyan.opacity(0.4))
+          .background(StylizedOutline().fill().opacity(0.2)))
+        .listRowSeparator(.hidden)
+
+        Section(header: Text("Next Level")) {
+          if (user.level + 1) % 5 == 0 {
+            Text("You earn a Milestone reward next level!")
+          } else {
+            if let nextMinorReward = minorRewards.first {
+              Text("Reach the next level to earn \(nextMinorReward.name )!")
+            } else {
+              Text("You have no Minor rewards set up! Add them using the Manage Rewards button below.")
+            }
+          }
+        }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
+
+        Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
+          if let nextMilestoneReward = milestoneRewards.first {
+            Text("Keep up the good work! Reach level \(nextMilestoneLevel) and earn yourself \(nextMilestoneReward.name).")
+          } else {
+            Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
+          }
+        }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
+
         Section(header: Text("Unclaimed Rewards")) {
           if availableRewards.isEmpty {
             Text("You have no unclaimed rewards. Keep leveling to earn more!")
@@ -56,47 +99,16 @@ struct RewardsView: View {
             }
           }
         }
-        .listRowBackground(Color.cyan.opacity(0.2))
-
-        Section(header: Text("Next Level")) {
-          if (user.level + 1) % 5 == 0 {
-            Text("You earn a Milestone reward next level!")
-          } else {
-            if let nextMinorReward = minorRewards.first {
-              Text("Reach the next level to earn \(nextMinorReward.name )!")
-            } else {
-              Text("You have no Minor rewards set up! Add them using the Manage Rewards button below.")
-            }
-          }
-        }
-        .listRowBackground(Color.cyan.opacity(0.2))
-
-        Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
-          if let nextMilestoneReward = milestoneRewards.first {
-            Text("Keep up the good work! Reach level \(nextMilestoneLevel) and earn yourself \(nextMilestoneReward.name).")
-          } else {
-            Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
-          }
-        }
-        .listRowBackground(Color.cyan.opacity(0.2))
-
-        NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
-          Button("Manage Rewards") {
-          }
-        }
-        .listRowBackground(Color.cyan.opacity(0.2))
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
       }
+      .padding(.horizontal)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
-      .listStyle(.grouped)
-      .background(
-          Image("IMG_1591")
-            .resizable()
-            .opacity(0.1)
-            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                 startPoint: .top,
-                                 endPoint: .bottom)))
+      .listRowSpacing(5)
+      .listStyle(.inset)
+      .background(GlobalUISettings.background)
     }
   }
 }

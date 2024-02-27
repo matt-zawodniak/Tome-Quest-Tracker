@@ -18,18 +18,18 @@ struct QuestView: View {
 
   var body: some View {
     NavigationStack {
-      Form {
+      List {
         nameSection
-          .listRowBackground(Color.cyan.opacity(0.2))
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
         typeSection
-          .listRowBackground(Color.cyan.opacity(0.2))
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
         questDescriptionSection
-          .listRowBackground(Color.cyan.opacity(0.2))
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
         advancedSettingsSection
-          .listRowBackground(Color.cyan.opacity(0.2))
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
       }
     }.onDisappear(
@@ -42,16 +42,13 @@ struct QuestView: View {
         }
       }
     )
-    .foregroundStyle(.cyan)
-    .scrollContentBackground(.hidden)
+    .padding()
     .listStyle(.grouped)
-    .background(
-        Image("IMG_1591")
-          .resizable()
-          .opacity(0.1)
-          .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                               startPoint: .top,
-                               endPoint: .bottom)))
+    .listRowSeparator(.hidden)
+    .listRowSpacing(5)
+    .scrollContentBackground(.hidden)
+    .foregroundStyle(.cyan)
+    .background(GlobalUISettings.background)
   }
 
   var typeSection: some View {
@@ -164,6 +161,7 @@ struct QuestView: View {
               QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: hasDueDate)
               datePickerIsExpanded = hasDueDate
             }
+            .tint(.cyan)
         }
 
         if hasDueDate, datePickerIsExpanded == true {
@@ -173,6 +171,7 @@ struct QuestView: View {
             displayedComponents: [.date, .hourAndMinute]
           )
           .datePickerStyle(.graphical)
+          .tint(.cyan)
         }
       }
     }

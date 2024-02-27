@@ -31,9 +31,7 @@ struct QuestRowView: View, Identifiable {
         Text(quest.questName)
         Spacer()
       }
-      .onTapGesture {
-        toggleQuest(quest: quest, quests: quests)
-      }
+
       if quest.isSelected {
         Text(quest.questDescription ?? "")
         Text("Quest EXP: \(Int(quest.type.experience))")
@@ -61,6 +59,9 @@ struct QuestRowView: View, Identifiable {
           }
         }
       }
+    }
+    .onTapGesture {
+      toggleQuest(quest: quest, quests: quests)
     }
   }
   func restoreQuest(quest: Quest) {

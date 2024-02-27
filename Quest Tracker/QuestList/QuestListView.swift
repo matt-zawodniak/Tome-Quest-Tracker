@@ -70,6 +70,8 @@ struct QuestListView: View {
                   }
                 }
                 .listRowBackground(CustomListBackground(type: type))
+                .listRowSeparator(.hidden)
+
               }
               .foregroundStyle(.cyan)
             } else {
@@ -79,16 +81,11 @@ struct QuestListView: View {
                         user: user)
             }
           }
-          .padding(.horizontal)
+          .padding()
           .listStyle(.grouped)
+          .listRowSpacing(5)
           .scrollContentBackground(.hidden)
-          .background(
-              Image("IMG_1591")
-                .resizable()
-                .opacity(0.2)
-                .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                     startPoint: .top,
-                                     endPoint: .bottom)))
+          .background(GlobalUISettings.background)
 
           .navigationDestination(isPresented: $newQuestView) {
             QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
@@ -116,6 +113,7 @@ struct QuestListView: View {
         }
       }
       .background(.black)
+      .ignoresSafeArea(.keyboard)
 
         .onReceive(timer, perform: { time in
           if time >= settings.time {

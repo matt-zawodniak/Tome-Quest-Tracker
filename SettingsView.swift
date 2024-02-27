@@ -29,65 +29,76 @@ struct SettingsView: View {
   var body: some View {
     NavigationStack {
       List {
-        VStack {
-          HStack {
-            Text("Daily Reset Time:")
-            DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute)
-          }
-          HStack {
-            Text("Daily Reset Warning")
-            Spacer()
-            Toggle("", isOn: $settings.dailyResetWarning)
+        Section {
+          VStack {
+            HStack {
+              Text("Daily Reset Time:")
+              DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute).colorMultiply(.cyan)
+            }
+            HStack {
+              Text("Daily Reset Warning")
+              Spacer()
+              Toggle("", isOn: $settings.dailyResetWarning)
+            }
           }
         }
-        .listRowBackground(Color.cyan.opacity(0.2))
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
-        VStack {
+        Section {
+          VStack {
+            HStack {
+              Text("Weekly Reset Day:")
+              Picker("", selection: $settings.day) {
+                ForEach(DayOfTheWeek.allCases, id: \.self) { day in
+                  let pickerText = day.description
+                  Text("\(pickerText)")
+                }
+              }
+            }
+            HStack {
+              Text("Weekly Reset Warning:")
+              Spacer()
+              Toggle("", isOn: $settings.weeklyResetWarning)
+            }
+          }
+        }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
+
+        Section {
           HStack {
-            Text("Weekly Reset Day:")
-            Picker("", selection: $settings.day) {
-              ForEach(DayOfTheWeek.allCases, id: \.self) { day in
-                let pickerText = day.description
+            Text("Level Scaling:")
+            Picker("", selection: $user.scaling) {
+              ForEach(LevelingSchemes.allCases, id: \.self) { scheme in
+                let pickerText = scheme.description
                 Text("\(pickerText)")
               }
             }
           }
-          HStack {
-            Text("Weekly Reset Warning:")
-            Spacer()
-            Toggle("", isOn: $settings.weeklyResetWarning)
-          }
         }
-        .listRowBackground(Color.cyan.opacity(0.2))
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
-        HStack {
-          Text("Level Scaling:")
-          Picker("", selection: $user.scaling) {
-            ForEach(LevelingSchemes.allCases, id: \.self) { scheme in
-              let pickerText = scheme.description
-              Text("\(pickerText)")
+        Section {
+
+          NavigationLink(destination: ManageRewardsView(
+            minorRewards: minorRewards,
+            milestoneRewards: milestoneRewards)
+          ) {
+            Button("Manage Rewards") {
             }
           }
         }
-        .listRowBackground(Color.cyan.opacity(0.2))
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
-        NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
-          Button("Manage Rewards") {
-          }
-        }
-
-        .listRowBackground(Color.cyan.opacity(0.2))
       }
+      .padding(.horizontal)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-      .background(
-          Image("IMG_1591")
-            .resizable()
-            .opacity(0.1)
-            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                 startPoint: .top,
-                                 endPoint: .bottom)))
+      .background(GlobalUISettings.background)
     }
     .tint(.cyan)
     .onDisappear(perform: {

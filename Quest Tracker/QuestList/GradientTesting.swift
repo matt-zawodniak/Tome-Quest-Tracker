@@ -10,7 +10,13 @@ import SwiftUI
 struct GradientTesting: View {
     var body: some View {
       Rectangle()
-        .foregroundStyle(AngularGradient(colors: [.cyan, .black, .cyan, .black, .cyan, .black, .black], center: .topLeading)
+        .foregroundStyle(AngularGradient(colors: [.cyan,
+                                                  .black,
+                                                  .cyan,
+                                                  .black,
+                                                  .cyan,
+                                                  .black,
+                                                  .black], center: .topLeading)
 )
         .background(.black.gradient)
     }

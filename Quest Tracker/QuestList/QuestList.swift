@@ -53,7 +53,8 @@ struct QuestList: View {
             } label: {
               Image(systemName: "checkmark")
             }
-            .tint(.green)          }
+            .tint(GlobalUISettings.colorFor(quest: quest))
+          }
         }
       }    }
 }

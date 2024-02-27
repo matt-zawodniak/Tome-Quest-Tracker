@@ -31,13 +31,15 @@ struct CategoryHeader: View {
   var title: String
 
   @ObservedObject var model: SectionModel
-  var number: Int
+  var number: Int?
 
   var body: some View {
     HStack {
       Text(title)
       if model.isOpen(title: title) == false {
-        Text("(\(number))")
+        if let number {
+          Text("(\(number))")
+        }
       }
       Spacer()
       Image(systemName: model.isOpen(title: title) ? "chevron.down" : "chevron.up")

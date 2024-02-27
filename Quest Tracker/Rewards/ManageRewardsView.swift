@@ -16,12 +16,27 @@ struct ManageRewardsView: View {
 
   var body: some View {
     NavigationStack {
-      VStack {
-        Button("Add Reward") {
-          presentingAddRewardView = true
-        }.buttonStyle(.borderedProminent)
-          .foregroundStyle(.black)
+
         List {
+
+              HStack {
+                Spacer()
+                Text("Add Reward")
+                Spacer()
+              }
+              .overlay(
+                NavigationLink("", destination: AddRewardView(
+                  reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
+                  minorRewardCount: minorRewards.count,
+                  milestoneRewardCount: milestoneRewards.count))
+                .opacity(0)
+              )
+              .listRowBackground(StylizedOutline()
+                .stroke(.cyan.opacity(0.4))
+                .background(StylizedOutline().fill().opacity(0.2))
+              )
+              .listRowSeparator(.hidden)
+
           Section(header: Text("Minor Rewards")) {
             ForEach(minorRewards, id: \.self) { reward in
               Text(reward.name)
@@ -45,7 +60,8 @@ struct ManageRewardsView: View {
                 }            }
             .onMove(perform: moveMinorRewards)
           }
-          .listRowBackground(Color.cyan.opacity(0.2))
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
           Section(header: Text("Milestone Rewards")) {
             ForEach(milestoneRewards, id: \.self) { reward in
@@ -71,29 +87,20 @@ struct ManageRewardsView: View {
             }
             .onMove(perform: moveMilestoneRewards)
           }
-          .listRowBackground(Color.cyan.opacity(0.2))
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
         }
         .toolbar {
           EditButton()
         }
-      }
+      .padding(.horizontal)
       .tint(.cyan)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-      .background(
-          Image("IMG_1591")
-            .resizable()
-            .opacity(0.1)
-            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                 startPoint: .top,
-                                 endPoint: .bottom)))
-      .navigationDestination(isPresented: $presentingAddRewardView) {
-        AddRewardView(reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
-                      minorRewardCount: minorRewards.count,
-                      milestoneRewardCount: milestoneRewards.count)
-      }
+      .listRowSpacing(5)
+      .background(GlobalUISettings.background)
     }
   }
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {

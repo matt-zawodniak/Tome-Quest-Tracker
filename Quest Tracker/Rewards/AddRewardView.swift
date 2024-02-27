@@ -17,12 +17,12 @@ struct AddRewardView: View {
 
   var body: some View {
     NavigationStack {
-      Form {
+      List {
         Section(header: Text("Reward Name")) {
           TextField("Reward Name", text: $reward.name)
             .foregroundStyle(.cyan)
         }
-        .listRowBackground(Color.cyan.opacity(0.2))
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
         Section(header: Text("Reward Type")) {
           Picker("Reward Type", selection: $reward.isMilestoneReward) {
@@ -34,20 +34,15 @@ struct AddRewardView: View {
           .colorMultiply(.cyan)
 
         }
-        .listRowBackground(Color.cyan.opacity(0.2))
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
       }
     }
     .foregroundStyle(.cyan)
+    .padding(.horizontal)
     .scrollContentBackground(.hidden)
     .listStyle(.grouped)
-    .background(
-        Image("IMG_1591")
-          .resizable()
-          .opacity(0.1)
-          .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                               startPoint: .top,
-                               endPoint: .bottom)))
+    .background(GlobalUISettings.background)
     .onDisappear(perform: {
       if reward.name.count > 0 {
         if reward.isMilestoneReward {
