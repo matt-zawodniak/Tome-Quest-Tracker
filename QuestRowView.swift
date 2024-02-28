@@ -19,15 +19,17 @@ struct QuestRowView: View, Identifiable {
 
   var settings: Settings
 
+  @State var showingQuestDetails: Bool = false
+
   var body: some View {
     VStack {
       HStack {
-//        switch quest.type {
-//        case .mainQuest: Text("!").foregroundStyle(.red)
-//        case .sideQuest: Text("!").foregroundStyle(.yellow)
-//        case .dailyQuest: Text("!").foregroundStyle(.green)
-//        case .weeklyQuest: Text("!").foregroundStyle(.purple)
-//        }
+        //        switch quest.type {
+        //        case .mainQuest: Text("!").foregroundStyle(.red)
+        //        case .sideQuest: Text("!").foregroundStyle(.yellow)
+        //        case .dailyQuest: Text("!").foregroundStyle(.green)
+        //        case .weeklyQuest: Text("!").foregroundStyle(.purple)
+        //        }
         Text(quest.questName)
         Spacer()
       }
@@ -44,24 +46,29 @@ struct QuestRowView: View, Identifiable {
         if !quest.isCompleted {
           if quest.type == .weeklyQuest ||
               quest.type == .dailyQuest {
-              Button {
-                quest.timeCompleted = Date()
-                quest.isCompleted = true
-              } label: {
-                Text("Skip Quest").foregroundStyle(.orange)
-              }
+            Button {
+              quest.timeCompleted = Date()
+              quest.isCompleted = true
+            } label: {
+              Text("Skip Quest").foregroundStyle(.orange)
             }
+          }
         } else {
           Button {
             restoreQuest(quest: quest)
           } label: {
             Text("Restore to Quest List")
           }
+          }
         }
       }
-    }
+    .contentShape(Rectangle())
     .onTapGesture {
-      toggleQuest(quest: quest, quests: quests)
+        showingQuestDetails.toggle()
+    }
+    .sheet(isPresented: $showingQuestDetails) {
+      QuestDetailView(quest: quest)
+        .presentationDetents([.medium, .large])
     }
   }
   func restoreQuest(quest: Quest) {

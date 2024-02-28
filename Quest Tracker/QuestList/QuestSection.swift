@@ -19,6 +19,9 @@ struct QuestSection: View {
     var user: User
     var questType: QuestType
 
+  @State var showingQuestDetails: Bool = false
+  @State var questToShowDetails: Quest?
+
   init(settings: Settings, showingCompletedQuests: Bool, user: User, questType: QuestType) {
     _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests})
       self.settings = settings
@@ -62,7 +65,14 @@ struct QuestSection: View {
               .tint(GlobalUISettings.colorFor(quest: quest))
             }
           }
-        }    }
+        }
+        .sheet(isPresented: $showingQuestDetails) {
+          if let questToShowDetails {
+            QuestDetailView(quest: questToShowDetails)
+              .presentationDetents([.medium])
+          }
+        }
+        }
   }
   //
   // #Preview {
