@@ -17,8 +17,8 @@ struct QuestView: View {
   @State var settings: Settings
 
   var body: some View {
-    GeometryReader { geometry in
-      NavigationStack {
+
+    NavigationStack {
         List {
           nameSection
             .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
@@ -33,7 +33,8 @@ struct QuestView: View {
             .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
         }
-      }.onDisappear(
+      }
+      .onDisappear(
         perform: {
           if quest.questName.count > 0 {
             quest.isSelected = false
@@ -49,19 +50,6 @@ struct QuestView: View {
       .listRowSpacing(5)
       .scrollContentBackground(.hidden)
       .foregroundStyle(.cyan)
-      .background(
-        GeometryReader { geometry in
-          GlobalUISettings.background
-            .scaledToFill()
-            .frame(width: geometry.size.width)
-            .opacity(0.2)
-            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                 startPoint: .top,
-                                 endPoint: .bottom))
-            .ignoresSafeArea(.all)
-        }
-      )
-    }
   }
 
   var typeSection: some View {

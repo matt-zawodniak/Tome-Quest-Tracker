@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 import SwiftData
 
 struct QuestListView: View {
@@ -48,9 +49,17 @@ struct QuestListView: View {
   @ObservedObject private var sections = SectionModel()
 
   var body: some View {
-    ZStack {
-      Rectangle().background(.black)
-      VStack {
+    Image("IMG_1591")
+      .resizable()
+//      .scaledToFill()
+      .opacity(0.2)
+      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                           startPoint: .top,
+                           endPoint: .bottom))
+      .ignoresSafeArea(.all)
+      .overlay(
+
+        VStack {
 
         NavigationStack {
           List {
@@ -85,13 +94,6 @@ struct QuestListView: View {
           .listStyle(.grouped)
           .listRowSpacing(5)
           .scrollContentBackground(.hidden)
-          .background(GlobalUISettings.background
-            .scaledToFill()
-            .opacity(0.2)
-            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                 startPoint: .top,
-                                 endPoint: .bottom))
-            .ignoresSafeArea(.all))
 
           .navigationDestination(isPresented: $newQuestView) {
             QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
@@ -103,6 +105,11 @@ struct QuestListView: View {
             RewardsView(user: user)
           }
         }
+        .introspect(.navigationStack, on: .iOS(.v16, .v17)) {
+                        $0.viewControllers.forEach { controller in
+                            controller.view.backgroundColor = .clear
+                        }
+                    }
         .layoutPriority(1)
 
         VStack {
@@ -118,7 +125,6 @@ struct QuestListView: View {
 
         }
       }
-      .background(.black)
       .ignoresSafeArea(.keyboard)
 
         .onReceive(timer, perform: { time in
@@ -134,7 +140,7 @@ struct QuestListView: View {
           }
           print("Scene has changed to \(scenePhase)")
         }
-    }
+      )
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)

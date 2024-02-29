@@ -108,18 +108,6 @@ struct RewardsView: View {
       .scrollContentBackground(.hidden)
       .listRowSpacing(5)
       .listStyle(.inset)
-      .background(
-        GeometryReader { geometry in
-        GlobalUISettings.background
-          .scaledToFill()
-          .frame(width: geometry.size.width)
-          .opacity(0.2)
-          .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                               startPoint: .top,
-                               endPoint: .bottom))
-          .ignoresSafeArea(.all)
-      }
-      )
     }
   }
 }

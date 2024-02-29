@@ -100,17 +100,6 @@ struct ManageRewardsView: View {
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
       .listRowSpacing(5)
-      .background(
-        GeometryReader { geometry in
-          GlobalUISettings.background
-            .scaledToFill()
-            .frame(width: geometry.size.width)
-            .opacity(0.2)
-            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                                 startPoint: .top,
-                                 endPoint: .bottom))
-            .ignoresSafeArea(.all)
-        })
     }
   }
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {

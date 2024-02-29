@@ -42,17 +42,6 @@ struct AddRewardView: View {
     .padding(.horizontal)
     .scrollContentBackground(.hidden)
     .listStyle(.grouped)
-    .background(
-      GeometryReader { geometry in
-        GlobalUISettings.background
-          .scaledToFill()
-          .frame(width: geometry.size.width)
-          .opacity(0.2)
-          .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                               startPoint: .top,
-                               endPoint: .bottom))
-          .ignoresSafeArea(.all)
-      })
     .onDisappear(perform: {
       if reward.name.count > 0 {
         if reward.isMilestoneReward {
