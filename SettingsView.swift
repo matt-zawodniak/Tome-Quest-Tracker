@@ -98,7 +98,17 @@ struct SettingsView: View {
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-      .background(GlobalUISettings.background)
+      .background(
+        GeometryReader { geometry in
+          GlobalUISettings.background
+            .scaledToFill()
+            .frame(width: geometry.size.width)
+            .opacity(0.2)
+            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                                 startPoint: .top,
+                                 endPoint: .bottom))
+            .ignoresSafeArea(.all)
+        })
     }
     .tint(.cyan)
     .onDisappear(perform: {
