@@ -85,7 +85,13 @@ struct QuestListView: View {
           .listStyle(.grouped)
           .listRowSpacing(5)
           .scrollContentBackground(.hidden)
-          .background(GlobalUISettings.background)
+          .background(GlobalUISettings.background
+            .scaledToFill()
+            .opacity(0.2)
+            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                                 startPoint: .top,
+                                 endPoint: .bottom))
+            .ignoresSafeArea(.all))
 
           .navigationDestination(isPresented: $newQuestView) {
             QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)

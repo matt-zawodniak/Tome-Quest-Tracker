@@ -11,11 +11,12 @@ struct GlobalUISettings {
   static var background: some View {
     Image("IMG_1591")
       .resizable()
-      .opacity(0.2)
-      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
-                           startPoint: .top,
-                           endPoint: .bottom))
-      .ignoresSafeArea(.container)
+//      .scaledToFill()
+//      .opacity(0.2)
+//      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+//                           startPoint: .top,
+//                           endPoint: .bottom))
+//      .ignoresSafeArea(.all)
   }
 
   static func colorFor(quest: Quest) -> Color {

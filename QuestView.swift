@@ -17,38 +17,51 @@ struct QuestView: View {
   @State var settings: Settings
 
   var body: some View {
-    NavigationStack {
-      List {
-        nameSection
-          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+    GeometryReader { geometry in
+      NavigationStack {
+        List {
+          nameSection
+            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-        typeSection
-          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          typeSection
+            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-        questDescriptionSection
-          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          questDescriptionSection
+            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-        advancedSettingsSection
-          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          advancedSettingsSection
+            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-      }
-    }.onDisappear(
-      perform: {
-        if quest.questName.count > 0 {
-          quest.isSelected = false
-          quest.isCompleted = false
-
-          modelContext.insert(quest)
         }
-      }
-    )
-    .padding()
-    .listStyle(.grouped)
-    .listRowSeparator(.hidden)
-    .listRowSpacing(5)
-    .scrollContentBackground(.hidden)
-    .foregroundStyle(.cyan)
-    .background(GlobalUISettings.background)
+      }.onDisappear(
+        perform: {
+          if quest.questName.count > 0 {
+            quest.isSelected = false
+            quest.isCompleted = false
+
+            modelContext.insert(quest)
+          }
+        }
+      )
+      .padding()
+      .listStyle(.grouped)
+      .listRowSeparator(.hidden)
+      .listRowSpacing(5)
+      .scrollContentBackground(.hidden)
+      .foregroundStyle(.cyan)
+      .background(
+        GeometryReader { geometry in
+          GlobalUISettings.background
+            .scaledToFill()
+            .frame(width: geometry.size.width)
+            .opacity(0.2)
+            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+                                 startPoint: .top,
+                                 endPoint: .bottom))
+            .ignoresSafeArea(.all)
+        }
+      )
+    }
   }
 
   var typeSection: some View {
