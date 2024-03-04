@@ -24,6 +24,7 @@
 		8F796E892B6C38BA007E0608 /* QuestSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E882B6C38BA007E0608 /* QuestSection.swift */; };
 		8F796E8B2B6C40F5007E0608 /* CollapsibleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
+		8F917C932B96889B0097332A /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 8F917C922B96889B0097332A /* NavigationTransitions */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
 		8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA12A572B27A222005838FE /* ManageRewardsView.swift */; };
 		8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */; };
@@ -92,6 +93,7 @@
 				8F67CA1D2B912756005BC4F1 /* SwiftUIIntrospect in Frameworks */,
 				8F67CA1F2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic in Frameworks */,
 				8F67CA212B912756005BC4F1 /* SwiftUIIntrospect-Static in Frameworks */,
+				8F917C932B96889B0097332A /* NavigationTransitions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +221,7 @@
 				8F67CA1C2B912756005BC4F1 /* SwiftUIIntrospect */,
 				8F67CA1E2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic */,
 				8F67CA202B912756005BC4F1 /* SwiftUIIntrospect-Static */,
+				8F917C922B96889B0097332A /* NavigationTransitions */,
 			);
 			productName = "Quest Tracker";
 			productReference = 8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */;
@@ -250,6 +253,7 @@
 			mainGroup = 8FAC38442AB396B6005CBED3;
 			packageReferences = (
 				8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				8F917C912B96889B0097332A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
 			);
 			productRefGroup = 8FAC384E2AB396B6005CBED3 /* Products */;
 			projectDirPath = "";
@@ -554,6 +558,14 @@
 				minimumVersion = 1.1.3;
 			};
 		};
+		8F917C912B96889B0097332A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davdroman/swiftui-navigation-transitions?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.13.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -571,6 +583,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = "SwiftUIIntrospect-Static";
+		};
+		8F917C922B96889B0097332A /* NavigationTransitions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F917C912B96889B0097332A /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
+			productName = NavigationTransitions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

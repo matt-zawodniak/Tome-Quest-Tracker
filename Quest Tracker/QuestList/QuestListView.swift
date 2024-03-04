@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftUIIntrospect
 import SwiftData
+import NavigationTransitions
 
 struct QuestListView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
@@ -105,6 +106,7 @@ struct QuestListView: View {
             RewardsView(user: user)
           }
         }
+        .navigationTransition(.slide)
         .introspect(.navigationStack, on: .iOS(.v16, .v17)) {
                         $0.viewControllers.forEach { controller in
                             controller.view.backgroundColor = .clear

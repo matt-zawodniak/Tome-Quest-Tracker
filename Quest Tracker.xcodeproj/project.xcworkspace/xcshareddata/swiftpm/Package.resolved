@@ -8,6 +8,15 @@
         "revision" : "0cd2a5a5895306bc21d54a2254302d24a9a571e4",
         "version" : "1.1.3"
       }
+    },
+    {
+      "identity" : "swiftui-navigation-transitions?tab=readme-ov-file",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/davdroman/swiftui-navigation-transitions?tab=readme-ov-file",
+      "state" : {
+        "revision" : "a6a3c70ad5d771bd1e927fb55897231cd9592024",
+        "version" : "0.13.3"
+      }
     }
   ],
   "version" : 2
