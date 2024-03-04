@@ -34,6 +34,11 @@ struct QuestView: View {
 
         }
       }
+    .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
+                    $0.viewControllers.forEach { controller in
+                        controller.view.backgroundColor = .clear
+                    }
+                }
       .onDisappear(
         perform: {
           if quest.questName.count > 0 {

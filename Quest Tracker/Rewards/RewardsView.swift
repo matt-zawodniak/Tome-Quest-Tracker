@@ -109,6 +109,11 @@ struct RewardsView: View {
       .listRowSpacing(5)
       .listStyle(.inset)
     }
+    .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
+                    $0.viewControllers.forEach { controller in
+                        controller.view.backgroundColor = .clear
+                    }
+                }
   }
 }
 //
