@@ -24,39 +24,54 @@ struct NavigationBar: View {
 
         HStack {
           Spacer()
-          Image(systemName: "house")
-            .onTapGesture {
-              showingCompletedQuests = false
-              newQuestView = false
-              rewardsView = false
-              settingsView = false
-            }
+          VStack {
+            Image(systemName: "house")
+              .onTapGesture {
+                showingCompletedQuests = false
+                newQuestView = false
+                rewardsView = false
+                settingsView = false
+              }
+              .foregroundStyle(showingCompletedQuests == false
+                               && newQuestView == false
+                               && rewardsView == false
+                               && settingsView == false ? .cyan : .white)
+          }
           Spacer()
-          Image(systemName: "book.closed")
-            .onTapGesture {
-              showingCompletedQuests = true
-              newQuestView = false
-              rewardsView = false
-              settingsView = false
-            }
+          VStack {
+            Image(systemName: "book.closed")
+              .onTapGesture {
+                showingCompletedQuests = true
+                newQuestView = false
+                rewardsView = false
+                settingsView = false
+              }
+              .foregroundStyle(showingCompletedQuests ? .cyan : .white)
+          }
           Spacer()
           Spacer()
           Spacer()
-          Image(systemName: "gift.fill")
-            .onTapGesture {
-              showingCompletedQuests = false
-              newQuestView = false
-              rewardsView = true
-              settingsView = false
-            }
+          VStack {
+            Image(systemName: "gift.fill")
+              .onTapGesture {
+                showingCompletedQuests = false
+                newQuestView = false
+                rewardsView = true
+                settingsView = false
+              }
+              .foregroundStyle(rewardsView ? .cyan : .white)
+          }
           Spacer()
-          Image(systemName: "gearshape")
-            .onTapGesture {
-              showingCompletedQuests = false
-              newQuestView = false
-              rewardsView = false
-              settingsView = true
-            }
+          VStack {
+            Image(systemName: "gearshape")
+              .onTapGesture {
+                showingCompletedQuests = false
+                newQuestView = false
+                rewardsView = false
+                settingsView = true
+              }
+              .foregroundStyle(settingsView ? .cyan : .white)
+          }
           Spacer()
         }
         .foregroundColor(.white)
