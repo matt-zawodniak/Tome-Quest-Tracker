@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct QuestDetailView: View {
+  @Environment(\.modelContext) var modelContext
+  @Environment(\.dismiss) var dismiss
+
   @State var quest: Quest
+  @State var settings: Settings
+  @State var user: User
 
   var body: some View {
     ZStack {
@@ -35,40 +40,123 @@ struct QuestDetailView: View {
           }
           Spacer()
         }
-        List {
-          HStack {
-            Spacer()
-            Text("Delete")
-            Spacer()
+        if quest.isCompleted == false {
+          if quest.type == .dailyQuest || quest.type == .weeklyQuest {
+            List {
+              HStack {
+                Spacer()
+                Text("Delete")
+                Spacer()
+              }
+              .onTapGesture {
+                modelContext.delete(quest)
+                dismiss()
+              }
+              HStack {
+                Spacer()
+                Text("Edit")
+                Spacer()
+              }
+              .onTapGesture {
+                dismiss()
+              }
+              HStack {
+                Spacer()
+                Text("Skip")
+                Spacer()
+              }
+              .onTapGesture {
+                quest.timeCompleted = Date()
+                quest.isCompleted = true
+                dismiss()
+              }
+              HStack {
+                Spacer()
+                Text("Complete")
+                Spacer()
+              }
+              .onTapGesture {
+                quest.isCompleted = true
+                user.giveExp(quest: quest, settings: settings, context: modelContext)
+                quest.timeCompleted = Date.now
+                dismiss()
+              }
+            }
+            .listStyle(.grouped)
+            .listRowSpacing(5)
+            .scrollContentBackground(.hidden)
+            .listRowBackground(Color.black)
+          } else {
+            List {
+              HStack {
+                Spacer()
+                Text("Delete")
+                Spacer()
+              }
+              .onTapGesture {
+                modelContext.delete(quest)
+                dismiss()
+              }
+              HStack {
+                Spacer()
+                Text("Edit")
+                Spacer()
+              }
+              .onTapGesture {
+                dismiss()
+              }
+              HStack {
+                Spacer()
+                Text("Complete")
+                Spacer()
+              }
+              .onTapGesture {
+                quest.isCompleted = true
+                user.giveExp(quest: quest, settings: settings, context: modelContext)
+                quest.timeCompleted = Date.now
+                dismiss()
+              }
+            }
+            .listStyle(.grouped)
+            .listRowSpacing(5)
+            .scrollContentBackground(.hidden)
+            .listRowBackground(Color.black)
           }
-          HStack {
-            Spacer()
-            Text("Edit")
-            Spacer()
+        } else {
+          List {
+            HStack {
+              Spacer()
+              Text("Edit")
+              Spacer()
+            }
+            HStack {
+              Spacer()
+              Text("Restore to Active Quests")
+              Spacer()
+            }
+            .onTapGesture {
+              quest.isCompleted = false
+              dismiss()
+            }
           }
-          HStack {
-            Spacer()
-            Text("Complete")
-            Spacer()
-          }
+          .listStyle(.grouped)
+          .listRowSpacing(5)
+          .scrollContentBackground(.hidden)
+          .listRowBackground(Color.black)
         }
-        .listStyle(.grouped)
-        .listRowSpacing(5)
-        .scrollContentBackground(.hidden)
-        .listRowBackground(Color.black)
       }
       .foregroundStyle(.white)
     }
   }
 }
 
-#Preview {
-  QuestDetailView(quest: Quest(difficulty: 1,
-                               id: UUID(),
-                               isCompleted: false,
-                               isSelected: true,
-                               length: 2,
-                               questBonusExp: 20,
-                               questName: "Test",
-                               questType: 3))
-}
+// #Preview {
+//  QuestDetailView(quest: Quest(difficulty: 1,
+//                               id: UUID(),
+//                               isCompleted: false,
+//                               isSelected: true,
+//                               length: 2,
+//                               questBonusExp: 20,
+//                               questName: "Test",
+//                               questType: 3))
+// }

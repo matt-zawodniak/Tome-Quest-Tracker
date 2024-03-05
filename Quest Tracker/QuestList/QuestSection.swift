@@ -36,7 +36,7 @@ struct QuestSection: View {
 
       var body: some View {
         ForEach(questsOfChosenType, id: \.self) { (quest: Quest) in
-          QuestRowView(quest: quest, settings: settings)
+          QuestRowView(quest: quest, settings: settings, user: user)
           .swipeActions(edge: .trailing) { Button(role: .destructive) {
             modelContext.delete(quest)
           } label: {
@@ -68,7 +68,7 @@ struct QuestSection: View {
         }
         .sheet(isPresented: $showingQuestDetails) {
           if let questToShowDetails {
-            QuestDetailView(quest: questToShowDetails)
+            QuestDetailView(quest: questToShowDetails, settings: settings, user: user)
               .presentationDetents([.medium])
           }
         }

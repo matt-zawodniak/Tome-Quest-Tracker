@@ -18,6 +18,7 @@ struct QuestRowView: View, Identifiable {
   @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) var quests: [Quest]
 
   var settings: Settings
+  var user: User
 
   @State var showingQuestDetails: Bool = false
 
@@ -67,7 +68,7 @@ struct QuestRowView: View, Identifiable {
         showingQuestDetails.toggle()
     }
     .sheet(isPresented: $showingQuestDetails) {
-      QuestDetailView(quest: quest)
+      QuestDetailView(quest: quest, settings: settings, user: user)
         .presentationDetents([.medium, .large])
     }
   }

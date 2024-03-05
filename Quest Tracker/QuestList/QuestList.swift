@@ -27,7 +27,7 @@ struct QuestList: View {
 
     var body: some View {
       ForEach(quests, id: \.self) { (quest: Quest) in
-        QuestRowView(quest: quest, settings: settings)
+        QuestRowView(quest: quest, settings: settings, user: user)
         .swipeActions(edge: .trailing) { Button(role: .destructive) {
           modelContext.delete(quest)
         } label: {

@@ -54,7 +54,7 @@ struct QuestListView: View {
       .resizable()
 //      .scaledToFill()
       .opacity(0.2)
-      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear, .clear]),
                            startPoint: .top,
                            endPoint: .bottom))
       .ignoresSafeArea(.all)
