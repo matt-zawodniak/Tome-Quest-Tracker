@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NavigationBar: View {
+  @State var router: Router
 
   @Binding var newQuestView: Bool
   @Binding var rewardsView: Bool
@@ -31,6 +32,7 @@ struct NavigationBar: View {
                 newQuestView = false
                 rewardsView = false
                 settingsView = false
+                router.navigateToRoot()
               }
               .foregroundStyle(showingCompletedQuests == false
                                && newQuestView == false
@@ -58,6 +60,8 @@ struct NavigationBar: View {
                 newQuestView = false
                 rewardsView = true
                 settingsView = false
+
+                router.navigate(to: .rewards)
               }
               .foregroundStyle(rewardsView ? .cyan : .white)
           }
@@ -69,6 +73,8 @@ struct NavigationBar: View {
                 newQuestView = false
                 rewardsView = false
                 settingsView = true
+
+                router.navigate(to: .settings)
               }
               .foregroundStyle(settingsView ? .cyan : .white)
           }
@@ -86,10 +92,8 @@ struct NavigationBar: View {
       Image(systemName: "plus.square.dashed").font(.largeTitle)
           .foregroundColor(.cyan)
           .onTapGesture {
-            showingCompletedQuests = false
-            newQuestView = true
-            rewardsView = false
-            settingsView = false
+
+            router.navigate(to: .newQuestView)
             print("Tapped +")
           }
 

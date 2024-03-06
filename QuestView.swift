@@ -18,7 +18,6 @@ struct QuestView: View {
 
   var body: some View {
 
-    NavigationStack {
         List {
           nameSection
             .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
@@ -33,7 +32,6 @@ struct QuestView: View {
             .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
         }
-      }
     .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
                     $0.viewControllers.forEach { controller in
                         controller.view.backgroundColor = .clear

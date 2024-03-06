@@ -13,6 +13,7 @@
 		8F3D7ADD2B98F66D00355EA5 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3D7ADC2B98F66D00355EA5 /* SwiftUIIntrospect */; };
 		8F3D7ADF2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3D7ADE2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic */; };
 		8F3D7AE12B98F66D00355EA5 /* SwiftUIIntrospect-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3D7AE02B98F66D00355EA5 /* SwiftUIIntrospect-Static */; };
+		8F3D7AE32B98F82300355EA5 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D7AE22B98F82300355EA5 /* Router.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
 		8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DD2B8E7E7F008832CD /* Outlines.swift */; };
 		8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */; };
@@ -49,6 +50,7 @@
 		8F1401E12AF29882007BBD53 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
 		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
+		8F3D7AE22B98F82300355EA5 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = SOURCE_ROOT; };
 		8F48FD412B1FCDE800A88E96 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RewardsView.swift; path = "Quest Tracker/Rewards/RewardsView.swift"; sourceTree = SOURCE_ROOT; };
 		8F5633DD2B8E7E7F008832CD /* Outlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlines.swift; sourceTree = "<group>"; };
 		8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUISettings.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		8FAC384F2AB396B6005CBED3 /* Quest Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				8F3D7AE22B98F82300355EA5 /* Router.swift */,
 				8FE174172B7FE6BF006885F8 /* NavigationBar.swift */,
 				8F5633DD2B8E7E7F008832CD /* Outlines.swift */,
 				8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */,
@@ -321,6 +324,7 @@
 				8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */,
 				8FD590502B5F151700DF5325 /* Reward.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
+				8F3D7AE32B98F82300355EA5 /* Router.swift in Sources */,
 				8FD5904D2B5F151700DF5325 /* Settings.swift in Sources */,
 				8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */,
 				8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */,

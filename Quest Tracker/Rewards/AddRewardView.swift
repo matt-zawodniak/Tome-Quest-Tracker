@@ -16,7 +16,6 @@ struct AddRewardView: View {
   @State var milestoneRewardCount: Int
 
   var body: some View {
-    NavigationStack {
       List {
         Section(header: Text("Reward Name")) {
           TextField("Reward Name", text: $reward.name)
@@ -37,7 +36,6 @@ struct AddRewardView: View {
         .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
       }
-    }
     .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
                     $0.viewControllers.forEach { controller in
                         controller.view.backgroundColor = .clear
