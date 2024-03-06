@@ -50,10 +50,8 @@ struct QuestListView: View {
 
   @State var sortType: QuestSortDescriptor = .questType
 
-  @State var newQuestView: Bool = false
-  @State var rewardsView: Bool = false
   @State var showingCompletedQuests: Bool = false
-  @State var settingsView: Bool = false
+
   @State var navigationTitle: String = "Quest Tracker"
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -134,9 +132,6 @@ struct QuestListView: View {
 
           NavigationBar(
             router: router,
-            newQuestView: $newQuestView,
-            rewardsView: $rewardsView,
-            settingsView: $settingsView,
             showingCompletedQuests: $showingCompletedQuests)
 
           LevelAndExpUI()

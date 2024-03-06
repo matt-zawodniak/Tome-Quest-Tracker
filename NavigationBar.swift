@@ -10,9 +10,9 @@ import SwiftUI
 struct NavigationBar: View {
   @State var router: Router
 
-  @Binding var newQuestView: Bool
-  @Binding var rewardsView: Bool
-  @Binding var settingsView: Bool
+  @State var newQuestView: Bool = false
+  @State var rewardsView: Bool = false
+  @State var settingsView: Bool = false
   @Binding var showingCompletedQuests: Bool
 
   var body: some View {

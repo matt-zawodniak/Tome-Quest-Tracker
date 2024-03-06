@@ -61,7 +61,7 @@ struct QuestDetailView: View {
               .onTapGesture {
                 router.navigate(to: .editingQuestView(quest: quest))
                 dismiss()
-                
+
               }
               HStack {
                 Spacer()

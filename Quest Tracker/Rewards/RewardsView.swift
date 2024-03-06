@@ -102,6 +102,7 @@ struct RewardsView: View {
         .listRowSeparator(.hidden)
 
       }
+      .navigationBarBackButtonHidden()
       .padding(.horizontal)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)

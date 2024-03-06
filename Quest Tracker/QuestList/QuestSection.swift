@@ -10,9 +10,8 @@ import SwiftData
 
 struct QuestSection: View {
 
-    @Environment(\.modelContext) var modelContext    
+    @Environment(\.modelContext) var modelContext
   @EnvironmentObject var router: Router
-
 
     @Query var quests: [Quest]
 
