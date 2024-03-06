@@ -93,7 +93,10 @@ struct NavigationBar: View {
       Image(systemName: "plus.square.dashed").font(.largeTitle)
           .foregroundColor(.cyan)
           .onTapGesture {
-
+            showingCompletedQuests = false
+            newQuestView = true
+            rewardsView = false
+            settingsView = false
             router.navigate(to: .newQuestView)
             print("Tapped +")
           }
