@@ -10,6 +10,9 @@
 		8F024E1C2B97CD400089DE40 /* NavigationTransitions in Frameworks */ = {isa = PBXBuildFile; productRef = 8F024E1B2B97CD400089DE40 /* NavigationTransitions */; };
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
+		8F3D7ADD2B98F66D00355EA5 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3D7ADC2B98F66D00355EA5 /* SwiftUIIntrospect */; };
+		8F3D7ADF2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3D7ADE2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic */; };
+		8F3D7AE12B98F66D00355EA5 /* SwiftUIIntrospect-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3D7AE02B98F66D00355EA5 /* SwiftUIIntrospect-Static */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
 		8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DD2B8E7E7F008832CD /* Outlines.swift */; };
 		8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */; };
@@ -18,9 +21,6 @@
 		8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */; };
 		8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C82B506D5F000DE6A3 /* CompleteQuestIntent.swift */; };
 		8F67CA132B8FEA85005BC4F1 /* QuestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F67CA122B8FEA85005BC4F1 /* QuestDetailView.swift */; };
-		8F67CA1D2B912756005BC4F1 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 8F67CA1C2B912756005BC4F1 /* SwiftUIIntrospect */; };
-		8F67CA1F2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8F67CA1E2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic */; };
-		8F67CA212B912756005BC4F1 /* SwiftUIIntrospect-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 8F67CA202B912756005BC4F1 /* SwiftUIIntrospect-Static */; };
 		8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6B15052B2E25AC00784BCE /* AddRewardView.swift */; };
 		8F796E892B6C38BA007E0608 /* QuestSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E882B6C38BA007E0608 /* QuestSection.swift */; };
 		8F796E8B2B6C40F5007E0608 /* CollapsibleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */; };
@@ -88,10 +88,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F67CA1D2B912756005BC4F1 /* SwiftUIIntrospect in Frameworks */,
-				8F67CA1F2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic in Frameworks */,
-				8F67CA212B912756005BC4F1 /* SwiftUIIntrospect-Static in Frameworks */,
 				8F024E1C2B97CD400089DE40 /* NavigationTransitions in Frameworks */,
+				8F3D7ADD2B98F66D00355EA5 /* SwiftUIIntrospect in Frameworks */,
+				8F3D7ADF2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic in Frameworks */,
+				8F3D7AE12B98F66D00355EA5 /* SwiftUIIntrospect-Static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,10 +215,10 @@
 			);
 			name = "Quest Tracker";
 			packageProductDependencies = (
-				8F67CA1C2B912756005BC4F1 /* SwiftUIIntrospect */,
-				8F67CA1E2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic */,
-				8F67CA202B912756005BC4F1 /* SwiftUIIntrospect-Static */,
 				8F024E1B2B97CD400089DE40 /* NavigationTransitions */,
+				8F3D7ADC2B98F66D00355EA5 /* SwiftUIIntrospect */,
+				8F3D7ADE2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic */,
+				8F3D7AE02B98F66D00355EA5 /* SwiftUIIntrospect-Static */,
 			);
 			productName = "Quest Tracker";
 			productReference = 8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */;
@@ -249,8 +249,8 @@
 			);
 			mainGroup = 8FAC38442AB396B6005CBED3;
 			packageReferences = (
-				8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 				8F024E1A2B97CD400089DE40 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */,
+				8F3D7ADB2B98F66D00355EA5 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			productRefGroup = 8FAC384E2AB396B6005CBED3 /* Products */;
 			projectDirPath = "";
@@ -550,7 +550,7 @@
 				minimumVersion = 0.13.3;
 			};
 		};
-		8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+		8F3D7ADB2B98F66D00355EA5 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/swiftui-introspect";
 			requirement = {
@@ -566,19 +566,19 @@
 			package = 8F024E1A2B97CD400089DE40 /* XCRemoteSwiftPackageReference "swiftui-navigation-transitions" */;
 			productName = NavigationTransitions;
 		};
-		8F67CA1C2B912756005BC4F1 /* SwiftUIIntrospect */ = {
+		8F3D7ADC2B98F66D00355EA5 /* SwiftUIIntrospect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			package = 8F3D7ADB2B98F66D00355EA5 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = SwiftUIIntrospect;
 		};
-		8F67CA1E2B912756005BC4F1 /* SwiftUIIntrospect-Dynamic */ = {
+		8F3D7ADE2B98F66D00355EA5 /* SwiftUIIntrospect-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			package = 8F3D7ADB2B98F66D00355EA5 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = "SwiftUIIntrospect-Dynamic";
 		};
-		8F67CA202B912756005BC4F1 /* SwiftUIIntrospect-Static */ = {
+		8F3D7AE02B98F66D00355EA5 /* SwiftUIIntrospect-Static */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F67CA1B2B912756005BC4F1 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			package = 8F3D7ADB2B98F66D00355EA5 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = "SwiftUIIntrospect-Static";
 		};
 /* End XCSwiftPackageProductDependency section */
