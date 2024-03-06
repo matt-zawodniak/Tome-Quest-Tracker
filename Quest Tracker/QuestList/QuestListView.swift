@@ -87,7 +87,7 @@ struct QuestListView: View {
                     QuestSection(settings: settings,
                                  showingCompletedQuests: showingCompletedQuests,
                                  user: user,
-                                 questType: type)
+                                 questType: type, router: router)
                   } else {
                     EmptyView()
                   }

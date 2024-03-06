@@ -11,6 +11,7 @@ import SwiftUI
 struct QuestRowView: View, Identifiable {
 
   @Environment(\.modelContext) var modelContext
+  @EnvironmentObject var router: Router
 
   var id = UUID()
 
@@ -68,7 +69,7 @@ struct QuestRowView: View, Identifiable {
         showingQuestDetails.toggle()
     }
     .sheet(isPresented: $showingQuestDetails) {
-      QuestDetailView(quest: quest, settings: settings, user: user)
+      QuestDetailView(router: router, quest: quest, settings: settings, user: user)
         .presentationDetents([.medium, .large])
     }
   }

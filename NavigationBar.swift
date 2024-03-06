@@ -47,6 +47,7 @@ struct NavigationBar: View {
                 newQuestView = false
                 rewardsView = false
                 settingsView = false
+                router.navigateToRoot()
               }
               .foregroundStyle(showingCompletedQuests ? .cyan : .white)
           }
