@@ -37,8 +37,10 @@ struct QuestListView: View {
 
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
+  @State var rewardsView: Bool = false
   @State var showingCompletedQuests: Bool = false
   @State var navigationTitle: String = "Quest Tracker"
+  @State var showingLevelUpNotification: Bool = false
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -47,6 +49,7 @@ struct QuestListView: View {
   var body: some View {
 
     NavigationStack {
+      ZStack {
       List {
         if sortType == .questType {
           ForEach(QuestType.allCases, id: \.self) { type in
@@ -70,7 +73,14 @@ struct QuestListView: View {
                     showingCompletedQuests: showingCompletedQuests,
                     user: user)
         }
-      }
+      }.disabled(showingLevelUpNotification)
+        if showingLevelUpNotification {
+          LevelUpNotification(user: user,
+                              isPresented: $showingLevelUpNotification,
+                              navigateToRewardsView: $rewardsView)
+          .padding()
+        }
+    }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .toolbar {
 
@@ -147,6 +157,9 @@ struct QuestListView: View {
       .navigationDestination(isPresented: $newQuestView) {
         QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
       }
+      .navigationDestination(isPresented: $rewardsView) {
+        RewardsView(user: user)
+      }
       if earnedRewards.count > 0 {
         NavigationLink(destination: RewardsView(user: user)) {
           Text("You have earned rewards! Tap here to view them.").font(.footnote)
@@ -165,6 +178,9 @@ struct QuestListView: View {
         }
       }
       print("Scene has changed to \(scenePhase)")
+    }
+    .onChange(of: user.level) {
+      showingLevelUpNotification = true
     }
     LevelAndExpUI()
       .padding(.horizontal)
