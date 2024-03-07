@@ -29,7 +29,7 @@
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
 		8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */; };
 		8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */; };
-		8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */; };
+		8FC6BFEF2AFABF95001DD91E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* MainView.swift */; };
 		8FD5904D2B5F151700DF5325 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590492B5F151700DF5325 /* Settings.swift */; };
 		8FD5904E2B5F151700DF5325 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904A2B5F151700DF5325 /* Quest.swift */; };
 		8FD5904F2B5F151700DF5325 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904B2B5F151700DF5325 /* User.swift */; };
@@ -72,7 +72,7 @@
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LevelAndExpUI.swift; path = "Quest Tracker/LevelAndExpUI.swift"; sourceTree = SOURCE_ROOT; };
 		8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestListView.swift; path = "Quest Tracker/QuestListView.swift"; sourceTree = SOURCE_ROOT; };
-		8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
+		8FC6BFEE2AFABF95001DD91E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8FD590492B5F151700DF5325 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904A2B5F151700DF5325 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904B2B5F151700DF5325 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = SOURCE_ROOT; };
@@ -105,7 +105,7 @@
 				8FD590512B60A07200DF5325 /* QuestList.swift */,
 				8F796E882B6C38BA007E0608 /* QuestSection.swift */,
 				8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */,
-				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
+				8FC6BFEE2AFABF95001DD91E /* MainView.swift */,
 				8FE1741B2B869051006885F8 /* CustomListBackground.swift */,
 				8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */,
 			);
@@ -301,7 +301,7 @@
 				8FD5904F2B5F151700DF5325 /* User.swift in Sources */,
 				8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */,
 				8F67CA132B8FEA85005BC4F1 /* QuestDetailView.swift in Sources */,
-				8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */,
+				8FC6BFEF2AFABF95001DD91E /* MainView.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
 				8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */,
 				8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */,

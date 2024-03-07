@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct QuestListView: View {
+struct MainView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
   @Environment(\.modelContext) var modelContext
   @Environment(\.scenePhase) var scenePhase
@@ -70,38 +70,10 @@ struct QuestListView: View {
       .overlay(
 
         VStack {
-
-          List {
-            if sortType == .questType {
-              ForEach(QuestType.allCases, id: \.self) { type in
-                let title: String = type.description + "s"
-                var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
-
-                Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
-                  if self.sections.isOpen(title: title) {
-                    QuestSection(settings: settings,
-                                 showingCompletedQuests: showingCompletedQuests,
-                                 user: user,
-                                 questType: type)
-                  } else {
-                    EmptyView()
-                  }
-                }
-                .listRowBackground(CustomListBackground(type: type))
-                .listRowSeparator(.hidden)
-              }
-              .foregroundStyle(.cyan)
-            } else {
-              QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                        settings: settings,
-                        showingCompletedQuests: showingCompletedQuests,
-                        user: user)
-            }
-          }
-          .padding()
-          .listStyle(.grouped)
-          .listRowSpacing(5)
-          .scrollContentBackground(.hidden)
+          QuestList(quests: filteredQuests,
+                    settings: settings,
+                    showingCompletedQuests: showingCompletedQuests,
+                    user: user)
         .layoutPriority(1)
 
         VStack {
@@ -165,7 +137,7 @@ struct QuestListView: View {
 
 #Preview {
   MainActor.assumeIsolated {
-    QuestListView(tracker: QuestTrackerViewModel())
+    MainView(tracker: QuestTrackerViewModel())
       .modelContainer(PreviewSampleData.container)
   }
 }

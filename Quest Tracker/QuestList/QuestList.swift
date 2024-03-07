@@ -10,59 +10,44 @@ import SwiftData
 
 struct QuestList: View {
   @Environment(\.modelContext) var modelContext
+  @ObservedObject private var sections = SectionModel()
 
-  @Query var quests: [Quest]
-
+  var quests: [Quest]
   var settings: Settings
   var showingCompletedQuests: Bool
   var user: User
 
-  init(sortDescriptor: SortDescriptor<Quest>, settings: Settings, showingCompletedQuests: Bool, user: User) {
-    _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests},
-                    sort: [sortDescriptor])
-    self.settings = settings
-    self.showingCompletedQuests = showingCompletedQuests
-    self.user = user
-  }
-
     var body: some View {
-      ForEach(quests, id: \.self) { (quest: Quest) in
-        QuestRowView(quest: quest, settings: settings, user: user)
-        .swipeActions(edge: .trailing) { Button(role: .destructive) {
-          modelContext.delete(quest)
-        } label: {
-          Label("Delete", systemImage: "trash")
-        }
-          if !showingCompletedQuests {
-            NavigationLink(destination: QuestView(
-              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
-                }
-                )
+      List {
+        ForEach(QuestType.allCases, id: \.self) { (type: QuestType) in
+            let title: String = type.description + "s"
+            var numberOfQuestsOfType: Int { quests.filter({ $0.type == type}).count }
+
+            Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+              if self.sections.isOpen(title: title) {
+                QuestSection(settings: settings,
+                             showingCompletedQuests: showingCompletedQuests,
+                             user: user,
+                             questType: type)
+              } else {
+                EmptyView()
               }
-          }
-        }
-        .swipeActions(edge: .leading) {
-          if !showingCompletedQuests {
-            Button {
-              quest.isCompleted = true
-              user.giveExp(quest: quest, settings: settings, context: modelContext)
-              quest.timeCompleted = Date.now
-            } label: {
-              Image(systemName: "checkmark")
             }
-            .tint(GlobalUISettings.colorFor(quest: quest))
+            .listRowBackground(CustomListBackground(type: type))
+            .listRowSeparator(.hidden)
           }
-        }
-      }    }
+          .foregroundStyle(.cyan)
+      }
+      .padding()
+      .listStyle(.grouped)
+      .listRowSpacing(5)
+      .scrollContentBackground(.hidden)
+    }
 }
 
 #Preview {
   MainActor.assumeIsolated {
-    QuestList(sortDescriptor: QuestTrackerViewModel().sortDescriptorFromSortType(sortType: .questType),
-              settings: PreviewSampleData.previewSettings,
+    QuestList(quests: PreviewSampleData.previewQuests, settings: PreviewSampleData.previewSettings,
               showingCompletedQuests: false,
               user: PreviewSampleData.previewUser)
         .modelContainer(PreviewSampleData.container)

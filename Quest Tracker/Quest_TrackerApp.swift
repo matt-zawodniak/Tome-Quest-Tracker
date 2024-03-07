@@ -23,7 +23,7 @@ struct Quest_TrackerApp: App {
 
   var body: some Scene {
     WindowGroup {
-      QuestListView(tracker: QuestTrackerViewModel())
+      MainView(tracker: QuestTrackerViewModel())
     }
     .modelContainer(container)
   }
