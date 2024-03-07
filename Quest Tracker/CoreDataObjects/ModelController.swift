@@ -14,9 +14,11 @@ class ModelController {
 
   let modelContainer: ModelContainer = {
     do {
-      modelContainer = try ModelContainer(for: Settings.self, Quest.self, User.self, Reward.self)
+      let container = try ModelContainer(for: Settings.self, Quest.self, User.self, Reward.self)
+
+      return container
     } catch {
       fatalError("Failed to configure SwiftData container.")
     }
-  }
+  }()
 }

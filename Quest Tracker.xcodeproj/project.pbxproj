@@ -10,9 +10,9 @@
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
+		8F5511CB2B71CB9600C660E3 /* BLTNBoard in Frameworks */ = {isa = PBXBuildFile; productRef = 8F5511CA2B71CB9600C660E3 /* BLTNBoard */; };
 		8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DD2B8E7E7F008832CD /* Outlines.swift */; };
 		8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */; };
-		8F5511CB2B71CB9600C660E3 /* BLTNBoard in Frameworks */ = {isa = PBXBuildFile; productRef = 8F5511CA2B71CB9600C660E3 /* BLTNBoard */; };
 		8F6368572B62F94800D524A1 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6368562B62F94800D524A1 /* ModelController.swift */; };
 		8F6462C32B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */; };
 		8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */; };
@@ -35,10 +35,10 @@
 		8FD5904F2B5F151700DF5325 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904B2B5F151700DF5325 /* User.swift */; };
 		8FD590502B5F151700DF5325 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904C2B5F151700DF5325 /* Reward.swift */; };
 		8FD590522B60A07200DF5325 /* QuestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590512B60A07200DF5325 /* QuestList.swift */; };
+		8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */; };
 		8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174172B7FE6BF006885F8 /* NavigationBar.swift */; };
 		8FE1741A2B7FEFB6006885F8 /* PlusNavBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */; };
 		8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1741B2B869051006885F8 /* CustomListBackground.swift */; };
-		8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,10 +78,10 @@
 		8FD5904B2B5F151700DF5325 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904C2B5F151700DF5325 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = SOURCE_ROOT; };
 		8FD590512B60A07200DF5325 /* QuestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestList.swift; sourceTree = "<group>"; };
+		8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSampleData.swift; sourceTree = SOURCE_ROOT; };
 		8FE174172B7FE6BF006885F8 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = SOURCE_ROOT; };
 		8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNavBackground.swift; sourceTree = "<group>"; };
 		8FE1741B2B869051006885F8 /* CustomListBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListBackground.swift; sourceTree = "<group>"; };
-		8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSampleData.swift; sourceTree = SOURCE_ROOT; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 

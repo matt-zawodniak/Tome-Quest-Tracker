@@ -52,6 +52,7 @@ struct QuestListView: View {
   @State var showingNewQuestView: Bool = false
   @State var showingRewardsView: Bool = false
   @State var showingSettingsView: Bool = false
+  @State var showingLevelUpNotification: Bool = false
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -114,6 +115,11 @@ struct QuestListView: View {
             .padding(.horizontal)
 
         }
+          if earnedRewards.count > 0 {
+            NavigationLink(destination: RewardsView(user: user)) {
+              Text("You have earned rewards! Tap here to view them.").font(.footnote)
+            }
+          }
       }
       .ignoresSafeArea(.keyboard)
 
@@ -129,11 +135,7 @@ struct QuestListView: View {
             }
           }
           print("Scene has changed to \(scenePhase)")
-      if earnedRewards.count > 0 {
-        NavigationLink(destination: RewardsView(user: user)) {
-          Text("You have earned rewards! Tap here to view them.").font(.footnote)
         }
-      )
       .sheet(isPresented: $showingNewQuestView) {
         QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
           .presentationDetents([.medium, .large])
@@ -146,11 +148,10 @@ struct QuestListView: View {
         SettingsView(settings: settings, user: user)
         .presentationDetents([.medium, .large])
       }
-      print("Scene has changed to \(scenePhase)")
-    }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
     }
+        )
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
