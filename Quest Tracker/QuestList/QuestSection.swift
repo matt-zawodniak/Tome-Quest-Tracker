@@ -11,7 +11,6 @@ import SwiftData
 struct QuestSection: View {
 
     @Environment(\.modelContext) var modelContext
-  @EnvironmentObject var router: Router
 
     @Query var quests: [Quest]
 
@@ -23,7 +22,7 @@ struct QuestSection: View {
   @State var showingQuestDetails: Bool = false
   @State var questToShowDetails: Quest?
 
-  init(settings: Settings, showingCompletedQuests: Bool, user: User, questType: QuestType, router: Router) {
+  init(settings: Settings, showingCompletedQuests: Bool, user: User, questType: QuestType) {
     _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests})
       self.settings = settings
       self.showingCompletedQuests = showingCompletedQuests
@@ -69,7 +68,7 @@ struct QuestSection: View {
         }
         .sheet(isPresented: $showingQuestDetails) {
           if let questToShowDetails {
-            QuestDetailView(router: router, quest: questToShowDetails, settings: settings, user: user)
+            QuestDetailView(quest: questToShowDetails, settings: settings, user: user)
               .presentationDetents([.medium])
           }
         }

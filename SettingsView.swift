@@ -98,11 +98,6 @@ struct SettingsView: View {
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-    .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
-                    $0.viewControllers.forEach { controller in
-                        controller.view.backgroundColor = .clear
-                    }
-                }
     .tint(.cyan)
     .onDisappear(perform: {
       settings.setNewResetTime()

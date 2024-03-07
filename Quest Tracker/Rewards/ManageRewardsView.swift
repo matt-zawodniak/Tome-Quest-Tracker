@@ -90,11 +90,6 @@ struct ManageRewardsView: View {
           .listRowSeparator(.hidden)
 
         }
-        .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
-                        $0.viewControllers.forEach { controller in
-                            controller.view.backgroundColor = .clear
-                        }
-                    }
         .toolbar {
           EditButton()
         }

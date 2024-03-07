@@ -36,11 +36,6 @@ struct AddRewardView: View {
         .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
       }
-    .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
-                    $0.viewControllers.forEach { controller in
-                        controller.view.backgroundColor = .clear
-                    }
-                }
     .foregroundStyle(.cyan)
     .padding(.horizontal)
     .scrollContentBackground(.hidden)

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUIIntrospect
 import SwiftData
 import NavigationTransitions
 
@@ -58,8 +57,6 @@ struct QuestListView: View {
 
   @ObservedObject private var sections = SectionModel()
 
-  @ObservedObject var router = Router()
-
   var body: some View {
     Image("IMG_1591")
       .resizable()
@@ -73,7 +70,7 @@ struct QuestListView: View {
 
         VStack {
 
-          NavigationStack(path: $router.navPath) {
+          NavigationStack {
           List {
             if sortType == .questType {
               ForEach(QuestType.allCases, id: \.self) { type in
@@ -85,7 +82,7 @@ struct QuestListView: View {
                     QuestSection(settings: settings,
                                  showingCompletedQuests: showingCompletedQuests,
                                  user: user,
-                                 questType: type, router: router)
+                                 questType: type)
                   } else {
                     EmptyView()
                   }
@@ -106,7 +103,7 @@ struct QuestListView: View {
           .listStyle(.grouped)
           .listRowSpacing(5)
           .scrollContentBackground(.hidden)
-          .navigationDestination(for: Router.Destination.self) { destination in
+          .navigationDestination() { destination in
             switch destination {
             case .newQuestView: QuestView(quest: Quest.defaultQuest(context: modelContext),
                                           hasDueDate: false,
@@ -119,20 +116,12 @@ struct QuestListView: View {
             }
           }
         }
-        .environmentObject(router)
         .navigationTransition(.slide)
-        .introspect(.navigationStack, on: .iOS(.v16, .v17)) {
-                        $0.viewControllers.forEach { controller in
-                            controller.view.backgroundColor = .clear
-                        }
-                    }
         .layoutPriority(1)
 
         VStack {
 
-          NavigationBar(
-            router: router,
-            showingCompletedQuests: $showingCompletedQuests)
+          NavigationBar(showingCompletedQuests: $showingCompletedQuests)
 
           LevelAndExpUI()
             .padding(.horizontal)
