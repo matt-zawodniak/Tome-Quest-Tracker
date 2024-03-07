@@ -62,33 +62,32 @@ struct MainView: View {
       }
     }
 
-        .onReceive(timer, perform: { time in
-          if time >= settings.time {
-            tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
-          }
-        })
-        .onChange(of: scenePhase) {
-          if scenePhase == .active {
-            if Date.now >= settings.time {
-              tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
-            }
-          }
-          print("Scene has changed to \(scenePhase)")
+    .onReceive(timer, perform: { time in
+      if time >= settings.time {
+        tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+      }
+    })
+    .onChange(of: scenePhase) {
+      if scenePhase == .active {
+        if Date.now >= settings.time {
+          tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
         }
-      .sheet(isPresented: $showingNewQuestView) {
-        QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
-          .presentationDetents([.medium, .large])
       }
-      .sheet(isPresented: $showingRewardsView) {
-        RewardsView(user: user)
-          .presentationDetents([.medium, .large])
-      }
-      .sheet(isPresented: $showingSettingsView) {
-        SettingsView(settings: settings, user: user)
-        .presentationDetents([.medium, .large])
-      }
+    }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
+    }
+    .sheet(isPresented: $showingNewQuestView) {
+      QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
+        .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showingRewardsView) {
+      RewardsView(user: user)
+        .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showingSettingsView) {
+      SettingsView(settings: settings, user: user)
+        .presentationDetents([.medium, .large])
     }
   }
 }
