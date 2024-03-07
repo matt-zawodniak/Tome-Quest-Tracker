@@ -27,7 +27,6 @@ struct SettingsView: View {
   @State var user: User
 
   var body: some View {
-    NavigationStack {
       List {
         Section {
           VStack {
@@ -80,25 +79,25 @@ struct SettingsView: View {
         .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
         .listRowSeparator(.hidden)
 
-        Section {
-
-          NavigationLink(destination: ManageRewardsView(
-            minorRewards: minorRewards,
-            milestoneRewards: milestoneRewards)
-          ) {
-            Button("Manage Rewards") {
-            }
-          }
-        }
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+//        Section {
+//
+//          NavigationLink(destination: ManageRewardsView(
+//            minorRewards: minorRewards,
+//            milestoneRewards: milestoneRewards)
+//          ) {
+//            Button("Manage Rewards") {
+//            }
+//          }
+//        }
+//        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+//        .listRowSeparator(.hidden)
 
       }
+      .navigationBarBackButtonHidden()
       .padding(.horizontal)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
-    }
     .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
                     $0.viewControllers.forEach { controller in
                         controller.view.backgroundColor = .clear

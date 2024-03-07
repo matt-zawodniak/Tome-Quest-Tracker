@@ -39,7 +39,6 @@ struct RewardsView: View {
 
   var body: some View {
 
-    NavigationStack {
       List {
         Section(header: Text("")) {
 
@@ -103,12 +102,12 @@ struct RewardsView: View {
         .listRowSeparator(.hidden)
 
       }
+      .navigationBarBackButtonHidden()
       .padding(.horizontal)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)
       .listRowSpacing(5)
       .listStyle(.inset)
-    }
     .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
                     $0.viewControllers.forEach { controller in
                         controller.view.backgroundColor = .clear

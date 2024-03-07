@@ -15,7 +15,6 @@ struct ManageRewardsView: View {
   @State var presentingAddRewardView: Bool = false
 
   var body: some View {
-    NavigationStack {
 
         List {
 
@@ -91,6 +90,11 @@ struct ManageRewardsView: View {
           .listRowSeparator(.hidden)
 
         }
+        .introspect(.navigationStack, on: .iOS(.v16, .v17), scope: .ancestor) {
+                        $0.viewControllers.forEach { controller in
+                            controller.view.backgroundColor = .clear
+                        }
+                    }
         .toolbar {
           EditButton()
         }
@@ -100,7 +104,6 @@ struct ManageRewardsView: View {
       .scrollContentBackground(.hidden)
       .listStyle(.grouped)
       .listRowSpacing(5)
-    }
   }
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {
     var updatedMinorRewards: [Reward] = minorRewards.map({ $0 })

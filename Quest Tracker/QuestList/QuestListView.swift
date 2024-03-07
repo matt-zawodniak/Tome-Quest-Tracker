@@ -37,17 +37,28 @@ struct QuestListView: View {
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
 
+  @Query() var rewards: [Reward]
+  var minorRewards: [Reward] {
+    rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false})
+      .sorted { $0.sortId < $1.sortId }
+  }
+
+  var milestoneRewards: [Reward] {
+    rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false})
+      .sorted { $0.sortId < $1.sortId }
+  }
+
   @State var sortType: QuestSortDescriptor = .questType
 
-  @State var newQuestView: Bool = false
-  @State var rewardsView: Bool = false
   @State var showingCompletedQuests: Bool = false
-  @State var settingsView: Bool = false
+
   @State var navigationTitle: String = "Quest Tracker"
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   @ObservedObject private var sections = SectionModel()
+
+  @ObservedObject var router = Router()
 
   var body: some View {
     Image("IMG_1591")
@@ -62,7 +73,7 @@ struct QuestListView: View {
 
         VStack {
 
-        NavigationStack {
+          NavigationStack(path: $router.navPath) {
           List {
             if sortType == .questType {
               ForEach(QuestType.allCases, id: \.self) { type in
@@ -74,7 +85,7 @@ struct QuestListView: View {
                     QuestSection(settings: settings,
                                  showingCompletedQuests: showingCompletedQuests,
                                  user: user,
-                                 questType: type)
+                                 questType: type, router: router)
                   } else {
                     EmptyView()
                   }
@@ -95,17 +106,20 @@ struct QuestListView: View {
           .listStyle(.grouped)
           .listRowSpacing(5)
           .scrollContentBackground(.hidden)
-
-          .navigationDestination(isPresented: $newQuestView) {
-            QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
-          }
-          .navigationDestination(isPresented: $settingsView) {
-            SettingsView(settings: settings, user: user)
-          }
-          .navigationDestination(isPresented: $rewardsView) {
-            RewardsView(user: user)
+          .navigationDestination(for: Router.Destination.self) { destination in
+            switch destination {
+            case .newQuestView: QuestView(quest: Quest.defaultQuest(context: modelContext),
+                                          hasDueDate: false,
+                                          settings: settings)
+            case .editingQuestView(let quest): QuestView(quest: quest,
+                                                         hasDueDate: false,
+                                                         settings: settings)
+            case .rewards: RewardsView(user: user)
+            case .settings: SettingsView(settings: settings, user: user)
+            }
           }
         }
+        .environmentObject(router)
         .navigationTransition(.slide)
         .introspect(.navigationStack, on: .iOS(.v16, .v17)) {
                         $0.viewControllers.forEach { controller in
@@ -117,9 +131,7 @@ struct QuestListView: View {
         VStack {
 
           NavigationBar(
-            newQuestView: $newQuestView,
-            rewardsView: $rewardsView,
-            settingsView: $settingsView,
+            router: router,
             showingCompletedQuests: $showingCompletedQuests)
 
           LevelAndExpUI()

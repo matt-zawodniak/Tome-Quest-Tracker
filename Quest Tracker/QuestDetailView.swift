@@ -10,6 +10,7 @@ import SwiftUI
 struct QuestDetailView: View {
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
+  @State var router: Router
 
   @State var quest: Quest
   @State var settings: Settings
@@ -58,7 +59,9 @@ struct QuestDetailView: View {
                 Spacer()
               }
               .onTapGesture {
+                router.navigate(to: .editingQuestView(quest: quest))
                 dismiss()
+
               }
               HStack {
                 Spacer()
@@ -103,6 +106,7 @@ struct QuestDetailView: View {
                 Spacer()
               }
               .onTapGesture {
+                router.navigate(to: .editingQuestView(quest: quest))
                 dismiss()
               }
               HStack {
