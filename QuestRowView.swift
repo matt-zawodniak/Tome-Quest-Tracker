@@ -87,7 +87,9 @@ struct QuestRowView: View, Identifiable {
 }
 #Preview {
   MainActor.assumeIsolated {
-    QuestRowView(quest: PreviewSampleData.previewQuest, settings: PreviewSampleData.previewSettings, user: PreviewSampleData.previewUser)
+    QuestRowView(quest: PreviewSampleData.previewQuest,
+                 settings: PreviewSampleData.previewSettings,
+                 user: PreviewSampleData.previewUser)
       .modelContainer(PreviewSampleData.container)
   }
 }
