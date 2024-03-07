@@ -47,6 +47,7 @@ struct QuestRowView: View, Identifiable {
           if quest.type == .weeklyQuest ||
               quest.type == .dailyQuest {
               Button {
+                quest.timeCompleted = Date()
                 quest.isCompleted = true
               } label: {
                 Text("Skip Quest")
