@@ -36,26 +36,22 @@ struct QuestRowView: View, Identifiable {
       }
       if quest.isSelected {
         Text(quest.questDescription ?? "")
-        Text("Quest EXP:")
-        HStack {
-          Text("Quest Reward:")
-          Text(quest.questBonusReward ?? "")
+        Text("Quest EXP: \(Int(quest.type.experience))")
+        if quest.questBonusReward != nil {
+          HStack {
+            Text("Quest Reward:")
+            Text(quest.questBonusReward ?? "")
+          }
         }
         if !quest.isCompleted {
-          HStack {
-            NavigationLink(destination: QuestView(
-              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
-                }
-                )
+          if quest.type == .weeklyQuest ||
+              quest.type == .dailyQuest {
+              Button {
+                quest.isCompleted = true
+              } label: {
+                Text("Skip Quest")
               }
-            Spacer()
-            Button(action: {
-            },
-                   label: {Text("Complete")})
-          }
+            }
         } else {
           Button {
             restoreQuest(quest: quest)
