@@ -10,6 +10,7 @@ import SwiftData
 
 @MainActor
 class ModelController {
+
   static let shared = ModelController()
 
   let modelContainer: ModelContainer = {
@@ -17,8 +18,12 @@ class ModelController {
       let container = try ModelContainer(for: Settings.self, Quest.self, User.self, Reward.self)
 
       return container
+
     } catch {
+
       fatalError("Failed to configure SwiftData container.")
+
     }
+
   }()
 }

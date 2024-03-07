@@ -15,20 +15,23 @@ struct StylizedQuestOutline: Shape {
 
     var path = Path()
 
-//    path.move(to: CGPoint(x: 0,
-//                          y: 0))
     path.move(to: CGPoint(x: 0,
-                             y: rect.size.height))
+                          y: rect.size.height))
+
     path.addLine(to: CGPoint(x: rect.size.width * 0.95,
                              y: rect.size.height))
+
     path.addLine(to: CGPoint(x: rect.size.width,
                              y: rect.size.height - (rect.size.width * 0.05 )))
+
     path.addLine(to: CGPoint(x: rect.size.width,
                              y: 0))
+
     path.addLine(to: CGPoint(x: 0, y: 0))
 
     return path
- }
+
+  }
 }
 
 struct StylizedOutline: Shape {
@@ -41,20 +44,26 @@ struct StylizedOutline: Shape {
 
     path.move(to: CGPoint(x: 0,
                           y: 0))
+
     path.addLine(to: CGPoint(x: 0,
                              y: rect.size.height))
+
     path.addLine(to: CGPoint(x: rect.size.width * 0.95,
                              y: rect.size.height))
+
     path.addLine(to: CGPoint(x: rect.size.width,
                              y: rect.size.height - (rect.size.width * 0.05)))
+
     path.addLine(to: CGPoint(x: rect.size.width,
                              y: 0))
+
     path.addLine(to: CGPoint(x: 0, y: 0))
 
     return path
- }
+
+  }
 }
 
 #Preview {
-    StylizedQuestOutline()
+  StylizedQuestOutline()
 }

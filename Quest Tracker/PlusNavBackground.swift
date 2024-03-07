@@ -25,9 +25,10 @@ struct PlusNavBackground: Shape {
                              y: rect.size.height))
 
     return path
- }
+
+  }
 }
 
 #Preview {
-    PlusNavBackground()
+  PlusNavBackground()
 }

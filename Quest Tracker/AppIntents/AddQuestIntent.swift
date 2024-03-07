@@ -26,6 +26,7 @@ struct AddQuestIntent: AppIntent {
 
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
+
     let quest = Quest(
       difficulty: 1,
       id: UUID(),
@@ -37,6 +38,8 @@ struct AddQuestIntent: AppIntent {
       questType: questType.rawValue)
 
     ModelController.shared.modelContainer.mainContext.insert(quest)
+
     return .result(dialog: "Added \(questName) to Quest Tracker.")
+
   }
 }

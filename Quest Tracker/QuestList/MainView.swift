@@ -9,35 +9,49 @@ import SwiftUI
 import SwiftData
 
 struct MainView: View {
+
   @ObservedObject var tracker: QuestTrackerViewModel
+
   @Environment(\.modelContext) var modelContext
+
   @Environment(\.scenePhase) var scenePhase
 
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
+
     return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+
   }
 
   @Query() var userQueryResults: [User]
   var user: User {
+
     return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+
   }
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
 
   @State var showingCompletedQuests: Bool = false
+
   @State var showingNewQuestView: Bool = false
+
   @State var showingRewardsView: Bool = false
+
   @State var showingSettingsView: Bool = false
+
   @State var showingLevelUpNotification: Bool = false
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   var body: some View {
+
     ZStack {
+
       GlobalUISettings.background
 
       VStack {
+
         QuestListView(settings: settings,
                       showingCompletedQuests: showingCompletedQuests,
                       user: user)
@@ -54,28 +68,47 @@ struct MainView: View {
             .padding(.horizontal)
 
         }
+
         if earnedRewards.count > 0 {
+
           NavigationLink(destination: RewardsView(user: user)) {
+
             Text("You have earned rewards! Tap here to view them.").font(.footnote)
+
           }
+
         }
+
       }
+
     }
 
     .onReceive(timer, perform: { time in
+
       if time >= settings.time {
+
         tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+
       }
+
     })
     .onChange(of: scenePhase) {
+
       if scenePhase == .active {
+
         if Date.now >= settings.time {
+
           tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+
         }
+
       }
+
     }
     .onChange(of: user.level) {
+
       showingLevelUpNotification = true
+
     }
     .sheet(isPresented: $showingNewQuestView) {
       QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
@@ -89,7 +122,9 @@ struct MainView: View {
       SettingsView(settings: settings, user: user)
         .presentationDetents([.medium, .large])
     }
+
   }
+
 }
 
 #Preview {

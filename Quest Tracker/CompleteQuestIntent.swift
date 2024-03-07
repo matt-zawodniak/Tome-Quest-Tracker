@@ -28,8 +28,11 @@ struct CompleteQuestIntent: AppIntent {
       Quest.completeQuest(name: questName, context: context)
 
       return .result(dialog: "\(questName) marked complete.")
+
     } else {
+
       return .result(dialog: "Sorry, I couldn't find an active quest called \(questName). Use Add Quest to add it.")
+
     }
   }
 }

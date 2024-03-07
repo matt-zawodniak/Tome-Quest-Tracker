@@ -16,6 +16,7 @@ struct NavigationBar: View {
 
   var body: some View {
     ZStack {
+
       VStack(spacing: 15) {
 
         Divider()
@@ -23,7 +24,9 @@ struct NavigationBar: View {
           .overlay(.cyan)
 
         HStack {
+
           Spacer()
+
           VStack {
             Image(systemName: "house")
               .onTapGesture {
@@ -37,7 +40,9 @@ struct NavigationBar: View {
                                && showingRewardsView == false
                                && showingSettingsView == false ? .cyan : .white)
           }
+
           Spacer()
+
           VStack {
             Image(systemName: "checkmark.square")
               .onTapGesture {
@@ -48,6 +53,7 @@ struct NavigationBar: View {
               }
               .foregroundStyle(showingCompletedQuests ? .cyan : .white)
           }
+
           Spacer()
           Spacer()
           Spacer()
@@ -64,7 +70,9 @@ struct NavigationBar: View {
               }
               .foregroundStyle(showingRewardsView ? .cyan : .white)
           }
+
           Spacer()
+
           VStack {
             Image(systemName: "gearshape")
               .onTapGesture {
@@ -76,7 +84,9 @@ struct NavigationBar: View {
               }
               .foregroundStyle(showingSettingsView ? .cyan : .white)
           }
+
           Spacer()
+
         }
         .foregroundColor(.white)
 
@@ -88,14 +98,14 @@ struct NavigationBar: View {
         .background(PlusNavBackground().stroke(.cyan, lineWidth: 5))
 
       Image(systemName: "plus.square.dashed").font(.largeTitle)
-          .foregroundColor(.cyan)
-          .onTapGesture {
-            showingCompletedQuests = false
-            showingNewQuestView = true
-            showingRewardsView = false
-            showingSettingsView = false
-            print("Tapped +")
-          }
+        .foregroundColor(.cyan)
+        .onTapGesture {
+          showingCompletedQuests = false
+          showingNewQuestView = true
+          showingRewardsView = false
+          showingSettingsView = false
+          print("Tapped +")
+        }
 
     }
     .background(.black)

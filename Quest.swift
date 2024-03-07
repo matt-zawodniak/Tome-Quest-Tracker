@@ -11,19 +11,21 @@ import SwiftData
 import AppIntents
 
 @Model class Quest {
-    var difficulty: Int64 = 0
-    var dueDate: Date?
-    var id = UUID()
-    var isCompleted: Bool = false
-    @Attribute(.ephemeral) var isSelected: Bool = false
-    var length: Int64 = 0
-    var questBonusExp: Double = 0.0
-    var questBonusReward: String?
-    var questDescription: String?
-    var questName: String = ""
-    var questType: Int64 = 0
-    var timeCompleted: Date?
-    var timeCreated: Date?
+
+  var difficulty: Int64 = 0
+  var dueDate: Date?
+  var id = UUID()
+  var isCompleted: Bool = false
+  @Attribute(.ephemeral) var isSelected: Bool = false
+  var length: Int64 = 0
+  var questBonusExp: Double = 0.0
+  var questBonusReward: String?
+  var questDescription: String?
+  var questName: String = ""
+  var questType: Int64 = 0
+  var timeCompleted: Date?
+  var timeCreated: Date?
+
   public init(
     difficulty: Int64,
     dueDate: Date? = nil,
@@ -37,34 +39,39 @@ import AppIntents
     questName: String, questType: Int64,
     timeCompleted: Date? = nil,
     timeCreated: Date? = nil) {
-    self.difficulty = difficulty
-    self.dueDate = dueDate
-    self.id = id
-    self.isCompleted = isCompleted
-    self.isSelected = isSelected
-    self.length = length
-    self.questBonusExp = questBonusExp
-    self.questBonusReward = questBonusReward
-    self.questDescription = questDescription
-    self.questName = questName
-    self.questType = questType
-    self.timeCompleted = timeCompleted
-    self.timeCreated = timeCreated
-  }
+
+      self.difficulty = difficulty
+      self.dueDate = dueDate
+      self.id = id
+      self.isCompleted = isCompleted
+      self.isSelected = isSelected
+      self.length = length
+      self.questBonusExp = questBonusExp
+      self.questBonusReward = questBonusReward
+      self.questDescription = questDescription
+      self.questName = questName
+      self.questType = questType
+      self.timeCompleted = timeCompleted
+      self.timeCreated = timeCreated
+
+    }
 }
 
 extension Quest: Identifiable {
 
   static func findActiveQuestBy(name: String, context: ModelContext) -> Quest? {
+
     var request = FetchDescriptor<Quest>(predicate: #Predicate { $0.questName == name && $0.isCompleted == false })
     request.fetchLimit = 1
 
-   let foundQuest = try? context.fetch(request).first ?? nil
+    let foundQuest = try? context.fetch(request).first ?? nil
 
     return foundQuest
+
   }
 
   static func completeQuest(name: String, context: ModelContext) {
+
     if let quest: Quest = findActiveQuestBy(name: name, context: context) {
 
       let user: User = User.fetchFirstOrInitialize(context: context)
@@ -72,54 +79,71 @@ extension Quest: Identifiable {
       let settings: Settings = Settings.fetchFirstOrInitialize(context: context)
 
       quest.isCompleted = true
+
       user.giveExp(quest: quest, settings: settings, context: context)
 
     }
   }
 
   var type: QuestType {
+
     get {
       return QuestType(rawValue: self.questType)!
     }
+
     set {
       self.questType = newValue.rawValue
     }
+
   }
 
   var questLength: QuestLength {
+
     get {
       return QuestLength(rawValue: self.length)!
     }
+
     set {
       self.length = newValue.rawValue
     }
+
   }
 
   var questDifficulty: QuestDifficulty {
+
     get {
       return QuestDifficulty(rawValue: self.difficulty)!
     }
+
     set {
       self.difficulty = newValue.rawValue
     }
+
   }
 
   static func resetQuests(settings: Settings, context: ModelContext) {
+
     resetDailyQuests(settings: settings, context: context)
+
     resetWeeklyQuests(settings: settings, context: context)
+
   }
 
   static func resetDailyQuests(settings: Settings, context: ModelContext) {
+
     var completedDailyQuests: [Quest] {
+
       let dailyRawValue = QuestType.dailyQuest.rawValue
 
       let request = FetchDescriptor<Quest>(
         predicate: #Predicate { $0.isCompleted == true && $0.questType == dailyRawValue})
 
       return (try? context.fetch(request)) ?? []
+
     }
 
     let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
+
     let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
 
     let mostRecentDailyReset = Calendar.current.nextDate(
@@ -128,19 +152,25 @@ extension Quest: Identifiable {
       matchingPolicy: .nextTime)!
 
     for quest in completedDailyQuests where quest.timeCompleted! <= mostRecentDailyReset {
+
       quest.setDateToDailyResetTime(settings: settings)
+
       quest.isCompleted = false
+
     }
   }
 
   static func resetWeeklyQuests(settings: Settings, context: ModelContext) {
+
     var completedWeeklyQuests: [Quest] {
+
       let weeklyRawValue = QuestType.weeklyQuest.rawValue
 
       let request = FetchDescriptor<Quest>(
         predicate: #Predicate { $0.isCompleted == true && $0.questType == weeklyRawValue})
 
       return (try? context.fetch(request)) ?? []
+
     }
 
     var weeklyComponents = DateComponents()
@@ -148,6 +178,7 @@ extension Quest: Identifiable {
     weeklyComponents.hour = Calendar.current.component(.hour, from: settings.time)
     weeklyComponents.minute = Calendar.current.component(.minute, from: settings.time)
     weeklyComponents.second = Calendar.current.component(.second, from: settings.time)
+
     let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date.now)!
 
     let mostRecentWeeklyReset = Calendar.current.nextDate(
@@ -156,22 +187,28 @@ extension Quest: Identifiable {
       matchingPolicy: .nextTime)!
 
     for quest in completedWeeklyQuests where quest.timeCompleted! <= mostRecentWeeklyReset {
+
       quest.setDateToWeeklyResetDate(settings: settings)
       quest.isCompleted = false
+
     }
   }
 
   func setDateToDailyResetTime(settings: Settings) {
+
     var components = DateComponents()
     components.hour = Calendar.current.component(.hour, from: settings.time)
     components.minute = Calendar.current.component(.minute, from: settings.time)
     components.second = Calendar.current.component(.second, from: settings.time)
 
     let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
+
     dueDate = nextResetTime
+
   }
 
   func setDateToWeeklyResetDate(settings: Settings) {
+
     var components = DateComponents()
     components.weekday = Int(settings.dayOfTheWeek)
     components.hour = Calendar.current.component(.hour, from: settings.time)
@@ -180,9 +217,11 @@ extension Quest: Identifiable {
     let nextResetDay = Calendar.current.nextDate(after: Date(), matching: components, matchingPolicy: .nextTime)
 
     dueDate = nextResetDay
+
   }
 
   static func defaultQuest(context: ModelContext) -> Quest {
+
     let quest = Quest(difficulty: 1,
                       id: UUID(),
                       isCompleted: false,
@@ -193,10 +232,12 @@ extension Quest: Identifiable {
                       questType: QuestType.mainQuest.rawValue)
 
     return quest
+
   }
 }
 
 enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
+
   static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Quest Type")
 
   static var caseDisplayRepresentations: [QuestType: DisplayRepresentation] = [
@@ -212,64 +253,78 @@ enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
   case weeklyQuest = 3
 
   var description: String {
+
     switch self {
     case .mainQuest: return "Main Quest"
     case .sideQuest: return "Side Quest"
     case .dailyQuest: return "Daily Quest"
     case .weeklyQuest: return "Weekly Quest"
     }
+
   }
 
   var experience: Double {
+
     switch self {
     case .mainQuest: return 40
     case .sideQuest: return 10
     case .dailyQuest: return 4
     case .weeklyQuest: return 20
     }
+
   }
 }
 
 enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
+
   case easy = 0
   case average = 1
   case hard = 2
 
   var description: String {
+
     switch self {
     case .easy: return "Easy"
     case .average: return "Average"
     case .hard: return "Hard"
     }
+
   }
 
   var expMultiplier: Double {
+
     switch self {
     case .easy: 0.75
     case .average: 1
     case .hard: 1.25
     }
+
   }
 }
 
 enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
+
   case short = 0
   case average = 1
   case long = 2
 
   var description: String {
+
     switch self {
     case .short: return "Short"
     case .average: return "Average"
     case .long: return "Long"
     }
+
   }
 
   var expMultiplier: Double {
+
     switch self {
     case .short: 0.75
     case .average: 1
     case .long: 1.25
     }
+
   }
 }

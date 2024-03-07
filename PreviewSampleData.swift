@@ -9,10 +9,13 @@ import Foundation
 import SwiftData
 
 class PreviewSampleData {
-@MainActor
+
+  @MainActor
   static var container: ModelContainer = {
+
     do {
       let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+
       let container = try ModelContainer(
         for: Settings.self, Quest.self, User.self, Reward.self,
         configurations: configuration)
@@ -32,6 +35,7 @@ class PreviewSampleData {
               questBonusExp: 0,
               questName: "Main",
               questType: 0),
+
         Quest(difficulty: 1,
               id: UUID(),
               isCompleted: false,
@@ -40,6 +44,7 @@ class PreviewSampleData {
               questBonusExp: 0,
               questName: "Side",
               questType: 1),
+
         Quest(difficulty: 1,
               id: UUID(),
               isCompleted: false,
@@ -48,6 +53,7 @@ class PreviewSampleData {
               questBonusExp: 0,
               questName: "Daily",
               questType: 2),
+
         Quest(difficulty: 1,
               id: UUID(),
               isCompleted: false,
@@ -56,6 +62,7 @@ class PreviewSampleData {
               questBonusExp: 0,
               questName: "Weekly",
               questType: 3),
+
         Quest(difficulty: 1,
               id: UUID(),
               isCompleted: false,
@@ -64,6 +71,7 @@ class PreviewSampleData {
               questBonusExp: 0,
               questName: "Second Main",
               questType: 0),
+
         Quest(difficulty: 1,
               id: UUID(),
               isCompleted: false,
@@ -75,7 +83,9 @@ class PreviewSampleData {
       ]
 
       previewQuests.forEach {
+
         container.mainContext.insert($0)
+
       }
 
       let previewRewards: [Reward] = [
@@ -84,12 +94,17 @@ class PreviewSampleData {
       ]
 
       previewRewards.forEach {
+
         container.mainContext.insert($0)
+
       }
 
       return container
+
     } catch {
+
       fatalError("Failed to create preview container.")
+
     }
   }()
 
@@ -122,6 +137,7 @@ class PreviewSampleData {
           questBonusExp: 0,
           questName: "Main",
           questType: 0),
+
     Quest(difficulty: 1,
           id: UUID(),
           isCompleted: false,
@@ -130,6 +146,7 @@ class PreviewSampleData {
           questBonusExp: 0,
           questName: "Side",
           questType: 1),
+
     Quest(difficulty: 1,
           id: UUID(),
           isCompleted: false,
@@ -138,6 +155,7 @@ class PreviewSampleData {
           questBonusExp: 0,
           questName: "Daily",
           questType: 2),
+
     Quest(difficulty: 1,
           id: UUID(),
           isCompleted: false,
@@ -146,6 +164,7 @@ class PreviewSampleData {
           questBonusExp: 0,
           questName: "Weekly",
           questType: 3),
+
     Quest(difficulty: 1,
           id: UUID(),
           isCompleted: false,
@@ -154,6 +173,7 @@ class PreviewSampleData {
           questBonusExp: 0,
           questName: "Second Main",
           questType: 0),
+
     Quest(difficulty: 1,
           id: UUID(),
           isCompleted: false,
