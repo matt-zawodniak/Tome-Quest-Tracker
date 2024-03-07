@@ -33,6 +33,8 @@ struct QuestListView: View {
     return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
   }
 
+  @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
+
   @State var sortType: QuestSortDescriptor = .timeCreated
   @State var newQuestView: Bool = false
   @State var rewardsView: Bool = false
@@ -42,49 +44,33 @@ struct QuestListView: View {
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+  @ObservedObject private var sections = SectionModel()
+
   var body: some View {
     NavigationStack {
       ZStack {
       List {
-        QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                  settings: settings,
-                  showingCompletedQuests: showingCompletedQuests,
-                  user: user)
-        if !showingCompletedQuests {
-          HStack {
-            Button(
-              action: {
-                newQuestView = true
-              },
-              label: {
-                Image(systemName: "plus.circle")
-              })
-          }
-          HStack {
-            Spacer()
-            NavigationLink(destination: SettingsView(settings: settings, user: user)) {
-              Button(action: {}, label: {
-                Text("Settings")
-              })
+        if sortType == .questType {
+          ForEach(QuestType.allCases, id: \.self) { type in
+            let title: String = type.description + "s"
+            var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
+
+            Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+              if self.sections.isOpen(title: title) {
+                QuestSection(settings: settings,
+                             showingCompletedQuests: showingCompletedQuests,
+                             user: user,
+                             questType: type)
+              } else {
+                EmptyView()
+              }
             }
           }
-          HStack {
-            Button(
-              action: {
-                showCompletedQuests()
-              },
-              label: {
-                Text("Completed Quests")
-              })
-          }
-          HStack {
-            Spacer()
-            NavigationLink(destination: RewardsView(user: user)) {
-              Button(action: {}, label: {
-                Text("View Rewards")
-              })
-            }
-          }
+        } else {
+          QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
+                    settings: settings,
+                    showingCompletedQuests: showingCompletedQuests,
+                    user: user)
         }
       }.disabled(showingLevelUpNotification)
         if showingLevelUpNotification {
@@ -96,18 +82,39 @@ struct QuestListView: View {
     }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .toolbar {
+
         ToolbarItem(placement: .topBarTrailing) {
-          HStack {
-            Text("Sort:")
+          Menu {
             Picker("", selection: $sortType) {
               ForEach(QuestSortDescriptor.allCases, id: \.self) {
                 Text($0.description)
               }
             }
+          } label: {
+            Image(systemName: "arrow.up.arrow.down")
           }
         }
-        ToolbarItem(placement: .topBarLeading) {
+
+        ToolbarItem(placement: .topBarTrailing) {
+          Button(
+            action: {
+              newQuestView = true
+            },
+            label: {
+              Image(systemName: "plus.circle")
+            })
+        }
+
+        ToolbarItem(placement: .principal) {
           if showingCompletedQuests {
+            Text("Completed Quests")
+          } else {
+            Text(settings.time, style: .timer)
+          }
+        }
+
+          ToolbarItem(placement: .topBarLeading) {
+            if showingCompletedQuests {
             Button(
               action: {
                 showActiveQuests()
@@ -118,7 +125,31 @@ struct QuestListView: View {
                 }
               })
           } else {
-            Text(settings.time, style: .timer)
+            Menu {
+              Button("Home", action: { showActiveQuests()})
+
+              Button(
+                action: {
+                  showCompletedQuests()
+                },
+                label: {
+                  Text("Completed Quests")
+                })
+
+              NavigationLink(destination: RewardsView(user: user)) {
+                Button(action: {}, label: {
+                  Text("View Rewards")
+                })
+              }
+
+              NavigationLink(destination: SettingsView(settings: settings, user: user)) {
+                Button(action: {}, label: {
+                  Text("Settings")
+                })
+              }
+            } label: {
+                Image(systemName: "list.bullet")
+              }
           }
         }
       }
@@ -127,6 +158,11 @@ struct QuestListView: View {
       }
       .navigationDestination(isPresented: $rewardsView) {
         RewardsView(user: user)
+      }
+      if earnedRewards.count > 0 {
+        NavigationLink(destination: RewardsView(user: user)) {
+          Text("You have earned rewards! Tap here to view them.").font(.footnote)
+        }
       }
     }
     .onReceive(timer, perform: { time in
@@ -157,11 +193,5 @@ struct QuestListView: View {
     tracker.deselectQuests(quests: quests, context: modelContext)
     navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
-  }
-}
-
-struct QuestTableView_Previews: PreviewProvider {
-  static var previews: some View {
-    QuestListView(tracker: QuestTrackerViewModel())
   }
 }
