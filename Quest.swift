@@ -13,8 +13,8 @@ import AppIntents
 @Model class Quest {
     var difficulty: Int64 = 0
     var dueDate: Date?
-   var id: UUID
-    var isCompleted: Bool
+    var id = UUID()
+    var isCompleted: Bool = false
     @Attribute(.ephemeral) var isSelected: Bool = false
     var length: Int64 = 0
     var questBonusExp: Double = 0.0
@@ -55,8 +55,8 @@ import AppIntents
 
 extension Quest: Identifiable {
 
-  static func findQuestBy(name: String, context: ModelContext) -> Quest? {
-    var request = FetchDescriptor<Quest>(predicate: #Predicate { $0.questName == name })
+  static func findActiveQuestBy(name: String, context: ModelContext) -> Quest? {
+    var request = FetchDescriptor<Quest>(predicate: #Predicate { $0.questName == name && $0.isCompleted == false })
     request.fetchLimit = 1
 
    let foundQuest = try? context.fetch(request).first ?? nil
@@ -65,7 +65,7 @@ extension Quest: Identifiable {
   }
 
   static func completeQuest(name: String, context: ModelContext) {
-    if let quest: Quest = findQuestBy(name: name, context: context) {
+    if let quest: Quest = findActiveQuestBy(name: name, context: context) {
 
       let user: User = User.fetchFirstOrInitialize(context: context)
 

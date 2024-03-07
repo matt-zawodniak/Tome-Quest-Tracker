@@ -97,3 +97,10 @@ struct SettingsView: View {
     })
   }
 }
+
+#Preview {
+  MainActor.assumeIsolated {
+    SettingsView(settings: PreviewSampleData.previewSettings, user: PreviewSampleData.previewUser)
+      .modelContainer(PreviewSampleData.container)
+  }
+}

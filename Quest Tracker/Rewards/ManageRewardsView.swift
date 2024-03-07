@@ -119,7 +119,17 @@ struct ManageRewardsView: View {
     }
   }
 }
-//
-// #Preview {
-//  ManageRewardsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-// }
+
+#Preview {
+  MainActor.assumeIsolated {
+    ManageRewardsView(minorRewards: [Reward(
+                        isMilestoneReward: false,
+                        name: "Minor",
+                        sortId: 1)],
+                      milestoneRewards: [Reward(
+                        isMilestoneReward: true,
+                        name: "Milestone", sortId:
+                          1)])
+      .modelContainer(PreviewSampleData.container)
+  }
+}

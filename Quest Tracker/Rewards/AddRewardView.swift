@@ -55,3 +55,12 @@ struct AddRewardView: View {
     )
   }
 }
+
+#Preview {
+  MainActor.assumeIsolated {
+    AddRewardView(reward: Reward(isMilestoneReward: false, name: "Test Reward", sortId: 0),
+                  minorRewardCount: 0,
+                  milestoneRewardCount: 0)
+      .modelContainer(PreviewSampleData.container)
+  }
+}

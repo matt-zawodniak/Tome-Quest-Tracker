@@ -88,7 +88,6 @@ struct QuestListView: View {
                 }
                 .listRowBackground(CustomListBackground(type: type))
                 .listRowSeparator(.hidden)
-
               }
               .foregroundStyle(.cyan)
             } else {
@@ -130,6 +129,9 @@ struct QuestListView: View {
             }
           }
           print("Scene has changed to \(scenePhase)")
+      if earnedRewards.count > 0 {
+        NavigationLink(destination: RewardsView(user: user)) {
+          Text("You have earned rewards! Tap here to view them.").font(.footnote)
         }
       )
       .sheet(isPresented: $showingNewQuestView) {
@@ -144,6 +146,11 @@ struct QuestListView: View {
         SettingsView(settings: settings, user: user)
         .presentationDetents([.medium, .large])
       }
+      print("Scene has changed to \(scenePhase)")
+    }
+    .onChange(of: user.level) {
+      showingLevelUpNotification = true
+    }
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
@@ -152,5 +159,12 @@ struct QuestListView: View {
   func showActiveQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
     showingCompletedQuests = false
+  }
+}
+
+#Preview {
+  MainActor.assumeIsolated {
+    QuestListView(tracker: QuestTrackerViewModel())
+      .modelContainer(PreviewSampleData.container)
   }
 }

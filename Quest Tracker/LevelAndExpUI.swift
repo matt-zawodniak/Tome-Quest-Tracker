@@ -27,7 +27,10 @@ struct LevelAndExpUI: View {
     .foregroundStyle(.cyan)
   }
 }
-//
-// #Preview {
-//    LevelAndExpUI().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
-// }
+
+#Preview {
+  MainActor.assumeIsolated {
+    LevelAndExpUI()
+      .modelContainer(PreviewSampleData.container)
+  }
+}
