@@ -70,7 +70,7 @@ struct MainView: View {
       .overlay(
 
         VStack {
-          QuestList(quests: filteredQuests,
+          QuestListView(quests: filteredQuests,
                     settings: settings,
                     showingCompletedQuests: showingCompletedQuests,
                     user: user)

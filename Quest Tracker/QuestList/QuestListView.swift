@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct QuestList: View {
+struct QuestListView: View {
   @Environment(\.modelContext) var modelContext
   @ObservedObject private var sections = SectionModel()
 
@@ -47,7 +47,7 @@ struct QuestList: View {
 
 #Preview {
   MainActor.assumeIsolated {
-    QuestList(quests: PreviewSampleData.previewQuests, settings: PreviewSampleData.previewSettings,
+    QuestListView(quests: PreviewSampleData.previewQuests, settings: PreviewSampleData.previewSettings,
               showingCompletedQuests: false,
               user: PreviewSampleData.previewUser)
         .modelContainer(PreviewSampleData.container)
