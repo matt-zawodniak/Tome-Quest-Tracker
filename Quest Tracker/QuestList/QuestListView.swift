@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import NavigationTransitions
 
 struct QuestListView: View {
   @ObservedObject var tracker: QuestTrackerViewModel
@@ -50,8 +49,9 @@ struct QuestListView: View {
   @State var sortType: QuestSortDescriptor = .questType
 
   @State var showingCompletedQuests: Bool = false
-
-  @State var navigationTitle: String = "Quest Tracker"
+  @State var showingNewQuestView: Bool = false
+  @State var showingRewardsView: Bool = false
+  @State var showingSettingsView: Bool = false
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -70,7 +70,6 @@ struct QuestListView: View {
 
         VStack {
 
-          NavigationStack {
           List {
             if sortType == .questType {
               ForEach(QuestType.allCases, id: \.self) { type in
@@ -103,25 +102,14 @@ struct QuestListView: View {
           .listStyle(.grouped)
           .listRowSpacing(5)
           .scrollContentBackground(.hidden)
-          .navigationDestination() { destination in
-            switch destination {
-            case .newQuestView: QuestView(quest: Quest.defaultQuest(context: modelContext),
-                                          hasDueDate: false,
-                                          settings: settings)
-            case .editingQuestView(let quest): QuestView(quest: quest,
-                                                         hasDueDate: false,
-                                                         settings: settings)
-            case .rewards: RewardsView(user: user)
-            case .settings: SettingsView(settings: settings, user: user)
-            }
-          }
-        }
-        .navigationTransition(.slide)
         .layoutPriority(1)
 
         VStack {
 
-          NavigationBar(showingCompletedQuests: $showingCompletedQuests)
+          NavigationBar(showingNewQuestView: $showingNewQuestView,
+                        showingRewardsView: $showingRewardsView,
+                        showingSettingsView: $showingSettingsView,
+                        showingCompletedQuests: $showingCompletedQuests)
 
           LevelAndExpUI()
             .padding(.horizontal)
@@ -144,15 +132,25 @@ struct QuestListView: View {
           print("Scene has changed to \(scenePhase)")
         }
       )
+      .sheet(isPresented: $showingNewQuestView) {
+        QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
+          .presentationDetents([.medium, .large])
+      }
+      .sheet(isPresented: $showingRewardsView) {
+        RewardsView(user: user)
+          .presentationDetents([.medium, .large])
+      }
+      .sheet(isPresented: $showingSettingsView) {
+        SettingsView(settings: settings, user: user)
+        .presentationDetents([.medium, .large])
+      }
   }
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
-    navigationTitle = "Completed Quests"
     showingCompletedQuests = true
   }
   func showActiveQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
-    navigationTitle = "Quest Tracker"
     showingCompletedQuests = false
   }
 }

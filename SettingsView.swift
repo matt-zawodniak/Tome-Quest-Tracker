@@ -79,21 +79,7 @@ struct SettingsView: View {
         .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
         .listRowSeparator(.hidden)
 
-//        Section {
-//
-//          NavigationLink(destination: ManageRewardsView(
-//            minorRewards: minorRewards,
-//            milestoneRewards: milestoneRewards)
-//          ) {
-//            Button("Manage Rewards") {
-//            }
-//          }
-//        }
-//        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-//        .listRowSeparator(.hidden)
-
       }
-      .navigationBarBackButtonHidden()
       .padding(.horizontal)
       .foregroundStyle(.cyan)
       .scrollContentBackground(.hidden)

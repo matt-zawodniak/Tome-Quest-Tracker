@@ -42,7 +42,6 @@ struct QuestView: View {
           }
         }
       )
-      .navigationBarBackButtonHidden()
       .padding()
       .listStyle(.grouped)
       .listRowSeparator(.hidden)

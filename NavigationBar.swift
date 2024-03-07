@@ -9,9 +9,9 @@ import SwiftUI
 
 struct NavigationBar: View {
 
-  @State var newQuestView: Bool = false
-  @State var rewardsView: Bool = false
-  @State var settingsView: Bool = false
+  @Binding var showingNewQuestView: Bool
+  @Binding var showingRewardsView: Bool
+  @Binding var showingSettingsView: Bool
   @Binding var showingCompletedQuests: Bool
 
   var body: some View {
@@ -28,23 +28,23 @@ struct NavigationBar: View {
             Image(systemName: "house")
               .onTapGesture {
                 showingCompletedQuests = false
-                newQuestView = false
-                rewardsView = false
-                settingsView = false
+                showingNewQuestView = false
+                showingRewardsView = false
+                showingSettingsView = false
               }
               .foregroundStyle(showingCompletedQuests == false
-                               && newQuestView == false
-                               && rewardsView == false
-                               && settingsView == false ? .cyan : .white)
+                               && showingNewQuestView == false
+                               && showingRewardsView == false
+                               && showingSettingsView == false ? .cyan : .white)
           }
           Spacer()
           VStack {
             Image(systemName: "book.closed")
               .onTapGesture {
                 showingCompletedQuests = true
-                newQuestView = false
-                rewardsView = false
-                settingsView = false
+                showingNewQuestView = false
+                showingRewardsView = false
+                showingSettingsView = false
               }
               .foregroundStyle(showingCompletedQuests ? .cyan : .white)
           }
@@ -55,24 +55,24 @@ struct NavigationBar: View {
             Image(systemName: "gift.fill")
               .onTapGesture {
                 showingCompletedQuests = false
-                newQuestView = false
-                rewardsView = true
-                settingsView = false
+                showingNewQuestView = false
+                showingRewardsView = true
+                showingSettingsView = false
 
               }
-              .foregroundStyle(rewardsView ? .cyan : .white)
+              .foregroundStyle(showingRewardsView ? .cyan : .white)
           }
           Spacer()
           VStack {
             Image(systemName: "gearshape")
               .onTapGesture {
                 showingCompletedQuests = false
-                newQuestView = false
-                rewardsView = false
-                settingsView = true
+                showingNewQuestView = false
+                showingRewardsView = false
+                showingSettingsView = true
 
               }
-              .foregroundStyle(settingsView ? .cyan : .white)
+              .foregroundStyle(showingSettingsView ? .cyan : .white)
           }
           Spacer()
         }
@@ -89,9 +89,9 @@ struct NavigationBar: View {
           .foregroundColor(.cyan)
           .onTapGesture {
             showingCompletedQuests = false
-            newQuestView = true
-            rewardsView = false
-            settingsView = false
+            showingNewQuestView = true
+            showingRewardsView = false
+            showingSettingsView = false
             print("Tapped +")
           }
 
