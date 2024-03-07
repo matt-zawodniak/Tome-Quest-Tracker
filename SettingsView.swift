@@ -11,6 +11,17 @@ import SwiftData
 struct SettingsView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
   @Query() var quests: [Quest]
+  @Query() var rewards: [Reward]
+
+  var minorRewards: [Reward] {
+    rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false})
+      .sorted { $0.sortId < $1.sortId }
+  }
+
+  var milestoneRewards: [Reward] {
+    rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false})
+      .sorted { $0.sortId < $1.sortId }
+  }
 
   @State var settings: Settings
   @State var user: User
@@ -54,13 +65,9 @@ struct SettingsView: View {
             }
           }
         }
-        HStack {
-          Spacer()
-
+        NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
           Button("Manage Rewards") {
-
-          }.buttonStyle(.borderedProminent)
-          Spacer()
+          }
         }
       }
       .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)

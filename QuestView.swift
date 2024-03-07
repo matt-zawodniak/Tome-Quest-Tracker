@@ -31,8 +31,6 @@ struct QuestView: View {
           quest.isCompleted = false
 
           modelContext.insert(quest)
-        } else {
-//          managedObjectContext.delete(quest)
         }
       }
     )
