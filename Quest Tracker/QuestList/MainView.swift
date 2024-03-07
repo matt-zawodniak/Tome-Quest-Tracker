@@ -13,16 +13,6 @@ struct MainView: View {
   @Environment(\.modelContext) var modelContext
   @Environment(\.scenePhase) var scenePhase
 
-  @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
-
-  var filteredQuests: [Quest] {
-    if showingCompletedQuests {
-      return quests.filter({ $0.isCompleted == true})
-    } else {
-      return quests.filter({ $0.isCompleted == false})
-    }
-  }
-
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
     return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
@@ -35,19 +25,6 @@ struct MainView: View {
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
 
-  @Query() var rewards: [Reward]
-  var minorRewards: [Reward] {
-    rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false})
-      .sorted { $0.sortId < $1.sortId }
-  }
-
-  var milestoneRewards: [Reward] {
-    rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false})
-      .sorted { $0.sortId < $1.sortId }
-  }
-
-  @State var sortType: QuestSortDescriptor = .questType
-
   @State var showingCompletedQuests: Bool = false
   @State var showingNewQuestView: Bool = false
   @State var showingRewardsView: Bool = false
@@ -56,24 +33,14 @@ struct MainView: View {
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-  @ObservedObject private var sections = SectionModel()
-
   var body: some View {
-    Image("IMG_1591")
-      .resizable()
-//      .scaledToFill()
-      .opacity(0.2)
-      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .black, .clear, .clear]),
-                           startPoint: .top,
-                           endPoint: .bottom))
-      .ignoresSafeArea(.all)
-      .overlay(
+    ZStack {
+      GlobalUISettings.background
 
-        VStack {
-          QuestListView(quests: filteredQuests,
-                    settings: settings,
-                    showingCompletedQuests: showingCompletedQuests,
-                    user: user)
+      VStack {
+        QuestListView(settings: settings,
+                      showingCompletedQuests: showingCompletedQuests,
+                      user: user)
         .layoutPriority(1)
 
         VStack {
@@ -87,13 +54,13 @@ struct MainView: View {
             .padding(.horizontal)
 
         }
-          if earnedRewards.count > 0 {
-            NavigationLink(destination: RewardsView(user: user)) {
-              Text("You have earned rewards! Tap here to view them.").font(.footnote)
-            }
+        if earnedRewards.count > 0 {
+          NavigationLink(destination: RewardsView(user: user)) {
+            Text("You have earned rewards! Tap here to view them.").font(.footnote)
           }
+        }
       }
-      .ignoresSafeArea(.keyboard)
+    }
 
         .onReceive(timer, perform: { time in
           if time >= settings.time {
@@ -123,15 +90,6 @@ struct MainView: View {
     .onChange(of: user.level) {
       showingLevelUpNotification = true
     }
-        )
-  }
-  func showCompletedQuests() {
-    tracker.deselectQuests(quests: quests, context: modelContext)
-    showingCompletedQuests = true
-  }
-  func showActiveQuests() {
-    tracker.deselectQuests(quests: quests, context: modelContext)
-    showingCompletedQuests = false
   }
 }
 

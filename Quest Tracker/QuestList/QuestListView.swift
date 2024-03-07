@@ -12,7 +12,16 @@ struct QuestListView: View {
   @Environment(\.modelContext) var modelContext
   @ObservedObject private var sections = SectionModel()
 
-  var quests: [Quest]
+  @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
+
+  var filteredQuests: [Quest] {
+    if showingCompletedQuests {
+      return quests.filter({ $0.isCompleted == true})
+    } else {
+      return quests.filter({ $0.isCompleted == false})
+    }
+  }
+
   var settings: Settings
   var showingCompletedQuests: Bool
   var user: User
@@ -47,7 +56,7 @@ struct QuestListView: View {
 
 #Preview {
   MainActor.assumeIsolated {
-    QuestListView(quests: PreviewSampleData.previewQuests, settings: PreviewSampleData.previewSettings,
+    QuestListView(settings: PreviewSampleData.previewSettings,
               showingCompletedQuests: false,
               user: PreviewSampleData.previewUser)
         .modelContainer(PreviewSampleData.container)
