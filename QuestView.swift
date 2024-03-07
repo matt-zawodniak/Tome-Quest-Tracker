@@ -160,3 +160,10 @@ struct QuestView: View {
     }
   }
 }
+
+#Preview {
+  MainActor.assumeIsolated {
+    QuestView(quest: PreviewSampleData.previewQuest, settings: PreviewSampleData.previewSettings)
+      .modelContainer(PreviewSampleData.container)
+  }
+}

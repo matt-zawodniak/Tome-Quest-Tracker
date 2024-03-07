@@ -75,3 +75,9 @@ struct QuestRowView: View, Identifiable {
       }
     }
 }
+#Preview {
+  MainActor.assumeIsolated {
+    QuestRowView(quest: PreviewSampleData.previewQuest, settings: PreviewSampleData.previewSettings)
+      .modelContainer(PreviewSampleData.container)
+  }
+}
