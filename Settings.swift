@@ -10,10 +10,10 @@ import Foundation
 import SwiftData
 
 @Model public class Settings {
-    var dailyResetWarning: Bool
-    var dayOfTheWeek: Int64
-    var time: Date
-    var weeklyResetWarning: Bool
+    var dailyResetWarning: Bool = false
+    var dayOfTheWeek: Int64 = 2
+  var time: Date = Settings.defaultResetTime
+    var weeklyResetWarning: Bool = false
 
   public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
       self.dailyResetWarning = dailyResetWarning
@@ -36,36 +36,27 @@ extension Settings: Identifiable {
     time = Calendar.current.date(byAdding: components, to: time)!
   }
 
+  static var defaultResetTime: Date {
+    var components = DateComponents()
+    components.day = 1
+    components.second = -1
+
+    return Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
+  }
+
+  static var defaultSettings = Settings(
+    dayOfTheWeek: 2,
+    time: Settings.defaultResetTime,
+    dailyResetWarning: false,
+    weeklyResetWarning: false)
+
   static func fetchFirstOrInitialize(context: ModelContext) -> Settings {
 
-    var userSettings: Settings? {
-      let settings = FetchDescriptor<Settings>()
-      let results = try? context.fetch(settings)
+    let settingsRequest = FetchDescriptor<Settings>()
+    let settingsData = try? context.fetch(settingsRequest)
+    let settings = settingsData?.first ?? defaultSettings
 
-      return results?.first ?? nil
-    }
-
-    if let userSettings {
-
-      context.insert(userSettings)
-      return userSettings
-
-    } else {
-      var components = DateComponents()
-      components.day = 1
-      components.second = -1
-
-      let resetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
-
-      let defaultSettings = Settings(
-        dayOfTheWeek: 2,
-        time: resetTime,
-        dailyResetWarning: false,
-        weeklyResetWarning: false)
-
-      context.insert(defaultSettings)
-      return defaultSettings
-    }
+    return settings
   }
 
   var day: DayOfTheWeek {

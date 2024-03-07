@@ -8,17 +8,18 @@
 import Foundation
 import SwiftData
 
+@MainActor
 class ModelController {
   static let shared = ModelController()
 
-  var modelContainer: ModelContainer
-
-  init() {
+  let modelContainer: ModelContainer = {
     do {
-      modelContainer = try ModelContainer(for: Settings.self, Quest.self, User.self, Reward.self)
-    } catch {
-      fatalError("Failed to configure SwiftData container.")
-    }
-  }
+          let container = try ModelContainer(for: Settings.self, Quest.self, User.self, Reward.self)
 
+          return container
+        } catch {
+          fatalError("Failed to initialize container.")
+        }
+
+      }()
 }

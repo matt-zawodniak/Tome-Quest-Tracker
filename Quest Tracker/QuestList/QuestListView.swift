@@ -45,6 +45,7 @@ struct QuestListView: View {
   @ObservedObject private var sections = SectionModel()
 
   var body: some View {
+
     NavigationStack {
       List {
         if sortType == .questType {
