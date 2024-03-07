@@ -23,8 +23,13 @@ struct CompleteQuestIntent: AppIntent {
 
     let context = ModelController.shared.modelContainer.mainContext
 
-    Quest.completeQuest(name: questName, context: context)
+    if Quest.findActiveQuestBy(name: questName, context: context) != nil {
 
-    return .result(dialog: "\(questName) marked complete.")
+      Quest.completeQuest(name: questName, context: context)
+
+      return .result(dialog: "\(questName) marked complete.")
+    } else {
+      return .result(dialog: "Sorry, I couldn't find an active quest called \(questName). Use Add Quest to add it.")
+    }
   }
 }

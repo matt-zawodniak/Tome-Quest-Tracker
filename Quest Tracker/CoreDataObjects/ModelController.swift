@@ -8,12 +8,11 @@
 import Foundation
 import SwiftData
 
+@MainActor
 class ModelController {
   static let shared = ModelController()
 
-  var modelContainer: ModelContainer
-
-  init() {
+  let modelContainer: ModelContainer = {
     do {
       modelContainer = try ModelContainer(for: Settings.self, Quest.self, User.self, Reward.self)
     } catch {

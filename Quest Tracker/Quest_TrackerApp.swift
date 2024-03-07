@@ -10,6 +10,7 @@ import AppIntents
 import SwiftData
 
 @main
+@MainActor
 struct Quest_TrackerApp: App {
 
   var container: ModelContainer = ModelController.shared.modelContainer

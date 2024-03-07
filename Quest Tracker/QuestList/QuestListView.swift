@@ -47,6 +47,7 @@ struct QuestListView: View {
   @ObservedObject private var sections = SectionModel()
 
   var body: some View {
+
     NavigationStack {
       ZStack {
       List {
@@ -202,4 +203,3 @@ struct QuestListView: View {
       .modelContainer(PreviewSampleData.container)
   }
 }
-

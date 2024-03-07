@@ -89,25 +89,16 @@ extension User: Identifiable {
 
   }
 
+  static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0)
+
   static func fetchFirstOrInitialize(context: ModelContext) -> User {
 
-    var currentUser: User? {
-      let request = FetchDescriptor<User>()
-      let fetchedUserResults = (try? context.fetch(request)) ?? []
-      return fetchedUserResults.first ?? nil
-    }
+    let userRequest = FetchDescriptor<User>()
+    let userData = try? context.fetch(userRequest)
+    let user = userData?.first ?? defaultUser
 
-    if let currentUser {
+    return user
 
-      context.insert(currentUser)
-      return currentUser
-
-    } else {
-      let newUser = User(currentExp: 0, expToLevel: 100, level: 1, levelingScheme: 0)
-
-      context.insert(newUser)
-      return newUser
-    }
   }
 
  func levelUp(settings: Settings) {
