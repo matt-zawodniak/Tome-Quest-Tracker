@@ -25,7 +25,7 @@ struct Quest_TrackerApp: App {
 
     WindowGroup {
 
-      MainView(tracker: QuestTrackerViewModel())
+      MainView()
 
     }
     .modelContainer(container)

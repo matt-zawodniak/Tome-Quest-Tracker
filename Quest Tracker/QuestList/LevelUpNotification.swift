@@ -47,7 +47,7 @@ struct LevelUpNotification: View {
 
           })
 
-          NavigationLink(destination: RewardsView(user: user)) {
+          NavigationLink(destination: RewardsView()) {
 
             Button(action: {
 

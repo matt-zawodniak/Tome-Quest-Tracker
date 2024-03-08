@@ -12,6 +12,10 @@ struct QuestListView: View {
 
   @Environment(\.modelContext) var modelContext
 
+  @Environment(\.scenePhase) var scenePhase
+
+  @ObservedObject var tracker = QuestTrackerViewModel()
+
   @ObservedObject private var sections = SectionModel()
 
   @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
@@ -30,11 +34,23 @@ struct QuestListView: View {
 
   }
 
-  var settings: Settings
+  @Query() var settingsQueryResults: [Settings]
+  var settings: Settings {
+
+    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+
+  }
+
+  @Query() var userQueryResults: [User]
+  var user: User {
+
+    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+
+  }
 
   var showingCompletedQuests: Bool
 
-  var user: User
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   var body: some View {
 
@@ -73,16 +89,34 @@ struct QuestListView: View {
     .listStyle(.grouped)
     .listRowSpacing(5)
     .scrollContentBackground(.hidden)
+    .onReceive(timer, perform: { time in
 
+      if time >= settings.time {
+
+        tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+
+      }
+
+    })
+    .onChange(of: scenePhase) {
+
+      if scenePhase == .active {
+
+        if Date.now >= settings.time {
+
+          tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+
+        }
+
+      }
+
+    }
   }
-
 }
 
 #Preview {
   MainActor.assumeIsolated {
-    QuestListView(settings: PreviewSampleData.previewSettings,
-                  showingCompletedQuests: false,
-                  user: PreviewSampleData.previewUser)
-    .modelContainer(PreviewSampleData.container)
+    QuestListView(tracker: QuestTrackerViewModel(), showingCompletedQuests: false)
+      .modelContainer(PreviewSampleData.container)
   }
 }

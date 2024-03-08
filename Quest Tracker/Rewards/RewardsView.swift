@@ -15,7 +15,12 @@ struct RewardsView: View {
 
   @Query() var rewards: [Reward]
 
-  var user: User
+  @Query() var userQueryResults: [User]
+  var user: User {
+
+    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+
+  }
 
   var nextMilestoneLevel: Int64 {
 
@@ -156,7 +161,7 @@ struct RewardsView: View {
 
 #Preview {
   MainActor.assumeIsolated {
-    RewardsView(user: PreviewSampleData.previewUser)
+    RewardsView()
       .modelContainer(PreviewSampleData.container)
   }
 }

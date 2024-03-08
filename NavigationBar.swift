@@ -6,13 +6,30 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NavigationBar: View {
 
-  @Binding var showingNewQuestView: Bool
-  @Binding var showingRewardsView: Bool
-  @Binding var showingSettingsView: Bool
+  @Environment(\.modelContext) var modelContext
+
+  @State var showingNewQuestView: Bool = false
+  @State var showingRewardsView: Bool = false
+  @State var showingSettingsView: Bool = false
   @Binding var showingCompletedQuests: Bool
+
+  @Query() var settingsQueryResults: [Settings]
+  var settings: Settings {
+
+    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+
+  }
+
+  @Query() var userQueryResults: [User]
+  var user: User {
+
+    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+
+  }
 
   var body: some View {
     ZStack {
@@ -109,12 +126,24 @@ struct NavigationBar: View {
 
     }
     .background(.black)
+    .sheet(isPresented: $showingNewQuestView) {
+      QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
+        .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showingRewardsView) {
+      RewardsView()
+        .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showingSettingsView) {
+      SettingsView(settings: settings, user: user)
+        .presentationDetents([.medium, .large])
+    }
   }
 }
 
 #Preview {
-  NavigationBar(showingNewQuestView: .constant(false),
-                showingRewardsView: .constant(false),
-                showingSettingsView: .constant(false),
+  NavigationBar(showingNewQuestView: false,
+                showingRewardsView: false,
+                showingSettingsView: false,
                 showingCompletedQuests: .constant(false))
 }
