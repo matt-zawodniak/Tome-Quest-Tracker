@@ -13,14 +13,11 @@ struct MainView: View {
   @Environment(\.modelContext) var modelContext
   @Environment(\.scenePhase) var scenePhase
 
-  @Query() var settingsQueryResults: [Settings]
-  var settings: Settings {
-    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+  var settings: Settings { Settings.fetchFirstOrInitialize(context: modelContext)
   }
 
-  @Query() var userQueryResults: [User]
   var user: User {
-    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    User.fetchFirstOrInitialize(context: modelContext)
   }
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
