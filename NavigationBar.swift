@@ -39,7 +39,7 @@ struct NavigationBar: View {
           }
           Spacer()
           VStack {
-            Image(systemName: "book.closed")
+            Image(systemName: "checkmark.square")
               .onTapGesture {
                 showingCompletedQuests = true
                 showingNewQuestView = false
@@ -51,6 +51,8 @@ struct NavigationBar: View {
           Spacer()
           Spacer()
           Spacer()
+          Spacer()
+
           VStack {
             Image(systemName: "gift.fill")
               .onTapGesture {
@@ -98,4 +100,11 @@ struct NavigationBar: View {
     }
     .background(.black)
   }
+}
+
+#Preview {
+  NavigationBar(showingNewQuestView: .constant(false),
+                showingRewardsView: .constant(false),
+                showingSettingsView: .constant(false),
+                showingCompletedQuests: .constant(false))
 }
