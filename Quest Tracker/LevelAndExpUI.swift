@@ -47,8 +47,6 @@ struct LevelAndExpUI: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     LevelAndExpUI()
       .modelContainer(PreviewSampleData.container)
-  }
 }

@@ -16,14 +16,12 @@ struct MainView: View {
 
   @Environment(\.scenePhase) var scenePhase
 
-  @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
 
     return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
 
   }
 
-  @Query() var userQueryResults: [User]
   var user: User {
 
     return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
@@ -128,8 +126,6 @@ struct MainView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     MainView(tracker: QuestTrackerViewModel())
       .modelContainer(PreviewSampleData.container)
-  }
 }

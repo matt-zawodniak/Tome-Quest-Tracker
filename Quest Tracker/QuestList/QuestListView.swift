@@ -79,10 +79,8 @@ struct QuestListView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     QuestListView(settings: PreviewSampleData.previewSettings,
                   showingCompletedQuests: false,
                   user: PreviewSampleData.previewUser)
     .modelContainer(PreviewSampleData.container)
-  }
 }

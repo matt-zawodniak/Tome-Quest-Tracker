@@ -78,11 +78,9 @@ struct LevelUpNotification: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     LevelUpNotification(
       user: PreviewSampleData.previewUser,
       isPresented: .constant(true),
       navigateToRewardsView: .constant(false))
     .modelContainer(PreviewSampleData.container)
-  }
 }
