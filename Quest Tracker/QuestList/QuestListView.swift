@@ -115,8 +115,6 @@ struct QuestListView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     QuestListView(tracker: QuestTrackerViewModel(), showingCompletedQuests: false)
       .modelContainer(PreviewSampleData.container)
-  }
 }

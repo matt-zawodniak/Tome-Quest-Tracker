@@ -160,8 +160,7 @@ struct RewardsView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
+
     RewardsView()
       .modelContainer(PreviewSampleData.container)
-  }
 }

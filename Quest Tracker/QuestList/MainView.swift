@@ -13,6 +13,7 @@ struct MainView: View {
   @Environment(\.modelContext) var modelContext
 
   @Query() var userQueryResults: [User]
+
   var user: User {
 
     return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
@@ -59,8 +60,7 @@ struct MainView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
+
     MainView()
       .modelContainer(PreviewSampleData.container)
-  }
 }
