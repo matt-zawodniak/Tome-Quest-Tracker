@@ -90,8 +90,6 @@ struct MainView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     MainView(tracker: QuestTrackerViewModel())
       .modelContainer(PreviewSampleData.container)
-  }
 }

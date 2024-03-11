@@ -116,8 +116,6 @@ struct RewardsView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     RewardsView(user: PreviewSampleData.previewUser)
       .modelContainer(PreviewSampleData.container)
-  }
 }
