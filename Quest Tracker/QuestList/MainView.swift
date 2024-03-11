@@ -12,11 +12,9 @@ struct MainView: View {
 
   @Environment(\.modelContext) var modelContext
 
-  @Query() var userQueryResults: [User]
-
   var user: User {
 
-    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    User.fetchFirstOrInitialize(context: modelContext)
 
   }
 
