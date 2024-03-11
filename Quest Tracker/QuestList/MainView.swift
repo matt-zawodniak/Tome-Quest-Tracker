@@ -18,13 +18,13 @@ struct MainView: View {
 
   var settings: Settings {
 
-    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+    Settings.fetchFirstOrInitialize(context: modelContext)
 
   }
 
   var user: User {
 
-    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    User.fetchFirstOrInitialize(context: modelContext)
 
   }
 
