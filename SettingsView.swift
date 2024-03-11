@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SettingsView: View {
-  @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.modelContext) var modelContext
   @Query() var quests: [Quest]
   @Query() var rewards: [Reward]
 
@@ -33,6 +33,14 @@ struct SettingsView: View {
           HStack {
             Text("Daily Reset Time:")
             DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute)
+              .onChange(of: settings.time) {
+                if settings.weeklyResetWarning {
+
+                  LocalNotifications().deleteWeeklyNotification()
+
+                  LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
+                }
+              }
           }
           HStack {
             Text("Daily Reset Warning")
@@ -49,11 +57,42 @@ struct SettingsView: View {
                 Text("\(pickerText)")
               }
             }
+            .onChange(of: settings.day) {
+              if settings.weeklyResetWarning {
+
+                LocalNotifications().deleteWeeklyNotification()
+
+                LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
+              }
+            }
           }
           HStack {
             Text("Weekly Reset Warning:")
             Spacer()
             Toggle("", isOn: $settings.weeklyResetWarning)
+              .onChange(of: settings.weeklyResetWarning) {
+
+                if settings.weeklyResetWarning == true {
+
+                  UNUserNotificationCenter.current().requestAuthorization(
+                    options: [.alert, .badge, .sound]
+                  ) { success, error in
+
+                    if success {
+
+                      LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
+
+                      print("Permission approved!")
+
+                    } else if let error = error {
+                      print(error.localizedDescription)
+                    }
+                  }
+
+                } else {
+                  LocalNotifications().deleteWeeklyNotification()
+                }
+              }
           }
         }
         HStack {
