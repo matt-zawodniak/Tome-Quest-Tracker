@@ -13,7 +13,8 @@ struct MainView: View {
   @Environment(\.modelContext) var modelContext
   @Environment(\.scenePhase) var scenePhase
 
-  var settings: Settings { Settings.fetchFirstOrInitialize(context: modelContext)
+  var settings: Settings {
+    Settings.fetchFirstOrInitialize(context: modelContext)
   }
 
   var user: User {
