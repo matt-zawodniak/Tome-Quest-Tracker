@@ -18,16 +18,10 @@ struct LocalNotifications {
     content.subtitle = "You have one day left to complete your weekly tasks!"
     content.sound = UNNotificationSound.default
 
-//    let settings = Settings.fetchFirstOrInitialize(context: modelContext)
-//
-//    let dayBeforeReset = Int(settings.dayOfTheWeek)
-//
-//    var components = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
-//    components.day = dayBeforeReset
+    let settings = Settings.fetchFirstOrInitialize(context: modelContext)
 
-    var components = DateComponents()
-    components.hour = 18
-    components.minute = 46
+    var components = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
+    components.weekday = Int(settings.dayOfTheWeek) - 1
 
     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
 
