@@ -37,7 +37,7 @@ platform :ios do
 
     sentry_cli(
       org_slug: 'matt-zawodniak',
-      project_slug: 'apple-ios',
+      project_slug: 'quest-tracker',
       include_sources: true
     )
   end
