@@ -34,5 +34,11 @@ platform :ios do
     update_code_signing_settings(
       use_automatic_signing: true,
       path: "Quest Tracker.xcodeproj")
+
+    sentry_cli(
+      org_slug: 'matt-zawodniak',
+      project_slug: 'apple-ios',
+      include_sources: true
+    )
   end
 end

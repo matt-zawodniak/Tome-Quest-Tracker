@@ -25,6 +25,7 @@ struct QuestListView: View {
 
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
+//    return settingsQueryResults.first!
     return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
   }
 
