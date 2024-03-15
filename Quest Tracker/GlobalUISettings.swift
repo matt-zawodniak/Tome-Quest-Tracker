@@ -11,9 +11,9 @@ struct GlobalUISettings {
   static var background: some View {
     Image("IMG_1591")
       .resizable()
-      .scaledToFill()
+//      .scaledToFill()
       .opacity(0.2)
-      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]),
+      .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .black, .clear, .clear]),
                            startPoint: .top,
                            endPoint: .bottom))
       .ignoresSafeArea(.all)

@@ -121,7 +121,6 @@ struct ManageRewardsView: View {
 }
 
 #Preview {
-  MainActor.assumeIsolated {
     ManageRewardsView(minorRewards: [Reward(
                         isMilestoneReward: false,
                         name: "Minor",
@@ -131,5 +130,4 @@ struct ManageRewardsView: View {
                         name: "Milestone", sortId:
                           1)])
       .modelContainer(PreviewSampleData.container)
-  }
 }

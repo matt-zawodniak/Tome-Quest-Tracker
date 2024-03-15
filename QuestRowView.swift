@@ -25,12 +25,6 @@ struct QuestRowView: View, Identifiable {
   var body: some View {
     VStack {
       HStack {
-        //        switch quest.type {
-        //        case .mainQuest: Text("!").foregroundStyle(.red)
-        //        case .sideQuest: Text("!").foregroundStyle(.yellow)
-        //        case .dailyQuest: Text("!").foregroundStyle(.green)
-        //        case .weeklyQuest: Text("!").foregroundStyle(.purple)
-        //        }
         Text(quest.questName)
         Spacer()
       }
@@ -86,10 +80,8 @@ struct QuestRowView: View, Identifiable {
     }
 }
 #Preview {
-  MainActor.assumeIsolated {
     QuestRowView(quest: PreviewSampleData.previewQuest,
                  settings: PreviewSampleData.previewSettings,
                  user: PreviewSampleData.previewUser)
       .modelContainer(PreviewSampleData.container)
-  }
 }
