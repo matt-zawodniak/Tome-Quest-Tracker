@@ -72,7 +72,7 @@ struct SettingsView: View {
             Toggle("", isOn: $settings.weeklyResetWarning)
               .onChange(of: settings.weeklyResetWarning) {
 
-                if settings.weeklyResetWarning == true {
+                if settings.weeklyResetWarning {
 
                   UNUserNotificationCenter.current().requestAuthorization(
                     options: [.alert, .badge, .sound]
