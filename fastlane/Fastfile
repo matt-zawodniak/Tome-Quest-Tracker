@@ -36,6 +36,7 @@ platform :ios do
       path: "Quest Tracker.xcodeproj")
 
     sentry_cli(
+      auth_token: 'SENTRY_AUTH_TOKEN'
       org_slug: 'matt-zawodniak',
       project_slug: 'quest-tracker',
       include_sources: true
