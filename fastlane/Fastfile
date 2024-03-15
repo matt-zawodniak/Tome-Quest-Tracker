@@ -36,7 +36,6 @@ platform :ios do
       path: "Quest Tracker.xcodeproj")
 
   end
-End
 
   desc "release_build"
   lane :release do
