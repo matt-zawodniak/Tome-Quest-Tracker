@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 15.3
+          xcode-version: 15.2
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,11 +32,11 @@ jobs:
           echo "$SENTRY_AUTH_TOKEN" | base64
           
           bundle install
-          bundle exec fastlane build
+          bundle exec fastlane print_env_variable
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_AUTH_TOKEN: "falafel"
 
       - name: Upload ipa and dsyms to artifacts
         uses: actions/upload-artifact@v2
