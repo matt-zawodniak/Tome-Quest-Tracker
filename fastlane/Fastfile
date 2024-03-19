@@ -36,4 +36,30 @@ platform :ios do
       path: "Quest Tracker.xcodeproj")
 
   end
+
+desc "release_build"
+  lane :release do
+    setup_ci if is_ci
+
+
+    match(type: "development", 
+      readonly: is_ci || true)
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Quest Tracker.xcodeproj",
+      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
+
+    build_app(scheme: "Quest Tracker", export_method: 'development')
+
+    update_code_signing_settings(
+      use_automatic_signing: true,
+      path: "Quest Tracker.xcodeproj")
+
+    sentry_debug_files_upload(
+      auth_token: "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",
+      org_slug: "matt-zawodniak",
+      project_slug: "quest-tracker",
+    )
+  end
 end
