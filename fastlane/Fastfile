@@ -57,7 +57,7 @@ desc "release_build"
       path: "Quest Tracker.xcodeproj")
 
     sentry_debug_files_upload(
-      auth_token: "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",
+      auth_token: ENV['SENTRY_AUTH_TOKEN'],
       org_slug: "matt-zawodniak",
       project_slug: "quest-tracker",
     )
