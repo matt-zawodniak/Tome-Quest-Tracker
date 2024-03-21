@@ -32,7 +32,7 @@ jobs:
           echo "$SENTRY_AUTH_TOKEN" | base64
           
           bundle install
-          bundle exec build
+          bundle exec fastlane build
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
