@@ -64,10 +64,4 @@ desc "release_build"
     )
   end
 
-desc "Print env variable"
-  lane :print_env_variable do
-
-  puts "** SENTRY_AUTH_TOKEN IS = #{ENV['SENTRY_AUTH_TOKEN']} **"
-  end
-
 end
