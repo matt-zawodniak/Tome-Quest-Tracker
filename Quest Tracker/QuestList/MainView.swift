@@ -14,11 +14,12 @@ struct MainView: View {
 
   var user: User {
 
-    User.fetchFirstOrInitialize(context: modelContext)
+    User.fetchFirstOrCreate(context: modelContext)
 
   }
 
-  @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
+  @Query<Reward>(filter: #Predicate { $0.isEarned == true })
+  var earnedRewards: [Reward]
 
   @State var showingCompletedQuests: Bool = false
 

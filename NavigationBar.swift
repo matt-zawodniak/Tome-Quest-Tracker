@@ -19,16 +19,12 @@ struct NavigationBar: View {
 
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
-
-    return Settings.fetchFirstOrInitialize(context: modelContext)
-
+    return Settings.fetchFirstOrCreate(context: modelContext)
   }
 
   @Query() var userQueryResults: [User]
   var user: User {
-
-    return User.fetchFirstOrInitialize(context: modelContext)
-
+    return User.fetchFirstOrCreate(context: modelContext)
   }
 
   var body: some View {

@@ -74,9 +74,9 @@ extension Quest: Identifiable {
 
     if let quest: Quest = findActiveQuestBy(name: name, context: context) {
 
-      let user: User = User.fetchFirstOrInitialize(context: context)
+      let user: User = User.fetchFirstOrCreate(context: context)
 
-      let settings: Settings = Settings.fetchFirstOrInitialize(context: context)
+      let settings: Settings = Settings.fetchFirstOrCreate(context: context)
 
       quest.isCompleted = true
 

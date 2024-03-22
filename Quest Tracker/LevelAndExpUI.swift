@@ -15,7 +15,7 @@ struct LevelAndExpUI: View {
 
   var user: User {
 
-    return users.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    return users.first ?? User.fetchFirstOrCreate(context: modelContext)
 
   }
 

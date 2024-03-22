@@ -111,7 +111,7 @@ extension User: Identifiable {
 
   static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0)
 
-  static func fetchFirstOrInitialize(context: ModelContext) -> User {
+  static func fetchFirstOrCreate(context: ModelContext) -> User {
 
     let userRequest = FetchDescriptor<User>()
 

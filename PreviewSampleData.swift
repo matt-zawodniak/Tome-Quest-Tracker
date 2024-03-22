@@ -24,7 +24,7 @@ class PreviewSampleData {
 
       container.mainContext.insert(previewUser)
 
-      let previewSettings: Settings = Settings.fetchFirstOrInitialize(context: container.mainContext)
+      let previewSettings: Settings = Settings.fetchFirstOrCreate(context: container.mainContext)
 
       let previewQuests: [Quest] = [
         Quest(difficulty: 1,
