@@ -1,0 +1,15 @@
+{
+  "originHash" : "871dd67122b4e31c6deecf3e99300eea7538bf77ef76385e7ff5f74ee1afd2e6",
+  "pins" : [
+    {
+      "identity" : "bulletinboard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alexisakers/BulletinBoard",
+      "state" : {
+        "revision" : "e8ba81d25e41e5d24d6a4f404ed28443d728723b",
+        "version" : "5.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}

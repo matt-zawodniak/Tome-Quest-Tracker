@@ -14,8 +14,8 @@ struct LocalNotifications {
   public func scheduleWeeklyNotification(modelContext: ModelContext) {
 
     let content = UNMutableNotificationContent()
-    content.title = "Weekly Reset"
-    content.subtitle = "You have one day left to complete your weekly tasks!"
+    content.title = "Dawn of the Final Day"
+    content.subtitle = "Weekly reset is in one day!"
     content.sound = UNNotificationSound.default
 
     let settings = Settings.fetchFirstOrInitialize(context: modelContext)
