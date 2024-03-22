@@ -34,7 +34,8 @@ struct QuestListView: View {
 
   }
 
-  //Using @Query to auto-update settings var
+  // Using @Query to keep up to date with settings var and
+  // computed var to keep settings updated as it gets changed.
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
 
