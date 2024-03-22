@@ -13,9 +13,7 @@ struct MainView: View {
   @Environment(\.modelContext) var modelContext
 
   var user: User {
-
     User.fetchFirstOrCreate(context: modelContext)
-
   }
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true })

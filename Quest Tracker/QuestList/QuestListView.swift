@@ -34,20 +34,16 @@ struct QuestListView: View {
 
   }
 
-  // Using @Query to keep up to date with settings var and
-  // computed var to keep settings updated as it gets changed.
+  // Using @Query to keep up to date with Settings and
+  // computed var to create a default settings.
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
-
-    return Settings.fetchFirstOrCreate(context: modelContext)
-
+    return settingsQueryResults.first ?? Settings.fetchFirstOrCreate(context: modelContext)
   }
 
   @Query() var userQueryResults: [User]
   var user: User {
-
-    return User.fetchFirstOrCreate(context: modelContext)
-
+    return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
   var showingCompletedQuests: Bool
