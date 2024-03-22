@@ -14,17 +14,12 @@ struct LevelAndExpUI: View {
   @Query() var users: [User]
 
   var user: User {
-
     return users.first ?? User.fetchFirstOrCreate(context: modelContext)
-
   }
 
   var body: some View {
-
     GeometryReader { geometry in
-
       HStack {
-
         Spacer()
 
         Text("LVL \(user.level)")
@@ -36,14 +31,10 @@ struct LevelAndExpUI: View {
         Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
 
         Spacer()
-
       }
       .foregroundStyle(.cyan)
-
     }
-
   }
-
 }
 
 #Preview {

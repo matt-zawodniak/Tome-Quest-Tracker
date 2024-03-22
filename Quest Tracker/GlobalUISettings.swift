@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct GlobalUISettings {
-
   static var background: some View {
-
     Image("IMG_1591")
       .resizable()
       .opacity(0.2)
@@ -18,21 +16,14 @@ struct GlobalUISettings {
                            startPoint: .top,
                            endPoint: .bottom))
       .ignoresSafeArea(.all)
-
   }
 
   static func colorFor(quest: Quest) -> Color {
-
     switch quest.type {
-
     case .mainQuest: return .red.opacity(0.8)
-
     case .sideQuest: return .yellow.opacity(0.8)
-
     case .dailyQuest: return .green.opacity(0.8)
-
     case .weeklyQuest: return .purple.opacity(0.8)
-
     }
   }
 }

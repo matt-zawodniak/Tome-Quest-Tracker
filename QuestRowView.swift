@@ -16,98 +16,65 @@ struct QuestRowView: View, Identifiable {
 
   @State var quest: Quest
 
-  @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) var quests: [Quest]
+  @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) 
+  var quests: [Quest]
 
   var settings: Settings
-
   var user: User
 
   @State var showingQuestDetails: Bool = false
 
   var body: some View {
-
     VStack {
-
       HStack {
-
         Text(quest.questName)
-
         Spacer()
-
       }
 
       if quest.isSelected {
-
         Text(quest.questDescription ?? "")
 
         Text("Quest EXP: \(Int(quest.type.experience))")
 
         if quest.questBonusReward != nil {
-
           HStack {
-
             Text("Quest Reward:")
 
             Text(quest.questBonusReward ?? "")
-
           }
-
         }
 
         if !quest.isCompleted {
-
           if quest.type == .weeklyQuest ||
-
               quest.type == .dailyQuest {
-
             Button {
-
               quest.timeCompleted = Date()
 
               quest.isCompleted = true
-
             } label: {
-
               Text("Skip Quest").foregroundStyle(.orange)
-
             }
-
           }
-
         } else {
-
           Button {
-
             restoreQuest(quest: quest)
-
           } label: {
-
             Text("Restore to Quest List")
-
           }
-
         }
-
       }
-
     }
     .contentShape(Rectangle())
     .onTapGesture {
-
       showingQuestDetails.toggle()
-
     }
     .sheet(isPresented: $showingQuestDetails) {
-
       QuestDetailView(quest: quest, settings: settings, user: user)
         .presentationDetents([.medium, .large])
-
     }
-
   }
 
   func restoreQuest(quest: Quest) {
-
     quest.isCompleted = false
 
     quest.isSelected = false
@@ -115,22 +82,17 @@ struct QuestRowView: View, Identifiable {
     quest.timeCreated = Date.now
 
     print("\(quest.questName) is \(quest.isCompleted)")
-
   }
 
   func toggleQuest(quest: Quest, quests: [Quest]) {
-
     quest.isSelected.toggle()
 
     for other in quests where other != quest {
-
       other.isSelected = false
-
     }
-
   }
-
 }
+
 #Preview {
     QuestRowView(quest: PreviewSampleData.previewQuest,
                  settings: PreviewSampleData.previewSettings,

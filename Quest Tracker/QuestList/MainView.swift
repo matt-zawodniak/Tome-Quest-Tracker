@@ -24,40 +24,28 @@ struct MainView: View {
   @State var showingLevelUpNotification: Bool = false
 
   var body: some View {
-
     ZStack {
-
       GlobalUISettings.background
 
       VStack {
-
         QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 
         VStack {
-
           NavigationBar(showingCompletedQuests: $showingCompletedQuests)
 
           LevelAndExpUI()
             .padding(.horizontal)
-
         }
-
       }
-
     }
     .onChange(of: user.level) {
-
       showingLevelUpNotification = true
-
     }
-
   }
-
 }
 
 #Preview {
-
     MainView()
       .modelContainer(PreviewSampleData.container)
 }
