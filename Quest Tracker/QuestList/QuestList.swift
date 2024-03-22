@@ -55,7 +55,8 @@ struct QuestList: View {
             }
             .tint(.green)          }
         }
-      }    }
+      }
+    }
 }
 
 #Preview {

@@ -42,12 +42,14 @@ struct SettingsView: View {
                 }
               }
           }
+
           HStack {
             Text("Daily Reset Warning")
             Spacer()
             Toggle("", isOn: $settings.dailyResetWarning)
           }
         }
+
         VStack {
           HStack {
             Text("Weekly Reset Day:")
@@ -66,6 +68,7 @@ struct SettingsView: View {
               }
             }
           }
+
           HStack {
             Text("Weekly Reset Warning:")
             Spacer()
@@ -95,6 +98,7 @@ struct SettingsView: View {
               }
           }
         }
+
         HStack {
           Text("Level Scaling:")
           Picker("", selection: $user.scaling) {
@@ -104,6 +108,7 @@ struct SettingsView: View {
             }
           }
         }
+
         NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
           Button("Manage Rewards") {
           }

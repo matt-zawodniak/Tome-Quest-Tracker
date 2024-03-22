@@ -51,7 +51,6 @@ extension Settings: Identifiable {
     weeklyResetWarning: false)
 
   static func fetchFirstOrInitialize(context: ModelContext) -> Settings {
-
     let settingsRequest = FetchDescriptor<Settings>()
     let settingsData = try? context.fetch(settingsRequest)
     let settings = settingsData?.first ?? defaultSettings

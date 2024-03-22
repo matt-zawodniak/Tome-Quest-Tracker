@@ -31,39 +31,36 @@ struct QuestSection: View {
     quests.filter({ $0.type == questType }).sorted {$0.questName < $1.questName}
   }
 
-      var body: some View {
-        ForEach(questsOfChosenType, id: \.self) { (quest: Quest) in
-          QuestRowView(quest: quest, settings: settings)
-          .swipeActions(edge: .trailing) { Button(role: .destructive) {
-            modelContext.delete(quest)
-          } label: {
-            Label("Delete", systemImage: "trash")
-          }
-            if !showingCompletedQuests {
-              NavigationLink(destination: QuestView(
-                quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                  Button(action: {
-                  }, label: {
-                    Text("Edit")
-                  }
-                  )
+  var body: some View {
+    ForEach(questsOfChosenType, id: \.self) { (quest: Quest) in
+      QuestRowView(quest: quest, settings: settings)
+        .swipeActions(edge: .trailing) { Button(role: .destructive) {
+          modelContext.delete(quest)
+        } label: {
+          Label("Delete", systemImage: "trash")
+        }
+          if !showingCompletedQuests {
+            NavigationLink(destination: QuestView(
+              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
+                Button(action: {
+                }, label: {
+                  Text("Edit")
                 }
-            }
-          }
-          .swipeActions(edge: .leading) {
-            if !showingCompletedQuests {
-              Button {
-                quest.isCompleted = true
-                user.giveExp(quest: quest, settings: settings, context: modelContext)
-                quest.timeCompleted = Date.now
-              } label: {
-                Image(systemName: "checkmark")
+                )
               }
-              .tint(.green)          }
           }
-        }    }
+        }
+        .swipeActions(edge: .leading) {
+          if !showingCompletedQuests {
+            Button {
+              quest.isCompleted = true
+              user.giveExp(quest: quest, settings: settings, context: modelContext)
+              quest.timeCompleted = Date.now
+            } label: {
+              Image(systemName: "checkmark")
+            }
+            .tint(.green)          }
+        }
+    }
   }
-  //
-  // #Preview {
-  //    QuestList()
-  // }
+  }

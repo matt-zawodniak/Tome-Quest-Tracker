@@ -78,6 +78,7 @@ struct QuestView: View {
           }
         }.pickerStyle(.segmented)
       }
+
       HStack {
         Text("Time")
         Picker("Quest Length", selection: $quest.questLength) {
@@ -87,10 +88,12 @@ struct QuestView: View {
           }
         }.pickerStyle(.segmented)
       }
+
       HStack {
         Text("Bonus Reward:")
         TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
       }
+
       dueDateView
     }
   }

@@ -59,12 +59,14 @@ extension Date {
     dateFormatter.timeStyle = .short
     return dateFormatter.string(from: self)
   }
+
   var dayOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
 
     return dateFormatter.string(from: self)
   }
+
   var timeOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .none
@@ -90,6 +92,7 @@ extension Optional where Wrapped == Date {
       _bound = newValue
     }
   }
+
   var exists: Bool {
     if self == nil {
       return false
@@ -97,6 +100,7 @@ extension Optional where Wrapped == Date {
       return true
     }
   }
+
   var string: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .short
@@ -107,6 +111,7 @@ extension Optional where Wrapped == Date {
       return dateFormatter.string(from: self!)
     }
   }
+
   var dateOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .short
@@ -116,6 +121,7 @@ extension Optional where Wrapped == Date {
       return dateFormatter.string(from: self!)
     }
   }
+
   var dayOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
@@ -125,6 +131,7 @@ extension Optional where Wrapped == Date {
       return dateFormatter.string(from: self!)
     }
   }
+
   var timeOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .none
@@ -136,6 +143,7 @@ extension Optional where Wrapped == Date {
     }
   }
 }
+
 extension Optional where Wrapped == String {
   var _bound: String? {
     get {

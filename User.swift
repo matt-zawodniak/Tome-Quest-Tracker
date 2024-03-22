@@ -98,13 +98,12 @@ extension User: Identifiable {
     let user = userData?.first ?? defaultUser
 
     return user
-
   }
 
  func levelUp(settings: Settings) {
-
     level += 1
     currentExp -= expToLevel
+
     if levelingScheme == 1 {
       expToLevel += 20
     }
