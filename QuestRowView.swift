@@ -16,7 +16,7 @@ struct QuestRowView: View, Identifiable {
 
   @State var quest: Quest
 
-  @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) 
+  @Query<Quest>(filter: #Predicate { $0.isCompleted == false })
   var quests: [Quest]
 
   var settings: Settings
