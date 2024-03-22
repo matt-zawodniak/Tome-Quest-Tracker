@@ -30,12 +30,9 @@ struct LocalNotifications {
                                         trigger: trigger)
 
     UNUserNotificationCenter.current().add(request)
-
-    print(components)
   }
 
   public func deleteWeeklyNotification() {
-
     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["weeklyReset"])
   }
 }
