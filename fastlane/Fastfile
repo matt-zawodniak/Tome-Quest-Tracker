@@ -41,8 +41,6 @@ desc "release_build"
   lane :release do
     setup_ci if is_ci
 
-    SENTRY_AUTH_TOKEN = environment_variable(get: "SENTRY_AUTH_TOKEN")
-
     match(type: "development", 
       readonly: is_ci || true)
 
