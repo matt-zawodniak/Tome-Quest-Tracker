@@ -12,7 +12,6 @@ class PreviewSampleData {
 
   @MainActor
   static var container: ModelContainer = {
-
     do {
       let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
 
@@ -83,9 +82,7 @@ class PreviewSampleData {
       ]
 
       previewQuests.forEach {
-
         container.mainContext.insert($0)
-
       }
 
       let previewRewards: [Reward] = [
@@ -94,17 +91,12 @@ class PreviewSampleData {
       ]
 
       previewRewards.forEach {
-
         container.mainContext.insert($0)
-
       }
 
       return container
-
     } catch {
-
       fatalError("Failed to create preview container.")
-
     }
   }()
 
@@ -183,5 +175,4 @@ class PreviewSampleData {
           questName: "Second Side",
           questType: 1)
   ]
-
 }

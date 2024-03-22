@@ -11,15 +11,12 @@ struct ManageRewardsView: View {
   @Environment(\.modelContext) var modelContext
 
   var minorRewards: [Reward]
-
   var milestoneRewards: [Reward]
 
   @State var presentingAddRewardView: Bool = false
 
   var body: some View {
-
     List {
-
       HStack {
 
         Spacer()
@@ -27,16 +24,13 @@ struct ManageRewardsView: View {
         Text("Add Reward")
 
         Spacer()
-
       }
       .overlay(
-
         NavigationLink("", destination: AddRewardView(
           reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
           minorRewardCount: minorRewards.count,
           milestoneRewardCount: milestoneRewards.count))
         .opacity(0)
-
       )
       .listRowBackground(StylizedOutline()
         .stroke(.cyan.opacity(0.4))
@@ -45,12 +39,9 @@ struct ManageRewardsView: View {
       .listRowSeparator(.hidden)
 
       Section(header: Text("Minor Rewards")) {
-
         ForEach(minorRewards, id: \.self) { reward in
-
           Text(reward.name)
             .swipeActions(edge: .trailing) {
-
               Button(role: .destructive) {
                 modelContext.delete(reward)
               } label: {
@@ -60,30 +51,23 @@ struct ManageRewardsView: View {
               NavigationLink(destination: AddRewardView(reward: reward,
                                                         minorRewardCount: minorRewards.count,
                                                         milestoneRewardCount: milestoneRewards.count)) {
-
                 Button(action: {
                 }, label: {
                   Text("Edit")
                 }
                 )
-
               }
-
             }
         }
         .onMove(perform: moveMinorRewards)
-
       }
       .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
       .listRowSeparator(.hidden)
 
       Section(header: Text("Milestone Rewards")) {
-
         ForEach(milestoneRewards, id: \.self) { reward in
-
           Text(reward.name)
             .swipeActions(edge: .trailing) {
-
               Button(role: .destructive) {
                 modelContext.delete(reward)
               } label: {
@@ -93,22 +77,18 @@ struct ManageRewardsView: View {
               NavigationLink(destination: AddRewardView(reward: reward,
                                                         minorRewardCount: minorRewards.count,
                                                         milestoneRewardCount: milestoneRewards.count)) {
-
                 Button(action: {
                 }, label: {
                   Text("Edit")
                 }
                 )
-
               }
             }
         }
         .onMove(perform: moveMilestoneRewards)
-
       }
       .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
       .listRowSeparator(.hidden)
-
     }
     .toolbar {
       EditButton()
@@ -122,7 +102,6 @@ struct ManageRewardsView: View {
   }
 
   private func moveMinorRewards(from source: IndexSet, to destination: Int) {
-
     var updatedMinorRewards: [Reward] = minorRewards.map({ $0 })
 
     updatedMinorRewards.move(fromOffsets: source, toOffset: destination)
@@ -130,13 +109,11 @@ struct ManageRewardsView: View {
     for reverseIndex in stride( from: updatedMinorRewards.count - 1,
                                 through: 0,
                                 by: -1) {
-
       updatedMinorRewards[reverseIndex].sortId = Int64(reverseIndex)
-
     }
   }
-  private func moveMilestoneRewards(from source: IndexSet, to destination: Int) {
 
+  private func moveMilestoneRewards(from source: IndexSet, to destination: Int) {
     var updatedMilestoneRewards: [Reward] = milestoneRewards.map({ $0 })
 
     updatedMilestoneRewards.move(fromOffsets: source, toOffset: destination)
@@ -144,9 +121,7 @@ struct ManageRewardsView: View {
     for reverseIndex in stride( from: updatedMilestoneRewards.count - 1,
                                 through: 0,
                                 by: -1) {
-
       updatedMilestoneRewards[reverseIndex].sortId = Int64(reverseIndex)
-
     }
   }
 }
@@ -161,5 +136,4 @@ struct ManageRewardsView: View {
                         name: "Milestone", sortId:
                           1)])
     .modelContainer(PreviewSampleData.container)
-
 }

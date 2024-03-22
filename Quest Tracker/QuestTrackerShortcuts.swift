@@ -9,9 +9,7 @@ import Foundation
 import AppIntents
 
 struct QuestTrackerShortcuts: AppShortcutsProvider {
-
   static var appShortcuts: [AppShortcut] {
-
     AppShortcut(
       intent: AddQuestIntent(),
       phrases: ["Add a quest to \(.applicationName)",
@@ -22,7 +20,6 @@ struct QuestTrackerShortcuts: AppShortcutsProvider {
                ],
       shortTitle: "Add Quest",
       systemImageName: "plus.circle"
-
     )
 
     AppShortcut(
@@ -36,6 +33,5 @@ struct QuestTrackerShortcuts: AppShortcutsProvider {
       shortTitle: "Complete Quest",
       systemImageName: "checkmark"
     )
-
   }
 }

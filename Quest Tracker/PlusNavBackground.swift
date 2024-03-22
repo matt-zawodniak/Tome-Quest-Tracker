@@ -12,7 +12,6 @@ struct PlusNavBackground: Shape {
   var opacity = 1
 
   func path(in rect: CGRect) -> Path {
-
     var path = Path()
 
     path.move(to: CGPoint(x: rect.size.width * 0.4,
@@ -25,7 +24,6 @@ struct PlusNavBackground: Shape {
                              y: rect.size.height))
 
     return path
-
   }
 }
 

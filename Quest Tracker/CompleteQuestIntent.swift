@@ -10,7 +10,6 @@ import AppIntents
 import SwiftData
 
 struct CompleteQuestIntent: AppIntent {
-
   static let title: LocalizedStringResource = "Complete Quest"
 
   @Parameter(title: "Quest",
@@ -20,19 +19,14 @@ struct CompleteQuestIntent: AppIntent {
 
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
-
     let context = ModelController.shared.modelContainer.mainContext
 
     if Quest.findActiveQuestBy(name: questName, context: context) != nil {
-
       Quest.completeQuest(name: questName, context: context)
 
       return .result(dialog: "\(questName) marked complete.")
-
     } else {
-
       return .result(dialog: "Sorry, I couldn't find an active quest called \(questName). Use Add Quest to add it.")
-
     }
   }
 }

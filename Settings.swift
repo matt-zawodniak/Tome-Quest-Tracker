@@ -12,52 +12,40 @@ import SwiftData
 @Model public class Settings {
 
   var dailyResetWarning: Bool = false
-
   var dayOfTheWeek: Int64 = 2
-
   var time: Date = Settings.defaultResetTime
-
   var weeklyResetWarning: Bool = false
 
   public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
-
     self.dailyResetWarning = dailyResetWarning
     self.dayOfTheWeek = dayOfTheWeek
     self.time = time
     self.weeklyResetWarning = weeklyResetWarning
-
   }
 }
 
 extension Settings: Identifiable {
-
   func setNewResetTime() {
-
     let components = Calendar.current.dateComponents([.hour, .minute, .second], from: time)
 
     let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
 
     time = newResetTime!
-
   }
 
   func refreshDailyReset() {
-
     var components = DateComponents()
     components.day = 1
 
     time = Calendar.current.date(byAdding: components, to: time)!
-
   }
 
   static var defaultResetTime: Date {
-
     var components = DateComponents()
     components.day = 1
     components.second = -1
 
     return Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
-
   }
 
   static var defaultSettings = Settings(
@@ -67,7 +55,6 @@ extension Settings: Identifiable {
     weeklyResetWarning: false)
 
   static func fetchFirstOrCreate(context: ModelContext) -> Settings {
-
     let settingsRequest = FetchDescriptor<Settings>()
 
     let settingsData = try? context.fetch(settingsRequest)
@@ -75,24 +62,19 @@ extension Settings: Identifiable {
     let settings = settingsData?.first ?? defaultSettings
 
     return settings
-
   }
 
   var day: DayOfTheWeek {
-
     get {
       return DayOfTheWeek(rawValue: self.dayOfTheWeek)!
     }
-
     set {
       self.dayOfTheWeek = newValue.rawValue
     }
-
   }
 }
 
 enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
-
   case sunday = 1
   case monday = 2
   case tuesday = 3
@@ -102,7 +84,6 @@ enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
   case saturday = 7
 
   var description: String {
-
     switch self {
     case .sunday: return "Sunday"
     case .monday: return "Monday"
@@ -112,6 +93,5 @@ enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
     case .friday: return "Friday"
     case .saturday: return "Saturday"
     }
-
   }
 }

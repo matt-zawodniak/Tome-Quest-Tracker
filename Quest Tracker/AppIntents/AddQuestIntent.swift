@@ -11,7 +11,6 @@ import SwiftUI
 import SwiftData
 
 struct AddQuestIntent: AppIntent {
-
   static let title: LocalizedStringResource = "Add Quest"
 
   @Parameter(title: "Quest Name",
@@ -26,7 +25,6 @@ struct AddQuestIntent: AppIntent {
 
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
-
     let quest = Quest(
       difficulty: 1,
       id: UUID(),
@@ -40,6 +38,5 @@ struct AddQuestIntent: AppIntent {
     ModelController.shared.modelContainer.mainContext.insert(quest)
 
     return .result(dialog: "Added \(questName) to Quest Tracker.")
-
   }
 }

@@ -12,50 +12,38 @@ import SwiftData
 @Model public class User {
 
   var currentExp: Double = 0.0
-
   var expToLevel: Double = 0.0
-
   var level: Int64 = 0
-
   var levelingScheme: Int64 = 0
 
   public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64) {
-
     self.currentExp = currentExp
     self.expToLevel = expToLevel
     self.level = level
     self.levelingScheme = levelingScheme
   }
-
 }
 
 extension User: Identifiable {
-
   func giveExp(quest: Quest, settings: Settings, context: ModelContext) {
-
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
 
     currentExp += questExp
 
     if currentExp >= expToLevel {
-
       levelUp(settings: settings)
 
       if level % 5 == 0 {
-
         var milestoneRewardFetchedResults: [Reward]? {
-
           let request = FetchDescriptor<Reward>(
             predicate: #Predicate { $0.isMilestoneReward == true && $0.isEarned == false },
             sortBy: [SortDescriptor(\.sortId)])
 
           return (try? context.fetch(request))
-
         }
 
         if let milestoneRewardFetchedResults,
            let firstMilestoneReward = milestoneRewardFetchedResults.first {
-
           createUnearnedCopyOfRewardAtEndOfArray(
             earnedReward: firstMilestoneReward,
             rewardArray: milestoneRewardFetchedResults,
@@ -65,22 +53,17 @@ extension User: Identifiable {
 
           firstMilestoneReward.dateEarned = Date()
         }
-
       } else {
-
         var minorRewardFetchedResults: [Reward]? {
-
           let request = FetchDescriptor<Reward>(
             predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false},
             sortBy: [SortDescriptor(\.sortId)])
 
           return (try? context.fetch(request))
-
         }
 
         if let minorRewardFetchedResults,
            let firstMinorReward = minorRewardFetchedResults.first {
-
           createUnearnedCopyOfRewardAtEndOfArray(earnedReward: firstMinorReward,
                                                  rewardArray: minorRewardFetchedResults,
                                                  context: context)
@@ -97,7 +80,6 @@ extension User: Identifiable {
     earnedReward: Reward,
     rewardArray: [Reward],
     context: ModelContext) {
-
       let endOfArraySortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
 
       let unearnedCopyofReward = Reward(
@@ -106,13 +88,11 @@ extension User: Identifiable {
         sortId: endOfArraySortId)
 
       context.insert(unearnedCopyofReward)
-
     }
 
   static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0)
 
   static func fetchFirstOrCreate(context: ModelContext) -> User {
-
     let userRequest = FetchDescriptor<User>()
 
     let userData = try? context.fetch(userRequest)
@@ -120,46 +100,36 @@ extension User: Identifiable {
     let user = userData?.first ?? defaultUser
 
     return user
-
   }
 
   func levelUp(settings: Settings) {
-
     level += 1
 
     currentExp -= expToLevel
 
     if levelingScheme == 1 {
-
       expToLevel += 20
     }
-
   }
 
   var scaling: LevelingSchemes {
-
     get {
       return LevelingSchemes(rawValue: self.levelingScheme)!
     }
-
     set {
       self.levelingScheme = newValue.rawValue
     }
-
   }
 }
 
 enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
-
   case normal = 0
   case hard = 1
 
   var description: String {
-
     switch self {
     case .normal: "Normal"
     case .hard: "Hard"
     }
-
   }
 }

@@ -29,15 +29,12 @@ struct NavigationBar: View {
 
   var body: some View {
     ZStack {
-
       VStack(spacing: 15) {
-
         Divider()
           .frame(height: 2)
           .overlay(.cyan)
 
         HStack {
-
           Spacer()
 
           VStack {
@@ -79,7 +76,6 @@ struct NavigationBar: View {
                 showingNewQuestView = false
                 showingRewardsView = true
                 showingSettingsView = false
-
               }
               .foregroundStyle(showingRewardsView ? .cyan : .white)
           }
@@ -93,16 +89,13 @@ struct NavigationBar: View {
                 showingNewQuestView = false
                 showingRewardsView = false
                 showingSettingsView = true
-
               }
               .foregroundStyle(showingSettingsView ? .cyan : .white)
           }
 
           Spacer()
-
         }
         .foregroundColor(.white)
-
       }
       .padding()
 
@@ -119,7 +112,6 @@ struct NavigationBar: View {
           showingSettingsView = false
           print("Tapped +")
         }
-
     }
     .background(.black)
     .sheet(isPresented: $showingNewQuestView) {
