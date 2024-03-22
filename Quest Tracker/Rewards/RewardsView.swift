@@ -18,7 +18,7 @@ struct RewardsView: View {
   @Query() var userQueryResults: [User]
   var user: User {
 
-    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    return User.fetchFirstOrInitialize(context: modelContext)
 
   }
 

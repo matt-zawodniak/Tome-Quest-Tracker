@@ -37,14 +37,14 @@ struct QuestListView: View {
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
 
-    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+    return Settings.fetchFirstOrInitialize(context: modelContext)
 
   }
 
   @Query() var userQueryResults: [User]
   var user: User {
 
-    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    return User.fetchFirstOrInitialize(context: modelContext)
 
   }
 
