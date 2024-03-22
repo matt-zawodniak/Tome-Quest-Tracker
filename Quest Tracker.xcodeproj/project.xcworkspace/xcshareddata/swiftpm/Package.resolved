@@ -1,5 +1,4 @@
 {
-  "originHash" : "871dd67122b4e31c6deecf3e99300eea7538bf77ef76385e7ff5f74ee1afd2e6",
   "pins" : [
     {
       "identity" : "bulletinboard",
@@ -11,5 +10,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
