@@ -37,7 +37,6 @@ struct LevelUpNotification: View {
             Text("Dismiss")
           })
 
-          NavigationLink(destination: RewardsView()) {
             Button(action: {
               navigateToRewardsView = true
 
@@ -48,7 +47,6 @@ struct LevelUpNotification: View {
             .buttonStyle(.borderedProminent)
           }
         }
-      }
       .padding()
       .background(.white)
       .cornerRadius(20)

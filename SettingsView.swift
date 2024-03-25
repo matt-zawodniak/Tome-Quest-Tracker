@@ -9,8 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SettingsView: View {
-
-  @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.modelContext) var modelContext
 
   @Query() var quests: [Quest]
   @Query() var rewards: [Reward]
@@ -37,7 +36,16 @@ struct SettingsView: View {
           HStack {
             Text("Daily Reset Time:")
 
-            DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute).colorMultiply(.cyan)
+            DatePicker("", selection: $settings.time, displayedComponents: .hourAndMinute)
+              .colorMultiply(.cyan)
+              .onChange(of: settings.time) {
+                if settings.weeklyResetWarning {
+
+                  LocalNotifications().deleteWeeklyNotification()
+
+                  LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
+                }
+              }
           }
 
           HStack {
@@ -64,6 +72,14 @@ struct SettingsView: View {
                 Text("\(pickerText)")
               }
             }
+            .onChange(of: settings.day) {
+              if settings.weeklyResetWarning {
+
+                LocalNotifications().deleteWeeklyNotification()
+
+                LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
+              }
+            }
           }
 
           HStack {
@@ -72,6 +88,29 @@ struct SettingsView: View {
             Spacer()
 
             Toggle("", isOn: $settings.weeklyResetWarning)
+              .onChange(of: settings.weeklyResetWarning) {
+
+                if settings.weeklyResetWarning {
+
+                  UNUserNotificationCenter.current().requestAuthorization(
+                    options: [.alert, .badge, .sound]
+                  ) { success, error in
+
+                    if success {
+
+                      LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
+
+                      print("Permission approved!")
+
+                    } else if let error = error {
+                      print(error.localizedDescription)
+                    }
+                  }
+
+                } else {
+                  LocalNotifications().deleteWeeklyNotification()
+                }
+              }
           }
         }
       }

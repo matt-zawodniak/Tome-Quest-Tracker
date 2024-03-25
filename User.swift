@@ -102,7 +102,7 @@ extension User: Identifiable {
     return user
   }
 
-  func levelUp(settings: Settings) {
+ func levelUp(settings: Settings) {
     level += 1
 
     currentExp -= expToLevel

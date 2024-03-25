@@ -44,7 +44,6 @@ struct QuestSection: View {
           } label: {
             Label("Delete", systemImage: "trash")
           }
-
           if !showingCompletedQuests {
             NavigationLink(destination: QuestView(
               quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {

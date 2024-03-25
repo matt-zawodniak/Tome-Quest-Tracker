@@ -85,12 +85,12 @@ struct QuestRowView: View, Identifiable {
   }
 
   func toggleQuest(quest: Quest, quests: [Quest]) {
-    quest.isSelected.toggle()
+      quest.isSelected.toggle()
 
-    for other in quests where other != quest {
-      other.isSelected = false
+      for other in quests where other != quest {
+        other.isSelected = false
+      }
     }
-  }
 }
 
 #Preview {
