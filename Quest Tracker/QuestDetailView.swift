@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct QuestDetailView: View {
+
   @Environment(\.modelContext) var modelContext
+
   @Environment(\.dismiss) var dismiss
 
   @State var quest: Quest
@@ -18,14 +20,15 @@ struct QuestDetailView: View {
   var body: some View {
     ZStack {
       Rectangle().fill(GlobalUISettings.colorFor(quest: quest).opacity(0.8))
+
       VStack {
         VStack(spacing: 20) {
           Spacer()
+
           Text(quest.questName).font(.largeTitle).foregroundStyle(.white)
 
           if let description = quest.questDescription {
             Text(description)
-
           } else {
             EmptyView()
           }
@@ -33,13 +36,16 @@ struct QuestDetailView: View {
           Spacer()
 
           Text("Rewards").font(.headline)
+
           Text(" \(Int(quest.type.experience + quest.questBonusExp)) EXP")
 
           if let bonus = quest.questBonusReward {
             Text("Bonus Reward: \(bonus)")
           }
+
           Spacer()
         }
+
         if quest.isCompleted == false {
           if quest.type == .dailyQuest || quest.type == .weeklyQuest {
             List {
@@ -50,8 +56,10 @@ struct QuestDetailView: View {
               }
               .onTapGesture {
                 modelContext.delete(quest)
+
                 dismiss()
               }
+
               HStack {
                 Spacer()
                 Text("Edit")
@@ -59,8 +67,8 @@ struct QuestDetailView: View {
               }
               .onTapGesture {
                 dismiss()
-
               }
+
               HStack {
                 Spacer()
                 Text("Skip")
@@ -68,9 +76,12 @@ struct QuestDetailView: View {
               }
               .onTapGesture {
                 quest.timeCompleted = Date()
+
                 quest.isCompleted = true
+
                 dismiss()
               }
+
               HStack {
                 Spacer()
                 Text("Complete")
@@ -78,8 +89,11 @@ struct QuestDetailView: View {
               }
               .onTapGesture {
                 quest.isCompleted = true
+
                 user.giveExp(quest: quest, settings: settings, context: modelContext)
+
                 quest.timeCompleted = Date.now
+
                 dismiss()
               }
             }
@@ -87,6 +101,7 @@ struct QuestDetailView: View {
             .listRowSpacing(5)
             .scrollContentBackground(.hidden)
             .listRowBackground(Color.black)
+
           } else {
             List {
               HStack {
@@ -96,8 +111,10 @@ struct QuestDetailView: View {
               }
               .onTapGesture {
                 modelContext.delete(quest)
+
                 dismiss()
               }
+
               HStack {
                 Spacer()
                 Text("Edit")
@@ -106,6 +123,7 @@ struct QuestDetailView: View {
               .onTapGesture {
                 dismiss()
               }
+
               HStack {
                 Spacer()
                 Text("Complete")
@@ -113,8 +131,11 @@ struct QuestDetailView: View {
               }
               .onTapGesture {
                 quest.isCompleted = true
+
                 user.giveExp(quest: quest, settings: settings, context: modelContext)
+
                 quest.timeCompleted = Date.now
+
                 dismiss()
               }
             }
@@ -130,6 +151,7 @@ struct QuestDetailView: View {
               Text("Edit")
               Spacer()
             }
+
             HStack {
               Spacer()
               Text("Restore to Active Quests")
@@ -137,6 +159,7 @@ struct QuestDetailView: View {
             }
             .onTapGesture {
               quest.isCompleted = false
+
               dismiss()
             }
           }
@@ -151,13 +174,8 @@ struct QuestDetailView: View {
   }
 }
 
-// #Preview {
-//  QuestDetailView(quest: Quest(difficulty: 1,
-//                               id: UUID(),
-//                               isCompleted: false,
-//                               isSelected: true,
-//                               length: 2,
-//                               questBonusExp: 20,
-//                               questName: "Test",
-//                               questType: 3))
-// }
+#Preview {
+  QuestDetailView(quest: PreviewSampleData.previewQuest,
+                  settings: PreviewSampleData.previewSettings,
+                  user: PreviewSampleData.previewUser)
+}

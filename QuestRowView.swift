@@ -15,7 +15,9 @@ struct QuestRowView: View, Identifiable {
   var id = UUID()
 
   @State var quest: Quest
-  @Query<Quest>(filter: #Predicate { $0.isCompleted == false }) var quests: [Quest]
+
+  @Query<Quest>(filter: #Predicate { $0.isCompleted == false })
+  var quests: [Quest]
 
   var settings: Settings
   var user: User
@@ -31,18 +33,23 @@ struct QuestRowView: View, Identifiable {
 
       if quest.isSelected {
         Text(quest.questDescription ?? "")
+
         Text("Quest EXP: \(Int(quest.type.experience))")
+
         if quest.questBonusReward != nil {
           HStack {
             Text("Quest Reward:")
+
             Text(quest.questBonusReward ?? "")
           }
         }
+
         if !quest.isCompleted {
           if quest.type == .weeklyQuest ||
               quest.type == .dailyQuest {
             Button {
               quest.timeCompleted = Date()
+
               quest.isCompleted = true
             } label: {
               Text("Skip Quest").foregroundStyle(.orange)
@@ -54,34 +61,41 @@ struct QuestRowView: View, Identifiable {
           } label: {
             Text("Restore to Quest List")
           }
-          }
         }
       }
+    }
     .contentShape(Rectangle())
     .onTapGesture {
-        showingQuestDetails.toggle()
+      showingQuestDetails.toggle()
     }
     .sheet(isPresented: $showingQuestDetails) {
       QuestDetailView(quest: quest, settings: settings, user: user)
         .presentationDetents([.medium, .large])
     }
   }
+
   func restoreQuest(quest: Quest) {
     quest.isCompleted = false
+
     quest.isSelected = false
+
     quest.timeCreated = Date.now
+
     print("\(quest.questName) is \(quest.isCompleted)")
   }
+
   func toggleQuest(quest: Quest, quests: [Quest]) {
-      quest.isSelected.toggle()
-      for other in quests where other != quest {
-        other.isSelected = false
-      }
+    quest.isSelected.toggle()
+
+    for other in quests where other != quest {
+      other.isSelected = false
     }
+  }
 }
+
 #Preview {
     QuestRowView(quest: PreviewSampleData.previewQuest,
                  settings: PreviewSampleData.previewSettings,
                  user: PreviewSampleData.previewUser)
-      .modelContainer(PreviewSampleData.container)
+    .modelContainer(PreviewSampleData.container)
 }

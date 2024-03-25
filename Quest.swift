@@ -11,19 +11,20 @@ import SwiftData
 import AppIntents
 
 @Model class Quest {
-    var difficulty: Int64 = 0
-    var dueDate: Date?
-    var id = UUID()
-    var isCompleted: Bool = false
-    @Attribute(.ephemeral) var isSelected: Bool = false
-    var length: Int64 = 0
-    var questBonusExp: Double = 0.0
-    var questBonusReward: String?
-    var questDescription: String?
-    var questName: String = ""
-    var questType: Int64 = 0
-    var timeCompleted: Date?
-    var timeCreated: Date?
+  var difficulty: Int64 = 0
+  var dueDate: Date?
+  var id = UUID()
+  var isCompleted: Bool = false
+  @Attribute(.ephemeral) var isSelected: Bool = false
+  var length: Int64 = 0
+  var questBonusExp: Double = 0.0
+  var questBonusReward: String?
+  var questDescription: String?
+  var questName: String = ""
+  var questType: Int64 = 0
+  var timeCompleted: Date?
+  var timeCreated: Date?
+
   public init(
     difficulty: Int64,
     dueDate: Date? = nil,
@@ -37,43 +38,41 @@ import AppIntents
     questName: String, questType: Int64,
     timeCompleted: Date? = nil,
     timeCreated: Date? = nil) {
-    self.difficulty = difficulty
-    self.dueDate = dueDate
-    self.id = id
-    self.isCompleted = isCompleted
-    self.isSelected = isSelected
-    self.length = length
-    self.questBonusExp = questBonusExp
-    self.questBonusReward = questBonusReward
-    self.questDescription = questDescription
-    self.questName = questName
-    self.questType = questType
-    self.timeCompleted = timeCompleted
-    self.timeCreated = timeCreated
-  }
+      self.difficulty = difficulty
+      self.dueDate = dueDate
+      self.id = id
+      self.isCompleted = isCompleted
+      self.isSelected = isSelected
+      self.length = length
+      self.questBonusExp = questBonusExp
+      self.questBonusReward = questBonusReward
+      self.questDescription = questDescription
+      self.questName = questName
+      self.questType = questType
+      self.timeCompleted = timeCompleted
+      self.timeCreated = timeCreated
+    }
 }
 
 extension Quest: Identifiable {
-
   static func findActiveQuestBy(name: String, context: ModelContext) -> Quest? {
     var request = FetchDescriptor<Quest>(predicate: #Predicate { $0.questName == name && $0.isCompleted == false })
     request.fetchLimit = 1
 
-   let foundQuest = try? context.fetch(request).first ?? nil
+    let foundQuest = try? context.fetch(request).first ?? nil
 
     return foundQuest
   }
 
   static func completeQuest(name: String, context: ModelContext) {
     if let quest: Quest = findActiveQuestBy(name: name, context: context) {
+      let user: User = User.fetchFirstOrCreate(context: context)
 
-      let user: User = User.fetchFirstOrInitialize(context: context)
-
-      let settings: Settings = Settings.fetchFirstOrInitialize(context: context)
+      let settings: Settings = Settings.fetchFirstOrCreate(context: context)
 
       quest.isCompleted = true
-      user.giveExp(quest: quest, settings: settings, context: context)
 
+      user.giveExp(quest: quest, settings: settings, context: context)
     }
   }
 
@@ -120,6 +119,7 @@ extension Quest: Identifiable {
     }
 
     let dailyComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
+
     let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
 
     let mostRecentDailyReset = Calendar.current.nextDate(
@@ -129,11 +129,13 @@ extension Quest: Identifiable {
 
     for quest in completedDailyQuests where quest.timeCompleted! <= mostRecentDailyReset {
       quest.setDateToDailyResetTime(settings: settings)
+
       quest.isCompleted = false
     }
   }
 
   static func resetWeeklyQuests(settings: Settings, context: ModelContext) {
+
     var completedWeeklyQuests: [Quest] {
       let weeklyRawValue = QuestType.weeklyQuest.rawValue
 
@@ -148,6 +150,7 @@ extension Quest: Identifiable {
     weeklyComponents.hour = Calendar.current.component(.hour, from: settings.time)
     weeklyComponents.minute = Calendar.current.component(.minute, from: settings.time)
     weeklyComponents.second = Calendar.current.component(.second, from: settings.time)
+
     let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date.now)!
 
     let mostRecentWeeklyReset = Calendar.current.nextDate(
@@ -157,6 +160,7 @@ extension Quest: Identifiable {
 
     for quest in completedWeeklyQuests where quest.timeCompleted! <= mostRecentWeeklyReset {
       quest.setDateToWeeklyResetDate(settings: settings)
+
       quest.isCompleted = false
     }
   }
@@ -168,6 +172,7 @@ extension Quest: Identifiable {
     components.second = Calendar.current.component(.second, from: settings.time)
 
     let nextResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
+
     dueDate = nextResetTime
   }
 

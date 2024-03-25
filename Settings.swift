@@ -10,29 +10,33 @@ import Foundation
 import SwiftData
 
 @Model public class Settings {
-    var dailyResetWarning: Bool = false
-    var dayOfTheWeek: Int64 = 2
+
+  var dailyResetWarning: Bool = false
+  var dayOfTheWeek: Int64 = 2
   var time: Date = Settings.defaultResetTime
-    var weeklyResetWarning: Bool = false
+  var weeklyResetWarning: Bool = false
 
   public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
-      self.dailyResetWarning = dailyResetWarning
-      self.dayOfTheWeek = dayOfTheWeek
-      self.time = time
-      self.weeklyResetWarning = weeklyResetWarning
-    }
+    self.dailyResetWarning = dailyResetWarning
+    self.dayOfTheWeek = dayOfTheWeek
+    self.time = time
+    self.weeklyResetWarning = weeklyResetWarning
+  }
 }
 
 extension Settings: Identifiable {
   func setNewResetTime() {
     let components = Calendar.current.dateComponents([.hour, .minute, .second], from: time)
+
     let newResetTime = Calendar.current.nextDate(after: Date.now, matching: components, matchingPolicy: .nextTime)
+
     time = newResetTime!
   }
 
   func refreshDailyReset() {
     var components = DateComponents()
     components.day = 1
+
     time = Calendar.current.date(byAdding: components, to: time)!
   }
 
@@ -50,10 +54,11 @@ extension Settings: Identifiable {
     dailyResetWarning: false,
     weeklyResetWarning: false)
 
-  static func fetchFirstOrInitialize(context: ModelContext) -> Settings {
-
+  static func fetchFirstOrCreate(context: ModelContext) -> Settings {
     let settingsRequest = FetchDescriptor<Settings>()
+
     let settingsData = try? context.fetch(settingsRequest)
+
     let settings = settingsData?.first ?? defaultSettings
 
     return settings

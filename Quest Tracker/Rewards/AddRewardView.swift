@@ -9,6 +9,7 @@ import CoreData
 import SwiftUI
 
 struct AddRewardView: View {
+
   @Environment(\.modelContext) var modelContext
 
   @State var reward: Reward
@@ -16,26 +17,23 @@ struct AddRewardView: View {
   @State var milestoneRewardCount: Int
 
   var body: some View {
-      List {
-        Section(header: Text("Reward Name")) {
-          TextField("Reward Name", text: $reward.name)
-            .foregroundStyle(.cyan)
-        }
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-
-        Section(header: Text("Reward Type")) {
-          Picker("Reward Type", selection: $reward.isMilestoneReward) {
-            Text("Minor").tag(false)
-            Text("Milestone").tag(true)
-
-          }
-          .pickerStyle(.segmented)
-          .colorMultiply(.cyan)
-
-        }
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-
+    List {
+      Section(header: Text("Reward Name")) {
+        TextField("Reward Name", text: $reward.name)
+          .foregroundStyle(.cyan)
       }
+      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+
+      Section(header: Text("Reward Type")) {
+        Picker("Reward Type", selection: $reward.isMilestoneReward) {
+          Text("Minor").tag(false)
+          Text("Milestone").tag(true)
+        }
+        .pickerStyle(.segmented)
+        .colorMultiply(.cyan)
+      }
+      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+    }
     .foregroundStyle(.cyan)
     .padding(.horizontal)
     .scrollContentBackground(.hidden)
@@ -47,12 +45,10 @@ struct AddRewardView: View {
         } else {
           reward.sortId = Int64(minorRewardCount)
         }
+
         modelContext.insert(reward)
-      } else {
-        //          modelContext.delete(reward)
       }
-    }
-    )
+    })
   }
 }
 
@@ -60,5 +56,5 @@ struct AddRewardView: View {
     AddRewardView(reward: Reward(isMilestoneReward: false, name: "Test Reward", sortId: 0),
                   minorRewardCount: 0,
                   milestoneRewardCount: 0)
-      .modelContainer(PreviewSampleData.container)
+    .modelContainer(PreviewSampleData.container)
 }

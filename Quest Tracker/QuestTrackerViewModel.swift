@@ -13,10 +13,10 @@ class QuestTrackerViewModel: ObservableObject {
   @Published var trackerModel = QuestTrackerModel()
 
   func deselectQuests(quests: [Quest], context: ModelContext) {
-      for quest in quests {
-        quest.isSelected = false
-      }
+    for quest in quests {
+      quest.isSelected = false
     }
+  }
 
   func sortDescriptorFromSortType(sortType: QuestSortDescriptor) -> SortDescriptor<Quest> {
     switch sortType {
@@ -30,6 +30,7 @@ class QuestTrackerViewModel: ObservableObject {
 
   func refreshSettingsAndQuests(settings: Settings, context: ModelContext) {
     settings.refreshDailyReset()
+
     Quest.resetQuests(settings: settings, context: context)
   }
 }
@@ -57,18 +58,22 @@ extension Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .short
     dateFormatter.timeStyle = .short
+
     return dateFormatter.string(from: self)
   }
+
   var dayOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
 
     return dateFormatter.string(from: self)
   }
+
   var timeOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .none
     dateFormatter.timeStyle = .short
+
     return dateFormatter.string(from: self)
   }
 }
@@ -90,6 +95,7 @@ extension Optional where Wrapped == Date {
       _bound = newValue
     }
   }
+
   var exists: Bool {
     if self == nil {
       return false
@@ -97,38 +103,46 @@ extension Optional where Wrapped == Date {
       return true
     }
   }
+
   var string: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .short
     dateFormatter.timeStyle = .short
+
     if self == nil {
       return ""
     } else {
       return dateFormatter.string(from: self!)
     }
   }
+
   var dateOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .short
+
     if self == nil {
       return ""
     } else {
       return dateFormatter.string(from: self!)
     }
   }
+
   var dayOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
+
     if self == nil {
       return ""
     } else {
       return dateFormatter.string(from: self!)
     }
   }
+
   var timeOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .none
     dateFormatter.timeStyle = .short
+
     if self == nil {
       return ""
     } else {
@@ -136,7 +150,9 @@ extension Optional where Wrapped == Date {
     }
   }
 }
+
 extension Optional where Wrapped == String {
+
   var _bound: String? {
     get {
       return self
@@ -145,6 +161,7 @@ extension Optional where Wrapped == String {
       self = newValue
     }
   }
+
   public var bound: String {
     get {
       return _bound ?? ""

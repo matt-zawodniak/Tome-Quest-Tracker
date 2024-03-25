@@ -16,14 +16,12 @@ struct Quest_TrackerApp: App {
   var container: ModelContainer = ModelController.shared.modelContainer
 
   init() {
-
     QuestTrackerShortcuts.updateAppShortcutParameters()
-
   }
 
   var body: some Scene {
     WindowGroup {
-      MainView(tracker: QuestTrackerViewModel())
+      MainView()
     }
     .modelContainer(container)
   }

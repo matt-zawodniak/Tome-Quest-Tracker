@@ -6,24 +6,37 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NavigationBar: View {
 
-  @Binding var showingNewQuestView: Bool
-  @Binding var showingRewardsView: Bool
-  @Binding var showingSettingsView: Bool
+  @Environment(\.modelContext) var modelContext
+
+  @State var showingNewQuestView: Bool = false
+  @State var showingRewardsView: Bool = false
+  @State var showingSettingsView: Bool = false
   @Binding var showingCompletedQuests: Bool
+
+  @Query() var settingsQueryResults: [Settings]
+  var settings: Settings {
+    return Settings.fetchFirstOrCreate(context: modelContext)
+  }
+
+  @Query() var userQueryResults: [User]
+  var user: User {
+    return User.fetchFirstOrCreate(context: modelContext)
+  }
 
   var body: some View {
     ZStack {
       VStack(spacing: 15) {
-
         Divider()
           .frame(height: 2)
           .overlay(.cyan)
 
         HStack {
           Spacer()
+
           VStack {
             Image(systemName: "house")
               .onTapGesture {
@@ -37,7 +50,9 @@ struct NavigationBar: View {
                                && showingRewardsView == false
                                && showingSettingsView == false ? .cyan : .white)
           }
+
           Spacer()
+
           VStack {
             Image(systemName: "checkmark.square")
               .onTapGesture {
@@ -48,6 +63,7 @@ struct NavigationBar: View {
               }
               .foregroundStyle(showingCompletedQuests ? .cyan : .white)
           }
+
           Spacer()
           Spacer()
           Spacer()
@@ -60,11 +76,12 @@ struct NavigationBar: View {
                 showingNewQuestView = false
                 showingRewardsView = true
                 showingSettingsView = false
-
               }
               .foregroundStyle(showingRewardsView ? .cyan : .white)
           }
+
           Spacer()
+
           VStack {
             Image(systemName: "gearshape")
               .onTapGesture {
@@ -72,14 +89,13 @@ struct NavigationBar: View {
                 showingNewQuestView = false
                 showingRewardsView = false
                 showingSettingsView = true
-
               }
               .foregroundStyle(showingSettingsView ? .cyan : .white)
           }
+
           Spacer()
         }
         .foregroundColor(.white)
-
       }
       .padding()
 
@@ -88,23 +104,34 @@ struct NavigationBar: View {
         .background(PlusNavBackground().stroke(.cyan, lineWidth: 5))
 
       Image(systemName: "plus.square.dashed").font(.largeTitle)
-          .foregroundColor(.cyan)
-          .onTapGesture {
-            showingCompletedQuests = false
-            showingNewQuestView = true
-            showingRewardsView = false
-            showingSettingsView = false
-            print("Tapped +")
-          }
-
+        .foregroundColor(.cyan)
+        .onTapGesture {
+          showingCompletedQuests = false
+          showingNewQuestView = true
+          showingRewardsView = false
+          showingSettingsView = false
+          print("Tapped +")
+        }
     }
     .background(.black)
+    .sheet(isPresented: $showingNewQuestView) {
+      QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
+        .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showingRewardsView) {
+      RewardsView()
+        .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showingSettingsView) {
+      SettingsView(settings: settings, user: user)
+        .presentationDetents([.medium, .large])
+    }
   }
 }
 
 #Preview {
-  NavigationBar(showingNewQuestView: .constant(false),
-                showingRewardsView: .constant(false),
-                showingSettingsView: .constant(false),
+  NavigationBar(showingNewQuestView: false,
+                showingRewardsView: false,
+                showingSettingsView: false,
                 showingCompletedQuests: .constant(false))
 }

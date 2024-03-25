@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct QuestTrackerModel {
-
   func setDate(quest: Quest, value: Bool) {
     if value == true {
       quest.dueDate = Date()

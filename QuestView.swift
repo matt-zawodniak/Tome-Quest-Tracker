@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct QuestView: View {
+
   @Environment(\.modelContext) var modelContext
 
   @State var quest: Quest
@@ -17,37 +18,37 @@ struct QuestView: View {
   @State var settings: Settings
 
   var body: some View {
+    List {
+      nameSection
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-        List {
-          nameSection
-            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+      typeSection
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-          typeSection
-            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+      questDescriptionSection
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-          questDescriptionSection
-            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+      advancedSettingsSection
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
 
-          advancedSettingsSection
-            .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+    }
+    .onDisappear(
+      perform: {
+        if quest.questName.count > 0 {
+          quest.isSelected = false
 
+          quest.isCompleted = false
+
+          modelContext.insert(quest)
         }
-      .onDisappear(
-        perform: {
-          if quest.questName.count > 0 {
-            quest.isSelected = false
-            quest.isCompleted = false
-
-            modelContext.insert(quest)
-          }
-        }
-      )
-      .padding()
-      .listStyle(.grouped)
-      .listRowSeparator(.hidden)
-      .listRowSpacing(5)
-      .scrollContentBackground(.hidden)
-      .foregroundStyle(.cyan)
+      }
+    )
+    .padding()
+    .listStyle(.grouped)
+    .listRowSeparator(.hidden)
+    .listRowSpacing(5)
+    .scrollContentBackground(.hidden)
+    .foregroundStyle(.cyan)
   }
 
   var typeSection: some View {
@@ -55,13 +56,17 @@ struct QuestView: View {
       Picker("Quest Type", selection: $quest.type) {
         ForEach(QuestType.allCases, id: \.self) {questType in
           let menuText = questType.description
+
           Text("\(menuText)")
-        }.onChange(of: quest.type) {
+        }
+        .onChange(of: quest.type) {
           if quest.type == .dailyQuest {
             quest.setDateToDailyResetTime(settings: settings)
+
             hasDueDate = true
           } else if quest.type == .weeklyQuest {
             quest.setDateToWeeklyResetDate(settings: settings)
+
             hasDueDate = true
           }
         }
@@ -85,26 +90,36 @@ struct QuestView: View {
     Section(header: Text("Advanced Settings")) {
       HStack {
         Text("Difficulty")
+
         Picker("Quest Difficulty", selection: $quest.questDifficulty) {
           ForEach(QuestDifficulty.allCases, id: \.self) { difficulty in
             let pickerText = difficulty.description
+
             Text("\(pickerText)")
           }
-        }.pickerStyle(.segmented)
+        }
+        .pickerStyle(.segmented)
       }
+
       HStack {
         Text("Time")
+
         Picker("Quest Length", selection: $quest.questLength) {
           ForEach(QuestLength.allCases, id: \.self) { length in
             let pickerText = length.description
+
             Text("\(pickerText)")
           }
-        }.pickerStyle(.segmented)
+        }
+        .pickerStyle(.segmented)
       }
+
       HStack {
         Text("Bonus Reward:")
+
         TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
       }
+
       dueDateView
     }
   }
@@ -115,8 +130,11 @@ struct QuestView: View {
       case .weeklyQuest:
         HStack {
           Text("Weekly Reset:")
+
           Text(quest.dueDate.dayOnly)
+
           Spacer()
+
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) {
               quest.setDateToWeeklyResetDate(settings: settings)
@@ -126,8 +144,11 @@ struct QuestView: View {
       case .dailyQuest:
         HStack {
           Text("Daily Reset:")
+
           Text(quest.dueDate.timeOnly)
+
           Spacer()
+
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) {
               quest.setDateToDailyResetTime(settings: settings)
@@ -142,22 +163,27 @@ struct QuestView: View {
                 datePickerIsExpanded.toggle()
               }
             }
+
           Text(quest.dueDate.dateOnly)
             .onTapGesture {
               if hasDueDate {
                 datePickerIsExpanded.toggle()
               }
             }
+
           Text(quest.dueDate.timeOnly)
             .onTapGesture {
               if hasDueDate {
                 datePickerIsExpanded.toggle()
               }
             }
+
           Spacer()
+
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) {
               QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: hasDueDate)
+
               datePickerIsExpanded = hasDueDate
             }
             .tint(.cyan)
