@@ -75,7 +75,7 @@ struct NavigationBar: View {
             .foregroundStyle(showingRewardsView ? .cyan : .white)
 
           Spacer()
-          
+
           Image(systemName: "gearshape")
             .onTapGesture {
               showingCompletedQuests = false
