@@ -5,3 +5,4 @@ fastlane/report.xml
 *.zip
 
 **/xcuserdata/**/*
+.sentryclirc

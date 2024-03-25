@@ -10,7 +10,6 @@
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
-		8F5511CB2B71CB9600C660E3 /* BLTNBoard in Frameworks */ = {isa = PBXBuildFile; productRef = 8F5511CA2B71CB9600C660E3 /* BLTNBoard */; };
 		8F6368572B62F94800D524A1 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6368562B62F94800D524A1 /* ModelController.swift */; };
 		8F6462C32B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */; };
 		8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */; };
@@ -35,6 +34,7 @@
 		8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */; };
 		8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
+		F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = A02FC83D890247DB85D27578 /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F5511CB2B71CB9600C660E3 /* BLTNBoard in Frameworks */,
+				F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +202,7 @@
 			);
 			name = "Quest Tracker";
 			packageProductDependencies = (
-				8F5511CA2B71CB9600C660E3 /* BLTNBoard */,
+				A02FC83D890247DB85D27578 /* Sentry */,
 			);
 			productName = "Quest Tracker";
 			productReference = 8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */;
@@ -233,7 +233,7 @@
 			);
 			mainGroup = 8FAC38442AB396B6005CBED3;
 			packageReferences = (
-				8F5511C92B71CB9600C660E3 /* XCRemoteSwiftPackageReference "BulletinBoard" */,
+				7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = 8FAC384E2AB396B6005CBED3 /* Products */;
 			projectDirPath = "";
@@ -439,6 +439,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4739T7R6D;
 				ENABLE_PREVIEWS = YES;
@@ -458,7 +459,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -474,6 +475,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Quest Tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4739T7R6D;
 				ENABLE_PREVIEWS = YES;
@@ -493,7 +495,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -524,21 +526,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8F5511C92B71CB9600C660E3 /* XCRemoteSwiftPackageReference "BulletinBoard" */ = {
+		7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alexisakers/BulletinBoard";
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa/";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 8.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8F5511CA2B71CB9600C660E3 /* BLTNBoard */ = {
+		A02FC83D890247DB85D27578 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F5511C92B71CB9600C660E3 /* XCRemoteSwiftPackageReference "BulletinBoard" */;
-			productName = BLTNBoard;
+			package = 7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
