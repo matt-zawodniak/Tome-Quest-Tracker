@@ -34,15 +34,18 @@ struct QuestRowView: View, Identifiable {
       .onTapGesture {
         toggleQuest(quest: quest, quests: quests)
       }
+
       if quest.isSelected {
         Text(quest.questDescription ?? "")
         Text("Quest EXP: \(Int(quest.type.experience))")
+
         if quest.questBonusReward != nil {
           HStack {
             Text("Quest Reward:")
             Text(quest.questBonusReward ?? "")
           }
         }
+
         if !quest.isCompleted {
           if quest.type == .weeklyQuest ||
               quest.type == .dailyQuest {
@@ -63,19 +66,23 @@ struct QuestRowView: View, Identifiable {
       }
     }
   }
+
   func restoreQuest(quest: Quest) {
     quest.isCompleted = false
     quest.isSelected = false
     quest.timeCreated = Date.now
     print("\(quest.questName) is \(quest.isCompleted)")
   }
+
   func toggleQuest(quest: Quest, quests: [Quest]) {
       quest.isSelected.toggle()
+
       for other in quests where other != quest {
         other.isSelected = false
       }
     }
 }
+
 #Preview {
   MainActor.assumeIsolated {
     QuestRowView(quest: PreviewSampleData.previewQuest, settings: PreviewSampleData.previewSettings)

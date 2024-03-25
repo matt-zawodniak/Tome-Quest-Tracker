@@ -83,7 +83,6 @@ struct QuestListView: View {
     }
       .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
       .toolbar {
-
         ToolbarItem(placement: .topBarTrailing) {
           Menu {
             Picker("", selection: $sortType) {
@@ -182,14 +181,17 @@ struct QuestListView: View {
     .onChange(of: user.level) {
       showingLevelUpNotification = true
     }
+
     LevelAndExpUI()
       .padding(.horizontal)
   }
+
   func showCompletedQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
     navigationTitle = "Completed Quests"
     showingCompletedQuests = true
   }
+
   func showActiveQuests() {
     tracker.deselectQuests(quests: quests, context: modelContext)
     navigationTitle = "Quest Tracker"

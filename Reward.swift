@@ -21,5 +21,4 @@ import SwiftData
     self.name = name
     self.sortId = sortId
     }
-
 }

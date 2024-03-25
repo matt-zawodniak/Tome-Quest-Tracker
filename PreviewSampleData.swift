@@ -112,5 +112,4 @@ class PreviewSampleData {
     questName: "Main",
     questType: 0
   )
-
 }

@@ -32,6 +32,7 @@
 		8FD590502B5F151700DF5325 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904C2B5F151700DF5325 /* Reward.swift */; };
 		8FD590522B60A07200DF5325 /* QuestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590512B60A07200DF5325 /* QuestList.swift */; };
 		8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */; };
+		8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 		F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = A02FC83D890247DB85D27578 /* Sentry */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		8FD5904C2B5F151700DF5325 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = SOURCE_ROOT; };
 		8FD590512B60A07200DF5325 /* QuestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestList.swift; sourceTree = "<group>"; };
 		8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSampleData.swift; sourceTree = SOURCE_ROOT; };
+		8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,7 @@
 				8F1401E02AF29882007BBD53 /* fastlane */,
 				8F1401E12AF29882007BBD53 /* Gemfile */,
 				8F1401DF2AF29882007BBD53 /* Gemfile.lock */,
+				8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */,
 			);
 			path = "Quest Tracker";
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				8FD5904F2B5F151700DF5325 /* User.swift in Sources */,
 				8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */,
 				8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */,
+				8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
 				8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,

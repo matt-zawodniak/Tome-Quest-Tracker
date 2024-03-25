@@ -39,7 +39,9 @@ struct CategoryHeader: View {
       if model.isOpen(title: title) == false {
         Text("(\(number))")
       }
+
       Spacer()
+
       Image(systemName: model.isOpen(title: title) ? "chevron.down" : "chevron.up")
     }
     .contentShape(Rectangle())
