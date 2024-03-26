@@ -19,9 +19,6 @@ struct QuestSection: View {
   var user: User
   var questType: QuestType
 
-  @State var showingQuestDetails: Bool = false
-  @State var questToShowDetails: Quest?
-
   init(settings: Settings, showingCompletedQuests: Bool, user: User, questType: QuestType) {
     _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests})
 
@@ -46,9 +43,16 @@ struct QuestSection: View {
           }
         }
         .swipeActions(edge: .leading) {
-          if !showingCompletedQuests {
+          if showingCompletedQuests {
             Button {
-              quest.isCompleted = true
+              quest.isCompleted = false //  TODO: Make this into a restoreToQuestList function for readability purposes.
+            } label: {
+              Label("Restore to Quest List", systemImage: "arrow.counterclockwise")
+            }
+            .tint(GlobalUISettings.colorFor(quest: quest))
+          } else {
+            Button {
+              quest.isCompleted = true // TODO: Make this entire button into a complete() function.
 
               user.giveExp(quest: quest, settings: settings, context: modelContext)
 
@@ -59,12 +63,6 @@ struct QuestSection: View {
             .tint(GlobalUISettings.colorFor(quest: quest))
           }
         }
-    }
-    .sheet(isPresented: $showingQuestDetails) {
-      if let questToShowDetails {
-        QuestDetailView(quest: questToShowDetails, settings: settings, user: user)
-          .presentationDetents([.medium])
-      }
     }
   }
 }
