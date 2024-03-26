@@ -45,14 +45,14 @@ struct QuestSection: View {
         .swipeActions(edge: .leading) {
           if showingCompletedQuests {
             Button {
-              quest.isCompleted = false //  TODO: Make this into a restoreToQuestList function for readability purposes.
+              quest.isCompleted = false
             } label: {
               Label("Restore to Quest List", systemImage: "arrow.counterclockwise")
             }
             .tint(GlobalUISettings.colorFor(quest: quest))
           } else {
             Button {
-              quest.isCompleted = true // TODO: Make this entire button into a complete() function.
+              quest.isCompleted = true // TODO: Make this entire button into a complete() function. It might already exist.
 
               user.giveExp(quest: quest, settings: settings, context: modelContext)
 
