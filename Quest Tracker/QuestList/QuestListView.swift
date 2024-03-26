@@ -49,7 +49,12 @@ struct QuestListView: View {
       ForEach(QuestType.allCases, id: \.self) { (type: QuestType) in
         let title: String = type.description + "s"
 
-        var numberOfQuestsOfType: Int { quests.filter({ $0.type == type}).count }
+        var numberOfQuestsOfType: Int {
+          quests.filter({
+            $0.type == type &&
+            $0.isCompleted == showingCompletedQuests })
+          .count
+        }
 
         Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
           if self.sections.isOpen(title: title) {
