@@ -43,9 +43,10 @@ struct ManageRewardsView: View {
           ForEach(minorRewards, id: \.self) { reward in
             Text(reward.name)
               .overlay(
-                NavigationLink(destination: AddRewardView(reward: reward,
+                NavigationLink("", destination: AddRewardView(reward: reward,
                                                           minorRewardCount: minorRewards.count,
-                                                          milestoneRewardCount: milestoneRewards.count)) { }
+                                                          milestoneRewardCount: milestoneRewards.count))
+                .opacity(0)
               )
               .swipeActions(edge: .trailing) {
                 Button(role: .destructive) {
@@ -64,9 +65,10 @@ struct ManageRewardsView: View {
           ForEach(milestoneRewards, id: \.self) { reward in
             Text(reward.name)
               .overlay(
-                NavigationLink(destination: AddRewardView(reward: reward,
+                NavigationLink("", destination: AddRewardView(reward: reward,
                                                           minorRewardCount: minorRewards.count,
-                                                          milestoneRewardCount: milestoneRewards.count)) { }
+                                                          milestoneRewardCount: milestoneRewards.count))
+                .opacity(0)
               )
               .swipeActions(edge: .trailing) {
                 Button(role: .destructive) {
