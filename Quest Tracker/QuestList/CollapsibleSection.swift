@@ -10,13 +10,13 @@ import SwiftUI
 class SectionModel: NSObject, ObservableObject {
   @Published var sections: [String: Bool] = [String: Bool]()
 
-  var defaultState: Bool = true
+  var defaultOpen: Bool = true
 
   func isOpen(title: String) -> Bool {
     if let value = sections[title] {
       return value
     } else {
-      return defaultState
+      return defaultOpen
     }
   }
 
@@ -36,15 +36,15 @@ struct CategoryHeader: View {
 
   var number: Int?
 
-  var defaultState: Bool
+  var defaultOpen: Bool
 
-  init(title: String, model: SectionModel, number: Int? = nil, defaultState: Bool) {
+  init(title: String, model: SectionModel, number: Int? = nil, defaultOpen: Bool) {
     self.title = title
     self.model = model
     self.number = number
-    self.defaultState = defaultState
+    self.defaultOpen = defaultOpen
 
-    model.defaultState = defaultState
+    model.defaultOpen = defaultOpen
   }
 
   var body: some View {

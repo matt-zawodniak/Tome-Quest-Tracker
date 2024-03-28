@@ -105,7 +105,7 @@ struct QuestView: View {
   }
 
   var advancedSettingsSection: some View {
-    Section(header: CategoryHeader(title: "Advanced Settings", model: self.sections, defaultState: false)) {
+    Section(header: CategoryHeader(title: "Advanced Settings", model: self.sections, defaultOpen: false)) {
       if self.sections.isOpen(title: "Advanced Settings") {
         HStack {
           Text("Difficulty")
