@@ -10,13 +10,13 @@ import SwiftUI
 class SectionModel: NSObject, ObservableObject {
   @Published var sections: [String: Bool] = [String: Bool]()
 
-  var defaultOpen: Bool = true
+  var shouldBeExpanded: Bool = true
 
-  func isOpen(title: String) -> Bool {
+  func isExpanded(title: String) -> Bool {
     if let value = sections[title] {
       return value
     } else {
-      return defaultOpen
+      return shouldBeExpanded
     }
   }
 
@@ -36,22 +36,22 @@ struct CategoryHeader: View {
 
   var number: Int?
 
-  var defaultOpen: Bool
+  var shouldBeExpanded: Bool
 
-  init(title: String, model: SectionModel, number: Int? = nil, defaultOpen: Bool) {
+  init(title: String, model: SectionModel, number: Int? = nil, shouldBeExpanded: Bool) {
     self.title = title
     self.model = model
     self.number = number
-    self.defaultOpen = defaultOpen
+    self.shouldBeExpanded = shouldBeExpanded
 
-    model.defaultOpen = defaultOpen
+    model.shouldBeExpanded = shouldBeExpanded
   }
 
   var body: some View {
     HStack {
       Text(title)
 
-      if model.isOpen(title: title) == false {
+      if model.isExpanded(title: title) == false {
         if let number {
           Text("(\(number))")
         }
@@ -59,7 +59,7 @@ struct CategoryHeader: View {
 
       Spacer()
 
-      Image(systemName: model.isOpen(title: title) ? "chevron.down" : "chevron.up")
+      Image(systemName: model.isExpanded(title: title) ? "chevron.down" : "chevron.up")
     }
     .contentShape(Rectangle())
     .onTapGesture {

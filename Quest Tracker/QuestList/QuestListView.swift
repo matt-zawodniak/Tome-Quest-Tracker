@@ -60,7 +60,7 @@ struct QuestListView: View {
                                        model: self.sections,
                                        number: numberOfQuestsOfType,
                                        defaultOpen: true)) {
-          if self.sections.isOpen(title: title) {
+          if self.sections.isExpanded(title: title) {
             QuestSection(settings: settings,
                          showingCompletedQuests: showingCompletedQuests,
                          user: user,

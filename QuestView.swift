@@ -114,7 +114,7 @@ struct QuestView: View {
     Section(header: CategoryHeader(title: "Advanced Settings",
                                    model: self.sections,
                                    defaultOpen: advancedSettingsVisible)) {
-      if self.sections.isOpen(title: "Advanced Settings") {
+      if self.sections.isExpanded(title: "Advanced Settings") {
         HStack {
           Text("Difficulty")
 
