@@ -41,6 +41,14 @@ struct QuestSection: View {
           } label: {
             Label("Delete", systemImage: "trash")
           }
+
+          if !showingCompletedQuests && (quest.type == .dailyQuest || quest.type == .weeklyQuest) {
+            Button {
+              quest.isCompleted = true
+            } label: {
+              Text("Skip")
+            }
+          }
         }
         .swipeActions(edge: .leading) {
           if showingCompletedQuests {
@@ -52,11 +60,11 @@ struct QuestSection: View {
             .tint(GlobalUISettings.colorFor(quest: quest))
           } else {
             Button {
-              quest.isCompleted = true // TODO: Make this entire button into a complete() function. It might already exist.
-
-              user.giveExp(quest: quest, settings: settings, context: modelContext)
+              quest.isCompleted = true
 
               quest.timeCompleted = Date.now
+
+              user.giveExp(quest: quest, settings: settings, context: modelContext)
             } label: {
               Image(systemName: "checkmark")
             }
