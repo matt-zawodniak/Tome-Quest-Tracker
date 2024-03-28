@@ -16,12 +16,6 @@ struct QuestRowView: View, Identifiable {
 
   @State var quest: Quest
 
-  @Query<Quest>(filter: #Predicate { $0.isCompleted == false })
-  var quests: [Quest]
-
-  var settings: Settings
-  var user: User
-
   @State var showingQuestDetails: Bool = false
 
   var body: some View {
@@ -34,15 +28,13 @@ struct QuestRowView: View, Identifiable {
       showingQuestDetails.toggle()
     }
     .sheet(isPresented: $showingQuestDetails) {
-      QuestDetailView(quest: quest, settings: settings, user: user)
+      QuestView(quest: quest)
         .presentationDetents([.medium, .large])
     }
   }
 }
 
 #Preview {
-    QuestRowView(quest: PreviewSampleData.previewQuest,
-                 settings: PreviewSampleData.previewSettings,
-                 user: PreviewSampleData.previewUser)
+    QuestRowView(quest: PreviewSampleData.previewQuest)
     .modelContainer(PreviewSampleData.container)
 }

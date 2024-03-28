@@ -56,7 +56,7 @@ struct QuestListView: View {
           .count
         }
 
-        Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
+        Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType, defaultState: true)) {
           if self.sections.isOpen(title: title) {
             QuestSection(settings: settings,
                          showingCompletedQuests: showingCompletedQuests,

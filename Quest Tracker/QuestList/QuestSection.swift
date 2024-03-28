@@ -34,7 +34,7 @@ struct QuestSection: View {
 
   var body: some View {
     ForEach(questsOfChosenType, id: \.self) { (quest: Quest) in
-      QuestRowView(quest: quest, settings: settings, user: user)
+      QuestRowView(quest: quest)
         .swipeActions(edge: .trailing) {
           Button(role: .destructive) {
             modelContext.delete(quest)

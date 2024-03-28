@@ -173,9 +173,3 @@ struct QuestDetailView: View {
     }
   }
 }
-
-#Preview {
-  QuestDetailView(quest: PreviewSampleData.previewQuest,
-                  settings: PreviewSampleData.previewSettings,
-                  user: PreviewSampleData.previewUser)
-}
