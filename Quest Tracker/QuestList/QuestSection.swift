@@ -54,6 +54,8 @@ struct QuestSection: View {
           if showingCompletedQuests {
             Button {
               quest.isCompleted = false
+
+              quest.timeCreated = Date.now
             } label: {
               Label("Restore to Quest List", systemImage: "arrow.counterclockwise")
             }
