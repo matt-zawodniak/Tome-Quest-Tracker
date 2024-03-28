@@ -28,7 +28,9 @@ struct LevelAndExpUI: View {
           .tint(.cyan)
           .frame(maxWidth: geometry.size.width * 0.4)
 
-        Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+        Text("""
+            \(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))
+            """)
 
         Spacer()
       }

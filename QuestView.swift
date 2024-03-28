@@ -43,7 +43,11 @@ struct QuestView: View {
 
       HStack {
         Spacer()
-        Text(" \(Int(quest.type.experience * (quest.questDifficulty.expMultiplier +  quest.questLength.expMultiplier)/2 + quest.questBonusExp)) EXP")
+        Text("""
+             \(Int(quest.type.experience
+             * (quest.questDifficulty.expMultiplier +  quest.questLength.expMultiplier)/2
+             + quest.questBonusExp)) EXP
+             """)
         Spacer()
       }
       .listRowBackground(Color.clear)
