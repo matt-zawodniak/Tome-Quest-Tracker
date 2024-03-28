@@ -20,6 +20,8 @@ struct QuestView: View {
   @State var hasDueDate: Bool = false
   @State var datePickerIsExpanded: Bool = false
 
+  @State var advancedSettingsVisible: Bool = false
+
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
     return settingsQueryResults.first ?? Settings.fetchFirstOrCreate(context: modelContext)
@@ -41,7 +43,7 @@ struct QuestView: View {
 
       HStack {
         Spacer()
-        Text(" \(Int(quest.type.experience + quest.questBonusExp)) EXP")
+        Text(" \(Int(quest.type.experience * (quest.questDifficulty.expMultiplier +  quest.questLength.expMultiplier)/2 + quest.questBonusExp)) EXP")
         Spacer()
       }
       .listRowBackground(Color.clear)
@@ -105,7 +107,9 @@ struct QuestView: View {
   }
 
   var advancedSettingsSection: some View {
-    Section(header: CategoryHeader(title: "Advanced Settings", model: self.sections, defaultOpen: false)) {
+    Section(header: CategoryHeader(title: "Advanced Settings",
+                                   model: self.sections,
+                                   defaultOpen: advancedSettingsVisible)) {
       if self.sections.isOpen(title: "Advanced Settings") {
         HStack {
           Text("Difficulty")
