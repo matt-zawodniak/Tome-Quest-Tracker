@@ -8,25 +8,16 @@
 import SwiftUI
 import SwiftData
 
-struct QuestListView: View {
+struct ActiveQuestListView: View {
 
   @Environment(\.modelContext) var modelContext
 
-  @Environment(\.scenePhase) var scenePhase
-
-  @ObservedObject var tracker = QuestTrackerViewModel()
-
   @ObservedObject private var sections = SectionModel()
 
-  @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
-
-  var filteredQuests: [Quest] {
-    if showingCompletedQuests {
-      return quests.filter({ $0.isCompleted == true})
-    } else {
-      return quests.filter({ $0.isCompleted == false})
-    }
-  }
+  @Query<Quest>(filter: #Predicate { $0.isCompleted == false },
+                sort: [SortDescriptor(\Quest.questType,
+                                       order: .reverse)])
+  var activeQuests: [Quest]
 
   // Using @Query to keep up to date with Settings and
   // computed var to create a default settings.
@@ -40,31 +31,19 @@ struct QuestListView: View {
     return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
-  var showingCompletedQuests: Bool
-
-  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
   var body: some View {
     List {
       ForEach(QuestType.allCases, id: \.self) { (type: QuestType) in
         let title: String = type.description + "s"
 
-        var numberOfQuestsOfType: Int {
-          quests.filter({
-            $0.type == type &&
-            $0.isCompleted == showingCompletedQuests })
-          .count
-        }
+        let numberOfQuestsOfType = activeQuests.filter({ $0.type == type }).count
 
         Section(header: CategoryHeader(title: title,
                                        model: self.sections,
                                        countOfEntitiesInCategory: numberOfQuestsOfType,
                                        shouldBeExpanded: true)) {
           if self.sections.isExpanded(title: title) {
-            QuestSection(settings: settings,
-                         showingCompletedQuests: showingCompletedQuests,
-                         user: user,
-                         questType: type)
+            ActiveQuestSection(activeQuests: activeQuests, questType: type, settings: settings, user: user)
           } else {
             EmptyView()
           }
@@ -78,22 +57,10 @@ struct QuestListView: View {
     .listStyle(.grouped)
     .listRowSpacing(5)
     .scrollContentBackground(.hidden)
-    .onReceive(timer, perform: { time in
-      if time >= settings.time {
-        tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
-      }
-    })
-    .onChange(of: scenePhase) {
-      if scenePhase == .active {
-        if Date.now >= settings.time {
-          tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
-        }
-      }
-    }
   }
 }
 
 #Preview {
-    QuestListView(tracker: QuestTrackerViewModel(), showingCompletedQuests: false)
+    ActiveQuestListView()
       .modelContainer(PreviewSampleData.container)
 }

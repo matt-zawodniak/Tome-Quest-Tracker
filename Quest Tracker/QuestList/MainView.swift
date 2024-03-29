@@ -12,8 +12,17 @@ struct MainView: View {
 
   @Environment(\.modelContext) var modelContext
 
+  @Environment(\.scenePhase) var scenePhase
+
+  @ObservedObject var tracker = QuestTrackerViewModel()
+
   var user: User {
     User.fetchFirstOrCreate(context: modelContext)
+  }
+
+  @Query() var settingsQueryResults: [Settings]
+  var settings: Settings {
+    return settingsQueryResults.first ?? Settings.fetchFirstOrCreate(context: modelContext)
   }
 
   @Query<Reward>(filter: #Predicate { $0.isEarned == true })
@@ -23,13 +32,20 @@ struct MainView: View {
 
   @State var showingLevelUpNotification: Bool = false
 
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
   var body: some View {
     ZStack {
       GlobalUISettings.background
 
       VStack {
-        QuestListView(showingCompletedQuests: showingCompletedQuests)
-        .layoutPriority(1)
+        if showingCompletedQuests {
+          CompletedQuestListView()
+            .layoutPriority(1)
+        } else {
+          ActiveQuestListView()
+            .layoutPriority(1)
+        }
 
         VStack {
           NavigationBar(showingCompletedQuests: $showingCompletedQuests)
@@ -41,6 +57,18 @@ struct MainView: View {
     }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
+    }
+    .onReceive(timer, perform: { time in
+      if time >= settings.time {
+        tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+      }
+    })
+    .onChange(of: scenePhase) {
+      if scenePhase == .active {
+        if Date.now >= settings.time {
+          tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
+        }
+      }
     }
   }
 }
