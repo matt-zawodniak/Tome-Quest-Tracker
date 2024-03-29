@@ -49,83 +49,82 @@ struct RewardsView: View {
   }
 
   var body: some View {
-    List {
-      Section(header: Text("")) {
-        HStack {
+    NavigationStack {
+      List {
+        Section(header: Text("")) {
+          HStack {
+            Spacer()
 
-          Spacer()
+            Text("Manage Rewards")
 
-          Text("Manage Rewards")
-
-          Spacer()
+            Spacer()
+          }
+          .overlay(
+            NavigationLink("", destination: ManageRewardsView(
+              minorRewards: minorRewards,
+              milestoneRewards: milestoneRewards))
+            .opacity(0)
+          )
         }
-        .overlay(
-          NavigationLink("", destination: ManageRewardsView(
-            minorRewards: minorRewards,
-            milestoneRewards: milestoneRewards))
-          .opacity(0)
-        )
-      }
-      .listRowBackground(StylizedOutline()
-        .stroke(.cyan.opacity(0.4))
-        .background(StylizedOutline().fill().opacity(0.2)))
-      .listRowSeparator(.hidden)
+        .listRowBackground(StylizedOutline()
+          .stroke(.cyan.opacity(0.4))
+          .background(StylizedOutline().fill().opacity(0.2)))
+        .listRowSeparator(.hidden)
 
-      Section(header: Text("Next Level")) {
-        if (user.level + 1) % 5 == 0 {
-          Text("You earn a Milestone reward next level!")
-        } else {
-          if let nextMinorReward = minorRewards.first {
-            Text("Reach the next level to earn \(nextMinorReward.name )!")
+        Section(header: Text("Next Level")) {
+          if (user.level + 1) % 5 == 0 {
+            Text("You earn a Milestone reward next level!")
           } else {
-            Text("You have no Minor rewards set up! Add them using the Manage Rewards button below.")
+            if let nextMinorReward = minorRewards.first {
+              Text("Reach the next level to earn \(nextMinorReward.name )!")
+            } else {
+              Text("You have no Minor rewards set up! Add them using the Manage Rewards button below.")
+            }
           }
         }
-      }
-      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-      .listRowSeparator(.hidden)
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
-      Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
-        if let nextMilestoneReward = milestoneRewards.first {
-          Text("""
+        Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
+          if let nextMilestoneReward = milestoneRewards.first {
+            Text("""
                  Keep up the good work! \
                  Reach level \(nextMilestoneLevel) \
                  and earn yourself \(nextMilestoneReward.name).
                  """)
-        } else {
-          Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
+          } else {
+            Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
+          }
         }
-      }
-      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-      .listRowSeparator(.hidden)
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
-      Section(header: Text("Unclaimed Rewards")) {
-        if availableRewards.isEmpty {
-          Text("You have no unclaimed rewards. Keep leveling to earn more!")
-        } else {
-          ForEach(availableRewards, id: \.self) { reward in
-            HStack {
+        Section(header: Text("Unclaimed Rewards")) {
+          if availableRewards.isEmpty {
+            Text("You have no unclaimed rewards. Keep leveling to earn more!")
+          } else {
+            ForEach(availableRewards, id: \.self) { reward in
+              HStack {
+                Text(reward.name)
 
-              Text(reward.name)
+                Spacer()
 
-              Spacer()
-
-              Button("Claim Reward!") {
-                modelContext.delete(reward)
+                Button("Claim Reward!") {
+                  modelContext.delete(reward)
+                }
               }
             }
           }
         }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
       }
-      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-      .listRowSeparator(.hidden)
+      .padding(.horizontal)
+      .foregroundStyle(.cyan)
+      .scrollContentBackground(.hidden)
+      .listRowSpacing(5)
+      .listStyle(.inset)
     }
-    .navigationBarBackButtonHidden()
-    .padding(.horizontal)
-    .foregroundStyle(.cyan)
-    .scrollContentBackground(.hidden)
-    .listRowSpacing(5)
-    .listStyle(.inset)
   }
 }
 

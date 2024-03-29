@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ManageRewardsView: View {
   @Environment(\.modelContext) var modelContext
+  @Environment(\.editMode) var editMode
 
   var minorRewards: [Reward]
   var milestoneRewards: [Reward]
@@ -16,85 +17,83 @@ struct ManageRewardsView: View {
   @State var presentingAddRewardView: Bool = false
 
   var body: some View {
-    List {
-      HStack {
+    NavigationStack {
+      List {
+        HStack {
+          Spacer()
 
-        Spacer()
+          Text("Add Reward")
 
-        Text("Add Reward")
-
-        Spacer()
-      }
-      .overlay(
-        NavigationLink("", destination: AddRewardView(
-          reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
-          minorRewardCount: minorRewards.count,
-          milestoneRewardCount: milestoneRewards.count))
-        .opacity(0)
-      )
-      .listRowBackground(StylizedOutline()
-        .stroke(.cyan.opacity(0.4))
-        .background(StylizedOutline().fill().opacity(0.2))
-      )
-      .listRowSeparator(.hidden)
-
-      Section(header: Text("Minor Rewards")) {
-        ForEach(minorRewards, id: \.self) { reward in
-          Text(reward.name)
-            .swipeActions(edge: .trailing) {
-              Button(role: .destructive) {
-                modelContext.delete(reward)
-              } label: {
-                Label("Delete", systemImage: "trash")
-              }
-
-              NavigationLink(destination: AddRewardView(reward: reward,
-                                                        minorRewardCount: minorRewards.count,
-                                                        milestoneRewardCount: milestoneRewards.count)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
-                }
-                )
-              }
-            }
+          Spacer()
         }
-        .onMove(perform: moveMinorRewards)
-      }
-      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-      .listRowSeparator(.hidden)
+        .overlay(
+          NavigationLink("", destination: AddRewardView(
+            reward: Reward(isMilestoneReward: false, name: "", sortId: -1),
+            minorRewardCount: minorRewards.count,
+            milestoneRewardCount: milestoneRewards.count))
+          .opacity(0)
+        )
+        .listRowBackground(StylizedOutline()
+          .stroke(.cyan.opacity(0.4))
+          .background(StylizedOutline().fill().opacity(0.2))
+        )
+        .listRowSeparator(.hidden)
 
-      Section(header: Text("Milestone Rewards")) {
-        ForEach(milestoneRewards, id: \.self) { reward in
-          Text(reward.name)
-            .swipeActions(edge: .trailing) {
-              Button(role: .destructive) {
-                modelContext.delete(reward)
-              } label: {
-                Label("Delete", systemImage: "trash")
-              }
-
-              NavigationLink(destination: AddRewardView(reward: reward,
-                                                        minorRewardCount: minorRewards.count,
-                                                        milestoneRewardCount: milestoneRewards.count)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
+        Section(header: Text("Minor Rewards")) {
+          ForEach(minorRewards, id: \.self) { reward in
+            Text(reward.name)
+              .overlay(
+                NavigationLink("", destination: AddRewardView(reward: reward,
+                                                          minorRewardCount: minorRewards.count,
+                                                          milestoneRewardCount: milestoneRewards.count))
+                .opacity(0)
+              )
+              .swipeActions(edge: .trailing) {
+                Button(role: .destructive) {
+                  modelContext.delete(reward)
+                } label: {
+                  Label("Delete", systemImage: "trash")
                 }
-                )
               }
-            }
+          }
+          .onMove(perform: moveMinorRewards)
         }
-        .onMove(perform: moveMilestoneRewards)
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
+
+        Section(header: Text("Milestone Rewards")) {
+          ForEach(milestoneRewards, id: \.self) { reward in
+            Text(reward.name)
+              .overlay(
+                NavigationLink("", destination: AddRewardView(reward: reward,
+                                                          minorRewardCount: minorRewards.count,
+                                                          milestoneRewardCount: milestoneRewards.count))
+                .opacity(0)
+              )
+              .swipeActions(edge: .trailing) {
+                Button(role: .destructive) {
+                  modelContext.delete(reward)
+                } label: {
+                  Label("Delete", systemImage: "trash")
+                }
+              }
+          }
+          .onMove(perform: moveMilestoneRewards)
+        }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
       }
-      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-      .listRowSeparator(.hidden)
     }
     .toolbar {
-      EditButton()
+      Button("Rearrange") {
+        switch self.editMode?.wrappedValue {
+        case .active: self.editMode?.wrappedValue = .inactive
+        case .inactive: self.editMode?.wrappedValue = .active
+        default: print("Rearrange in transient state.")
+        }
+      }
     }
     .padding(.horizontal)
-    .tint(.cyan)
     .foregroundStyle(.cyan)
     .scrollContentBackground(.hidden)
     .listStyle(.grouped)

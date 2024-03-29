@@ -23,6 +23,7 @@ struct AddRewardView: View {
           .foregroundStyle(.cyan)
       }
       .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+      .listRowSeparator(.hidden)
 
       Section(header: Text("Reward Type")) {
         Picker("Reward Type", selection: $reward.isMilestoneReward) {
@@ -33,6 +34,7 @@ struct AddRewardView: View {
         .colorMultiply(.cyan)
       }
       .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+      .listRowSeparator(.hidden)
     }
     .foregroundStyle(.cyan)
     .padding(.horizontal)
