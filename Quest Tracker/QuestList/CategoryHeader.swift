@@ -1,5 +1,5 @@
 //
-//  CollapsibleSection.swift
+//  CategoryHeader.swift
 //  Quest Tracker
 //
 //  Created by Matt Zawodniak on 2/1/24.
@@ -34,17 +34,17 @@ struct CategoryHeader: View {
 
   @ObservedObject var model: SectionModel
 
-  var number: Int?
+  var countOfEntitiesInCategory: Int?
 
   var shouldBeExpanded: Bool
 
-  init(title: String, model: SectionModel, number: Int? = nil, shouldBeExpanded: Bool) {
+  init(title: String, model: SectionModel, countOfEntitiesInCategory: Int? = nil, shouldBeExpanded: Bool) {
     self.title = title
     self.model = model
-    self.number = number
+    self.countOfEntitiesInCategory = countOfEntitiesInCategory
     self.shouldBeExpanded = shouldBeExpanded
 
-    model.shouldBeExpanded = shouldBeExpanded
+    self.model.shouldBeExpanded = shouldBeExpanded
   }
 
   var body: some View {
@@ -52,8 +52,8 @@ struct CategoryHeader: View {
       Text(title)
 
       if model.isExpanded(title: title) == false {
-        if let number {
-          Text("(\(number))")
+        if let countOfEntitiesInCategory {
+          Text("(\(countOfEntitiesInCategory))")
         }
       }
 

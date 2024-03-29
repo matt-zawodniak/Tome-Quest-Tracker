@@ -58,8 +58,8 @@ struct QuestListView: View {
 
         Section(header: CategoryHeader(title: title,
                                        model: self.sections,
-                                       number: numberOfQuestsOfType,
-                                       defaultOpen: true)) {
+                                       countOfEntitiesInCategory: numberOfQuestsOfType,
+                                       shouldBeExpanded: true)) {
           if self.sections.isExpanded(title: title) {
             QuestSection(settings: settings,
                          showingCompletedQuests: showingCompletedQuests,

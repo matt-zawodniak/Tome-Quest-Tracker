@@ -19,7 +19,7 @@
 		8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6B15052B2E25AC00784BCE /* AddRewardView.swift */; };
 		8F796E872B6B7BE4007E0608 /* LevelUpNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */; };
 		8F796E892B6C38BA007E0608 /* QuestSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E882B6C38BA007E0608 /* QuestSection.swift */; };
-		8F796E8B2B6C40F5007E0608 /* CollapsibleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */; };
+		8F796E8B2B6C40F5007E0608 /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
 		8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA12A572B27A222005838FE /* ManageRewardsView.swift */; };
@@ -61,7 +61,7 @@
 		8F6B15052B2E25AC00784BCE /* AddRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRewardView.swift; sourceTree = "<group>"; };
 		8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpNotification.swift; sourceTree = "<group>"; };
 		8F796E882B6C38BA007E0608 /* QuestSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestSection.swift; sourceTree = "<group>"; };
-		8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSection.swift; sourceTree = "<group>"; };
+		8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = SOURCE_ROOT; };
 		8FA12A572B27A222005838FE /* ManageRewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageRewardsView.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 				8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */,
 				8F796E882B6C38BA007E0608 /* QuestSection.swift */,
 				8FD590512B60A07200DF5325 /* QuestListView.swift */,
-				8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */,
+				8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */,
 				8FC6BFEE2AFABF95001DD91E /* MainView.swift */,
 				8FE1741B2B869051006885F8 /* CustomListBackground.swift */,
 				8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */,
@@ -323,7 +323,7 @@
 				8FD5904D2B5F151700DF5325 /* Settings.swift in Sources */,
 				8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */,
 				8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */,
-				8F796E8B2B6C40F5007E0608 /* CollapsibleSection.swift in Sources */,
+				8F796E8B2B6C40F5007E0608 /* CategoryHeader.swift in Sources */,
 				8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */,
 				8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */,
 				8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */,
