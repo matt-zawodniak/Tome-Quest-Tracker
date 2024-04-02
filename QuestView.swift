@@ -22,57 +22,72 @@ struct QuestView: View {
 
   @State var advancedSettingsVisible: Bool = false
 
+  @State var editingQuest: Bool
+
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
     return settingsQueryResults.first ?? Settings.fetchFirstOrCreate(context: modelContext)
   }
 
+  @Query() var userQueryResults: [User]
+  var user: User {
+    return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
+  }
+
   var body: some View {
-    List {
-      nameSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+    VStack {
+      List {
+        nameSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
-      typeSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+        typeSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
-      questDescriptionSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+        questDescriptionSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
-      HStack {
-        Spacer()
-        Text("""
+        HStack {
+          Spacer()
+          Text("""
              \(Int(quest.type.experience
              * (quest.questDifficulty.expMultiplier +  quest.questLength.expMultiplier)/2
              + quest.questBonusExp)) EXP
              """)
-        Spacer()
-      }
-      .listRowBackground(Color.clear)
-      .listRowSeparator(.hidden)
-
-      advancedSettingsSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
-    }
-    .onDisappear(
-      perform: {
-        if quest.questName.count > 0 {
-          quest.isSelected = false
-
-          quest.isCompleted = false
-
-          modelContext.insert(quest)
+          Spacer()
         }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+
+        advancedSettingsSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
       }
-    )
-    .padding()
-    .listStyle(.grouped)
-    .listRowSpacing(5)
-    .scrollContentBackground(.hidden)
-    .foregroundStyle(.cyan)
+      .onDisappear(
+        perform: {
+          if quest.questName.count > 0 {
+            quest.isSelected = false
+
+            quest.isCompleted = false
+
+            modelContext.insert(quest)
+          }
+        }
+      )
+      .padding()
+      .listStyle(.grouped)
+      .listRowSpacing(5)
+      .scrollContentBackground(.hidden)
+      .foregroundStyle(.cyan)
+    }
+
+    Divider()
+      .overlay(Color.cyan)
+
+    buttonSection
+      .padding()
   }
 
   var typeSection: some View {
@@ -231,9 +246,51 @@ struct QuestView: View {
       }
     }
   }
+
+  var buttonSection: some View {
+    HStack {
+      Button("Confirm") {
+        dismiss()
+      }
+
+      Spacer()
+
+      if quest.isCompleted {
+        EmptyView()
+      } else {
+        if quest.type == .dailyQuest || quest.type == .weeklyQuest {
+          Button("Skip") {
+            quest.isCompleted = true
+            quest.timeCompleted = Date.now
+
+            dismiss()
+          }
+        }
+      }
+
+      Spacer()
+
+      if quest.isCompleted {
+        Button("Restore") {
+          quest.isCompleted = false
+
+          dismiss()
+        }
+      } else {
+        Button("Complete") {
+          quest.isCompleted = true
+          quest.timeCompleted = Date.now
+
+          user.giveExp(quest: quest, settings: settings, context: modelContext)
+
+          dismiss()
+        }
+      }
+    }
+  }
 }
 
 #Preview {
-    QuestView(quest: PreviewSampleData.previewQuest)
+  QuestView(quest: PreviewSampleData.previewQuest, editingQuest: true)
       .modelContainer(PreviewSampleData.container)
 }

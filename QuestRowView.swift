@@ -28,7 +28,7 @@ struct QuestRowView: View, Identifiable {
       showingQuestDetails.toggle()
     }
     .sheet(isPresented: $showingQuestDetails) {
-      QuestView(quest: quest)
+      QuestView(quest: quest, editingQuest: true)
         .presentationDetents([.medium, .large])
     }
   }
