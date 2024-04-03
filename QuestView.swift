@@ -65,17 +65,6 @@ struct QuestView: View {
           .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
           .listRowSeparator(.hidden)
       }
-      .onDisappear(
-        perform: {
-          if quest.questName.count > 0 {
-            quest.isSelected = false
-
-            quest.isCompleted = false
-
-            modelContext.insert(quest)
-          }
-        }
-      )
       .padding()
       .listStyle(.grouped)
       .listRowSpacing(5)
@@ -248,8 +237,10 @@ struct QuestView: View {
     GeometryReader { geometry in
       HStack {
         if !editingQuest {
-          Button("Cancel") {
+          Spacer()
 
+          Button("Cancel") {
+            dismiss()
           }
           .frame(width: geometry.size.width / 2, height: 30)
 
@@ -258,15 +249,24 @@ struct QuestView: View {
             .overlay(.black)
 
           Button("Create") {
+            quest.isSelected = false
 
+            quest.isCompleted = false
+
+            modelContext.insert(quest)
+
+            dismiss()
           }
           .frame(width: geometry.size.width / 2, height: 30)
+
+          Spacer()
         } else {
           if quest.isCompleted {
             Spacer()
 
             Button("Delete") {
-
+              modelContext.delete(quest)
+              dismiss()
             }
             .frame(width: geometry.size.width / 4, height: 30)
 
@@ -275,7 +275,7 @@ struct QuestView: View {
               .overlay(.black)
 
             Button("Confirm") {
-
+              dismiss()
             }
             .frame(width: geometry.size.width / 4, height: 30)
 
@@ -284,7 +284,10 @@ struct QuestView: View {
               .overlay(.black)
 
             Button("Restore") {
+              quest.isCompleted = false
+              quest.timeCreated = Date.now
 
+              dismiss()
             }
             .frame(width: geometry.size.width / 4, height: 30)
 
@@ -294,7 +297,8 @@ struct QuestView: View {
               Spacer()
 
               Button("Delete") {
-
+                modelContext.delete(quest)
+                dismiss()
               }
               .frame(width: geometry.size.width / 4, height: 30)
 
@@ -303,7 +307,7 @@ struct QuestView: View {
                 .overlay(.black)
 
               Button("Confirm") {
-
+                dismiss()
               }
               .frame(width: geometry.size.width / 4, height: 30)
 
@@ -312,7 +316,13 @@ struct QuestView: View {
                 .overlay(.black)
 
               Button("Complete") {
+                quest.isCompleted = true
 
+                quest.timeCompleted = Date.now
+
+                user.giveExp(quest: quest, settings: settings, context: modelContext)
+
+                dismiss()
               }
               .frame(width: geometry.size.width / 4, height: 30)
 
@@ -321,7 +331,8 @@ struct QuestView: View {
               Spacer()
 
               Button("Delete") {
-
+                modelContext.delete(quest)
+                dismiss()
               }
               .frame(width: geometry.size.width / 5, height: 30)
 
@@ -330,7 +341,10 @@ struct QuestView: View {
                 .overlay(.black)
 
               Button("Skip") {
+                quest.isCompleted = true
+                quest.timeCompleted = Date.now
 
+                dismiss()
               }
               .frame(width: geometry.size.width / 5.5, height: 30)
 
@@ -339,7 +353,7 @@ struct QuestView: View {
                 .overlay(.black)
 
               Button("Confirm") {
-
+                dismiss()
               }
               .frame(width: geometry.size.width / 5.5, height: 30)
 
@@ -348,7 +362,13 @@ struct QuestView: View {
                 .overlay(.black)
 
               Button("Complete") {
+                quest.isCompleted = true
 
+                quest.timeCompleted = Date.now
+
+                user.giveExp(quest: quest, settings: settings, context: modelContext)
+
+                dismiss()
               }
               .frame(width: geometry.size.width / 5, height: 30)
 
