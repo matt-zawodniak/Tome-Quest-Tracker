@@ -82,12 +82,9 @@ struct QuestView: View {
       .scrollContentBackground(.hidden)
       .foregroundStyle(.cyan)
     }
-
-    Divider()
-      .overlay(Color.cyan)
+    .layoutPriority(1)
 
     buttonSection
-      .padding()
   }
 
   var typeSection: some View {
@@ -248,45 +245,122 @@ struct QuestView: View {
   }
 
   var buttonSection: some View {
-    HStack {
-      Button("Confirm") {
-        dismiss()
-      }
+    GeometryReader { geometry in
+      HStack {
+        if !editingQuest {
+          Button("Cancel") {
 
-      Spacer()
+          }
+          .frame(width: geometry.size.width / 2, height: 30)
 
-      if quest.isCompleted {
-        EmptyView()
-      } else {
-        if quest.type == .dailyQuest || quest.type == .weeklyQuest {
-          Button("Skip") {
-            quest.isCompleted = true
-            quest.timeCompleted = Date.now
+          Divider()
+            .frame(height: 30)
+            .overlay(.black)
 
-            dismiss()
+          Button("Create") {
+
+          }
+          .frame(width: geometry.size.width / 2, height: 30)
+        } else {
+          if quest.isCompleted {
+            Spacer()
+
+            Button("Delete") {
+
+            }
+            .frame(width: geometry.size.width / 4, height: 30)
+
+            Divider()
+              .frame(height: 30)
+              .overlay(.black)
+
+            Button("Confirm") {
+
+            }
+            .frame(width: geometry.size.width / 4, height: 30)
+
+            Divider()
+              .frame(height: 30)
+              .overlay(.black)
+
+            Button("Restore") {
+
+            }
+            .frame(width: geometry.size.width / 4, height: 30)
+
+            Spacer()
+          } else {
+            if quest.type == .mainQuest || quest.type == .sideQuest {
+              Spacer()
+
+              Button("Delete") {
+
+              }
+              .frame(width: geometry.size.width / 4, height: 30)
+
+              Divider()
+                .frame(height: 30)
+                .overlay(.black)
+
+              Button("Confirm") {
+
+              }
+              .frame(width: geometry.size.width / 4, height: 30)
+
+              Divider()
+                .frame(height: 30)
+                .overlay(.black)
+
+              Button("Complete") {
+
+              }
+              .frame(width: geometry.size.width / 4, height: 30)
+
+              Spacer()
+            } else {
+              Spacer()
+
+              Button("Delete") {
+
+              }
+              .frame(width: geometry.size.width / 5, height: 30)
+
+              Divider()
+                .frame(height: 30)
+                .overlay(.black)
+
+              Button("Skip") {
+
+              }
+              .frame(width: geometry.size.width / 5.5, height: 30)
+
+              Divider()
+                .frame(height: 30)
+                .overlay(.black)
+
+              Button("Confirm") {
+
+              }
+              .frame(width: geometry.size.width / 5.5, height: 30)
+
+              Divider()
+                .frame(height: 30)
+                .overlay(.black)
+
+              Button("Complete") {
+
+              }
+              .frame(width: geometry.size.width / 5, height: 30)
+
+              Spacer()
+            }
           }
         }
       }
-
-      Spacer()
-
-      if quest.isCompleted {
-        Button("Restore") {
-          quest.isCompleted = false
-
-          dismiss()
-        }
-      } else {
-        Button("Complete") {
-          quest.isCompleted = true
-          quest.timeCompleted = Date.now
-
-          user.giveExp(quest: quest, settings: settings, context: modelContext)
-
-          dismiss()
-        }
-      }
+      .foregroundStyle(.white)
+      .padding(.horizontal)
     }
+    .background(.cyan)
   }
 }
 
