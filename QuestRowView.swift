@@ -16,7 +16,7 @@ struct QuestRowView: View, Identifiable {
 
   @State var quest: Quest
 
-  @State var showingQuestDetails: Bool = false
+  @Binding var showingQuestDetails: Bool
 
   var body: some View {
       HStack {
@@ -35,6 +35,6 @@ struct QuestRowView: View, Identifiable {
 }
 
 #Preview {
-    QuestRowView(quest: PreviewSampleData.previewQuest)
+  QuestRowView(quest: PreviewSampleData.previewQuest, showingQuestDetails: .constant(false))
     .modelContainer(PreviewSampleData.container)
 }

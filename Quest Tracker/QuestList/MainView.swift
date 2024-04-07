@@ -20,15 +20,16 @@ struct MainView: View {
   var earnedRewards: [Reward]
 
   @State var showingCompletedQuests: Bool = false
-
   @State var showingLevelUpNotification: Bool = false
+  @State var showingQuestDetails: Bool = false
 
   var body: some View {
     ZStack {
       GlobalUISettings.background
 
       VStack {
-        QuestListView(showingCompletedQuests: showingCompletedQuests)
+        QuestListView(showingCompletedQuests: showingCompletedQuests,
+                      showingQuestDetails: $showingQuestDetails)
         .layoutPriority(1)
 
         VStack {
@@ -46,6 +47,6 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+  MainView()
       .modelContainer(PreviewSampleData.container)
 }
