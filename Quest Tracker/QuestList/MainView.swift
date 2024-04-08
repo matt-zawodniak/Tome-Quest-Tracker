@@ -23,6 +23,8 @@ struct MainView: View {
   @State var showingCompletedQuests: Bool = false
   @State var showingLevelUpNotification: Bool = false
 
+  @State var settingsDetent = PresentationDetent.medium
+
   var body: some View {
     ZStack {
       GlobalUISettings.background
@@ -45,7 +47,8 @@ struct MainView: View {
     .sheet(isPresented: $editingQuestHandler.showingQuestDetails) {
       QuestView(quest: editingQuestHandler.questToShowDetails ?? Quest.defaultQuest(context: modelContext),
                 editingQuest: true)
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.medium],
+        selection: $settingsDetent)
     }
   }
 }

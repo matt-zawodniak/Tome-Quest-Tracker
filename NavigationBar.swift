@@ -17,6 +17,9 @@ struct NavigationBar: View {
   @State var showingSettingsView: Bool = false
   @Binding var showingCompletedQuests: Bool
 
+  @State var rewardsDetent = PresentationDetent.medium
+  @State var settingsDetent = PresentationDetent.medium
+
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
     return Settings.fetchFirstOrCreate(context: modelContext)
@@ -116,15 +119,18 @@ struct NavigationBar: View {
     .background(.black)
     .sheet(isPresented: $showingNewQuestView) {
       QuestView(quest: Quest.defaultQuest(context: modelContext), editingQuest: false)
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.medium, .large],
+                             selection: $rewardsDetent)
     }
     .sheet(isPresented: $showingRewardsView) {
       RewardsView()
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.medium, .large],
+                             selection: $rewardsDetent)
     }
     .sheet(isPresented: $showingSettingsView) {
       SettingsView(settings: settings, user: user)
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.medium, .large],
+                             selection: $settingsDetent)
     }
   }
 }
