@@ -14,8 +14,6 @@ struct QuestSection: View {
 
   @Query var quests: [Quest]
 
-  @Binding var showingQuestDetails: Bool
-
   var settings: Settings
   var showingCompletedQuests: Bool
   var user: User
@@ -23,15 +21,13 @@ struct QuestSection: View {
 
   init(settings: Settings,
        showingCompletedQuests: Bool,
-       user: User, questType: QuestType,
-       showingQuestDetails: Binding<Bool>) {
+       user: User, questType: QuestType) {
     _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests})
 
     self.settings = settings
     self.showingCompletedQuests = showingCompletedQuests
     self.user = user
     self.questType = questType
-    self._showingQuestDetails = showingQuestDetails
   }
 
   var questsOfChosenType: [Quest] {
@@ -40,7 +36,7 @@ struct QuestSection: View {
 
   var body: some View {
     ForEach(questsOfChosenType, id: \.self) { (quest: Quest) in
-      QuestRowView(quest: quest, showingQuestDetails: $showingQuestDetails)
+      QuestRowView(quest: quest)
         .swipeActions(edge: .trailing) {
           Button(role: .destructive) {
             modelContext.delete(quest)

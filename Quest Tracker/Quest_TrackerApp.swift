@@ -24,9 +24,12 @@ struct Quest_TrackerApp: App {
     QuestTrackerShortcuts.updateAppShortcutParameters()
   }
 
+  @StateObject var editingQuestHandler = EditingQuestHandler()
+
   var body: some Scene {
     WindowGroup {
       MainView()
+        .environment(editingQuestHandler)
     }
     .modelContainer(container)
   }

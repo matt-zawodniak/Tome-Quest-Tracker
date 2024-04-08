@@ -11,12 +11,11 @@ import SwiftUI
 struct QuestRowView: View, Identifiable {
 
   @Environment(\.modelContext) var modelContext
+  @EnvironmentObject var editingQuestHandler: EditingQuestHandler
 
   var id = UUID()
 
   @State var quest: Quest
-
-  @Binding var showingQuestDetails: Bool
 
   var body: some View {
       HStack {
@@ -25,16 +24,13 @@ struct QuestRowView: View, Identifiable {
       }
     .contentShape(Rectangle())
     .onTapGesture {
-      showingQuestDetails.toggle()
-    }
-    .sheet(isPresented: $showingQuestDetails) {
-      QuestView(quest: quest, editingQuest: true)
-        .presentationDetents([.medium, .large])
+      editingQuestHandler.questToShowDetails = quest
+      editingQuestHandler.showingQuestDetails.toggle()
     }
   }
 }
 
 #Preview {
-  QuestRowView(quest: PreviewSampleData.previewQuest, showingQuestDetails: .constant(false))
+  QuestRowView(quest: PreviewSampleData.previewQuest)
     .modelContainer(PreviewSampleData.container)
 }

@@ -42,8 +42,6 @@ struct QuestListView: View {
 
   var showingCompletedQuests: Bool
 
-  @Binding var showingQuestDetails: Bool
-
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   var body: some View {
@@ -66,8 +64,7 @@ struct QuestListView: View {
             QuestSection(settings: settings,
                          showingCompletedQuests: showingCompletedQuests,
                          user: user,
-                         questType: type,
-                         showingQuestDetails: $showingQuestDetails)
+                         questType: type)
           } else {
             EmptyView()
           }
@@ -97,6 +94,6 @@ struct QuestListView: View {
 }
 
 #Preview {
-  QuestListView(tracker: QuestTrackerViewModel(), showingCompletedQuests: false, showingQuestDetails: .constant(false))
+  QuestListView(tracker: QuestTrackerViewModel(), showingCompletedQuests: false)
       .modelContainer(PreviewSampleData.container)
 }

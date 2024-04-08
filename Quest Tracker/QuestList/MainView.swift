@@ -11,6 +11,7 @@ import SwiftData
 struct MainView: View {
 
   @Environment(\.modelContext) var modelContext
+  @EnvironmentObject var editingQuestHandler: EditingQuestHandler
 
   var user: User {
     User.fetchFirstOrCreate(context: modelContext)
@@ -21,15 +22,13 @@ struct MainView: View {
 
   @State var showingCompletedQuests: Bool = false
   @State var showingLevelUpNotification: Bool = false
-  @State var showingQuestDetails: Bool = false
 
   var body: some View {
     ZStack {
       GlobalUISettings.background
 
       VStack {
-        QuestListView(showingCompletedQuests: showingCompletedQuests,
-                      showingQuestDetails: $showingQuestDetails)
+        QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 
         VStack {
@@ -42,6 +41,11 @@ struct MainView: View {
     }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
+    }
+    .sheet(isPresented: $editingQuestHandler.showingQuestDetails) {
+      QuestView(quest: editingQuestHandler.questToShowDetails ?? Quest.defaultQuest(context: modelContext),
+                editingQuest: true)
+        .presentationDetents([.medium, .large])
     }
   }
 }
