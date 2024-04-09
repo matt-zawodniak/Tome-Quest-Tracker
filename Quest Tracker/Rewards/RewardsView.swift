@@ -6,7 +6,6 @@
 //
 
 import SwiftData
-import Foundation
 import SwiftUI
 
 struct RewardsView: View {

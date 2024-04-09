@@ -71,9 +71,11 @@ struct QuestView: View {
       .scrollContentBackground(.hidden)
       .foregroundStyle(.cyan)
     }
-    .layoutPriority(1)
+
+    Spacer()
 
     ButtonSection(editingQuest: editingQuest, quest: quest, settings: settings, user: user)
+      .frame(height: 30)
   }
 
   var typeSection: some View {

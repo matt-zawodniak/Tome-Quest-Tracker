@@ -17,6 +17,7 @@ struct NavigationBar: View {
   @State var showingSettingsView: Bool = false
   @Binding var showingCompletedQuests: Bool
 
+  @State var questViewDetent = PresentationDetent.medium
   @State var rewardsDetent = PresentationDetent.medium
   @State var settingsDetent = PresentationDetent.medium
 
@@ -120,7 +121,7 @@ struct NavigationBar: View {
     .sheet(isPresented: $showingNewQuestView) {
       QuestView(quest: Quest.defaultQuest(context: modelContext), editingQuest: false)
         .presentationDetents([.medium, .large],
-                             selection: $rewardsDetent)
+                             selection: $questViewDetent)
     }
     .sheet(isPresented: $showingRewardsView) {
       RewardsView()
