@@ -19,18 +19,22 @@ struct LevelAndExpUI: View {
 
   var body: some View {
     GeometryReader { geometry in
-      HStack {
-        Spacer()
+      ZStack {
+        HStack {
+          Spacer()
 
-        Text("LVL \(user.level)")
+          Text("LVL \(user.level)")
+
+          Spacer(minLength: geometry.size.width * 0.45)
+
+          Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+
+          Spacer()
+        }
 
         ProgressView(value: user.currentExp, total: user.expToLevel).animation(.easeInOut, value: user.currentExp)
           .tint(.cyan)
           .frame(maxWidth: geometry.size.width * 0.4)
-
-        Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
-
-        Spacer()
       }
       .foregroundStyle(.cyan)
     }
