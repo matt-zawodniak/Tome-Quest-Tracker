@@ -25,10 +25,12 @@ struct LevelAndExpUI: View {
             Spacer()
 
             Text("LVL \(user.level)")
+              .frame(minWidth: geometry.size.width * 0.15)
 
             Spacer(minLength: geometry.size.width * 0.45)
 
             Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+              .frame(minWidth: geometry.size.width * 0.15)
 
             Spacer()
           }
