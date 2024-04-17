@@ -19,24 +19,31 @@ struct LevelAndExpUI: View {
 
   var body: some View {
     GeometryReader { geometry in
-      ZStack {
-        HStack {
-          Spacer()
+      VStack {
+        ZStack {
+          HStack {
+            Spacer()
 
-          Text("LVL \(user.level)")
+            Text("LVL \(user.level)")
 
-          Spacer(minLength: geometry.size.width * 0.45)
+            Spacer(minLength: geometry.size.width * 0.45)
 
-          Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+            Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
 
-          Spacer()
+            Spacer()
+          }
+
+          ProgressView(value: user.currentExp, total: user.expToLevel)
+            .animation(.easeOut(duration: 1), value: user.currentExp)
+            .tint(.cyan)
+            .frame(maxWidth: geometry.size.width * 0.4)
         }
+        .foregroundStyle(.cyan)
 
-        ProgressView(value: user.currentExp, total: user.expToLevel).animation(.easeInOut, value: user.currentExp)
-          .tint(.cyan)
-          .frame(maxWidth: geometry.size.width * 0.4)
+        Button("Add 40 EXP") {
+          user.giveExp(quest: Quest.defaultQuest(context: modelContext), settings: Settings.defaultSettings, context: modelContext)
+        }
       }
-      .foregroundStyle(.cyan)
     }
   }
 }

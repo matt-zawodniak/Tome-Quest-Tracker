@@ -28,10 +28,8 @@ extension User: Identifiable {
   func giveExp(quest: Quest, settings: Settings, context: ModelContext) {
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
 
-    currentExp += questExp
-
-    if currentExp >= expToLevel {
-      levelUp(settings: settings)
+    if (currentExp + questExp) >= expToLevel {
+      levelUp(settings: settings, questExp: questExp)
 
       if level % 5 == 0 {
         var milestoneRewardFetchedResults: [Reward]? {
@@ -73,6 +71,8 @@ extension User: Identifiable {
           firstMinorReward.dateEarned = Date()
         }
       }
+    } else {
+      currentExp += questExp
     }
   }
 
@@ -102,14 +102,38 @@ extension User: Identifiable {
     return user
   }
 
- func levelUp(settings: Settings) {
-    level += 1
+  func levelUp(settings: Settings, questExp: Double) {
+   let totalExp = currentExp
 
-    currentExp -= expToLevel
+   let group = DispatchGroup()
+   group.enter()
 
-    if levelingScheme == 1 {
-      expToLevel += 20
-    }
+   DispatchQueue.main.async {
+     self.currentExp = self.expToLevel
+     group.leave()
+   }
+
+   group.notify(queue: .main) {
+     group.enter()
+
+     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+       self.currentExp = 0
+       self.level += 1
+       group.leave()
+     }
+
+     group.notify(queue: .main) {
+       group.enter()
+
+       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+         self.currentExp = totalExp + questExp - self.expToLevel
+         if self.levelingScheme == 1 {
+           self.expToLevel += 20
+         }
+         group.leave()
+       }
+     }
+   }
   }
 
   var scaling: LevelingSchemes {
