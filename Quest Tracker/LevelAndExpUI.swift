@@ -43,16 +43,36 @@ struct LevelAndExpUI: View {
             .overlay(
               HStack {
                 Capsule()
-                  .phaseAnimator([0, 1, 2], trigger: user.currentExp) { bar, phase in
-                    switch phase {
-                    case 0: bar.frame(width: geometry.size.width * 0.4 * user.currentExp / user.expToLevel)
-                    case 1: bar.frame(width: geometry.size.width * 0.4)
-                    case 2: bar.frame(width: 0)
-                    default:
-                      bar.frame(width: user.currentExp)
-                    }
-                  } animation: { phase in
-                    .easeInOut(duration: 1)
+                  .phaseAnimator([user.currentExp, user.expToLevel, 0], trigger: user.currentExp) { capsule, phase in
+                    capsule
+                      .frame(width: geometry.size.width * 0.4 * expBarLength / user.expToLevel)
+                      .onChange(of: phase) {
+                        switch phase {
+                        case user.currentExp:
+                          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if expBarLength != user.currentExp {
+                              expBarLength = user.currentExp
+                            }
+                          }
+                        case user.expToLevel:
+                          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            if expBarLength > user.currentExp {
+                              expBarLength = user.expToLevel
+                            } else {
+                              expBarLength = user.currentExp
+                            }
+                          }
+                        case 0:
+                          DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            if expBarLength > user.currentExp {
+                              expBarLength = 0
+                            }
+                          }
+                        default: print("default")
+                        }
+                      }
+                  } animation: { _ in
+                      .easeInOut(duration: 1)
                   }
 
                 Spacer()
