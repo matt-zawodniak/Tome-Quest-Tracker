@@ -17,6 +17,8 @@ struct LevelAndExpUI: View {
     return users.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
+  @State var expBarLength: Double
+
   var body: some View {
     GeometryReader { geometry in
       VStack {
@@ -35,10 +37,32 @@ struct LevelAndExpUI: View {
             Spacer()
           }
 
-          ProgressView(value: user.currentExp, total: user.expToLevel)
-            .animation(.easeOut(duration: 1), value: user.currentExp)
-            .tint(.cyan)
-            .frame(maxWidth: geometry.size.width * 0.4)
+          Capsule()
+            .frame(width: geometry.size.width * 0.4, height: 5)
+            .opacity(0.1)
+            .overlay(
+              HStack {
+                Capsule()
+                  .phaseAnimator([0, 1, 2], trigger: user.currentExp) { bar, phase in
+                    switch phase {
+                    case 0: bar.frame(width: geometry.size.width * 0.4 * user.currentExp / user.expToLevel)
+                    case 1: bar.frame(width: geometry.size.width * 0.4)
+                    case 2: bar.frame(width: 0)
+                    default:
+                      bar.frame(width: user.currentExp)
+                    }
+                  } animation: { phase in
+                    .easeInOut(duration: 1)
+                  }
+
+                Spacer()
+              }
+            )
+
+//          ProgressView(value: user.currentExp, total: user.expToLevel)
+//            .animation(.easeOut(duration: 1), value: user.currentExp)
+//            .tint(.cyan)
+//            .frame(maxWidth: geometry.size.width * 0.4)
         }
         .foregroundStyle(.cyan)
 
@@ -51,6 +75,6 @@ struct LevelAndExpUI: View {
 }
 
 #Preview {
-    LevelAndExpUI()
+  LevelAndExpUI(expBarLength: 27)
       .modelContainer(PreviewSampleData.container)
 }
