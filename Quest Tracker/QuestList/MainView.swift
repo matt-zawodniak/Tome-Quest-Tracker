@@ -34,7 +34,7 @@ struct MainView: View {
         VStack {
           NavigationBar(showingCompletedQuests: $showingCompletedQuests)
 
-          LevelAndExpUI(expBarLength: user.currentExp)
+          LevelAndExpUI()
             .padding(.horizontal)
         }
       }
