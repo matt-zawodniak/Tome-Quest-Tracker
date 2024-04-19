@@ -17,67 +17,55 @@ struct LevelAndExpUI: View {
     return users.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
-  @State var expBarLength: Double = 27
+  @State var expBarLength: Double
 
   var body: some View {
     GeometryReader { geometry in
-      VStack {
-        ZStack {
-          HStack {
-            Spacer()
+      ZStack {
+        HStack {
+          Spacer()
 
-            Text("LVL \(user.level)")
-              .frame(minWidth: geometry.size.width * 0.15)
+          Text("LVL \(user.level)")
+            .frame(minWidth: geometry.size.width * 0.15)
 
-            Spacer(minLength: geometry.size.width * 0.45)
+          Spacer(minLength: geometry.size.width * 0.45)
 
-            Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
-              .frame(minWidth: geometry.size.width * 0.15)
+          Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+            .frame(minWidth: geometry.size.width * 0.15)
 
-            Spacer()
-          }
-
-          Capsule()
-            .frame(width: geometry.size.width * 0.4, height: 5)
-            .opacity(0.1)
-            .overlay(
-              HStack {
-                Capsule()
-                  .frame(width: geometry.size.width * 0.4 * expBarLength / user.expToLevel)
-//                  .animation(.easeOut, value: user.currentExp)
-
-                Spacer()
-              }
-            )
-
-//          ProgressView(value: user.currentExp, total: user.expToLevel)
-//            .animation(.easeOut(duration: 1), value: user.currentExp)
-//            .tint(.cyan)
-//            .frame(maxWidth: geometry.size.width * 0.4)
+          Spacer()
         }
-        .foregroundStyle(.cyan)
 
-        Button("Add 40 EXP") {
-          user.giveExp(quest: Quest.defaultQuest(context: modelContext), settings: Settings.defaultSettings, context: modelContext)
-        }
+        Capsule()
+          .frame(width: geometry.size.width * 0.4, height: 5)
+          .opacity(0.1)
+          .overlay(
+            HStack {
+              Capsule()
+                .frame(width: geometry.size.width * 0.4 * expBarLength / user.expToLevel)
+
+              Spacer()
+            }
+          )
       }
+      .foregroundStyle(.cyan)
       .onChange(of: user.currentExp) {
         if user.isLevelingUp {
-          withAnimation(.easeIn(duration: 0.25)) {
-            expBarLength = geometry.size.width * 0.4
+          withAnimation(.easeInOut(duration: 0.5)) {
+              expBarLength = user.expToLevel
           } completion: {
-            withAnimation(.easeInOut(duration: 0.5)) {
               expBarLength = 0
-            } completion: {
-              withAnimation(.easeOut(duration: 0.25)) {
+              if user.levelingScheme == 1 {
+                user.expToLevel += 20
+              }
+            withAnimation(.easeInOut(duration: 0.5)) {
                 expBarLength = user.currentExp
               } completion: {
                 user.isLevelingUp = false
               }
-            }
           }
         } else {
-          withAnimation(.easeInOut(duration: 0.5)) {
+          withAnimation(.easeInOut(duration: 1)) {
             expBarLength = user.currentExp
           }
         }
@@ -87,6 +75,6 @@ struct LevelAndExpUI: View {
 }
 
 #Preview {
-  LevelAndExpUI()
+  LevelAndExpUI(expBarLength: 27)
       .modelContainer(PreviewSampleData.container)
 }

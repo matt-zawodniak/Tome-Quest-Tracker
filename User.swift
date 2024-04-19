@@ -35,7 +35,7 @@ extension User: Identifiable {
 
       currentExp += questExp
 
-      levelUp(settings: settings)
+      levelUp()
 
       if level % 5 == 0 {
         var milestoneRewardFetchedResults: [Reward]? {
@@ -108,14 +108,10 @@ extension User: Identifiable {
     return user
   }
 
-  func levelUp(settings: Settings) {
+  func levelUp() {
      level += 1
 
      currentExp -= expToLevel
-
-     if levelingScheme == 1 {
-       expToLevel += 20
-     }
   }
 
   var scaling: LevelingSchemes {
