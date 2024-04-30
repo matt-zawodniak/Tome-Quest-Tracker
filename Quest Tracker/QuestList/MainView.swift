@@ -21,7 +21,7 @@ struct MainView: View {
 
   @State var showingCompletedQuests: Bool = false
 
-  @State var showingLevelUpNotification: Bool = false
+  @State var navigateToRewardsView: Bool = false
 
   var body: some View {
     ZStack {
@@ -38,10 +38,26 @@ struct MainView: View {
             .padding(.horizontal)
         }
       }
+
+      if user.leveledUpRecently {
+        Rectangle()
+        .foregroundStyle(.black)
+        .opacity(0.8)
+        .onTapGesture {
+          user.leveledUpRecently = false
+        }
+
+        LevelUpNotification(user: user, navigateToRewardsView: $navigateToRewardsView)
+        .padding(.horizontal)
+      }
     }
     .onChange(of: user.level) {
-      showingLevelUpNotification = true
+      user.leveledUpRecently = true
     }
+    .sheet(isPresented: $navigateToRewardsView, content: {
+      RewardsView()
+        .presentationDetents([.medium, .large])
+    })
   }
 }
 

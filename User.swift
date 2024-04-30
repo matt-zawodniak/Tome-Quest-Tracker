@@ -15,6 +15,7 @@ import SwiftData
   var expToLevel: Double = 0.0
   var level: Int64 = 0
   var levelingScheme: Int64 = 0
+  var leveledUpRecently: Bool = false
 
   public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64) {
     self.currentExp = currentExp
