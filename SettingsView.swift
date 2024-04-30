@@ -47,14 +47,6 @@ struct SettingsView: View {
                 }
               }
           }
-
-          HStack {
-            Text("Daily Reset Warning")
-
-            Spacer()
-
-            Toggle("", isOn: $settings.dailyResetWarning)
-          }
         }
       }
       .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))

@@ -105,7 +105,6 @@ class PreviewSampleData {
   static var previewSettings: Settings = Settings(
     dayOfTheWeek: 3,
     time: Date(),
-    dailyResetWarning: false,
     weeklyResetWarning: false
   )
 

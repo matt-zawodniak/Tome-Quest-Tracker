@@ -11,13 +11,11 @@ import SwiftData
 
 @Model public class Settings {
 
-  var dailyResetWarning: Bool = false
-  var dayOfTheWeek: Int64 = 2
+  var dayOfTheWeek: Int = Settings.defaultSettings.dayOfTheWeek
   var time: Date = Settings.defaultResetTime
-  var weeklyResetWarning: Bool = false
+  var weeklyResetWarning: Bool = Settings.defaultSettings.weeklyResetWarning
 
-  public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
-    self.dailyResetWarning = dailyResetWarning
+  public init(dayOfTheWeek: Int, time: Date, weeklyResetWarning: Bool) {
     self.dayOfTheWeek = dayOfTheWeek
     self.time = time
     self.weeklyResetWarning = weeklyResetWarning
@@ -49,18 +47,15 @@ extension Settings: Identifiable {
   }
 
   static var defaultSettings = Settings(
-    dayOfTheWeek: 2,
+    dayOfTheWeek: DayOfTheWeek.monday.rawValue,
     time: Settings.defaultResetTime,
-    dailyResetWarning: false,
     weeklyResetWarning: false)
 
   static func fetchFirstOrCreate(context: ModelContext) -> Settings {
     let settingsRequest = FetchDescriptor<Settings>()
-
     let settingsData = try? context.fetch(settingsRequest)
 
     let settings = settingsData?.first ?? defaultSettings
-
     return settings
   }
 
@@ -74,7 +69,7 @@ extension Settings: Identifiable {
   }
 }
 
-enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
+enum DayOfTheWeek: Int, CaseIterable, CustomStringConvertible {
   case sunday = 1
   case monday = 2
   case tuesday = 3
