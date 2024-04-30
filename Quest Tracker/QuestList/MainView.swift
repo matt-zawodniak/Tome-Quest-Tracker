@@ -41,6 +41,7 @@ struct MainView: View {
 
       if user.leveledUpRecently {
         Rectangle()
+        .ignoresSafeArea(.all)
         .foregroundStyle(.black)
         .opacity(0.8)
         .onTapGesture {
