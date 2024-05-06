@@ -37,7 +37,7 @@ struct QuestDetailView: View {
 
           Text("Rewards").font(.headline)
 
-          Text(" \(Int(quest.type.experience + quest.questBonusExp)) EXP")
+          Text(" \(Int(quest.type.experience)) EXP")
 
           if let bonus = quest.questBonusReward {
             Text("Bonus Reward: \(bonus)")

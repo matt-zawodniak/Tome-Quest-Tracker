@@ -30,39 +30,6 @@ struct QuestRowView: View, Identifiable {
         Text(quest.questName)
         Spacer()
       }
-
-      if quest.isSelected {
-        Text(quest.questDescription ?? "")
-
-        Text("Quest EXP: \(Int(quest.type.experience))")
-
-        if quest.questBonusReward != nil {
-          HStack {
-            Text("Quest Reward:")
-
-            Text(quest.questBonusReward ?? "")
-          }
-        }
-
-        if !quest.isCompleted {
-          if quest.type == .weeklyQuest ||
-              quest.type == .dailyQuest {
-            Button {
-              quest.timeCompleted = Date()
-
-              quest.isCompleted = true
-            } label: {
-              Text("Skip Quest").foregroundStyle(.orange)
-            }
-          }
-        } else {
-          Button {
-            restoreQuest(quest: quest)
-          } label: {
-            Text("Restore to Quest List")
-          }
-        }
-      }
     }
     .contentShape(Rectangle())
     .onTapGesture {
@@ -77,20 +44,10 @@ struct QuestRowView: View, Identifiable {
   func restoreQuest(quest: Quest) {
     quest.isCompleted = false
 
-    quest.isSelected = false
-
     quest.timeCreated = Date.now
 
     print("\(quest.questName) is \(quest.isCompleted)")
   }
-
-  func toggleQuest(quest: Quest, quests: [Quest]) {
-      quest.isSelected.toggle()
-
-      for other in quests where other != quest {
-        other.isSelected = false
-      }
-    }
 }
 
 #Preview {

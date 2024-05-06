@@ -11,40 +11,35 @@ import SwiftData
 import AppIntents
 
 @Model class Quest {
-  var difficulty: Int = 0
+  var difficulty: Int = QuestDifficulty.average.rawValue
   var dueDate: Date?
   var id = UUID()
   var isCompleted: Bool = false
-  @Attribute(.ephemeral) var isSelected: Bool = false
-  var length: Int = 0
-  var questBonusExp: Double = 0.0
+  var length: Int = QuestLength.average.rawValue
   var questBonusReward: String?
   var questDescription: String?
   var questName: String = ""
-  var questType: Int = 0
+  var questType: Int = QuestType.mainQuest.rawValue
   var timeCompleted: Date?
-  var timeCreated: Date?
+  var timeCreated: Date = Date.now
 
   public init(
     difficulty: Int,
     dueDate: Date? = nil,
     id: UUID,
     isCompleted: Bool,
-    isSelected: Bool,
     length: Int,
-    questBonusExp: Double,
     questBonusReward: String? = nil,
     questDescription: String? = nil,
-    questName: String, questType: Int,
+    questName: String,
+    questType: Int,
     timeCompleted: Date? = nil,
-    timeCreated: Date? = nil) {
+    timeCreated: Date) {
       self.difficulty = difficulty
       self.dueDate = dueDate
       self.id = id
       self.isCompleted = isCompleted
-      self.isSelected = isSelected
       self.length = length
-      self.questBonusExp = questBonusExp
       self.questBonusReward = questBonusReward
       self.questDescription = questDescription
       self.questName = questName
@@ -191,11 +186,10 @@ extension Quest: Identifiable {
     let quest = Quest(difficulty: 1,
                       id: UUID(),
                       isCompleted: false,
-                      isSelected: false,
                       length: QuestLength.average.rawValue,
-                      questBonusExp: 0,
                       questName: "",
-                      questType: QuestType.mainQuest.rawValue)
+                      questType: QuestType.mainQuest.rawValue,
+                      timeCreated: Date.now)
 
     return quest
   }
