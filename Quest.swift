@@ -11,31 +11,31 @@ import SwiftData
 import AppIntents
 
 @Model class Quest {
-  var difficulty: Int64 = 0
+  var difficulty: Int = 0
   var dueDate: Date?
   var id = UUID()
   var isCompleted: Bool = false
   @Attribute(.ephemeral) var isSelected: Bool = false
-  var length: Int64 = 0
+  var length: Int = 0
   var questBonusExp: Double = 0.0
   var questBonusReward: String?
   var questDescription: String?
   var questName: String = ""
-  var questType: Int64 = 0
+  var questType: Int = 0
   var timeCompleted: Date?
   var timeCreated: Date?
 
   public init(
-    difficulty: Int64,
+    difficulty: Int,
     dueDate: Date? = nil,
     id: UUID,
     isCompleted: Bool,
     isSelected: Bool,
-    length: Int64,
+    length: Int,
     questBonusExp: Double,
     questBonusReward: String? = nil,
     questDescription: String? = nil,
-    questName: String, questType: Int64,
+    questName: String, questType: Int,
     timeCompleted: Date? = nil,
     timeCreated: Date? = nil) {
       self.difficulty = difficulty
@@ -201,7 +201,7 @@ extension Quest: Identifiable {
   }
 }
 
-enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
+enum QuestType: Int, CaseIterable, CustomStringConvertible, AppEnum {
   static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Quest Type")
 
   static var caseDisplayRepresentations: [QuestType: DisplayRepresentation] = [
@@ -235,7 +235,7 @@ enum QuestType: Int64, CaseIterable, CustomStringConvertible, AppEnum {
   }
 }
 
-enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
+enum QuestDifficulty: Int, CaseIterable, CustomStringConvertible {
   case easy = 0
   case average = 1
   case hard = 2
@@ -257,7 +257,7 @@ enum QuestDifficulty: Int64, CaseIterable, CustomStringConvertible {
   }
 }
 
-enum QuestLength: Int64, CaseIterable, CustomStringConvertible {
+enum QuestLength: Int, CaseIterable, CustomStringConvertible {
   case short = 0
   case average = 1
   case long = 2

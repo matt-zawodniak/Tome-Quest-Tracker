@@ -43,9 +43,9 @@ struct AddRewardView: View {
     .onDisappear(perform: {
       if reward.name.count > 0 {
         if reward.isMilestoneReward {
-          reward.sortId = Int64(milestoneRewardCount)
+          reward.sortId = Int(milestoneRewardCount)
         } else {
-          reward.sortId = Int64(minorRewardCount)
+          reward.sortId = Int(minorRewardCount)
         }
 
         modelContext.insert(reward)

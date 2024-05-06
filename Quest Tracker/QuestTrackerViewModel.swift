@@ -35,7 +35,7 @@ class QuestTrackerViewModel: ObservableObject {
   }
 }
 
-enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
+enum QuestSortDescriptor: Int, CaseIterable, CustomStringConvertible {
   case timeCreated = 0
   case oldest = 1
   case questType = 2

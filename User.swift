@@ -13,10 +13,10 @@ import SwiftData
 
   var currentExp: Double = 0.0
   var expToLevel: Double = 0.0
-  var level: Int64 = 0
-  var levelingScheme: Int64 = 0
+  var level: Int = 0
+  var levelingScheme: Int = 0
 
-  public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64) {
+  public init(currentExp: Double, expToLevel: Double, level: Int, levelingScheme: Int) {
     self.currentExp = currentExp
     self.expToLevel = expToLevel
     self.level = level
@@ -80,7 +80,7 @@ extension User: Identifiable {
     earnedReward: Reward,
     rewardArray: [Reward],
     context: ModelContext) {
-      let endOfArraySortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
+      let endOfArraySortId = Int((rewardArray.last?.sortId ?? 0) + 1)
 
       let unearnedCopyofReward = Reward(
         isMilestoneReward: earnedReward.isMilestoneReward,
@@ -122,7 +122,7 @@ extension User: Identifiable {
   }
 }
 
-enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
+enum LevelingSchemes: Int, CaseIterable, CustomStringConvertible {
   case normal = 0
   case hard = 1
 
