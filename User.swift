@@ -22,7 +22,6 @@ import SwiftData
     self.expToLevel = expToLevel
     self.level = level
     self.levelingScheme = levelingScheme
-    self.isLevelingUp = isLevelingUp
   }
 }
 
@@ -31,8 +30,6 @@ extension User: Identifiable {
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
 
     if currentExp + questExp >= expToLevel {
-      isLevelingUp = true
-
       currentExp += questExp
 
       levelUp()
@@ -112,6 +109,10 @@ extension User: Identifiable {
      level += 1
 
      currentExp -= expToLevel
+
+    if levelingScheme == 1 {
+      expToLevel += 20
+    }
   }
 
   var scaling: LevelingSchemes {

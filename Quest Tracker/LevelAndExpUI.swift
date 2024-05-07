@@ -18,6 +18,7 @@ struct LevelAndExpUI: View {
   }
 
   @State var expBarLength: Double
+  @State var isLevelingUp: Bool = false
 
   var body: some View {
     GeometryReader { geometry in
@@ -30,7 +31,7 @@ struct LevelAndExpUI: View {
 
           Spacer(minLength: geometry.size.width * 0.45)
 
-          Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+          Text("\(String(format: "%.0f/ %.0f", user.currentExp.rounded(), user.expToLevel.rounded()))")
             .frame(minWidth: geometry.size.width * 0.15)
 
           Spacer()
@@ -49,19 +50,20 @@ struct LevelAndExpUI: View {
           )
       }
       .foregroundStyle(.cyan)
-      .onChange(of: user.currentExp) {
-        if user.isLevelingUp {
+      .onChange(of: user.level) {
+        isLevelingUp = true
+      }
+      .onChange(of: user.expToLevel) {
+        if isLevelingUp {
           withAnimation(.easeInOut(duration: 0.5)) {
-              expBarLength = user.expToLevel
+            expBarLength = geometry.size.width * 0.4
           } completion: {
               expBarLength = 0
-              if user.levelingScheme == 1 {
-                user.expToLevel += 20
-              }
+
             withAnimation(.easeInOut(duration: 0.5)) {
                 expBarLength = user.currentExp
               } completion: {
-                user.isLevelingUp = false
+                isLevelingUp = false
               }
           }
         } else {
