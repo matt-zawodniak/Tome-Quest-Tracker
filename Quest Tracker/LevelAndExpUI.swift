@@ -43,7 +43,7 @@ struct LevelAndExpUI: View {
           .overlay(
             HStack {
               Capsule()
-                .frame(width: geometry.size.width * 0.4 * expBarLength / user.expToLevel)
+                .frame(width: geometry.size.width * 0.4 * expBarLength)
 
               Spacer()
             }
@@ -53,22 +53,22 @@ struct LevelAndExpUI: View {
       .onChange(of: user.level) {
         isLevelingUp = true
       }
-      .onChange(of: user.expToLevel) {
+      .onChange(of: user.currentExp) {
         if isLevelingUp {
           withAnimation(.easeInOut(duration: 0.5)) {
-            expBarLength = geometry.size.width * 0.4
+            expBarLength = 1
           } completion: {
               expBarLength = 0
 
             withAnimation(.easeInOut(duration: 0.5)) {
-                expBarLength = user.currentExp
+              expBarLength = user.currentExp / user.expToLevel
               } completion: {
                 isLevelingUp = false
               }
           }
         } else {
           withAnimation(.easeInOut(duration: 1)) {
-            expBarLength = user.currentExp
+            expBarLength = user.currentExp / user.expToLevel
           }
         }
       }
