@@ -17,153 +17,124 @@ struct ButtonSection: View {
   @State var user: User
 
   var body: some View {
-    GeometryReader { geometry in
-      HStack {
+    HStack {
         if !editingQuest {
-          Spacer()
 
-          Button("Cancel") {
-            dismiss()
-          }
-          .frame(width: geometry.size.width / 3, height: 30)
+          cancelButton
 
           Divider()
-            .frame(height: 30)
-            .overlay(.black)
 
-          Button("Create") {
-            quest.isSelected = false
-
-            quest.isCompleted = false
-
-            modelContext.insert(quest)
-
-            dismiss()
-          }
-          .frame(width: geometry.size.width / 3, height: 30)
-
-          Spacer()
+          createButton
         } else {
           if quest.isCompleted {
-            Spacer()
-
-            Button("Delete") {
-              modelContext.delete(quest)
-              dismiss()
-            }
-            .frame(width: geometry.size.width / 4, height: 30)
+            deleteButton
 
             Divider()
-              .frame(height: 30)
-              .overlay(.black)
 
-            Button("Confirm") {
-              dismiss()
-            }
-            .frame(width: geometry.size.width / 4, height: 30)
+            confirmButton
 
             Divider()
-              .frame(height: 30)
-              .overlay(.black)
 
-            Button("Restore") {
-              quest.isCompleted = false
-              quest.timeCreated = Date.now
-
-              dismiss()
-            }
-            .frame(width: geometry.size.width / 4, height: 30)
-
-            Spacer()
+            restoreButton
           } else {
             if quest.type == .mainQuest || quest.type == .sideQuest {
-              Spacer()
-
-              Button("Delete") {
-                modelContext.delete(quest)
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 4, height: 30)
+              deleteButton
 
               Divider()
-                .frame(height: 30)
-                .overlay(.black)
 
-              Button("Confirm") {
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 4, height: 30)
+              confirmButton
 
               Divider()
-                .frame(height: 30)
-                .overlay(.black)
 
-              Button("Complete") {
-                quest.isCompleted = true
-
-                quest.timeCompleted = Date.now
-
-                user.giveExp(quest: quest, settings: settings, context: modelContext)
-
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 4, height: 30)
-
-              Spacer()
+              completeButton
             } else {
-              Spacer()
-
-              Button("Delete") {
-                modelContext.delete(quest)
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 5, height: 30)
+              deleteButton
 
               Divider()
-                .frame(height: 30)
-                .overlay(.black)
 
-              Button("Skip") {
-                quest.isCompleted = true
-                quest.timeCompleted = Date.now
-
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 5.5, height: 30)
+              skipButton
 
               Divider()
-                .frame(height: 30)
-                .overlay(.black)
 
-              Button("Confirm") {
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 5.5, height: 30)
+              confirmButton
 
               Divider()
-                .frame(height: 30)
-                .overlay(.black)
 
-              Button("Complete") {
-                quest.isCompleted = true
-
-                quest.timeCompleted = Date.now
-
-                user.giveExp(quest: quest, settings: settings, context: modelContext)
-
-                dismiss()
-              }
-              .frame(width: geometry.size.width / 5, height: 30)
-
-              Spacer()
+              completeButton
             }
           }
         }
       }
       .foregroundStyle(.white)
-      .padding(.horizontal)
+      .padding()
+  }
+
+  var cancelButton: some View {
+    Button("Cancel") {
+      dismiss()
     }
-    .background(.cyan)
+    .frame(maxWidth: .infinity)
+  }
+
+  var completeButton: some View {
+    Button("Complete") {
+      quest.isCompleted = true
+
+      quest.timeCompleted = Date.now
+
+      user.giveExp(quest: quest, settings: settings, context: modelContext)
+
+      dismiss()
+    }
+    .frame(maxWidth: .infinity)
+  }
+
+  var confirmButton: some View {
+    Button("Confirm") {
+      dismiss()
+    }
+    .frame(maxWidth: .infinity)
+  }
+
+  var createButton: some View {
+    Button("Create") {
+      quest.isSelected = false
+
+      quest.isCompleted = false
+
+      modelContext.insert(quest)
+
+      dismiss()
+    }
+    .frame(maxWidth: .infinity)
+  }
+
+  var deleteButton: some View {
+    Button("Delete") {
+      modelContext.delete(quest)
+      dismiss()
+    }
+    .frame(maxWidth: .infinity)
+  }
+
+  var restoreButton: some View {
+    Button("Restore") {
+      quest.isCompleted = false
+      quest.timeCreated = Date.now
+
+      dismiss()
+    }
+    .frame(maxWidth: .infinity)
+  }
+
+  var skipButton: some View {
+    Button("Skip") {
+      quest.isCompleted = true
+      quest.timeCompleted = Date.now
+
+      dismiss()
+    }
+    .frame(maxWidth: .infinity)
   }
 }
 

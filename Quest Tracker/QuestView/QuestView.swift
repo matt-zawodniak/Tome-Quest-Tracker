@@ -74,6 +74,7 @@ struct QuestView: View {
     .layoutPriority(1)
 
     ButtonSection(editingQuest: editingQuest, quest: quest, settings: settings, user: user)
+      .background(Rectangle().foregroundStyle(.cyan))
   }
 
   var typeSection: some View {
