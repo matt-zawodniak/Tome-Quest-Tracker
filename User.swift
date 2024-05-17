@@ -80,7 +80,7 @@ extension User: Identifiable {
     earnedReward: Reward,
     rewardArray: [Reward],
     context: ModelContext) {
-      let endOfArraySortId = Int((rewardArray.last?.sortId ?? 0) + 1)
+      let endOfArraySortId = (rewardArray.last?.sortId ?? 0) + 1
 
       let unearnedCopyofReward = Reward(
         isMilestoneReward: earnedReward.isMilestoneReward,
