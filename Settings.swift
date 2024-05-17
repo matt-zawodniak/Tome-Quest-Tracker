@@ -11,9 +11,9 @@ import SwiftData
 
 @Model public class Settings {
 
-  var dayOfTheWeek: Int = Settings.defaultSettings.dayOfTheWeek
+  var dayOfTheWeek: Int = defaultResetDay.rawValue
   var time: Date = Settings.defaultResetTime
-  var weeklyResetWarning: Bool = Settings.defaultSettings.weeklyResetWarning
+  var weeklyResetWarning: Bool = false
 
   public init(dayOfTheWeek: Int, time: Date, weeklyResetWarning: Bool) {
     self.dayOfTheWeek = dayOfTheWeek
@@ -46,10 +46,13 @@ extension Settings: Identifiable {
     return Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
   }
 
-  static var defaultSettings = Settings(
-    dayOfTheWeek: DayOfTheWeek.monday.rawValue,
-    time: Settings.defaultResetTime,
-    weeklyResetWarning: false)
+  static var defaultResetDay: DayOfTheWeek = DayOfTheWeek.monday
+
+  static var defaultSettings: Settings {
+    Settings(dayOfTheWeek: defaultResetDay.rawValue,
+             time: Settings.defaultResetTime,
+             weeklyResetWarning: false)
+  }
 
   static func fetchFirstOrCreate(context: ModelContext) -> Settings {
     let settingsRequest = FetchDescriptor<Settings>()
