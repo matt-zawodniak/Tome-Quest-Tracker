@@ -10,6 +10,7 @@
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
+		8F493DB22BF7E4F0004D1676 /* SectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */; };
 		8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DD2B8E7E7F008832CD /* Outlines.swift */; };
 		8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */; };
 		8F6368572B62F94800D524A1 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6368562B62F94800D524A1 /* ModelController.swift */; };
@@ -49,6 +50,7 @@
 		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
 		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
 		8F48FD412B1FCDE800A88E96 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RewardsView.swift; path = "Quest Tracker/Rewards/RewardsView.swift"; sourceTree = SOURCE_ROOT; };
+		8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsModel.swift; sourceTree = "<group>"; };
 		8F5633DD2B8E7E7F008832CD /* Outlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlines.swift; sourceTree = "<group>"; };
 		8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUISettings.swift; sourceTree = "<group>"; };
 		8F6368562B62F94800D524A1 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				8F796E882B6C38BA007E0608 /* QuestSection.swift */,
 				8FD590512B60A07200DF5325 /* QuestListView.swift */,
 				8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */,
+				8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */,
 				8FC6BFEE2AFABF95001DD91E /* MainView.swift */,
 				8FE1741B2B869051006885F8 /* CustomListBackground.swift */,
 				8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */,
@@ -328,6 +331,7 @@
 				8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */,
 				8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */,
 				8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */,
+				8F493DB22BF7E4F0004D1676 /* SectionsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

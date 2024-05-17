@@ -7,43 +7,20 @@
 
 import SwiftUI
 
-class SectionModel: NSObject, ObservableObject {
-  @Published var sections: [String: Bool] = [String: Bool]()
-
-  var shouldBeExpanded: Bool = true
-
-  func isExpanded(title: String) -> Bool {
-    if let value = sections[title] {
-      return value
-    } else {
-      return shouldBeExpanded
-    }
-  }
-
-  func toggle(title: String) {
-    let current = sections[title] ?? true
-
-    withAnimation {
-      sections[title] = !current
-    }
-  }
-}
-
 struct CategoryHeader: View {
   var title: String
 
-  @ObservedObject var model: SectionModel
+  @ObservedObject var model: SectionsModel
 
   var countOfEntitiesInCategory: Int?
 
   var shouldBeExpanded: Bool
 
-  init(title: String, model: SectionModel, countOfEntitiesInCategory: Int? = nil, shouldBeExpanded: Bool) {
+  init(title: String, model: SectionsModel, countOfEntitiesInCategory: Int? = nil, shouldBeExpanded: Bool) {
     self.title = title
     self.model = model
     self.countOfEntitiesInCategory = countOfEntitiesInCategory
     self.shouldBeExpanded = shouldBeExpanded
-
     self.model.shouldBeExpanded = shouldBeExpanded
   }
 
@@ -51,7 +28,7 @@ struct CategoryHeader: View {
     HStack {
       Text(title)
 
-      if model.isExpanded(title: title) == false {
+      if !model.isExpanded(title: title) {
         if let countOfEntitiesInCategory {
           Text("(\(countOfEntitiesInCategory))")
         }

@@ -14,7 +14,7 @@ struct QuestView: View {
 
   @Environment(\.dismiss) var dismiss
 
-  @ObservedObject private var sections = SectionModel()
+  @ObservedObject private var sections = SectionsModel()
 
   @State var quest: Quest
   @State var hasDueDate: Bool = false
@@ -43,11 +43,7 @@ struct QuestView: View {
 
       HStack {
         Spacer()
-        Text("""
-             \(Int(quest.type.experience
-             * (quest.questDifficulty.expMultiplier +  quest.questLength.expMultiplier)/2
-             + quest.questBonusExp)) EXP
-             """)
+        Text("\(quest.completionExp) EXP")
         Spacer()
       }
       .listRowBackground(Color.clear)
