@@ -14,7 +14,7 @@ import SwiftData
   var currentExp: Double = 0.0
   var expToLevel: Double = 0.0
   var level: Int = 0
-  var levelingScheme: Int = 0
+  var levelingScheme: Int = LevelingSchemes.normal.rawValue
 
   public init(currentExp: Double, expToLevel: Double, level: Int, levelingScheme: Int) {
     self.currentExp = currentExp
@@ -26,7 +26,7 @@ import SwiftData
 
 extension User: Identifiable {
   func giveExp(quest: Quest, settings: Settings, context: ModelContext) {
-    let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
+    let questExp = quest.type.experience * (quest.questDifficulty.expMultiplier + quest.questLength.expMultiplier)/2
 
     currentExp += questExp
 
