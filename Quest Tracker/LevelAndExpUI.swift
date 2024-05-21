@@ -44,7 +44,6 @@ struct LevelAndExpUI: View {
             HStack {
               Capsule()
                 .frame(width: geometry.size.width * 0.4 * expBarLength)
-
               Spacer()
             }
           )

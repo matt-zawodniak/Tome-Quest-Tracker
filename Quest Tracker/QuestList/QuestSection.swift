@@ -19,9 +19,6 @@ struct QuestSection: View {
   var user: User
   var questType: QuestType
 
-  @State var showingQuestDetails: Bool = false
-  @State var questToShowDetails: Quest?
-
   init(settings: Settings, showingCompletedQuests: Bool, user: User, questType: QuestType) {
     _quests = Query(filter: #Predicate { $0.isCompleted == showingCompletedQuests})
 
@@ -37,44 +34,45 @@ struct QuestSection: View {
 
   var body: some View {
     ForEach(questsOfChosenType, id: \.self) { (quest: Quest) in
-      QuestRowView(quest: quest, settings: settings, user: user)
+      QuestRowView(quest: quest)
         .swipeActions(edge: .trailing) {
           Button(role: .destructive) {
             modelContext.delete(quest)
           } label: {
             Label("Delete", systemImage: "trash")
           }
-          if !showingCompletedQuests {
-            NavigationLink(destination: QuestView(
-              quest: quest, hasDueDate: quest.dueDate.exists, settings: settings)) {
-                Button(action: {
-                }, label: {
-                  Text("Edit")
-                }
-                )
-              }
+
+          if !showingCompletedQuests && (quest.type == .dailyQuest || quest.type == .weeklyQuest) {
+            Button {
+              quest.isCompleted = true
+            } label: {
+              Text("Skip")
+            }
           }
         }
         .swipeActions(edge: .leading) {
-          if !showingCompletedQuests {
+          if showingCompletedQuests {
+            Button {
+              quest.isCompleted = false
+
+              quest.timeCreated = Date.now
+            } label: {
+              Label("Restore to Quest List", systemImage: "arrow.counterclockwise")
+            }
+            .tint(GlobalUISettings.colorFor(quest: quest))
+          } else {
             Button {
               quest.isCompleted = true
 
-              user.giveExp(quest: quest, settings: settings, context: modelContext)
-
               quest.timeCompleted = Date.now
+
+              user.giveExp(quest: quest, settings: settings, context: modelContext)
             } label: {
               Image(systemName: "checkmark")
             }
             .tint(GlobalUISettings.colorFor(quest: quest))
           }
         }
-    }
-    .sheet(isPresented: $showingQuestDetails) {
-      if let questToShowDetails {
-        QuestDetailView(quest: questToShowDetails, settings: settings, user: user)
-          .presentationDetents([.medium])
-      }
     }
   }
 }
