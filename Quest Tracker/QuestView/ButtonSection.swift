@@ -43,53 +43,6 @@ struct ButtonSection: View {
       } else {
         createButton
       }
-
-//        if !editingQuest {
-//
-//          cancelButton
-//
-//          Divider()
-//
-//          createButton
-//        } else {
-//          if quest.isCompleted {
-//            deleteButton
-//
-//            Divider()
-//
-//            confirmButton
-//
-//            Divider()
-//
-//            restoreButton
-//          } else {
-//            if quest.type == .mainQuest || quest.type == .sideQuest {
-//              deleteButton
-//
-//              Divider()
-//
-//              confirmButton
-//
-//              Divider()
-//
-//              completeButton
-//            } else {
-//              deleteButton
-//
-//              Divider()
-//
-//              skipButton
-//
-//              Divider()
-//
-//              confirmButton
-//
-//              Divider()
-//
-//              completeButton
-//            }
-//          }
-//        }
       }
       .foregroundStyle(.white)
       .padding()
