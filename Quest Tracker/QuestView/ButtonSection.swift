@@ -18,52 +18,78 @@ struct ButtonSection: View {
 
   var body: some View {
     HStack {
-        if !editingQuest {
+      if editingQuest {
+        deleteButton
+      } else {
+        cancelButton
+      }
+      Divider()
 
-          cancelButton
+      if quest.type == .dailyQuest || quest.type == .weeklyQuest {
+        skipButton
+        Divider()
+      }
 
-          Divider()
+      if editingQuest {
+        confirmButton
+        Divider()
 
-          createButton
+        if quest.isCompleted {
+          restoreButton
         } else {
-          if quest.isCompleted {
-            deleteButton
-
-            Divider()
-
-            confirmButton
-
-            Divider()
-
-            restoreButton
-          } else {
-            if quest.type == .mainQuest || quest.type == .sideQuest {
-              deleteButton
-
-              Divider()
-
-              confirmButton
-
-              Divider()
-
-              completeButton
-            } else {
-              deleteButton
-
-              Divider()
-
-              skipButton
-
-              Divider()
-
-              confirmButton
-
-              Divider()
-
-              completeButton
-            }
-          }
+          completeButton
         }
+
+      } else {
+        createButton
+      }
+
+//        if !editingQuest {
+//
+//          cancelButton
+//
+//          Divider()
+//
+//          createButton
+//        } else {
+//          if quest.isCompleted {
+//            deleteButton
+//
+//            Divider()
+//
+//            confirmButton
+//
+//            Divider()
+//
+//            restoreButton
+//          } else {
+//            if quest.type == .mainQuest || quest.type == .sideQuest {
+//              deleteButton
+//
+//              Divider()
+//
+//              confirmButton
+//
+//              Divider()
+//
+//              completeButton
+//            } else {
+//              deleteButton
+//
+//              Divider()
+//
+//              skipButton
+//
+//              Divider()
+//
+//              confirmButton
+//
+//              Divider()
+//
+//              completeButton
+//            }
+//          }
+//        }
       }
       .foregroundStyle(.white)
       .padding()
