@@ -16,7 +16,7 @@ struct QuestListView: View {
 
   @ObservedObject var tracker = QuestTrackerViewModel()
 
-  @ObservedObject private var sections = SectionModel()
+  @ObservedObject private var sections = SectionsModel()
 
   @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
 

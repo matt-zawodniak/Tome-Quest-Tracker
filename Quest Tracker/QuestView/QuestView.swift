@@ -14,7 +14,7 @@ struct QuestView: View {
 
   @Environment(\.dismiss) var dismiss
 
-  @ObservedObject private var sections = SectionModel()
+  @ObservedObject private var sections = SectionsModel()
 
   @State var quest: Quest
   @State var hasDueDate: Bool = false
@@ -51,26 +51,22 @@ struct QuestView: View {
 
         HStack {
           Spacer()
-          Text("""
-             \(Int(quest.type.experience
-             * (quest.questDifficulty.expMultiplier +  quest.questLength.expMultiplier)/2
-             + quest.questBonusExp)) EXP
-             """)
+          Text("\(quest.completionExp) EXP")
           Spacer()
         }
-        .listRowBackground(Color.clear)
-        .listRowSeparator(.hidden)
 
         advancedSettingsSection
           .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
           .listRowSeparator(.hidden)
       }
+    }
+    .listRowBackground(Color.clear)
+    .listRowSeparator(.hidden)
       .padding()
       .listStyle(.grouped)
       .listRowSpacing(5)
       .scrollContentBackground(.hidden)
       .foregroundStyle(.cyan)
-    }
     .layoutPriority(1)
 
     ButtonSection(editingQuest: editingQuest, quest: quest, settings: settings, user: user)

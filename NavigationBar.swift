@@ -37,61 +37,53 @@ struct NavigationBar: View {
         HStack {
           Spacer()
 
-          VStack {
-            Image(systemName: "house")
-              .onTapGesture {
-                showingCompletedQuests = false
-                showingNewQuestView = false
-                showingRewardsView = false
-                showingSettingsView = false
-              }
-              .foregroundStyle(showingCompletedQuests == false
-                               && showingNewQuestView == false
-                               && showingRewardsView == false
-                               && showingSettingsView == false ? .cyan : .white)
-          }
+          Image(systemName: "house")
+            .onTapGesture {
+              showingCompletedQuests = false
+              showingNewQuestView = false
+              showingRewardsView = false
+              showingSettingsView = false
+            }
+            .foregroundStyle(showingCompletedQuests == false
+                             && showingNewQuestView == false
+                             && showingRewardsView == false
+                             && showingSettingsView == false ? .cyan : .white)
 
           Spacer()
 
-          VStack {
-            Image(systemName: "checkmark.square")
-              .onTapGesture {
-                showingCompletedQuests = true
-                showingNewQuestView = false
-                showingRewardsView = false
-                showingSettingsView = false
-              }
-              .foregroundStyle(showingCompletedQuests ? .cyan : .white)
-          }
+          Image(systemName: "checkmark.square")
+            .onTapGesture {
+              showingCompletedQuests = true
+              showingNewQuestView = false
+              showingRewardsView = false
+              showingSettingsView = false
+            }
+            .foregroundStyle(showingCompletedQuests ? .cyan : .white)
 
           Spacer()
           Spacer()
           Spacer()
           Spacer()
 
-          VStack {
-            Image(systemName: "gift.fill")
-              .onTapGesture {
-                showingCompletedQuests = false
-                showingNewQuestView = false
-                showingRewardsView = true
-                showingSettingsView = false
-              }
-              .foregroundStyle(showingRewardsView ? .cyan : .white)
-          }
+          Image(systemName: "gift.fill")
+            .onTapGesture {
+              showingCompletedQuests = false
+              showingNewQuestView = false
+              showingRewardsView = true
+              showingSettingsView = false
+            }
+            .foregroundStyle(showingRewardsView ? .cyan : .white)
 
           Spacer()
 
-          VStack {
-            Image(systemName: "gearshape")
-              .onTapGesture {
-                showingCompletedQuests = false
-                showingNewQuestView = false
-                showingRewardsView = false
-                showingSettingsView = true
-              }
-              .foregroundStyle(showingSettingsView ? .cyan : .white)
-          }
+          Image(systemName: "gearshape")
+            .onTapGesture {
+              showingCompletedQuests = false
+              showingNewQuestView = false
+              showingRewardsView = false
+              showingSettingsView = true
+            }
+            .foregroundStyle(showingSettingsView ? .cyan : .white)
 
           Spacer()
         }
@@ -134,4 +126,5 @@ struct NavigationBar: View {
                 showingRewardsView: false,
                 showingSettingsView: false,
                 showingCompletedQuests: .constant(false))
+  .modelContainer(PreviewSampleData.container)
 }
