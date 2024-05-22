@@ -16,8 +16,9 @@ import SwiftData
   var level: Int64 = 0
   var levelingScheme: Int64 = 0
   var leveledUpRecently: Bool = false
+  var isLevelingUp: Bool = false
 
-  public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64) {
+  public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64, isLevelingUp: Bool) {
     self.currentExp = currentExp
     self.expToLevel = expToLevel
     self.level = level
@@ -29,10 +30,10 @@ extension User: Identifiable {
   func giveExp(quest: Quest, settings: Settings, context: ModelContext) {
     let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
 
-    currentExp += questExp
+    if currentExp + questExp >= expToLevel {
+      currentExp += questExp
 
-    if currentExp >= expToLevel {
-      levelUp(settings: settings)
+      levelUp()
 
       if level % 5 == 0 {
         var milestoneRewardFetchedResults: [Reward]? {
@@ -74,6 +75,8 @@ extension User: Identifiable {
           firstMinorReward.dateEarned = Date()
         }
       }
+    } else {
+      currentExp += questExp
     }
   }
 
@@ -91,7 +94,7 @@ extension User: Identifiable {
       context.insert(unearnedCopyofReward)
     }
 
-  static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0)
+  static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0, isLevelingUp: false)
 
   static func fetchFirstOrCreate(context: ModelContext) -> User {
     let userRequest = FetchDescriptor<User>()
@@ -103,10 +106,10 @@ extension User: Identifiable {
     return user
   }
 
- func levelUp(settings: Settings) {
-    level += 1
+  func levelUp() {
+     level += 1
 
-    currentExp -= expToLevel
+     currentExp -= expToLevel
 
     if levelingScheme == 1 {
       expToLevel += 20

@@ -107,7 +107,7 @@ struct NavigationBar: View {
     }
     .background(.black)
     .sheet(isPresented: $showingNewQuestView) {
-      QuestView(quest: Quest.defaultQuest(context: modelContext), settings: settings)
+      QuestView(quest: Quest.defaultQuest(context: modelContext))
         .presentationDetents([.medium, .large])
     }
     .sheet(isPresented: $showingRewardsView) {
