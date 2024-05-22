@@ -11,13 +11,11 @@ import SwiftData
 
 @Model public class Settings {
 
-  var dailyResetWarning: Bool = false
-  var dayOfTheWeek: Int64 = 2
+  var dayOfTheWeek: Int = defaultResetDay.rawValue
   var time: Date = Settings.defaultResetTime
   var weeklyResetWarning: Bool = false
 
-  public init(dayOfTheWeek: Int64, time: Date, dailyResetWarning: Bool, weeklyResetWarning: Bool) {
-    self.dailyResetWarning = dailyResetWarning
+  public init(dayOfTheWeek: Int, time: Date, weeklyResetWarning: Bool) {
     self.dayOfTheWeek = dayOfTheWeek
     self.time = time
     self.weeklyResetWarning = weeklyResetWarning
@@ -48,19 +46,19 @@ extension Settings: Identifiable {
     return Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
   }
 
-  static var defaultSettings = Settings(
-    dayOfTheWeek: 2,
-    time: Settings.defaultResetTime,
-    dailyResetWarning: false,
-    weeklyResetWarning: false)
+  static var defaultResetDay: DayOfTheWeek = DayOfTheWeek.monday
+
+  static var defaultSettings: Settings {
+    Settings(dayOfTheWeek: defaultResetDay.rawValue,
+             time: Settings.defaultResetTime,
+             weeklyResetWarning: false)
+  }
 
   static func fetchFirstOrCreate(context: ModelContext) -> Settings {
     let settingsRequest = FetchDescriptor<Settings>()
-
     let settingsData = try? context.fetch(settingsRequest)
 
     let settings = settingsData?.first ?? defaultSettings
-
     return settings
   }
 
@@ -74,7 +72,7 @@ extension Settings: Identifiable {
   }
 }
 
-enum DayOfTheWeek: Int64, CaseIterable, CustomStringConvertible {
+enum DayOfTheWeek: Int, CaseIterable, CustomStringConvertible {
   case sunday = 1
   case monday = 2
   case tuesday = 3

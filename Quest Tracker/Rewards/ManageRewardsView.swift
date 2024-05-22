@@ -108,7 +108,7 @@ struct ManageRewardsView: View {
     for reverseIndex in stride( from: updatedMinorRewards.count - 1,
                                 through: 0,
                                 by: -1) {
-      updatedMinorRewards[reverseIndex].sortId = Int64(reverseIndex)
+      updatedMinorRewards[reverseIndex].sortId = reverseIndex
     }
   }
 
@@ -120,7 +120,7 @@ struct ManageRewardsView: View {
     for reverseIndex in stride( from: updatedMilestoneRewards.count - 1,
                                 through: 0,
                                 by: -1) {
-      updatedMilestoneRewards[reverseIndex].sortId = Int64(reverseIndex)
+      updatedMilestoneRewards[reverseIndex].sortId = reverseIndex
     }
   }
 }

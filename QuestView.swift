@@ -56,8 +56,6 @@ struct QuestView: View {
     .onDisappear(
       perform: {
         if quest.questName.count > 0 {
-          quest.isSelected = false
-
           quest.isCompleted = false
 
           modelContext.insert(quest)

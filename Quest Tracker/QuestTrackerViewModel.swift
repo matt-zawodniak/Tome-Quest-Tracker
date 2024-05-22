@@ -12,12 +12,6 @@ class QuestTrackerViewModel: ObservableObject {
 
   @Published var trackerModel = QuestTrackerModel()
 
-  func deselectQuests(quests: [Quest], context: ModelContext) {
-    for quest in quests {
-      quest.isSelected = false
-    }
-  }
-
   func sortDescriptorFromSortType(sortType: QuestSortDescriptor) -> SortDescriptor<Quest> {
     switch sortType {
     case .dueDate: SortDescriptor(\Quest.dueDate, order: .reverse)
@@ -35,7 +29,7 @@ class QuestTrackerViewModel: ObservableObject {
   }
 }
 
-enum QuestSortDescriptor: Int64, CaseIterable, CustomStringConvertible {
+enum QuestSortDescriptor: Int, CaseIterable, CustomStringConvertible {
   case timeCreated = 0
   case oldest = 1
   case questType = 2
