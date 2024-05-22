@@ -71,6 +71,11 @@ extension Quest: Identifiable {
     }
   }
 
+  var completionExp: Double { type.experience
+    * (questDifficulty.expMultiplier + questLength.expMultiplier)/2
+    + questBonusExp
+  }
+
   var type: QuestType {
     get {
       return QuestType(rawValue: self.questType)!

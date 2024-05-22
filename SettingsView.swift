@@ -12,19 +12,6 @@ struct SettingsView: View {
   @Environment(\.modelContext) var modelContext
 
   @Query() var quests: [Quest]
-  @Query() var rewards: [Reward]
-
-  var minorRewards: [Reward] {
-    rewards
-      .filter({ $0.isMilestoneReward == false && $0.isEarned == false})
-      .sorted { $0.sortId < $1.sortId }
-  }
-
-  var milestoneRewards: [Reward] {
-    rewards
-      .filter({ $0.isMilestoneReward == true && $0.isEarned == false})
-      .sorted { $0.sortId < $1.sortId }
-  }
 
   @State var settings: Settings
   @State var user: User
@@ -59,14 +46,11 @@ struct SettingsView: View {
 
             Picker("", selection: $settings.day) {
               ForEach(DayOfTheWeek.allCases, id: \.self) { day in
-                let pickerText = day.description
-
-                Text("\(pickerText)")
+                Text("\(day.description)")
               }
             }
             .onChange(of: settings.day) {
               if settings.weeklyResetWarning {
-
                 LocalNotifications().deleteWeeklyNotification()
 
                 LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
@@ -87,18 +71,14 @@ struct SettingsView: View {
                   UNUserNotificationCenter.current().requestAuthorization(
                     options: [.alert, .badge, .sound]
                   ) { success, error in
-
                     if success {
-
                       LocalNotifications().scheduleWeeklyNotification(modelContext: modelContext)
 
                       print("Permission approved!")
-
                     } else if let error = error {
                       print(error.localizedDescription)
                     }
                   }
-
                 } else {
                   LocalNotifications().deleteWeeklyNotification()
                 }
@@ -126,7 +106,6 @@ struct SettingsView: View {
     }
     .padding(.horizontal)
     .foregroundStyle(.cyan)
-    .scrollContentBackground(.hidden)
     .listStyle(.grouped)
     .tint(.cyan)
     .onDisappear(perform: {

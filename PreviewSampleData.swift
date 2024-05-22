@@ -19,7 +19,7 @@ class PreviewSampleData {
         for: Settings.self, Quest.self, User.self, Reward.self,
         configurations: configuration)
 
-      let previewUser: User = User(currentExp: 27, expToLevel: 80, level: 4, levelingScheme: 1)
+      let previewUser: User = User(currentExp: 27, expToLevel: 80, level: 4, levelingScheme: 1, isLevelingUp: false)
 
       container.mainContext.insert(previewUser)
 
@@ -94,7 +94,7 @@ class PreviewSampleData {
     }
   }()
 
-  static var previewUser: User = User(currentExp: 27, expToLevel: 80, level: 4, levelingScheme: 1)
+  static var previewUser: User = User(currentExp: 27, expToLevel: 80, level: 4, levelingScheme: 1, isLevelingUp: false)
 
   static var previewSettings: Settings = Settings(
     dayOfTheWeek: 3,
