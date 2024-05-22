@@ -206,7 +206,11 @@ struct QuestView: View {
 
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) {
-              QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: hasDueDate)
+              if hasDueDate {
+                quest.dueDate = Date()
+              } else {
+                quest.dueDate = nil
+              }
 
               datePickerIsExpanded = hasDueDate
             }

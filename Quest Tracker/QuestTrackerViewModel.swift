@@ -9,9 +9,6 @@ import SwiftUI
 import SwiftData
 
 class QuestTrackerViewModel: ObservableObject {
-
-  @Published var trackerModel = QuestTrackerModel()
-
   func sortDescriptorFromSortType(sortType: QuestSortDescriptor) -> SortDescriptor<Quest> {
     switch sortType {
     case .dueDate: SortDescriptor(\Quest.dueDate, order: .reverse)
@@ -48,14 +45,6 @@ enum QuestSortDescriptor: Int, CaseIterable, CustomStringConvertible {
 }
 
 extension Date {
-  var string: String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .short
-    dateFormatter.timeStyle = .short
-
-    return dateFormatter.string(from: self)
-  }
-
   var dayOnly: String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
@@ -95,18 +84,6 @@ extension Optional where Wrapped == Date {
       return false
     } else {
       return true
-    }
-  }
-
-  var string: String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .short
-    dateFormatter.timeStyle = .short
-
-    if self == nil {
-      return ""
-    } else {
-      return dateFormatter.string(from: self!)
     }
   }
 
