@@ -77,8 +77,6 @@ struct ButtonSection: View {
 
   var createButton: some View {
     Button("Create") {
-      quest.isSelected = false
-
       quest.isCompleted = false
 
       modelContext.insert(quest)
