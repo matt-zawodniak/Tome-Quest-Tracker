@@ -12,13 +12,13 @@ import SwiftData
 @Model public class User {
 
   var currentExp: Double = 0.0
-  var expToLevel: Double = 0.0
-  var level: Int64 = 0
-  var levelingScheme: Int64 = 0
   var leveledUpRecently: Bool = false
+  var expToLevel: Double = 60
+  var level: Int = 1
+  var levelingScheme: Int = LevelingSchemes.normal.rawValue
   var isLevelingUp: Bool = false
 
-  public init(currentExp: Double, expToLevel: Double, level: Int64, levelingScheme: Int64, isLevelingUp: Bool) {
+  public init(currentExp: Double, expToLevel: Double, level: Int, levelingScheme: Int, isLevelingUp: Bool) {
     self.currentExp = currentExp
     self.expToLevel = expToLevel
     self.level = level
@@ -28,7 +28,7 @@ import SwiftData
 
 extension User: Identifiable {
   func giveExp(quest: Quest, settings: Settings, context: ModelContext) {
-    let questExp = quest.type.experience * quest.questDifficulty.expMultiplier * quest.questLength.expMultiplier
+    let questExp = quest.type.experience * (quest.questDifficulty.expMultiplier + quest.questLength.expMultiplier)/2
 
     if currentExp + questExp >= expToLevel {
       currentExp += questExp
@@ -84,7 +84,7 @@ extension User: Identifiable {
     earnedReward: Reward,
     rewardArray: [Reward],
     context: ModelContext) {
-      let endOfArraySortId = Int64((rewardArray.last?.sortId ?? 0) + 1)
+      let endOfArraySortId = (rewardArray.last?.sortId ?? 0) + 1
 
       let unearnedCopyofReward = Reward(
         isMilestoneReward: earnedReward.isMilestoneReward,
@@ -126,7 +126,7 @@ extension User: Identifiable {
   }
 }
 
-enum LevelingSchemes: Int64, CaseIterable, CustomStringConvertible {
+enum LevelingSchemes: Int, CaseIterable, CustomStringConvertible {
   case normal = 0
   case hard = 1
 

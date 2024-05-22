@@ -56,8 +56,6 @@ struct QuestView: View {
     .onDisappear(
       perform: {
         if quest.questName.count > 0 {
-          quest.isSelected = false
-
           quest.isCompleted = false
 
           modelContext.insert(quest)
@@ -208,7 +206,11 @@ struct QuestView: View {
 
           Toggle("", isOn: $hasDueDate)
             .onChange(of: hasDueDate) {
-              QuestTrackerViewModel().trackerModel.setDate(quest: quest, value: hasDueDate)
+              if hasDueDate {
+                quest.dueDate = Date()
+              } else {
+                quest.dueDate = nil
+              }
 
               datePickerIsExpanded = hasDueDate
             }

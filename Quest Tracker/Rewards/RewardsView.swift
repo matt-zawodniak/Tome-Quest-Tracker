@@ -20,11 +20,11 @@ struct RewardsView: View {
     return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
-  var nextMilestoneLevel: Int64 {
-    var milestoneCandidate: Int64 = 0
+  var nextMilestoneLevel: Int {
+    var milestoneCandidate: Int = 0
 
-    for number in 1..<6 where (user.level + Int64(number)) % 5 == 0 {
-      milestoneCandidate = (user.level + Int64(number))
+    for number in 1..<6 where (user.level + Int(number)) % 5 == 0 {
+      milestoneCandidate = (user.level + Int(number))
     }
 
     return milestoneCandidate
