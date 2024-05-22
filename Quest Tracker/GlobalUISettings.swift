@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GlobalUISettings {
   static var background: some View {
-    Image("IMG_1591")
+    Image("Background")
       .resizable()
       .opacity(0.2)
       .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .black, .clear, .clear]),
