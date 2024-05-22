@@ -54,14 +54,14 @@ struct QuestView: View {
           Text("\(quest.completionExp) EXP")
           Spacer()
         }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
 
         advancedSettingsSection
           .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
           .listRowSeparator(.hidden)
       }
     }
-    .listRowBackground(Color.clear)
-    .listRowSeparator(.hidden)
       .padding()
       .listStyle(.grouped)
       .listRowSpacing(5)
