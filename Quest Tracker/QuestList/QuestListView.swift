@@ -16,7 +16,7 @@ struct QuestListView: View {
 
   @ObservedObject var tracker = QuestTrackerViewModel()
 
-  @ObservedObject private var sections = SectionModel()
+  @ObservedObject private var sections = SectionsModel()
 
   @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
 
@@ -49,10 +49,18 @@ struct QuestListView: View {
       ForEach(QuestType.allCases, id: \.self) { (type: QuestType) in
         let title: String = type.description + "s"
 
-        var numberOfQuestsOfType: Int { quests.filter({ $0.type == type}).count }
+        var numberOfQuestsOfType: Int {
+          quests.filter({
+            $0.type == type &&
+            $0.isCompleted == showingCompletedQuests })
+          .count
+        }
 
-        Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
-          if self.sections.isOpen(title: title) {
+        Section(header: CategoryHeader(title: title,
+                                       model: self.sections,
+                                       countOfEntitiesInCategory: numberOfQuestsOfType,
+                                       shouldBeExpanded: true)) {
+          if self.sections.isExpanded(title: title) {
             QuestSection(settings: settings,
                          showingCompletedQuests: showingCompletedQuests,
                          user: user,

@@ -15,9 +15,9 @@ import SwiftData
   var isEarned: Bool = false
   var isMilestoneReward: Bool = false
   var name: String = ""
-  var sortId: Int64 = -1
+  var sortId: Int = -1
 
-  public init(isMilestoneReward: Bool, name: String, sortId: Int64) {
+  public init(isMilestoneReward: Bool, name: String, sortId: Int) {
     self.isMilestoneReward = isMilestoneReward
     self.name = name
     self.sortId = sortId
