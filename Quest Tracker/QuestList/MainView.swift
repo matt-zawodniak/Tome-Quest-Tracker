@@ -11,7 +11,6 @@ import SwiftData
 struct MainView: View {
 
   @Environment(\.modelContext) var modelContext
-  @EnvironmentObject var editingQuestHandler: EditingQuestHandler
 
   var user: User {
     User.fetchFirstOrCreate(context: modelContext)
@@ -41,11 +40,6 @@ struct MainView: View {
     }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
-    }
-    .sheet(isPresented: $editingQuestHandler.showingQuestDetails) {
-      QuestView(quest: editingQuestHandler.questToShowDetails ?? Quest.defaultQuest(context: modelContext),
-                editingQuest: true)
-        .presentationDetents([.medium, .large])
     }
   }
 }

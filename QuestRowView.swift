@@ -11,7 +11,7 @@ import SwiftUI
 struct QuestRowView: View, Identifiable {
 
   @Environment(\.modelContext) var modelContext
-  @EnvironmentObject var editingQuestHandler: EditingQuestHandler
+  @EnvironmentObject var tracker: QuestTrackerViewModel
 
   var id = UUID()
 
@@ -24,8 +24,8 @@ struct QuestRowView: View, Identifiable {
       }
     .contentShape(Rectangle())
     .onTapGesture {
-      editingQuestHandler.questToShowDetails = quest
-      editingQuestHandler.showingQuestDetails.toggle()
+      tracker.questToShowDetails = quest
+      tracker.showingQuestDetails = true
     }
   }
 }

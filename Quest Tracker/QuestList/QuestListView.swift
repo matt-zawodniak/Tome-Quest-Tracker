@@ -90,6 +90,10 @@ struct QuestListView: View {
         }
       }
     }
+    .environment(tracker)
+    .sheet(isPresented: $tracker.showingQuestDetails) {
+      QuestView(quest: tracker.questToShowDetails!, editingQuest: true)
+    }
   }
 }
 
