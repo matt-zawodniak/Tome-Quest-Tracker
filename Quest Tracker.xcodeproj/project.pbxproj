@@ -28,6 +28,8 @@
 		8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */; };
 		8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */; };
 		8FB7B47B2BB20EF700E2D958 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* MainView.swift */; };
+		8FC2BC062C0101680055B861 /* QuestTrackerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2BC052C0101680055B861 /* QuestTrackerViewModelTests.swift */; };
+		8FC75E982C04EC3800A784A6 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC75E972C04EC3800A784A6 /* SettingsTest.swift */; };
 		8FD5904D2B5F151700DF5325 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590492B5F151700DF5325 /* Settings.swift */; };
 		8FD5904E2B5F151700DF5325 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904A2B5F151700DF5325 /* Quest.swift */; };
 		8FD5904F2B5F151700DF5325 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904B2B5F151700DF5325 /* User.swift */; };
@@ -41,6 +43,16 @@
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 		F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = A02FC83D890247DB85D27578 /* Sentry */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8FC2BC072C0101680055B861 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FAC38452AB396B6005CBED3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8FAC384C2AB396B6005CBED3;
+			remoteInfo = "Quest Tracker";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8F1401DF2AF29882007BBD53 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = SOURCE_ROOT; };
@@ -70,8 +82,11 @@
 		8FAC38542AB396B7005CBED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LevelAndExpUI.swift; path = "Quest Tracker/LevelAndExpUI.swift"; sourceTree = SOURCE_ROOT; };
+		8FC2BC032C0101680055B861 /* Quest TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Quest TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FC2BC052C0101680055B861 /* QuestTrackerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModelTests.swift; sourceTree = "<group>"; };
 		8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestListView.swift; path = "Quest Tracker/QuestListView.swift"; sourceTree = SOURCE_ROOT; };
 		8FC6BFEE2AFABF95001DD91E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		8FC75E972C04EC3800A784A6 /* SettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
 		8FD590492B5F151700DF5325 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904A2B5F151700DF5325 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904B2B5F151700DF5325 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = SOURCE_ROOT; };
@@ -91,6 +106,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FC2BC002C0101680055B861 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +162,7 @@
 			children = (
 				8F65228A2B69B93A00603D49 /* README.md */,
 				8FAC384F2AB396B6005CBED3 /* Quest Tracker */,
+				8FC2BC042C0101680055B861 /* Quest TrackerTests */,
 				8FAC384E2AB396B6005CBED3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -148,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */,
+				8FC2BC032C0101680055B861 /* Quest TrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,6 +213,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8FC2BC042C0101680055B861 /* Quest TrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				8FC2BC052C0101680055B861 /* QuestTrackerViewModelTests.swift */,
+				8FC75E972C04EC3800A784A6 /* SettingsTest.swift */,
+			);
+			path = "Quest TrackerTests";
+			sourceTree = "<group>";
+		};
 		8FD4635D2B3E021E000FDEF8 /* AppIntents */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +256,24 @@
 			productReference = 8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8FC2BC022C0101680055B861 /* Quest TrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FC2BC0B2C0101680055B861 /* Build configuration list for PBXNativeTarget "Quest TrackerTests" */;
+			buildPhases = (
+				8FC2BBFF2C0101680055B861 /* Sources */,
+				8FC2BC002C0101680055B861 /* Frameworks */,
+				8FC2BC012C0101680055B861 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8FC2BC082C0101680055B861 /* PBXTargetDependency */,
+			);
+			name = "Quest TrackerTests";
+			productName = "Quest TrackerTests";
+			productReference = 8FC2BC032C0101680055B861 /* Quest TrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -230,11 +281,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					8FAC384C2AB396B6005CBED3 = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					8FC2BC022C0101680055B861 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 8FAC384C2AB396B6005CBED3;
 					};
 				};
 			};
@@ -255,6 +310,7 @@
 			projectRoot = "";
 			targets = (
 				8FAC384C2AB396B6005CBED3 /* Quest Tracker */,
+				8FC2BC022C0101680055B861 /* Quest TrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -266,6 +322,13 @@
 			files = (
 				8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */,
 				8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FC2BC012C0101680055B861 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +394,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8FC2BBFF2C0101680055B861 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FC75E982C04EC3800A784A6 /* SettingsTest.swift in Sources */,
+				8FC2BC062C0101680055B861 /* QuestTrackerViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8FC2BC082C0101680055B861 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8FAC384C2AB396B6005CBED3 /* Quest Tracker */;
+			targetProxy = 8FC2BC072C0101680055B861 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8FAC38592AB396B7005CBED3 /* Debug */ = {
@@ -522,6 +602,51 @@
 			};
 			name = Release;
 		};
+		8FC2BC092C0101680055B861 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y4739T7R6D;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-TrackerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quest Tracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Quest Tracker";
+			};
+			name = Debug;
+		};
+		8FC2BC0A2C0101680055B861 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y4739T7R6D;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-TrackerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quest Tracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Quest Tracker";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,6 +664,15 @@
 			buildConfigurations = (
 				8FAC385C2AB396B7005CBED3 /* Debug */,
 				8FAC385D2AB396B7005CBED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8FC2BC0B2C0101680055B861 /* Build configuration list for PBXNativeTarget "Quest TrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FC2BC092C0101680055B861 /* Debug */,
+				8FC2BC0A2C0101680055B861 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
