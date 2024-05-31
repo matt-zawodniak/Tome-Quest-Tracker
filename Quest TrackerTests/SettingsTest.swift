@@ -49,7 +49,7 @@ final class SettingsTest: XCTestCase {
     var components = DateComponents()
     components.day = 1
 
-    var newDailyReset = Calendar.current.date(byAdding: components, to: settings.time)
+    let newDailyReset = Calendar.current.date(byAdding: components, to: settings.time)
 
     settings.refreshDailyReset()
 
@@ -61,7 +61,7 @@ final class SettingsTest: XCTestCase {
     components.day = 1
     components.second = -1
 
-    var testResetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
+    let testResetTime = Calendar.current.date(byAdding: components, to: Calendar.current.startOfDay(for: Date()))!
 
     XCTAssertEqual(testResetTime, Settings.defaultResetTime)
   }
