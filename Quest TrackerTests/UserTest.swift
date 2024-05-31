@@ -53,7 +53,7 @@ final class UserTest: XCTestCase {
   }
 
   func testGiveExpGivesMajorRewardOnLevelUp() {
-    let user: User = User(currentExp: 59, expToLevel: 60, level: 1, levelingScheme: 0, isLevelingUp: false)
+    let user: User = User(currentExp: 59, expToLevel: 60, level: 4, levelingScheme: 0, isLevelingUp: false)
     context?.insert(user)
 
     let quest: Quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, length: 1, questName: "test", questType: 1, timeCreated: Date())
@@ -75,28 +75,32 @@ final class UserTest: XCTestCase {
   }
 
   func testCreateUnearnedCopyOfRewardAtEndOfArray() {
-//    let user: User = User(currentExp: 59, expToLevel: 60, level: 1, levelingScheme: 0, isLevelingUp: false)
-//
-//    let earnedReward: Reward = Reward(isMilestoneReward: false, name: "Earned", sortId: 0)
-//    let test1: Reward = Reward(isMilestoneReward: false, name: "Test 1", sortId: 1)
-//    let test2: Reward = Reward(isMilestoneReward: false, name: "Test 2", sortId: 2)
-//
-//    context?.insert(earnedReward)
-//    context?.insert(test1)
-//    context?.insert(test2)
-//
-//    var minorRewardFetchedResults: [Reward]? {
-//      let request = FetchDescriptor<Reward>(
-//        predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false},
-//        sortBy: [SortDescriptor(\.sortId)])
-//
-//      return (try? context!.fetch(request))
-//    }
-//
-//    user.createUnearnedCopyOfRewardAtEndOfArray(earnedReward: earnedReward, rewardArray: minorRewardFetchedResults!, context: context!)
-//
-//    XCTAssertEqual(minorRewardFetchedResults!.last?.name, "Earned")
-//    XCTAssertEqual(minorRewardFetchedResults!.last?.sortId, minorRewardFetchedResults!.count)
+    let user: User = User(currentExp: 59, expToLevel: 60, level: 1, levelingScheme: 0, isLevelingUp: false)
+
+    let earnedReward: Reward = Reward(isMilestoneReward: false, name: "Earned", sortId: 0)
+    let test1: Reward = Reward(isMilestoneReward: false, name: "Test 1", sortId: 1)
+    let test2: Reward = Reward(isMilestoneReward: false, name: "Test 2", sortId: 2)
+
+    context?.insert(earnedReward)
+    context?.insert(test1)
+    context?.insert(test2)
+
+    var minorRewardFetchedResults: [Reward]? {
+      let request = FetchDescriptor<Reward>(
+        predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false},
+        sortBy: [SortDescriptor(\.sortId)])
+
+      return (try? context!.fetch(request))
+    }
+
+    user.createUnearnedCopyOfRewardAtEndOfArray(earnedReward: minorRewardFetchedResults!.first!,
+                                                rewardArray: minorRewardFetchedResults!,
+                                                context: context!)
+
+    try? context!.save()
+
+    XCTAssertEqual(minorRewardFetchedResults!.last?.name, "Earned")
+    XCTAssertEqual(minorRewardFetchedResults!.last!.sortId, 2)
   }
 
   func testFetchFirstOrCreateFetches() {
