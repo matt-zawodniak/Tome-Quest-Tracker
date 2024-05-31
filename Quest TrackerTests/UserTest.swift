@@ -93,6 +93,7 @@ final class UserTest: XCTestCase {
     let rewardDataAfterCopy = try? context?.fetch(rewardRequest)
 
     XCTAssertEqual(rewardDataAfterCopy?.last!.name, "Earned")
+    XCTAssertEqual(rewardDataAfterCopy?.last!.sortId, 3)
   }
 
   func testFetchFirstOrCreateFetches() {
