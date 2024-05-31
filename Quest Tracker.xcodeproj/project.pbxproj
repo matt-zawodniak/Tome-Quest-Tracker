@@ -40,6 +40,7 @@
 		8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174172B7FE6BF006885F8 /* NavigationBar.swift */; };
 		8FE1741A2B7FEFB6006885F8 /* PlusNavBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */; };
 		8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1741B2B869051006885F8 /* CustomListBackground.swift */; };
+		8FE9BBDC2C0A6CC50019C4AB /* QuestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE9BBDB2C0A6CC50019C4AB /* QuestTest.swift */; };
 		8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 		F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = A02FC83D890247DB85D27578 /* Sentry */; };
@@ -98,6 +99,7 @@
 		8FE174172B7FE6BF006885F8 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = SOURCE_ROOT; };
 		8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNavBackground.swift; sourceTree = "<group>"; };
 		8FE1741B2B869051006885F8 /* CustomListBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListBackground.swift; sourceTree = "<group>"; };
+		8FE9BBDB2C0A6CC50019C4AB /* QuestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTest.swift; sourceTree = "<group>"; };
 		8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				8FC2BC052C0101680055B861 /* QuestTrackerViewModelTests.swift */,
+				8FE9BBDB2C0A6CC50019C4AB /* QuestTest.swift */,
 				8FC75E972C04EC3800A784A6 /* SettingsTest.swift */,
 				8F7B66B72C06441200E48F5B /* UserTest.swift */,
 			);
@@ -401,6 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FE9BBDC2C0A6CC50019C4AB /* QuestTest.swift in Sources */,
 				8FC75E982C04EC3800A784A6 /* SettingsTest.swift in Sources */,
 				8FC2BC062C0101680055B861 /* QuestTrackerViewModelTests.swift in Sources */,
 				8F7B66B82C06441200E48F5B /* UserTest.swift in Sources */,
