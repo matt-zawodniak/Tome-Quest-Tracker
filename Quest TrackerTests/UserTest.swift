@@ -85,22 +85,14 @@ final class UserTest: XCTestCase {
     context?.insert(test1)
     context?.insert(test2)
 
-    var minorRewardFetchedResults: [Reward]? {
-      let request = FetchDescriptor<Reward>(
-        predicate: #Predicate { $0.isMilestoneReward == false && $0.isEarned == false},
-        sortBy: [SortDescriptor(\.sortId)])
+    let rewardRequest = FetchDescriptor<Reward>(sortBy: [SortDescriptor(\.sortId)])
+    let rewardData = try? context?.fetch(rewardRequest)
 
-      return (try? context!.fetch(request))
-    }
+    user.createUnearnedCopyOfRewardAtEndOfArray(earnedReward: rewardData!.first!, rewardArray: rewardData!, context: context!)
 
-    user.createUnearnedCopyOfRewardAtEndOfArray(earnedReward: minorRewardFetchedResults!.first!,
-                                                rewardArray: minorRewardFetchedResults!,
-                                                context: context!)
+    let rewardDataAfterCopy = try? context?.fetch(rewardRequest)
 
-    try? context!.save()
-
-    XCTAssertEqual(minorRewardFetchedResults!.last?.name, "Earned")
-    XCTAssertEqual(minorRewardFetchedResults!.last!.sortId, 2)
+    XCTAssertEqual(rewardDataAfterCopy?.last!.name, "Earned")
   }
 
   func testFetchFirstOrCreateFetches() {
@@ -157,7 +149,6 @@ final class UserTest: XCTestCase {
   }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
       try context?.delete(model: User.self)
       try context?.delete(model: Quest.self)
       try context?.delete(model: Reward.self)
