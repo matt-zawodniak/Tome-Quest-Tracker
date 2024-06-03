@@ -59,6 +59,14 @@ final class UserTest: XCTestCase {
     let quest: Quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, length: 1, questName: "test", questType: 1, timeCreated: Date())
     context?.insert(quest)
 
+    let minorReward0: Reward = Reward(isMilestoneReward: false, name: "Minor", sortId: 0)
+    let minorReward1: Reward = Reward(isMilestoneReward: false, name: "Minor", sortId: 1)
+    let minorReward2: Reward = Reward(isMilestoneReward: false, name: "Minor", sortId: 2)
+
+    context?.insert(minorReward0)
+    context?.insert(minorReward1)
+    context?.insert(minorReward2)
+
     let majorReward0: Reward = Reward(isMilestoneReward: true, name: "Major", sortId: 0)
     let majorReward1: Reward = Reward(isMilestoneReward: true, name: "Major", sortId: 1)
     let majorReward2: Reward = Reward(isMilestoneReward: true, name: "Major", sortId: 2)
@@ -72,6 +80,10 @@ final class UserTest: XCTestCase {
     XCTAssert(majorReward0.isEarned == true)
     XCTAssert(majorReward1.isEarned == false)
     XCTAssert(majorReward2.isEarned == false)
+
+    XCTAssert(minorReward0.isEarned == false)
+    XCTAssert(minorReward1.isEarned == false)
+    XCTAssert(minorReward2.isEarned == false)
   }
 
   func testCreateUnearnedCopyOfRewardAtEndOfArray() {

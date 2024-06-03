@@ -25,16 +25,16 @@ final class QuestTest: XCTestCase {
     }
 
   func testFindActiveQuestsBy() {
-    let quest: Quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, length: 1, questName: "Find", questType: 1, timeCreated: Date())
-    context?.insert(quest)
+    let questToFind: Quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, length: 1, questName: "Find", questType: 1, timeCreated: Date())
+    context?.insert(questToFind)
+
+    let _: Quest = Quest(difficulty: 1, id: UUID(), isCompleted: false, length: 1, questName: "False", questType: 1, timeCreated: Date())
 
     let foundQuest = Quest.findActiveQuestBy(name: "Find", context: context!)
 
-    XCTAssertEqual(quest, foundQuest)
+    XCTAssertEqual(questToFind, foundQuest)
   }
 
-// Can I tear down at the end of each function? The user is persisting between tests.
-// Make sure this persistence didn't mess with the other tests in Settings and User.
   func testCompleteQuest() {
     let questToBeCompleted: Quest = Quest(difficulty: 1,
                                           id: UUID(),
@@ -55,7 +55,7 @@ final class QuestTest: XCTestCase {
   }
 
   func testCompleteQuestOnlyChoosesOneOfDuplicates() {
-    let completeOnlyOne: Quest = Quest(difficulty: 1,
+    let quest: Quest = Quest(difficulty: 1,
                                           id: UUID(),
                                           isCompleted: false,
                                           length: 1,
@@ -69,17 +69,16 @@ final class QuestTest: XCTestCase {
                                    questName: "Unique",
                                    questType: 1,
                                    timeCreated: Date())
-    context?.insert(completeOnlyOne)
+    context?.insert(quest)
     context?.insert(duplicate)
 
     let user = User.fetchFirstOrCreate(context: context!)
     user.currentExp = 0
 
-    Quest.completeQuest(name: completeOnlyOne.questName, context: context!)
+    Quest.completeQuest(name: quest.questName, context: context!)
 
-    XCTAssertEqual(completeOnlyOne.completionExp, 10)
-    XCTAssert(completeOnlyOne.isCompleted != duplicate.isCompleted)
-    XCTAssertEqual(user.currentExp, completeOnlyOne.completionExp)
+    XCTAssert(quest.isCompleted != duplicate.isCompleted)
+    XCTAssertEqual(user.currentExp, quest.completionExp)
   }
 
   func testCompletionExp() {

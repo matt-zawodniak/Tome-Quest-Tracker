@@ -28,9 +28,9 @@ final class SettingsTest: XCTestCase {
     let settings = Settings.fetchFirstOrCreate(context: context!)
 
     var oldResetComponents = DateComponents()
-    oldResetComponents.hour = 5
-    oldResetComponents.minute = 30
-    oldResetComponents.second = 07
+    oldResetComponents.hour = 0
+    oldResetComponents.minute = 0
+    oldResetComponents.second = 0
 
     let oldResetTime = Calendar.current.date(byAdding: oldResetComponents, to: Calendar.current.startOfDay(for: Date()))!
 
