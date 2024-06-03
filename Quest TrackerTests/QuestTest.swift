@@ -34,6 +34,7 @@ final class QuestTest: XCTestCase {
   }
 
 // Can I tear down at the end of each function? The user is persisting between tests.
+// Make sure this persistence didn't mess with the other tests in Settings and User.
   func testCompleteQuest() {
     let questToBeCompleted: Quest = Quest(difficulty: 1,
                                           id: UUID(),
