@@ -62,4 +62,17 @@ desc "release_build"
     )
   end
 
+desc "To export our app"
+  lane :export_app do
+    match(type: "appstore")
+
+    gym(
+	project: "Quest Tracker.xcodeproj",
+	scheme: "Quest Tracker",
+	clean: true,
+	export_xcargs: "-allowProvisioningUpdates",
+	output_name: "ReleaseApp.ipa"
+    )
+  end
+
 end
