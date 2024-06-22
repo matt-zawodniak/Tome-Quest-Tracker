@@ -27,7 +27,7 @@ jobs:
       
       - name: Build App
         run: |
-
+          echo $MATCH_PASSWORD | base64
           bundle install
           bundle exec fastlane build
         env:
