@@ -41,7 +41,7 @@ desc "release_build"
   lane :release do
     setup_ci if is_ci
 
-    match(type: "development", 
+    match(type: "appstore", 
       readonly: is_ci || true)
 
     update_code_signing_settings(
@@ -49,29 +49,17 @@ desc "release_build"
       path: "Quest Tracker.xcodeproj",
       profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
 
-    build_app(scheme: "Quest Tracker", export_method: 'development')
-
-    update_code_signing_settings(
-      use_automatic_signing: true,
-      path: "Quest Tracker.xcodeproj")
+    build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
     sentry_debug_files_upload(
       auth_token: ENV['SENTRY_AUTH_TOKEN'],
       org_slug: "matt-zawodniak",
       project_slug: "quest-tracker",
     )
-  end
 
-desc "To export our app"
-  lane :export_app do
-    match(type: "appstore")
-
-    gym(
-	project: "Quest Tracker.xcodeproj",
-	scheme: "Quest Tracker",
-	clean: true,
-	export_xcargs: "-allowProvisioningUpdates",
-	output_name: "ReleaseApp.ipa"
+  update_code_signing_settings(
+    use_automatic_signing: true,
+    path: "Quest Tracker.xcodeproj"
     )
   end
 
