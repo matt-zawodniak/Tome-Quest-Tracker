@@ -50,16 +50,17 @@ desc "release_build"
 
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
+  update_code_signing_settings(
+    use_automatic_signing: true,
+    path: "Quest Tracker.xcodeproj"
+    )
+
     sentry_debug_files_upload(
       auth_token: ENV['SENTRY_AUTH_TOKEN'],
       org_slug: "matt-zawodniak",
       project_slug: "quest-tracker",
     )
 
-  update_code_signing_settings(
-    use_automatic_signing: true,
-    path: "Quest Tracker.xcodeproj"
-    )
   end
 
 end
