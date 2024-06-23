@@ -19,7 +19,6 @@ platform :ios do
   desc "Description of what the lane does"
   lane :build do
     setup_ci if is_ci
-    
 
     match(type: "development", 
       readonly: is_ci || true)
