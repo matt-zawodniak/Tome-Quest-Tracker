@@ -52,8 +52,16 @@ desc "release_build"
 
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
-        match(type: "development", 
-      readonly: is_ci || true)
+    deliver(
+      submit_for_review: false,
+      automatic_release: false,
+      force: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+    )
+
+  match(type: "development",
+    readonly: is_ci || true)
 
   update_code_signing_settings(
     code_sign_identity: "Apple Development",
