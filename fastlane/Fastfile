@@ -24,7 +24,7 @@ platform :ios do
       readonly: is_ci || true)
 
     update_code_signing_settings(
-      code_sign_identity: "iPhone Development",
+      code_sign_identity: "Apple Development",
       use_automatic_signing: false,
       path: "Quest Tracker.xcodeproj",
       profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
