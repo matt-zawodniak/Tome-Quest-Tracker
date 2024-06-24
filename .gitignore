@@ -3,6 +3,7 @@ fastlane/report.xml
 .sentryclirc
 *.ipa
 *.zip
+*.cer
 
 **/xcuserdata/**/*
 .sentryclirc
