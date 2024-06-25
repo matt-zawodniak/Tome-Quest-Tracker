@@ -27,7 +27,7 @@ jobs:
       
       - name: Build App
         run: |
-
+          echo "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}" | base64
           bundle install
           bundle exec fastlane release
         env:
