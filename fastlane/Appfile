@@ -1,7 +1,7 @@
 app_identifier("com.gmail.mdzawodniak.Quest-Tracker") # The bundle identifier of your app
 apple_id("mdzawodniak@gmail.com") # Your Apple Developer Portal username
 
-ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] = "pppz-ujhv-tydl-aggk"
+ENV["FASTLANE_PASSWORD"] = "pppz-ujhv-tydl-aggk"
 
 
 # For more information about the Appfile, see:
