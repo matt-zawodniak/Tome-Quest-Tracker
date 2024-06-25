@@ -50,7 +50,7 @@ desc "release_build"
       path: "Quest Tracker.xcodeproj",
       profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
 
-    build_app(scheme: "Quest Tracker", export_method: 'app-store')
+#    build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
     deliver(
       submit_for_review: false,
