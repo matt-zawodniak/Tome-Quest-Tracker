@@ -1,0 +1,36 @@
+name: api_key_test
+on:
+  workflow_dispatch:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Testing Swift Package and iOS app
+    runs-on: macOS-13
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 15.2
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+     
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1.160.0
+        with:
+          ruby-version: 3.2.1
+          bundler-cache: true
+      
+      - name: Test API key
+        run: |
+
+          bundle install
+          bundle exec fastlane api
+        env:
+          APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
