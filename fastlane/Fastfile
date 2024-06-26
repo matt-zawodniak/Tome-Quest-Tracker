@@ -44,6 +44,12 @@ desc "release_build"
     match(type: "appstore", 
       readonly: is_ci || true)
 
+    app_store_connect_api_key(
+      key_content: ENV['APP_STORE_CONNECT_API_KEY_CONTENT'],
+      issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+      key_id: ENV['APP_STORE_CONNECT_KEY_ID']
+    )
+
     update_code_signing_settings(
       code_sign_identity: "Apple Distribution",
       use_automatic_signing: false,
@@ -58,7 +64,8 @@ desc "release_build"
       force: true,
       skip_metadata: true,
       skip_screenshots: true,
-    )
+      precheck_include_in_app_purchases: false
+      )
 
   match(type: "development",
     readonly: is_ci || true)
