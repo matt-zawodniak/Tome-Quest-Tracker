@@ -67,9 +67,6 @@ desc "release_build"
       precheck_include_in_app_purchases: false
       )
 
-  match(type: "development",
-    readonly: is_ci || true)
-
   update_code_signing_settings(
     code_sign_identity: "Apple Development",
     use_automatic_signing: true,
