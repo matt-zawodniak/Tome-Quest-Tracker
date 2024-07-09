@@ -62,7 +62,7 @@ desc "release_build"
       submit_for_review: false,
       automatic_release: false,
       force: true,
-      skip_metadata: true,
+      skip_metadata: false,
       skip_screenshots: true,
       precheck_include_in_app_purchases: false
       )
