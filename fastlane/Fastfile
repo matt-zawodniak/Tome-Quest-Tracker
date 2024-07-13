@@ -27,7 +27,7 @@ platform :ios do
       code_sign_identity: "Apple Development",
       use_automatic_signing: false,
       path: "Quest Tracker.xcodeproj",
-      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
+      )
     
     build_app(scheme: "Quest Tracker", export_method: 'development')
     
@@ -54,7 +54,7 @@ desc "release_build"
       code_sign_identity: "Apple Distribution",
       use_automatic_signing: false,
       path: "Quest Tracker.xcodeproj",
-      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
+      )
 
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
@@ -71,7 +71,7 @@ desc "release_build"
     code_sign_identity: "Apple Development",
     use_automatic_signing: true,
     path: "Quest Tracker.xcodeproj",
-      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"] )
+    )
 
     sentry_debug_files_upload(
       auth_token: ENV['SENTRY_AUTH_TOKEN'],
