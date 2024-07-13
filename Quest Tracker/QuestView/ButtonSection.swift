@@ -57,11 +57,7 @@ struct ButtonSection: View {
 
   var completeButton: some View {
     Button("Complete") {
-      quest.isCompleted = true
-
-      quest.timeCompleted = Date.now
-
-      user.giveExp(quest: quest, settings: settings, context: modelContext)
+      quest.complete(user: user, settings: settings, context: modelContext)
 
       dismiss()
     }
@@ -96,8 +92,7 @@ struct ButtonSection: View {
 
   var restoreButton: some View {
     Button("Restore") {
-      quest.isCompleted = false
-      quest.timeCreated = Date.now
+      quest.restoreToActive()
 
       dismiss()
     }
@@ -106,8 +101,7 @@ struct ButtonSection: View {
 
   var skipButton: some View {
     Button("Skip") {
-      quest.isCompleted = true
-      quest.timeCompleted = Date.now
+      quest.skip()
 
       dismiss()
     }
