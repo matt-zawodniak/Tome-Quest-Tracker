@@ -11,7 +11,7 @@ import SwiftUI
 struct QuestRowView: View, Identifiable {
 
   @Environment(\.modelContext) var modelContext
-  @EnvironmentObject var tracker: QuestTrackerViewModel
+  @EnvironmentObject var tracker: QuestListViewModel
 
   var id = UUID()
 

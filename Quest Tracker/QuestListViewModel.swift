@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-class QuestTrackerViewModel: ObservableObject, Observable {
+class QuestListViewModel: ObservableObject, Observable {
   @Published var questToShowDetails: Quest?
   @Published var showingQuestDetails: Bool = false
 
