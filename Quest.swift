@@ -59,16 +59,32 @@ extension Quest: Identifiable {
     return foundQuest
   }
 
-  static func completeQuest(name: String, context: ModelContext) {
+  static func findByNameAndComplete(name: String, context: ModelContext) {
     if let quest: Quest = findActiveQuestBy(name: name, context: context) {
       let user: User = User.fetchFirstOrCreate(context: context)
 
       let settings: Settings = Settings.fetchFirstOrCreate(context: context)
 
-      quest.isCompleted = true
-
-      user.giveExp(quest: quest, settings: settings, context: context)
+      quest.complete(user: user, settings: settings, context: context)
     }
+  }
+
+  func complete(user: User, settings: Settings, context: ModelContext) {
+    isCompleted = true
+
+    timeCompleted = Date.now
+
+    user.giveExp(quest: self, settings: settings, context: context)
+  }
+
+  func skip() {
+    isCompleted = true
+    timeCompleted = Date.now
+  }
+
+  func restoreToActive() {
+    isCompleted = false
+    timeCreated = Date.now
   }
 
   var completionExp: Double { type.experience

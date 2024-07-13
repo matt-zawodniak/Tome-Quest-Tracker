@@ -48,7 +48,7 @@ final class QuestTest: XCTestCase {
     let user = User.fetchFirstOrCreate(context: context!)
     user.currentExp = 0
 
-    Quest.completeQuest(name: questToBeCompleted.questName, context: context!)
+    Quest.findByNameAndComplete(name: questToBeCompleted.questName, context: context!)
 
     XCTAssert(questToBeCompleted.isCompleted)
     XCTAssertEqual(user.currentExp, questToBeCompleted.completionExp)
@@ -75,7 +75,7 @@ final class QuestTest: XCTestCase {
     let user = User.fetchFirstOrCreate(context: context!)
     user.currentExp = 0
 
-    Quest.completeQuest(name: quest.questName, context: context!)
+    Quest.findByNameAndComplete(name: quest.questName, context: context!)
 
     XCTAssert(quest.isCompleted != duplicate.isCompleted)
     XCTAssertEqual(user.currentExp, quest.completionExp)

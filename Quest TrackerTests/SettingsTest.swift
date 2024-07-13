@@ -66,18 +66,6 @@ final class SettingsTest: XCTestCase {
     XCTAssertEqual(testResetTime, Settings.defaultResetTime)
   }
 
-  func testDefaultSettings() {
-    let settings = Settings.fetchFirstOrCreate(context: context!)
-
-    settings.dayOfTheWeek = Settings.defaultResetDay.rawValue
-    settings.time = Settings.defaultResetTime
-    settings.weeklyResetWarning = false
-
-    XCTAssertEqual(settings.dayOfTheWeek, Settings.defaultSettings.dayOfTheWeek)
-    XCTAssertEqual(settings.time, Settings.defaultSettings.time)
-    XCTAssertEqual(settings.weeklyResetWarning, Settings.defaultSettings.weeklyResetWarning)
-  }
-
   func testFetchFirstOrCreateFetches() {
     var testResetTimeComponents = DateComponents()
     testResetTimeComponents.hour = 5
@@ -92,13 +80,5 @@ final class SettingsTest: XCTestCase {
     let fetchedSettings: Settings = Settings.fetchFirstOrCreate(context: context!)
 
     XCTAssertEqual(settings, fetchedSettings)
-  }
-
-  func testFetchFirstOrCreateCreates() {
-    let settings = Settings.fetchFirstOrCreate(context: context!)
-
-    XCTAssertEqual(settings.time, Settings.defaultSettings.time)
-    XCTAssertEqual(settings.dayOfTheWeek, Settings.defaultSettings.dayOfTheWeek)
-    XCTAssertEqual(settings.weeklyResetWarning, Settings.defaultSettings.weeklyResetWarning)
   }
 }

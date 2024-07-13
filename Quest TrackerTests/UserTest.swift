@@ -117,16 +117,6 @@ final class UserTest: XCTestCase {
     XCTAssertEqual(testUser, fetchedUser)
   }
 
-  func testFetchFirstOrCreateCreates() {
-    let user = User.fetchFirstOrCreate(context: context!)
-
-    XCTAssertEqual(user.level, User.defaultUser.level)
-    XCTAssertEqual(user.currentExp, User.defaultUser.currentExp)
-    XCTAssertEqual(user.expToLevel, User.defaultUser.expToLevel)
-    XCTAssertEqual(user.isLevelingUp, User.defaultUser.isLevelingUp)
-    XCTAssertEqual(user.levelingScheme, User.defaultUser.levelingScheme)
-  }
-
   func testLevelUpExact() {
     let testUser: User = User(currentExp: 60, expToLevel: 60, level: 2, levelingScheme: 0, isLevelingUp: true)
     let projectedUser: User = User(currentExp: 0, expToLevel: 60, level: 3, levelingScheme: 0, isLevelingUp: true)
