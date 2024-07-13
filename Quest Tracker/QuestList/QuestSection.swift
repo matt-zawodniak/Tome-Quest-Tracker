@@ -46,7 +46,7 @@ struct QuestSection: View {
 
           if !showingCompletedQuests && (quest.type == .dailyQuest || quest.type == .weeklyQuest) {
             Button {
-              quest.isCompleted = true
+              quest.skip()
             } label: {
               Text("Skip")
             }
@@ -55,20 +55,14 @@ struct QuestSection: View {
         .swipeActions(edge: .leading) {
           if showingCompletedQuests {
             Button {
-              quest.isCompleted = false
-
-              quest.timeCreated = Date.now
+              quest.restoreToActive()
             } label: {
               Label("Restore to Quest List", systemImage: "arrow.counterclockwise")
             }
             .tint(GlobalUISettings.colorFor(quest: quest))
           } else {
             Button {
-              quest.isCompleted = true
-
-              quest.timeCompleted = Date.now
-
-              user.giveExp(quest: quest, settings: settings, context: modelContext)
+              quest.complete(user: user, settings: settings, context: modelContext)
             } label: {
               Image(systemName: "checkmark")
             }
