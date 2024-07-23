@@ -17,7 +17,7 @@ default_platform(:ios)
 
 platform :ios do
   desc "Description of what the lane does"
-#  lane :build do
+  lane :build do
     setup_ci if is_ci
     
 
@@ -38,7 +38,7 @@ platform :ios do
   end
 
 desc "release_build"
-#  lane :release do
+  lane :release do
     setup_ci if is_ci
 
     match(type: "development", 
