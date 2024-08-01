@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0EA7BF2C5B680C0045370D /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0EA7BE2C5B680C0045370D /* AdBannerView.swift */; };
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
 		8F493DB22BF7E4F0004D1676 /* SectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */; };
@@ -22,7 +23,6 @@
 		8F796E8B2B6C40F5007E0608 /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */; };
 		8F84DCBF2C5AF7E500BD35A3 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */; };
-		8F84DCC12C5AFFC200BD35A3 /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F84DCC02C5AFFC200BD35A3 /* AdBannerView.swift */; };
 		8F84DCC42C5B01AA00BD35A3 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
 		8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA12A572B27A222005838FE /* ManageRewardsView.swift */; };
@@ -47,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F0EA7BE2C5B680C0045370D /* AdBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		8F1401DF2AF29882007BBD53 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = SOURCE_ROOT; };
 		8F1401E02AF29882007BBD53 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = text; path = fastlane; sourceTree = SOURCE_ROOT; };
 		8F1401E12AF29882007BBD53 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
@@ -67,7 +68,6 @@
 		8F796E882B6C38BA007E0608 /* QuestSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestSection.swift; sourceTree = "<group>"; };
 		8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewModel.swift; sourceTree = "<group>"; };
-		8F84DCC02C5AFFC200BD35A3 /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestView.swift; path = "Quest Tracker/QuestView/QuestView.swift"; sourceTree = SOURCE_ROOT; };
 		8FA12A572B27A222005838FE /* ManageRewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageRewardsView.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 		8F84DCC22C5B013A00BD35A3 /* AdBanner */ = {
 			isa = PBXGroup;
 			children = (
-				8F84DCC02C5AFFC200BD35A3 /* AdBannerView.swift */,
+				8F0EA7BE2C5B680C0045370D /* AdBannerView.swift */,
 				8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */,
 			);
 			path = AdBanner;
@@ -330,7 +330,6 @@
 				8FB7B47B2BB20EF700E2D958 /* MainView.swift in Sources */,
 				8FD5904F2B5F151700DF5325 /* User.swift in Sources */,
 				8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */,
-				8F84DCC12C5AFFC200BD35A3 /* AdBannerView.swift in Sources */,
 				8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestListViewModel.swift in Sources */,
 				8F84DCC42C5B01AA00BD35A3 /* BannerViewController.swift in Sources */,
@@ -338,6 +337,7 @@
 				8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
 				8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */,
+				8F0EA7BF2C5B680C0045370D /* AdBannerView.swift in Sources */,
 				8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */,
 				8FD5904E2B5F151700DF5325 /* Quest.swift in Sources */,
 				8FD590522B60A07200DF5325 /* QuestListView.swift in Sources */,

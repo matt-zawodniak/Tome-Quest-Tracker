@@ -29,6 +29,9 @@ struct MainView: View {
 
       VStack {
         AdBannerView()
+          .frame(height: 20)
+          .padding(.vertical)
+
         QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 

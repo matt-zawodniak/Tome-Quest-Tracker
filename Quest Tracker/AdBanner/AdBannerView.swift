@@ -18,7 +18,9 @@ struct AdBannerView: UIViewControllerRepresentable {
     let bannerViewController = BannerViewController()
     bannerView.adUnitID = adUnitID
     bannerView.rootViewController = bannerViewController
+    bannerView.delegate = context.coordinator
     bannerViewController.view.addSubview(bannerView)
+    bannerViewController.delegate = context.coordinator
 
     return bannerViewController
   }
@@ -26,8 +28,31 @@ struct AdBannerView: UIViewControllerRepresentable {
   func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
     guard viewWidth != .zero else { return }
 
-    // Request a banner ad with the updated viewWidth.
     bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
     bannerView.load(GADRequest())
+  }
+
+  func makeCoordinator() -> Coordinator {
+    Coordinator(self)
+  }
+
+  internal class Coordinator: NSObject, BannerViewControllerWidthDelegate, GADBannerViewDelegate {
+    let parent: AdBannerView
+
+    init(_ parent: AdBannerView) {
+      self.parent = parent
+    }
+
+    func bannerViewController(_ bannerViewController: BannerViewController, didUpdate width: CGFloat) {
+      parent.viewWidth = width
+    }
+
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("DID RECEIVE AD")
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("DID NOT RECEIVE AD: \(error.localizedDescription)")
+    }
   }
 }
