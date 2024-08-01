@@ -13,7 +13,6 @@ class BannerViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    // Tell the delegate the initial ad width.
     delegate?.bannerViewController(
       self, didUpdate: view.frame.inset(by: view.safeAreaInsets).size.width)
   }
@@ -22,16 +21,12 @@ class BannerViewController: UIViewController {
     to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator
   ) {
     coordinator.animate { _ in
-      // do nothing
     } completion: { _ in
-      // Notify the delegate of ad width changes.
       self.delegate?.bannerViewController(
         self, didUpdate: self.view.frame.inset(by: self.view.safeAreaInsets).size.width)
     }
   }
 }
-
-// Delegate methods for receiving width update messages.
 
 protocol BannerViewControllerWidthDelegate: AnyObject {
   func bannerViewController(_ bannerViewController: BannerViewController, didUpdate width: CGFloat)
