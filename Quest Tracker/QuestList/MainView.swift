@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import GoogleMobileAds
 
 struct MainView: View {
 
@@ -27,6 +28,7 @@ struct MainView: View {
       GlobalUISettings.background
 
       VStack {
+        AdBannerView()
         QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 

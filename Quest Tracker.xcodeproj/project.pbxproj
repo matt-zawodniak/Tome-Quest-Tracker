@@ -21,6 +21,9 @@
 		8F796E892B6C38BA007E0608 /* QuestSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E882B6C38BA007E0608 /* QuestSection.swift */; };
 		8F796E8B2B6C40F5007E0608 /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */; };
 		8F7F0CD52ABB7FBC007EF1D0 /* QuestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */; };
+		8F84DCBF2C5AF7E500BD35A3 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */; };
+		8F84DCC12C5AFFC200BD35A3 /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F84DCC02C5AFFC200BD35A3 /* AdBannerView.swift */; };
+		8F84DCC42C5B01AA00BD35A3 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
 		8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA12A572B27A222005838FE /* ManageRewardsView.swift */; };
 		8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */; };
@@ -64,6 +67,8 @@
 		8F796E882B6C38BA007E0608 /* QuestSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestSection.swift; sourceTree = "<group>"; };
 		8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
 		8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewModel.swift; sourceTree = "<group>"; };
+		8F84DCC02C5AFFC200BD35A3 /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
+		8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestView.swift; path = "Quest Tracker/QuestView/QuestView.swift"; sourceTree = SOURCE_ROOT; };
 		8FA12A572B27A222005838FE /* ManageRewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageRewardsView.swift; sourceTree = "<group>"; };
 		8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quest Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F84DCBF2C5AF7E500BD35A3 /* GoogleMobileAds in Frameworks */,
 				F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,6 +131,15 @@
 				8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */,
 			);
 			path = CoreDataObjects;
+			sourceTree = "<group>";
+		};
+		8F84DCC22C5B013A00BD35A3 /* AdBanner */ = {
+			isa = PBXGroup;
+			children = (
+				8F84DCC02C5AFFC200BD35A3 /* AdBannerView.swift */,
+				8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */,
+			);
+			path = AdBanner;
 			sourceTree = "<group>";
 		};
 		8FA12A542B27A1D9005838FE /* Rewards */ = {
@@ -171,6 +186,7 @@
 				8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */,
 				8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */,
 				8FF8D53F2AE9B432000F801F /* SettingsView.swift */,
+				8F84DCC22C5B013A00BD35A3 /* AdBanner */,
 				8F1EEEDA2B151CF20097AB03 /* QuestList */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
@@ -229,6 +245,7 @@
 			name = "Quest Tracker";
 			packageProductDependencies = (
 				A02FC83D890247DB85D27578 /* Sentry */,
+				8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */,
 			);
 			productName = "Quest Tracker";
 			productReference = 8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */;
@@ -260,6 +277,7 @@
 			mainGroup = 8FAC38442AB396B6005CBED3;
 			packageReferences = (
 				7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				8F84DCBD2C5AF7E500BD35A3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 8FAC384E2AB396B6005CBED3 /* Products */;
 			projectDirPath = "";
@@ -312,8 +330,10 @@
 				8FB7B47B2BB20EF700E2D958 /* MainView.swift in Sources */,
 				8FD5904F2B5F151700DF5325 /* User.swift in Sources */,
 				8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */,
+				8F84DCC12C5AFFC200BD35A3 /* AdBannerView.swift in Sources */,
 				8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */,
 				8F7F0CD52ABB7FBC007EF1D0 /* QuestListViewModel.swift in Sources */,
+				8F84DCC42C5B01AA00BD35A3 /* BannerViewController.swift in Sources */,
 				8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */,
 				8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
@@ -349,6 +369,7 @@
 		8FAC38592AB396B7005CBED3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -410,6 +431,7 @@
 		8FAC385A2AB396B7005CBED3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -566,9 +588,22 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		8F84DCBD2C5AF7E500BD35A3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = exactVersion;
+				version = 11.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F84DCBD2C5AF7E500BD35A3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
 		A02FC83D890247DB85D27578 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
