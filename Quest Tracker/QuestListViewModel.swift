@@ -8,7 +8,10 @@
 import SwiftUI
 import SwiftData
 
-class QuestTrackerViewModel: ObservableObject {
+class QuestListViewModel: ObservableObject, Observable {
+  @Published var questToShowDetails: Quest?
+  @Published var showingQuestDetails: Bool = false
+
   func sortDescriptorFromSortType(sortType: QuestSortDescriptor) -> SortDescriptor<Quest> {
     switch sortType {
     case .dueDate: SortDescriptor(\Quest.dueDate, order: .reverse)

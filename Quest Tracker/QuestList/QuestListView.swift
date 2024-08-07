@@ -14,7 +14,7 @@ struct QuestListView: View {
 
   @Environment(\.scenePhase) var scenePhase
 
-  @ObservedObject var tracker = QuestTrackerViewModel()
+  @ObservedObject var tracker = QuestListViewModel()
 
   @ObservedObject private var sections = SectionsModel()
 
@@ -90,10 +90,14 @@ struct QuestListView: View {
         }
       }
     }
+    .environment(tracker)
+    .sheet(isPresented: $tracker.showingQuestDetails) {
+      QuestView(quest: tracker.questToShowDetails!, editingQuest: true)
+    }
   }
 }
 
 #Preview {
-    QuestListView(tracker: QuestTrackerViewModel(), showingCompletedQuests: false)
+  QuestListView(tracker: QuestListViewModel(), showingCompletedQuests: false)
       .modelContainer(PreviewSampleData.container)
 }

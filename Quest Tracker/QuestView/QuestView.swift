@@ -22,51 +22,55 @@ struct QuestView: View {
 
   @State var advancedSettingsVisible: Bool = false
 
+  @State var editingQuest: Bool
+
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
     return settingsQueryResults.first ?? Settings.fetchFirstOrCreate(context: modelContext)
   }
 
+  @Query() var userQueryResults: [User]
+  var user: User {
+    return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
+  }
+
   var body: some View {
-    List {
-      nameSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+    VStack {
+      List {
+        nameSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
-      typeSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+        typeSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
-      questDescriptionSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
+        questDescriptionSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
 
-      HStack {
-        Spacer()
-        Text("\(quest.completionExp) EXP")
-        Spacer()
-      }
-      .listRowBackground(Color.clear)
-      .listRowSeparator(.hidden)
-
-      advancedSettingsSection
-        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
-        .listRowSeparator(.hidden)
-    }
-    .onDisappear(
-      perform: {
-        if quest.questName.count > 0 {
-          quest.isCompleted = false
-
-          modelContext.insert(quest)
+        HStack {
+          Spacer()
+          Text("\(quest.completionExp) EXP")
+          Spacer()
         }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+
+        advancedSettingsSection
+          .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+          .listRowSeparator(.hidden)
       }
-    )
-    .padding()
-    .listStyle(.grouped)
-    .listRowSpacing(5)
-    .scrollContentBackground(.hidden)
-    .foregroundStyle(.cyan)
+    }
+      .padding()
+      .listStyle(.grouped)
+      .listRowSpacing(5)
+      .scrollContentBackground(.hidden)
+      .foregroundStyle(.cyan)
+    .layoutPriority(1)
+
+    ButtonSection(editingQuest: editingQuest, quest: quest, settings: settings, user: user)
+      .background(Rectangle().foregroundStyle(.cyan))
   }
 
   var typeSection: some View {
@@ -232,6 +236,6 @@ struct QuestView: View {
 }
 
 #Preview {
-    QuestView(quest: PreviewSampleData.previewQuest)
+  QuestView(quest: PreviewSampleData.previewQuest, editingQuest: true)
       .modelContainer(PreviewSampleData.container)
 }

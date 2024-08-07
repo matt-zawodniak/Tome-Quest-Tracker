@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import GoogleMobileAds
 
 struct MainView: View {
 
@@ -20,6 +21,7 @@ struct MainView: View {
   var earnedRewards: [Reward]
 
   @State var showingCompletedQuests: Bool = false
+  @State var showingLevelUpNotification: Bool = false
 
   @State var navigateToRewardsView: Bool = false
 
@@ -28,13 +30,17 @@ struct MainView: View {
       GlobalUISettings.background
 
       VStack {
+        AdBannerView()
+          .frame(height: 20)
+          .padding(.vertical)
+
         QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 
         VStack {
           NavigationBar(showingCompletedQuests: $showingCompletedQuests)
 
-          LevelAndExpUI(expBarLength: user.currentExp)
+          LevelAndExpUI(expBarLength: user.currentExp / user.expToLevel)
             .padding(.horizontal)
         }
       }
@@ -63,6 +69,6 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+  MainView()
       .modelContainer(PreviewSampleData.container)
 }
