@@ -22,7 +22,7 @@ struct CompleteQuestIntent: AppIntent {
     let context = ModelController.shared.modelContainer.mainContext
 
     if Quest.findActiveQuestBy(name: questName, context: context) != nil {
-      Quest.completeQuest(name: questName, context: context)
+      Quest.findByNameAndComplete(name: questName, context: context)
 
       return .result(dialog: "\(questName) marked complete.")
     } else {
