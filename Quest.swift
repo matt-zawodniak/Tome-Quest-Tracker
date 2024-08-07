@@ -70,22 +70,22 @@ extension Quest: Identifiable {
   }
 
   func complete(user: User, settings: Settings, context: ModelContext) {
-      isCompleted = true
+    isCompleted = true
 
-      timeCompleted = Date.now
+    timeCompleted = Date.now
 
-      user.giveExp(quest: self, settings: settings, context: context)
-    }
+    user.giveExp(quest: self, settings: settings, context: context)
+  }
 
-    func skip() {
-      isCompleted = true
-      timeCompleted = Date.now
-    }
+  func skip() {
+    isCompleted = true
+    timeCompleted = Date.now
+  }
 
-    func restoreToActive() {
-      isCompleted = false
-      timeCreated = Date.now
-    }
+  func restoreToActive() {
+    isCompleted = false
+    timeCreated = Date.now
+  }
 
   var completionExp: Double { type.experience
     * (questDifficulty.expMultiplier + questLength.expMultiplier)/2
