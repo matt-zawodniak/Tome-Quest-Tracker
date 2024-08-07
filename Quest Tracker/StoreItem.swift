@@ -16,9 +16,7 @@ struct StoreItem: View {
   var body: some View {
     if isPurchased {
 
-      Button(action: {
-
-      },
+      Button(action: {},
              label: {
         HStack {
           Spacer()
@@ -28,7 +26,6 @@ struct StoreItem: View {
         }
       })
     } else {
-
       Button(action: {
         Task {
           try await storeKit.purchase(product: product)
