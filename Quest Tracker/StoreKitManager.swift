@@ -90,7 +90,7 @@ class StoreKitManager: ObservableObject {
     self.purchasedProducts = purchasedProducts
   }
 
-  func isPurchased(product: Product) async throws -> Bool {
+  func customerHasPurchased(product: Product) async throws -> Bool {
     return purchasedProducts.contains(product)
   }
 

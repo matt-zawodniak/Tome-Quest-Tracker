@@ -42,7 +42,7 @@ struct StoreItem: View {
         .foregroundStyle(.white)
         .onChange(of: storeKit.purchasedProducts) {
           Task {
-            isPurchased = (try? await storeKit.isPurchased(product: product)) ?? false
+            isPurchased = (try? await storeKit.customerHasPurchased(product: product)) ?? false
           }
         }
       })
