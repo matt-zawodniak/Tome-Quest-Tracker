@@ -62,6 +62,9 @@
             ReferencedContainer = "container:Quest Tracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../Quest Tracker/Tome: Quest Tracker.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
