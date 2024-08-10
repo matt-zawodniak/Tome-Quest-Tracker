@@ -23,7 +23,7 @@ final class SnapshotSetup: XCTestCase {
 
     let giftImage = app.images["Gift"]
     giftImage.tap()
- 
+
     let manageRewardsText = collectionViewsQuery.staticTexts["Manage Rewards"]
     manageRewardsText.tap()
 
