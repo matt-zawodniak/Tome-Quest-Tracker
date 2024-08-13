@@ -109,7 +109,7 @@ struct SettingsView: View {
 
       ForEach(storeKit.storeProducts) { product in
         Section {
-          StoreItem(storeKit: storeKit, product: product)
+          StoreItem(storeKit: storeKit, user: user, product: product)
         }
         .listRowBackground(StylizedOutline().foregroundStyle(.cyan).opacity(storeKit.purchasedProducts.contains(product) ? 0 : 0.8))
         .listRowSeparator(.hidden)

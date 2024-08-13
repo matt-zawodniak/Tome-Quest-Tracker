@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 import StoreKit
 
 struct StoreItem: View {
   @ObservedObject var storeKit: StoreKitManager
   @State var isPurchased: Bool = false
+  @State var user: User
   var product: Product
 
   var body: some View {
@@ -40,6 +42,9 @@ struct StoreItem: View {
         .onChange(of: storeKit.purchasedProducts) {
           Task {
             isPurchased = (try? await storeKit.customerHasPurchased(product: product)) ?? false
+            if product.displayName == "Remove Ads", isPurchased {
+              user.purchasedRemoveAds = isPurchased
+            }
           }
         }
       })

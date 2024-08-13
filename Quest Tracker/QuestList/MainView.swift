@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import GoogleMobileAds
+import StoreKit
 
 struct MainView: View {
 
@@ -22,15 +23,18 @@ struct MainView: View {
 
   @State var showingCompletedQuests: Bool = false
   @State var showingLevelUpNotification: Bool = false
+  @State var showingAds: Bool = true
 
   var body: some View {
     ZStack {
       GlobalUISettings.background
 
       VStack {
-        AdBannerView()
-          .frame(height: 20)
-          .padding(.vertical)
+        if showingAds {
+          AdBannerView()
+            .frame(height: 20)
+            .padding(.vertical)
+        }
 
         QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
@@ -45,6 +49,12 @@ struct MainView: View {
     }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
+    }
+    .onAppear {
+      showingAds = !user.purchasedRemoveAds
+    }
+    .onChange(of: user.purchasedRemoveAds) {
+      showingAds = !user.purchasedRemoveAds
     }
   }
 }
