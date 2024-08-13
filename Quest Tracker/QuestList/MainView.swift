@@ -30,7 +30,7 @@ struct MainView: View {
       GlobalUISettings.background
 
       VStack {
-        if showingAds {
+        if !user.purchasedRemoveAds {
           AdBannerView()
             .frame(height: 20)
             .padding(.vertical)
@@ -49,12 +49,6 @@ struct MainView: View {
     }
     .onChange(of: user.level) {
       showingLevelUpNotification = true
-    }
-    .onAppear {
-      showingAds = !user.purchasedRemoveAds
-    }
-    .onChange(of: user.purchasedRemoveAds) {
-      showingAds = !user.purchasedRemoveAds
     }
   }
 }
