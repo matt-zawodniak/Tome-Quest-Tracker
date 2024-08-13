@@ -13,6 +13,7 @@ struct StoreItem: View {
   @ObservedObject var storeKit: StoreKitManager
   @State var isPurchased: Bool = false
   @State var user: User
+
   var product: Product
 
   var body: some View {

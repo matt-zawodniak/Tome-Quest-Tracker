@@ -12,6 +12,7 @@ import SwiftData
 @Model public class User {
 
   var currentExp: Double = 0.0
+  var leveledUpRecently: Bool = false
   var expToLevel: Double = 60
   var level: Int = 1
   var levelingScheme: Int = LevelingSchemes.normal.rawValue

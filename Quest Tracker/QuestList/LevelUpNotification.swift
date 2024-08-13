@@ -11,12 +11,9 @@ struct LevelUpNotification: View {
 
   @State var user: User
 
-  @Binding var isPresented: Bool
-
   @Binding var navigateToRewardsView: Bool
 
   var body: some View {
-    NavigationStack {
       VStack {
         HStack {
           Image(systemName: "party.popper")
@@ -30,35 +27,42 @@ struct LevelUpNotification: View {
             )
         }
 
-        HStack {
-          Button(action: {
-            isPresented = false
-          }, label: {
-            Text("Dismiss")
-          })
+        GeometryReader { geometry in
+          HStack(spacing: 0) {
+            Spacer()
+            Button(action: {
+              user.leveledUpRecently = false
+            }, label: {
+              Text("Dismiss")
+            })
+            .frame(width: geometry.size.width * 0.4, height: 50)
 
             Button(action: {
               navigateToRewardsView = true
 
-              isPresented = false
+              user.leveledUpRecently = false
             }, label: {
               Text("View Rewards")
+                .foregroundStyle(.black)
             })
             .buttonStyle(.borderedProminent)
+            .frame(width: geometry.size.width * 0.4, height: 50)
+            Spacer()
           }
         }
+        }
+      .frame(maxHeight: 100)
       .padding()
-      .background(.white)
+      .background(.black)
+      .foregroundStyle(.cyan)
       .cornerRadius(20)
-      .overlay(RoundedRectangle(cornerRadius: 20).stroke(.blue))
-    }
+      .overlay(RoundedRectangle(cornerRadius: 20).stroke(.cyan))
   }
 }
 
 #Preview {
     LevelUpNotification(
       user: PreviewSampleData.previewUser,
-      isPresented: .constant(true),
       navigateToRewardsView: .constant(false))
     .modelContainer(PreviewSampleData.container)
 }
