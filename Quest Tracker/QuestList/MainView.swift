@@ -24,7 +24,6 @@ struct MainView: View {
 
   @State var showingCompletedQuests: Bool = false
   @State var showingLevelUpNotification: Bool = false
-  @State var showingAds: Bool = true
 
   @State var navigateToRewardsView: Bool = false
 
