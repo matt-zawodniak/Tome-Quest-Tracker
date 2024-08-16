@@ -108,15 +108,12 @@ struct NavigationBar: View {
     .background(.black)
     .sheet(isPresented: $showingNewQuestView) {
       QuestView(quest: Quest.defaultQuest(context: modelContext), editingQuest: false)
-        .presentationDetents([.medium, .large])
     }
     .sheet(isPresented: $showingRewardsView) {
       RewardsView()
-        .presentationDetents([.medium, .large])
     }
     .sheet(isPresented: $showingSettingsView) {
       SettingsView(settings: settings, user: user)
-        .presentationDetents([.medium, .large])
     }
   }
 }

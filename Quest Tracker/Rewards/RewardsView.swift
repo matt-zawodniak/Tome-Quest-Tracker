@@ -125,6 +125,7 @@ struct RewardsView: View {
       .listRowSpacing(5)
       .listStyle(.inset)
     }
+    .tint(.cyan)
   }
 }
 

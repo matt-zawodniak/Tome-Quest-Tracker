@@ -84,6 +84,7 @@ struct ManageRewardsView: View {
         .listRowSeparator(.hidden)
       }
     }
+    .tint(.cyan)
     .toolbar {
       Button("Rearrange") {
         switch self.editMode?.wrappedValue {
