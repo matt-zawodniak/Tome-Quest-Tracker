@@ -16,7 +16,6 @@ import AppIntents
   var id = UUID()
   var isCompleted: Bool = false
   var length: Int = QuestLength.average.rawValue
-  var questBonusReward: String?
   var questDescription: String?
   var questName: String = ""
   var questType: Int = QuestType.mainQuest.rawValue
@@ -29,7 +28,6 @@ import AppIntents
     id: UUID,
     isCompleted: Bool,
     length: Int,
-    questBonusReward: String? = nil,
     questDescription: String? = nil,
     questName: String,
     questType: Int,
@@ -40,7 +38,6 @@ import AppIntents
       self.id = id
       self.isCompleted = isCompleted
       self.length = length
-      self.questBonusReward = questBonusReward
       self.questDescription = questDescription
       self.questName = questName
       self.questType = questType
