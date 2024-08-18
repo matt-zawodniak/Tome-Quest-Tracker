@@ -16,6 +16,7 @@ struct NavigationBar: View {
   @State var showingRewardsView: Bool = false
   @State var showingSettingsView: Bool = false
   @Binding var showingCompletedQuests: Bool
+  @ObservedObject var sections: SectionsModel
 
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
@@ -107,7 +108,7 @@ struct NavigationBar: View {
     }
     .background(.black)
     .sheet(isPresented: $showingNewQuestView) {
-      QuestView(quest: Quest.defaultQuest(context: modelContext), editingQuest: false)
+      QuestView(sections: sections, quest: Quest.defaultQuest(context: modelContext), editingQuest: false)
         .presentationDetents([.medium, .large])
     }
     .sheet(isPresented: $showingRewardsView) {
@@ -125,6 +126,7 @@ struct NavigationBar: View {
   NavigationBar(showingNewQuestView: false,
                 showingRewardsView: false,
                 showingSettingsView: false,
-                showingCompletedQuests: .constant(false))
+                showingCompletedQuests: .constant(false),
+                sections: SectionsModel())
   .modelContainer(PreviewSampleData.container)
 }
