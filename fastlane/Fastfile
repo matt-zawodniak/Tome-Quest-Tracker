@@ -62,7 +62,7 @@ desc "release_build"
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
     deliver(
-      build_number: number_of_commits
+      build_number: number_of_commits,
       submit_for_review: false,
       automatic_release: false,
       force: true,
