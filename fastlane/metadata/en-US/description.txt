@@ -1,0 +1,34 @@
+
+Tome is a gamified to-do list app that motivates you to be productive.
+Set your own tasks and earn experience upon completion of those tasks.
+Earn rewards you set for yourself every time you level up.
+Only you know the best way to motivate you!
+
+Use Siri to create and complete quests. Tome also stores quests on iCloud for cross-device synchronization.
+
+QUESTS
+Each quest type gives a different amount of experience based on importance and effort.
+
+- Main quests are important and/or urgent tasks. They give the most experience.
+- Side quests are smaller or less urgent tasks.
+- Daily quests are tasks the user should be doing every day. At the end of every day they repopulate, so you can cross them off your list and the quest will be active again tomorrow.
+- Weekly quests are tasks you try to do once a week. At the end of every week they repopulate, so you can cross them off your list and the quest will be active again tomorrow.
+
+Use swipe, tap, or voice actions to edit, delete, or complete quests and earn experience!
+
+REWARDS
+- Earn a reward every time you level up!
+- Keep minor rewards as smaller rewards, with Milestone rewards being larger.
+- Add whatever you think might help you stay motivated to be productive!
+
+For example, a food-motivated user might use “ice cream” as a minor reward and a trip to their favorite restaurant as a milestone reward.
+
+SCALING
+- Get a classic gaming feel by setting the level scaling to hard, which increases the amount of experience needed for the next level by a small amount.
+- Level scaling can be changed at any time.
+
+Keep the scaling at hard to slowly wean yourself off of needing rewards to be productive, or swap back to normal whenever you feel like the level pacing is satisfactory.
+
+SIRI ACTIONS
+- Say “Add Quest” or “Create Quest” to add quests on the fly.
+- Say “Complete Quest” or “Mark Quest As Complete” to complete a quest and earn experience without needing to open Tome.
