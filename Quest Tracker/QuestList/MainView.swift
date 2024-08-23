@@ -10,9 +10,7 @@ import SwiftData
 import GoogleMobileAds
 import StoreKit
 
-
 struct MainView: View {
-
   @Environment(\.modelContext) var modelContext
 
   var user: User {

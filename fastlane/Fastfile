@@ -61,15 +61,13 @@ desc "release_build"
 
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
-    increment_build_number
-
     deliver(
-      submit_for_review: false,
+      submit_for_review: true,
       automatic_release: false,
       force: true,
       skip_metadata: false,
       skip_screenshots: true,
-      precheck_include_in_app_purchases: false
+      precheck_include_in_app_purchases: true
       )
 
   update_code_signing_settings(
