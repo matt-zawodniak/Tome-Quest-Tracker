@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 import GoogleMobileAds
+import StoreKit
+
 
 struct MainView: View {
 
@@ -30,9 +32,11 @@ struct MainView: View {
       GlobalUISettings.background
 
       VStack {
-        AdBannerView()
-          .frame(height: 20)
-          .padding(.vertical)
+        if !user.purchasedRemoveAds {
+          AdBannerView()
+            .frame(height: 20)
+            .padding(.vertical)
+        }
 
         QuestListView(showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
