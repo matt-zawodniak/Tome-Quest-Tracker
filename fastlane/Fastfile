@@ -59,6 +59,10 @@ desc "release_build"
       profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]["com.gmail.mdzawodniak.Quest-Tracker"]
       )
 
+    increment_version_number(
+      bump_type: "patch"
+    )
+
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
     deliver(
