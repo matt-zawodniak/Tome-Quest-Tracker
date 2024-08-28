@@ -51,7 +51,7 @@ struct QuestView: View {
 
         HStack {
           Spacer()
-          Text("\(quest.completionExp) EXP")
+          Text("\(Int(quest.completionExp)) EXP")
           Spacer()
         }
         .listRowBackground(Color.clear)
@@ -137,12 +137,6 @@ struct QuestView: View {
             }
           }
           .pickerStyle(.segmented)
-        }
-
-        HStack {
-          Text("Bonus Reward:")
-
-          TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
         }
 
         dueDateView
