@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0EA7BF2C5B680C0045370D /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0EA7BE2C5B680C0045370D /* AdBannerView.swift */; };
 		8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */; };
-		8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */; };
 		8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48FD412B1FCDE800A88E96 /* RewardsView.swift */; };
+		8F493DB22BF7E4F0004D1676 /* SectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */; };
+		8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DD2B8E7E7F008832CD /* Outlines.swift */; };
+		8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */; };
 		8F6368572B62F94800D524A1 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6368562B62F94800D524A1 /* ModelController.swift */; };
 		8F6462C32B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */; };
 		8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6462C42B4DE756000DE6A3 /* AddQuestIntent.swift */; };
@@ -17,33 +20,69 @@
 		8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6B15052B2E25AC00784BCE /* AddRewardView.swift */; };
 		8F796E872B6B7BE4007E0608 /* LevelUpNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */; };
 		8F796E892B6C38BA007E0608 /* QuestSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E882B6C38BA007E0608 /* QuestSection.swift */; };
-		8F796E8B2B6C40F5007E0608 /* CollapsibleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */; };
-		8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */; };
+		8F796E8B2B6C40F5007E0608 /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */; };
+		8F7F0CD52ABB7FBC007EF1D0 /* QuestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */; };
+		8F84DCBF2C5AF7E500BD35A3 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */; };
+		8F84DCC42C5B01AA00BD35A3 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */; };
+		8F7B66B82C06441200E48F5B /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B66B72C06441200E48F5B /* UserTest.swift */; };
 		8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92E9062ABBA58C000446C6 /* QuestView.swift */; };
 		8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA12A572B27A222005838FE /* ManageRewardsView.swift */; };
 		8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */; };
 		8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38542AB396B7005CBED3 /* Assets.xcassets */; };
 		8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */; };
 		8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */; };
-		8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */; };
+		8FB7B47B2BB20EF700E2D958 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC6BFEE2AFABF95001DD91E /* MainView.swift */; };
+		8FBA16362BC1EB81003EA0B5 /* ButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA16352BC1EB81003EA0B5 /* ButtonSection.swift */; };
+		8FBE4DFB2C4B084900C34996 /* SnapshotSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE4DFA2C4B084900C34996 /* SnapshotSetup.swift */; };
+		8FBE4DFD2C4B084900C34996 /* Quest_TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE4DFC2C4B084900C34996 /* Quest_TrackerUITestsLaunchTests.swift */; };
+		8FC34B8E2C633A6300A0CB50 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC34B8D2C633A6300A0CB50 /* StoreKitManager.swift */; };
+		8FC34B912C633BB700A0CB50 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC34B902C633BB700A0CB50 /* StoreKit.framework */; };
+		8FC34B932C633E7B00A0CB50 /* ProductPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FC34B922C633E7B00A0CB50 /* ProductPropertyList.plist */; };
+		8FC34B952C6344B800A0CB50 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC34B942C6344B800A0CB50 /* StoreItem.swift */; };
+		8FC75E982C04EC3800A784A6 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC75E972C04EC3800A784A6 /* SettingsTest.swift */; };
 		8FD5904D2B5F151700DF5325 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590492B5F151700DF5325 /* Settings.swift */; };
 		8FD5904E2B5F151700DF5325 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904A2B5F151700DF5325 /* Quest.swift */; };
 		8FD5904F2B5F151700DF5325 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904B2B5F151700DF5325 /* User.swift */; };
 		8FD590502B5F151700DF5325 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5904C2B5F151700DF5325 /* Reward.swift */; };
-		8FD590522B60A07200DF5325 /* QuestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590512B60A07200DF5325 /* QuestList.swift */; };
+		8FD590522B60A07200DF5325 /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD590512B60A07200DF5325 /* QuestListView.swift */; };
 		8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */; };
+		8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174172B7FE6BF006885F8 /* NavigationBar.swift */; };
+		8FE1741A2B7FEFB6006885F8 /* PlusNavBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */; };
+		8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1741B2B869051006885F8 /* CustomListBackground.swift */; };
+		8FE494472C616D5800BB51D6 /* Tome: Quest Tracker.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 8FE494462C616D5800BB51D6 /* Tome: Quest Tracker.storekit */; };
+		8FE9BBDC2C0A6CC50019C4AB /* QuestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE9BBDB2C0A6CC50019C4AB /* QuestTest.swift */; };
 		8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */; };
 		8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8D53F2AE9B432000F801F /* SettingsView.swift */; };
 		F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = A02FC83D890247DB85D27578 /* Sentry */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+    8FBE4DFE2C4B084900C34996 /* PBXContainerItemProxy */ = {
+      isa = PBXContainerItemProxy;
+      containerPortal = 8FAC38452AB396B6005CBED3 /* Project object */;
+      proxyType = 1;
+      remoteGlobalIDString = 8FAC384C2AB396B6005CBED3;
+      remoteInfo = "Quest Tracker";
+    };
+    8FC2BC072C0101680055B861 /* PBXContainerItemProxy */ = {
+      isa = PBXContainerItemProxy;
+      containerPortal = 8FAC38452AB396B6005CBED3 /* Project object */;
+      proxyType = 1;
+      remoteGlobalIDString = 8FAC384C2AB396B6005CBED3;
+      remoteInfo = "Quest Tracker";
+    };
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		8F0EA7BE2C5B680C0045370D /* AdBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		8F1401DF2AF29882007BBD53 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = SOURCE_ROOT; };
 		8F1401E02AF29882007BBD53 /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = text; path = fastlane; sourceTree = SOURCE_ROOT; };
 		8F1401E12AF29882007BBD53 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
 		8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRowView.swift; sourceTree = SOURCE_ROOT; };
-		8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerModel.swift; sourceTree = "<group>"; };
 		8F48FD412B1FCDE800A88E96 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RewardsView.swift; path = "Quest Tracker/Rewards/RewardsView.swift"; sourceTree = SOURCE_ROOT; };
+		8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsModel.swift; sourceTree = "<group>"; };
+		8F5633DD2B8E7E7F008832CD /* Outlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlines.swift; sourceTree = "<group>"; };
+		8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUISettings.swift; sourceTree = "<group>"; };
 		8F6368562B62F94800D524A1 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		8F6368582B63010300D524A1 /* Quest Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Quest Tracker.entitlements"; sourceTree = "<group>"; };
 		8F6462C22B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestTrackerShortcuts.swift; path = "Quest Tracker/QuestTrackerShortcuts.swift"; sourceTree = SOURCE_ROOT; };
@@ -54,23 +93,40 @@
 		8F6B15052B2E25AC00784BCE /* AddRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRewardView.swift; sourceTree = "<group>"; };
 		8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpNotification.swift; sourceTree = "<group>"; };
 		8F796E882B6C38BA007E0608 /* QuestSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestSection.swift; sourceTree = "<group>"; };
-		8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSection.swift; sourceTree = "<group>"; };
-		8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTrackerViewModel.swift; sourceTree = "<group>"; };
-		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = SOURCE_ROOT; };
+		8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
+		8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewModel.swift; sourceTree = "<group>"; };
+		8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
+		8F92E9062ABBA58C000446C6 /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestView.swift; path = "Quest Tracker/QuestView/QuestView.swift"; sourceTree = SOURCE_ROOT; };
+		8F7B66B72C06441200E48F5B /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
 		8FA12A572B27A222005838FE /* ManageRewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageRewardsView.swift; sourceTree = "<group>"; };
 		8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quest Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest_TrackerApp.swift; sourceTree = "<group>"; };
 		8FAC38542AB396B7005CBED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FAC38572AB396B7005CBED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LevelAndExpUI.swift; path = "Quest Tracker/LevelAndExpUI.swift"; sourceTree = SOURCE_ROOT; };
+		8FBA16352BC1EB81003EA0B5 /* ButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSection.swift; sourceTree = "<group>"; };
+		8FBE4DF82C4B084900C34996 /* Quest TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Quest TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FBE4DFA2C4B084900C34996 /* SnapshotSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotSetup.swift; sourceTree = "<group>"; };
+		8FBE4DFC2C4B084900C34996 /* Quest_TrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest_TrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8FC34B8D2C633A6300A0CB50 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
+		8FC34B902C633BB700A0CB50 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		8FC34B922C633E7B00A0CB50 /* ProductPropertyList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ProductPropertyList.plist; sourceTree = "<group>"; };
+		8FC34B942C6344B800A0CB50 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
+		8FC2BC032C0101680055B861 /* Quest TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Quest TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC6BFEC2AFABF79001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestListView.swift; path = "Quest Tracker/QuestListView.swift"; sourceTree = SOURCE_ROOT; };
-		8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
+		8FC6BFEE2AFABF95001DD91E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		8FC75E972C04EC3800A784A6 /* SettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
 		8FD590492B5F151700DF5325 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904A2B5F151700DF5325 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904B2B5F151700DF5325 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = SOURCE_ROOT; };
 		8FD5904C2B5F151700DF5325 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = SOURCE_ROOT; };
-		8FD590512B60A07200DF5325 /* QuestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestList.swift; sourceTree = "<group>"; };
+		8FD590512B60A07200DF5325 /* QuestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
 		8FD9EFA32B756C0F00D6DB34 /* PreviewSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSampleData.swift; sourceTree = SOURCE_ROOT; };
+		8FE174172B7FE6BF006885F8 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = SOURCE_ROOT; };
+		8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNavBackground.swift; sourceTree = "<group>"; };
+		8FE1741B2B869051006885F8 /* CustomListBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListBackground.swift; sourceTree = "<group>"; };
+		8FE494462C616D5800BB51D6 /* Tome: Quest Tracker.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Tome: Quest Tracker.storekit"; sourceTree = "<group>"; };
+		8FE9BBDB2C0A6CC50019C4AB /* QuestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTest.swift; sourceTree = "<group>"; };
 		8FEF02772B9FAEF2009DED6A /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		8FF8D53F2AE9B432000F801F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -80,10 +136,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FC34B912C633BB700A0CB50 /* StoreKit.framework in Frameworks */,
+				8F84DCBF2C5AF7E500BD35A3 /* GoogleMobileAds in Frameworks */,
 				F2CDF7E3B33B4296AA15AE83 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+    8FBE4DF52C4B084900C34996 /* Frameworks */ = {
+      isa = PBXFrameworksBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+    8FC2BC002C0101680055B861 /* Frameworks */ = {
+      isa = PBXFrameworksBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,10 +163,12 @@
 			isa = PBXGroup;
 			children = (
 				8F1EEEDC2B151D750097AB03 /* QuestRowView.swift */,
-				8FD590512B60A07200DF5325 /* QuestList.swift */,
 				8F796E882B6C38BA007E0608 /* QuestSection.swift */,
-				8F796E8A2B6C40F5007E0608 /* CollapsibleSection.swift */,
-				8FC6BFEE2AFABF95001DD91E /* QuestListView.swift */,
+				8FD590512B60A07200DF5325 /* QuestListView.swift */,
+				8F796E8A2B6C40F5007E0608 /* CategoryHeader.swift */,
+				8F493DB12BF7E4F0004D1676 /* SectionsModel.swift */,
+				8FC6BFEE2AFABF95001DD91E /* MainView.swift */,
+				8FE1741B2B869051006885F8 /* CustomListBackground.swift */,
 				8F796E862B6B7BE4007E0608 /* LevelUpNotification.swift */,
 			);
 			path = QuestList;
@@ -113,6 +187,15 @@
 			path = CoreDataObjects;
 			sourceTree = "<group>";
 		};
+		8F84DCC22C5B013A00BD35A3 /* AdBanner */ = {
+			isa = PBXGroup;
+			children = (
+				8F0EA7BE2C5B680C0045370D /* AdBannerView.swift */,
+				8F84DCC32C5B01AA00BD35A3 /* BannerViewController.swift */,
+			);
+			path = AdBanner;
+			sourceTree = "<group>";
+		};
 		8FA12A542B27A1D9005838FE /* Rewards */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +211,10 @@
 			children = (
 				8F65228A2B69B93A00603D49 /* README.md */,
 				8FAC384F2AB396B6005CBED3 /* Quest Tracker */,
+				8FBE4DF92C4B084900C34996 /* Quest TrackerUITests */,
+				8FC2BC042C0101680055B861 /* Quest TrackerTests */,
 				8FAC384E2AB396B6005CBED3 /* Products */,
+				8FC34B8F2C633BB700A0CB50 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */,
+				8FBE4DF82C4B084900C34996 /* Quest TrackerUITests.xctest */,
+				8FC2BC032C0101680055B861 /* Quest TrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,17 +231,25 @@
 		8FAC384F2AB396B6005CBED3 /* Quest Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				8FE174172B7FE6BF006885F8 /* NavigationBar.swift */,
+				8F5633DD2B8E7E7F008832CD /* Outlines.swift */,
+				8FE174192B7FEFB6006885F8 /* PlusNavBackground.swift */,
 				8F6368582B63010300D524A1 /* Quest Tracker.entitlements */,
 				8F6462CA2B508EA6000DE6A3 /* Quest-Tracker-Info.plist */,
+				8FC34B922C633E7B00A0CB50 /* ProductPropertyList.plist */,
 				8FD4635D2B3E021E000FDEF8 /* AppIntents */,
 				8F1EEEDB2B151D120097AB03 /* CoreDataObjects */,
 				8FA12A542B27A1D9005838FE /* Rewards */,
-				8F92E9062ABBA58C000446C6 /* QuestView.swift */,
+				8FBA16342BC1EB08003EA0B5 /* QuestView */,
+				8F5633DF2B8E8981008832CD /* GlobalUISettings.swift */,
 				8FAC38502AB396B6005CBED3 /* Quest_TrackerApp.swift */,
-				8F21844F2AB8D965004CCF7A /* QuestTrackerModel.swift */,
-				8F7F0CD42ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift */,
+				8F7F0CD42ABB7FBC007EF1D0 /* QuestListViewModel.swift */,
 				8FB5D1972B1932DB008EB1F0 /* LevelAndExpUI.swift */,
 				8FF8D53F2AE9B432000F801F /* SettingsView.swift */,
+				8FC34B942C6344B800A0CB50 /* StoreItem.swift */,
+				8FC34B8D2C633A6300A0CB50 /* StoreKitManager.swift */,
+				8FE494462C616D5800BB51D6 /* Tome: Quest Tracker.storekit */,
+				8F84DCC22C5B013A00BD35A3 /* AdBanner */,
 				8F1EEEDA2B151CF20097AB03 /* QuestList */,
 				8FAC38542AB396B7005CBED3 /* Assets.xcassets */,
 				8FAC38562AB396B7005CBED3 /* Preview Content */,
@@ -174,6 +270,42 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8FBA16342BC1EB08003EA0B5 /* QuestView */ = {
+			isa = PBXGroup;
+			children = (
+				8F92E9062ABBA58C000446C6 /* QuestView.swift */,
+				8FBA16352BC1EB81003EA0B5 /* ButtonSection.swift */,
+			);
+			path = QuestView;
+			sourceTree = "<group>";
+		};
+    8FBE4DF92C4B084900C34996 /* Quest TrackerUITests */ = {
+      isa = PBXGroup;
+      children = (
+        8FBE4DFA2C4B084900C34996 /* SnapshotSetup.swift */,
+        8FBE4DFC2C4B084900C34996 /* Quest_TrackerUITestsLaunchTests.swift */,
+      );
+      path = "Quest TrackerUITests";
+      sourceTree = "<group>";
+    };
+		8FC34B8F2C633BB700A0CB50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FC34B902C633BB700A0CB50 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+      sourceTree = "<group>";
+    };
+    8FC2BC042C0101680055B861 /* Quest TrackerTests */ = {
+      isa = PBXGroup;
+      children = (
+        8FE9BBDB2C0A6CC50019C4AB /* QuestTest.swift */,
+        8FC75E972C04EC3800A784A6 /* SettingsTest.swift */,
+        8F7B66B72C06441200E48F5B /* UserTest.swift */,
+      );
+      path = "Quest TrackerTests";
+      sourceTree = "<group>";
+    };
 		8FD4635D2B3E021E000FDEF8 /* AppIntents */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,11 +335,48 @@
 			name = "Quest Tracker";
 			packageProductDependencies = (
 				A02FC83D890247DB85D27578 /* Sentry */,
+				8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */,
 			);
 			productName = "Quest Tracker";
 			productReference = 8FAC384D2AB396B6005CBED3 /* Quest Tracker.app */;
 			productType = "com.apple.product-type.application";
 		};
+    8FBE4DF72C4B084900C34996 /* Quest TrackerUITests */ = {
+      isa = PBXNativeTarget;
+      buildConfigurationList = 8FBE4E022C4B084900C34996 /* Build configuration list for PBXNativeTarget "Quest TrackerUITests" */;
+      buildPhases = (
+        8FBE4DF42C4B084900C34996 /* Sources */,
+        8FBE4DF52C4B084900C34996 /* Frameworks */,
+        8FBE4DF62C4B084900C34996 /* Resources */,
+      );
+      buildRules = (
+      );
+      dependencies = (
+        8FBE4DFF2C4B084900C34996 /* PBXTargetDependency */,
+      );
+      name = "Quest TrackerUITests";
+      productName = "Quest TrackerUITests";
+      productReference = 8FBE4DF82C4B084900C34996 /* Quest TrackerUITests.xctest */;
+      productType = "com.apple.product-type.bundle.ui-testing";
+    };
+    8FC2BC022C0101680055B861 /* Quest TrackerTests */ = {
+      isa = PBXNativeTarget;
+      buildConfigurationList = 8FC2BC0B2C0101680055B861 /* Build configuration list for PBXNativeTarget "Quest TrackerTests" */;
+      buildPhases = (
+        8FC2BBFF2C0101680055B861 /* Sources */,
+        8FC2BC002C0101680055B861 /* Frameworks */,
+        8FC2BC012C0101680055B861 /* Resources */,
+      );
+      buildRules = (
+      );
+      dependencies = (
+        8FC2BC082C0101680055B861 /* PBXTargetDependency */,
+      );
+      name = "Quest TrackerTests";
+      productName = "Quest TrackerTests";
+      productReference = 8FC2BC032C0101680055B861 /* Quest TrackerTests.xctest */;
+      productType = "com.apple.product-type.bundle.unit-test";
+    };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -215,12 +384,20 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					8FAC384C2AB396B6005CBED3 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
+          8FBE4DF72C4B084900C34996 = {
+            CreatedOnToolsVersion = 15.2;
+            TestTargetID = 8FAC384C2AB396B6005CBED3;
+          };
+          8FC2BC022C0101680055B861 = {
+            CreatedOnToolsVersion = 15.2;
+            TestTargetID = 8FAC384C2AB396B6005CBED3;
+          };
 				};
 			};
 			buildConfigurationList = 8FAC38482AB396B6005CBED3 /* Build configuration list for PBXProject "Quest Tracker" */;
@@ -234,12 +411,15 @@
 			mainGroup = 8FAC38442AB396B6005CBED3;
 			packageReferences = (
 				7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				8F84DCBD2C5AF7E500BD35A3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 8FAC384E2AB396B6005CBED3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8FAC384C2AB396B6005CBED3 /* Quest Tracker */,
+				8FBE4DF72C4B084900C34996 /* Quest TrackerUITests */,
+				8FC2BC022C0101680055B861 /* Quest TrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,10 +430,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FAC38582AB396B7005CBED3 /* Preview Assets.xcassets in Resources */,
+				8FC34B932C633E7B00A0CB50 /* ProductPropertyList.plist in Resources */,
+				8FE494472C616D5800BB51D6 /* Tome: Quest Tracker.storekit in Resources */,
 				8FAC38552AB396B7005CBED3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+    8FBE4DF62C4B084900C34996 /* Resources */ = {
+      isa = PBXResourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+    8FC2BC012C0101680055B861 /* Resources */ = {
+      isa = PBXResourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -283,40 +479,83 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FB7B47B2BB20EF700E2D958 /* MainView.swift in Sources */,
 				8FD5904F2B5F151700DF5325 /* User.swift in Sources */,
 				8FA12A582B27A222005838FE /* ManageRewardsView.swift in Sources */,
-				8FC6BFEF2AFABF95001DD91E /* QuestListView.swift in Sources */,
 				8FEF02782B9FAEF2009DED6A /* LocalNotifications.swift in Sources */,
-				8F7F0CD52ABB7FBC007EF1D0 /* QuestTrackerViewModel.swift in Sources */,
+				8F7F0CD52ABB7FBC007EF1D0 /* QuestListViewModel.swift in Sources */,
+				8F84DCC42C5B01AA00BD35A3 /* BannerViewController.swift in Sources */,
+				8F5633E02B8E8981008832CD /* GlobalUISettings.swift in Sources */,
 				8F6462C92B506D5F000DE6A3 /* CompleteQuestIntent.swift in Sources */,
 				8F1EEEDD2B151D750097AB03 /* QuestRowView.swift in Sources */,
-				8F2184502AB8D965004CCF7A /* QuestTrackerModel.swift in Sources */,
+				8FE174182B7FE6BF006885F8 /* NavigationBar.swift in Sources */,
+				8F0EA7BF2C5B680C0045370D /* AdBannerView.swift in Sources */,
+				8FE1741C2B869051006885F8 /* CustomListBackground.swift in Sources */,
 				8FD5904E2B5F151700DF5325 /* Quest.swift in Sources */,
-				8FD590522B60A07200DF5325 /* QuestList.swift in Sources */,
+				8FD590522B60A07200DF5325 /* QuestListView.swift in Sources */,
 				8F796E892B6C38BA007E0608 /* QuestSection.swift in Sources */,
+				8FE1741A2B7FEFB6006885F8 /* PlusNavBackground.swift in Sources */,
 				8F6368572B62F94800D524A1 /* ModelController.swift in Sources */,
 				8F48FD422B1FCDE800A88E96 /* RewardsView.swift in Sources */,
 				8F6462C32B4DE6D6000DE6A3 /* QuestTrackerShortcuts.swift in Sources */,
 				8FF8D5402AE9B432000F801F /* SettingsView.swift in Sources */,
 				8FD590502B5F151700DF5325 /* Reward.swift in Sources */,
 				8F796E872B6B7BE4007E0608 /* LevelUpNotification.swift in Sources */,
+				8FBA16362BC1EB81003EA0B5 /* ButtonSection.swift in Sources */,
 				8FAC38512AB396B6005CBED3 /* Quest_TrackerApp.swift in Sources */,
 				8FD5904D2B5F151700DF5325 /* Settings.swift in Sources */,
+				8F5633DE2B8E7E7F008832CD /* Outlines.swift in Sources */,
 				8FB5D1982B1932DB008EB1F0 /* LevelAndExpUI.swift in Sources */,
-				8F796E8B2B6C40F5007E0608 /* CollapsibleSection.swift in Sources */,
+				8F796E8B2B6C40F5007E0608 /* CategoryHeader.swift in Sources */,
 				8F6462C52B4DE756000DE6A3 /* AddQuestIntent.swift in Sources */,
 				8F92E9072ABBA58C000446C6 /* QuestView.swift in Sources */,
 				8FD9EFA42B756C0F00D6DB34 /* PreviewSampleData.swift in Sources */,
+				8FC34B952C6344B800A0CB50 /* StoreItem.swift in Sources */,
 				8F6B15062B2E25AC00784BCE /* AddRewardView.swift in Sources */,
+				8FC34B8E2C633A6300A0CB50 /* StoreKitManager.swift in Sources */,
+				8F493DB22BF7E4F0004D1676 /* SectionsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+    8FBE4DF42C4B084900C34996 /* Sources */ = {
+      isa = PBXSourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+        8FBE4DFD2C4B084900C34996 /* Quest_TrackerUITestsLaunchTests.swift in Sources */,
+        8FBE4DFB2C4B084900C34996 /* SnapshotSetup.swift in Sources */,
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+    8FC2BBFF2C0101680055B861 /* Sources */ = {
+      isa = PBXSourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+        8FE9BBDC2C0A6CC50019C4AB /* QuestTest.swift in Sources */,
+        8FC75E982C04EC3800A784A6 /* SettingsTest.swift in Sources */,
+        8F7B66B82C06441200E48F5B /* UserTest.swift in Sources */,
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+    8FBE4DFF2C4B084900C34996 /* PBXTargetDependency */ = {
+      isa = PBXTargetDependency;
+      target = 8FAC384C2AB396B6005CBED3 /* Quest Tracker */;
+      targetProxy = 8FBE4DFE2C4B084900C34996 /* PBXContainerItemProxy */;
+    };
+    8FC2BC082C0101680055B861 /* PBXTargetDependency */ = {
+      isa = PBXTargetDependency;
+      target = 8FAC384C2AB396B6005CBED3 /* Quest Tracker */;
+      targetProxy = 8FC2BC072C0101680055B861 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8FAC38592AB396B7005CBED3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -378,6 +617,7 @@
 		8FAC385A2AB396B7005CBED3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -459,7 +699,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -495,13 +735,101 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.gmail.mdzawodniak.Quest-Tracker";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
+    8FBE4E002C4B084900C34996 /* Debug */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+        CODE_SIGN_STYLE = Automatic;
+        CURRENT_PROJECT_VERSION = 1;
+        DEVELOPMENT_TEAM = Y4739T7R6D;
+        GCC_C_LANGUAGE_STANDARD = gnu17;
+        GENERATE_INFOPLIST_FILE = YES;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+        MARKETING_VERSION = 1.0;
+        PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-TrackerUITests";
+        PRODUCT_NAME = "$(TARGET_NAME)";
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+        SWIFT_EMIT_LOC_STRINGS = NO;
+        SWIFT_VERSION = 5.0;
+        TARGETED_DEVICE_FAMILY = "1,2";
+        TEST_TARGET_NAME = "Quest Tracker";
+      };
+      name = Debug;
+    };
+    8FBE4E012C4B084900C34996 /* Release */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+        CODE_SIGN_STYLE = Automatic;
+        CURRENT_PROJECT_VERSION = 1;
+        DEVELOPMENT_TEAM = Y4739T7R6D;
+        GCC_C_LANGUAGE_STANDARD = gnu17;
+        GENERATE_INFOPLIST_FILE = YES;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+        MARKETING_VERSION = 1.0;
+        PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-TrackerUITests";
+        PRODUCT_NAME = "$(TARGET_NAME)";
+        SWIFT_EMIT_LOC_STRINGS = NO;
+        SWIFT_VERSION = 5.0;
+        TARGETED_DEVICE_FAMILY = "1,2";
+        TEST_TARGET_NAME = "Quest Tracker";
+      };
+      name = Release;
+    };
+    8FC2BC092C0101680055B861 /* Debug */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+        BUNDLE_LOADER = "$(TEST_HOST)";
+        CODE_SIGN_STYLE = Automatic;
+        CURRENT_PROJECT_VERSION = 1;
+        DEVELOPMENT_TEAM = Y4739T7R6D;
+        GCC_C_LANGUAGE_STANDARD = gnu17;
+        GENERATE_INFOPLIST_FILE = YES;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+        MARKETING_VERSION = 1.0;
+        PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-TrackerTests";
+        PRODUCT_NAME = "$(TARGET_NAME)";
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+        SWIFT_EMIT_LOC_STRINGS = NO;
+        SWIFT_VERSION = 5.0;
+        TARGETED_DEVICE_FAMILY = "1,2";
+        TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quest Tracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Quest Tracker";
+      };
+      name = Debug;
+    };
+    8FC2BC0A2C0101680055B861 /* Release */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+        BUNDLE_LOADER = "$(TEST_HOST)";
+        CODE_SIGN_STYLE = Automatic;
+        CURRENT_PROJECT_VERSION = 1;
+        DEVELOPMENT_TEAM = Y4739T7R6D;
+        GCC_C_LANGUAGE_STANDARD = gnu17;
+        GENERATE_INFOPLIST_FILE = YES;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+        MARKETING_VERSION = 1.0;
+        PRODUCT_BUNDLE_IDENTIFIER = "com.gmail.mdzawodniak.Quest-TrackerTests";
+        PRODUCT_NAME = "$(TARGET_NAME)";
+        SWIFT_EMIT_LOC_STRINGS = NO;
+        SWIFT_VERSION = 5.0;
+        TARGETED_DEVICE_FAMILY = "1,2";
+        TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quest Tracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Quest Tracker";
+      };
+      name = Release;
+    };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -523,6 +851,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+    8FBE4E022C4B084900C34996 /* Build configuration list for PBXNativeTarget "Quest TrackerUITests" */ = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        8FBE4E002C4B084900C34996 /* Debug */,
+        8FBE4E012C4B084900C34996 /* Release */,
+      );
+      defaultConfigurationIsVisible = 0;
+      defaultConfigurationName = Release;
+    };
+    8FC2BC0B2C0101680055B861 /* Build configuration list for PBXNativeTarget "Quest TrackerTests" */ = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        8FC2BC092C0101680055B861 /* Debug */,
+        8FC2BC0A2C0101680055B861 /* Release */,
+      );
+      defaultConfigurationIsVisible = 0;
+      defaultConfigurationName = Release;
+    };
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -534,9 +880,22 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		8F84DCBD2C5AF7E500BD35A3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = exactVersion;
+				version = 11.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8F84DCBE2C5AF7E500BD35A3 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F84DCBD2C5AF7E500BD35A3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
 		A02FC83D890247DB85D27578 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7483830DAC9C4552B9820BDF /* XCRemoteSwiftPackageReference "sentry-cocoa" */;

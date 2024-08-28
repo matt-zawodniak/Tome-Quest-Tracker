@@ -10,52 +10,67 @@ import Foundation
 import SwiftUI
 
 struct RewardsView: View {
+
   @Environment(\.modelContext) var modelContext
 
   @Query() var rewards: [Reward]
 
-  var user: User
+  @Query() var userQueryResults: [User]
+  var user: User {
+    return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
+  }
 
-  var nextMilestoneLevel: Int64 {
-    var milestoneCandidate: Int64 = 0
-    for number in 1..<6 where (user.level + Int64(number)) % 5 == 0 {
-      milestoneCandidate = (user.level + Int64(number))
+  var nextMilestoneLevel: Int {
+    var milestoneCandidate: Int = 0
+
+    for number in 1..<6 where (user.level + Int(number)) % 5 == 0 {
+      milestoneCandidate = (user.level + Int(number))
     }
+
     return milestoneCandidate
   }
 
-  var availableRewards: [Reward] { rewards.filter({ $0.isEarned == true }).sorted { $0.dateEarned! < $1.dateEarned! }
+  var availableRewards: [Reward] {
+    rewards
+      .filter({ $0.isEarned == true })
+      .sorted { $0.dateEarned! < $1.dateEarned! }
   }
 
   var minorRewards: [Reward] {
-    rewards.filter({ $0.isMilestoneReward == false && $0.isEarned == false})
+    rewards
+      .filter({ $0.isMilestoneReward == false && $0.isEarned == false})
       .sorted { $0.sortId < $1.sortId }
   }
 
   var milestoneRewards: [Reward] {
-    rewards.filter({ $0.isMilestoneReward == true && $0.isEarned == false})
+    rewards
+      .filter({ $0.isMilestoneReward == true && $0.isEarned == false})
       .sorted { $0.sortId < $1.sortId }
   }
 
   var body: some View {
-
     NavigationStack {
       List {
-        Section(header: Text("Unclaimed Rewards")) {
-          if availableRewards.isEmpty {
-            Text("You have no unclaimed rewards. Keep leveling to earn more!")
-          } else {
-            ForEach(availableRewards, id: \.self) { reward in
-              HStack {
-                Text(reward.name)
-                Spacer()
-                Button("Claim Reward!") {
-                  modelContext.delete(reward)
-                }
-              }
-            }
+        Section(header: Text("")) {
+          HStack {
+            Spacer()
+
+            Text("Manage Rewards")
+
+            Spacer()
           }
+          .overlay(
+            NavigationLink("", destination: ManageRewardsView(
+              minorRewards: minorRewards,
+              milestoneRewards: milestoneRewards))
+            .opacity(0)
+          )
         }
+        .listRowBackground(StylizedOutline()
+          .stroke(.cyan.opacity(0.4))
+          .background(StylizedOutline().fill().opacity(0.2)))
+        .listRowSeparator(.hidden)
+
         Section(header: Text("Next Level")) {
           if (user.level + 1) % 5 == 0 {
             Text("You earn a Milestone reward next level!")
@@ -67,6 +82,8 @@ struct RewardsView: View {
             }
           }
         }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
 
         Section(header: Text("Next Milestone: Level \(nextMilestoneLevel)")) {
           if let nextMilestoneReward = milestoneRewards.first {
@@ -79,18 +96,40 @@ struct RewardsView: View {
             Text("You have no Milestone rewards set up! Add them using the Manage Rewards button below.")
           }
         }
-        NavigationLink(destination: ManageRewardsView(minorRewards: minorRewards, milestoneRewards: milestoneRewards)) {
-          Button("Manage Rewards") {
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
+
+        Section(header: Text("Unclaimed Rewards")) {
+          if availableRewards.isEmpty {
+            Text("You have no unclaimed rewards. Keep leveling to earn more!")
+          } else {
+            ForEach(availableRewards, id: \.self) { reward in
+              HStack {
+                Text(reward.name)
+
+                Spacer()
+
+                Button("Claim Reward!") {
+                  modelContext.delete(reward)
+                }
+              }
+            }
           }
         }
+        .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+        .listRowSeparator(.hidden)
       }
+      .padding(.horizontal)
+      .foregroundStyle(.cyan)
+      .scrollContentBackground(.hidden)
+      .listRowSpacing(5)
+      .listStyle(.inset)
     }
+    .tint(.cyan)
   }
 }
 
 #Preview {
-  MainActor.assumeIsolated {
-    RewardsView(user: PreviewSampleData.previewUser)
+    RewardsView()
       .modelContainer(PreviewSampleData.container)
-  }
 }

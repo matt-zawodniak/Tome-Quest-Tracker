@@ -18,7 +18,7 @@ struct LocalNotifications {
     content.subtitle = "Weekly reset is in one day!"
     content.sound = UNNotificationSound.default
 
-    let settings = Settings.fetchFirstOrInitialize(context: modelContext)
+    let settings = Settings.fetchFirstOrCreate(context: modelContext)
 
     var components = Calendar.current.dateComponents([.hour, .minute, .second], from: settings.time)
     components.weekday = Int(settings.dayOfTheWeek) - 1

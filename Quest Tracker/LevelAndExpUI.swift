@@ -14,21 +14,68 @@ struct LevelAndExpUI: View {
   @Query() var users: [User]
 
   var user: User {
-    return users.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    return users.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
+  @State var expBarLength: Double
+  @State var isLevelingUp: Bool = false
+
   var body: some View {
-    HStack {
-      Text("LVL \(user.level)")
-      ProgressView(value: user.currentExp, total: user.expToLevel).animation(.easeInOut, value: user.currentExp)
-      Text("\(String(format: "%.0f", user.currentExp.rounded()))/ \(String(format: "%.0f", user.expToLevel.rounded()))")
+    GeometryReader { geometry in
+      ZStack {
+        HStack {
+          Spacer()
+
+          Text("LVL \(user.level)")
+            .frame(minWidth: geometry.size.width * 0.15)
+
+          Spacer(minLength: geometry.size.width * 0.45)
+
+          Text("\(String(format: "%.0f/ %.0f", user.currentExp.rounded(), user.expToLevel.rounded()))")
+            .frame(minWidth: geometry.size.width * 0.15)
+
+          Spacer()
+        }
+
+        Capsule()
+          .frame(width: geometry.size.width * 0.4, height: 5)
+          .opacity(0.1)
+          .overlay(
+            HStack {
+              Capsule()
+                .frame(width: geometry.size.width * 0.4 * expBarLength)
+              Spacer()
+            }
+          )
+      }
+      .foregroundStyle(.cyan)
+      .onChange(of: user.level) {
+        isLevelingUp = true
+      }
+      .onChange(of: user.currentExp) {
+        if isLevelingUp {
+          withAnimation(.easeInOut(duration: 0.5)) {
+            expBarLength = 1
+          } completion: {
+              expBarLength = 0
+
+            withAnimation(.easeInOut(duration: 0.5)) {
+              expBarLength = user.currentExp / user.expToLevel
+              } completion: {
+                isLevelingUp = false
+              }
+          }
+        } else {
+          withAnimation(.easeInOut(duration: 1)) {
+            expBarLength = user.currentExp / user.expToLevel
+          }
+        }
+      }
     }
   }
 }
 
 #Preview {
-  MainActor.assumeIsolated {
-    LevelAndExpUI()
+  LevelAndExpUI(expBarLength: 27)
       .modelContainer(PreviewSampleData.container)
-  }
 }
