@@ -17,6 +17,8 @@ struct MainView: View {
     User.fetchFirstOrCreate(context: modelContext)
   }
 
+  @ObservedObject var sections = SectionsModel()
+
   @Query<Reward>(filter: #Predicate { $0.isEarned == true })
   var earnedRewards: [Reward]
 
@@ -34,11 +36,11 @@ struct MainView: View {
           .frame(height: 20)
           .padding(.vertical)
 
-        QuestListView(showingCompletedQuests: showingCompletedQuests)
+        QuestListView(sections: sections, showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 
         VStack {
-          NavigationBar(showingCompletedQuests: $showingCompletedQuests)
+          NavigationBar(showingCompletedQuests: $showingCompletedQuests, sections: sections)
 
           LevelAndExpUI(expBarLength: user.currentExp / user.expToLevel)
             .padding(.horizontal)

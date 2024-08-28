@@ -14,7 +14,7 @@ struct QuestView: View {
 
   @Environment(\.dismiss) var dismiss
 
-  @ObservedObject private var sections = SectionsModel()
+  @ObservedObject var sections: SectionsModel
 
   @State var quest: Quest
   @State var hasDueDate: Bool = false
@@ -51,7 +51,7 @@ struct QuestView: View {
 
         HStack {
           Spacer()
-          Text("\(quest.completionExp) EXP")
+          Text("\(Int(quest.completionExp)) EXP")
           Spacer()
         }
         .listRowBackground(Color.clear)
@@ -110,9 +110,9 @@ struct QuestView: View {
 
   var advancedSettingsSection: some View {
     Section(header: CategoryHeader(title: "Advanced Settings",
-                                   model: self.sections,
+                                   model: sections,
                                    shouldBeExpanded: false)) {
-      if self.sections.isExpanded(title: "Advanced Settings") {
+      if sections.isExpanded(title: "Advanced Settings") {
         HStack {
           Text("Difficulty")
 
@@ -137,12 +137,6 @@ struct QuestView: View {
             }
           }
           .pickerStyle(.segmented)
-        }
-
-        HStack {
-          Text("Bonus Reward:")
-
-          TextField("Add optional bonus here", text: $quest.questBonusReward.bound)
         }
 
         dueDateView
@@ -236,6 +230,6 @@ struct QuestView: View {
 }
 
 #Preview {
-  QuestView(quest: PreviewSampleData.previewQuest, editingQuest: true)
+  QuestView(sections: SectionsModel(), quest: PreviewSampleData.previewQuest, editingQuest: true)
       .modelContainer(PreviewSampleData.container)
 }
