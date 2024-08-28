@@ -113,11 +113,9 @@ struct NavigationBar: View {
     }
     .sheet(isPresented: $showingRewardsView) {
       RewardsView()
-        .presentationDetents([.medium, .large])
     }
     .sheet(isPresented: $showingSettingsView) {
       SettingsView(settings: settings, user: user)
-        .presentationDetents([.medium, .large])
     }
   }
 }

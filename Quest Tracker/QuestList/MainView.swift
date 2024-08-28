@@ -65,7 +65,6 @@ struct MainView: View {
     }
     .sheet(isPresented: $navigateToRewardsView, content: {
       RewardsView()
-        .presentationDetents([.medium, .large])
     })
   }
 }
