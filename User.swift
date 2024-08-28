@@ -17,12 +17,14 @@ import SwiftData
   var level: Int = 1
   var levelingScheme: Int = LevelingSchemes.normal.rawValue
   var isLevelingUp: Bool = false
+  var purchasedRemoveAds: Bool = false
 
-  public init(currentExp: Double, expToLevel: Double, level: Int, levelingScheme: Int, isLevelingUp: Bool) {
+  public init(currentExp: Double, expToLevel: Double, level: Int, levelingScheme: Int, isLevelingUp: Bool, purchasedRemoveAds: Bool) {
     self.currentExp = currentExp
     self.expToLevel = expToLevel
     self.level = level
     self.levelingScheme = levelingScheme
+    self.purchasedRemoveAds = purchasedRemoveAds
   }
 }
 
@@ -94,7 +96,7 @@ extension User: Identifiable {
       context.insert(unearnedCopyofReward)
     }
 
-  static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0, isLevelingUp: false)
+  static var defaultUser: User = User(currentExp: 0, expToLevel: 60, level: 1, levelingScheme: 0, isLevelingUp: false, purchasedRemoveAds: false)
 
   static func fetchFirstOrCreate(context: ModelContext) -> User {
     let userRequest = FetchDescriptor<User>()
