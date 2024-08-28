@@ -1,19 +1,24 @@
 //
-//  QuestListView.swift
+//  QuestList.swift
 //  Quest Tracker
 //
-//  Created by Matt Zawodniak on 9/18/23.
+//  Created by Matt Zawodniak on 1/23/24.
 //
 
 import SwiftUI
 import SwiftData
 
 struct QuestListView: View {
-  @ObservedObject var tracker: QuestTrackerViewModel
+
   @Environment(\.modelContext) var modelContext
+
   @Environment(\.scenePhase) var scenePhase
 
-  @Query<Quest>(sort: [SortDescriptor(\Quest.timeCreated, order: .reverse)]) var quests: [Quest]
+  @ObservedObject var tracker = QuestListViewModel()
+
+  @ObservedObject var sections: SectionsModel
+
+  @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
 
   var filteredQuests: [Quest] {
     if showingCompletedQuests {
@@ -23,148 +28,56 @@ struct QuestListView: View {
     }
   }
 
+  // Using @Query to keep up to date with Settings and
+  // computed var to create a default settings.
   @Query() var settingsQueryResults: [Settings]
   var settings: Settings {
-    return settingsQueryResults.first ?? Settings.fetchFirstOrInitialize(context: modelContext)
+    return settingsQueryResults.first ?? Settings.fetchFirstOrCreate(context: modelContext)
   }
 
   @Query() var userQueryResults: [User]
   var user: User {
-    return userQueryResults.first ?? User.fetchFirstOrInitialize(context: modelContext)
+    return userQueryResults.first ?? User.fetchFirstOrCreate(context: modelContext)
   }
 
-  @Query<Reward>(filter: #Predicate { $0.isEarned == true }) var earnedRewards: [Reward]
-
-  @State var sortType: QuestSortDescriptor = .timeCreated
-  @State var newQuestView: Bool = false
-  @State var rewardsView: Bool = false
-  @State var showingCompletedQuests: Bool = false
-  @State var navigationTitle: String = "Quest Tracker"
-  @State var showingLevelUpNotification: Bool = false
+  var showingCompletedQuests: Bool
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-  @ObservedObject private var sections = SectionModel()
-
   var body: some View {
+    List {
+      ForEach(QuestType.allCases, id: \.self) { (type: QuestType) in
+        let title: String = type.description + "s"
 
-    NavigationStack {
-      ZStack {
-      List {
-        if sortType == .questType {
-          ForEach(QuestType.allCases, id: \.self) { type in
-            let title: String = type.description + "s"
-            var numberOfQuestsOfType: Int { filteredQuests.filter({ $0.type == type}).count }
-
-            Section(header: CategoryHeader(title: title, model: self.sections, number: numberOfQuestsOfType)) {
-              if self.sections.isOpen(title: title) {
-                QuestSection(settings: settings,
-                             showingCompletedQuests: showingCompletedQuests,
-                             user: user,
-                             questType: type)
-              } else {
-                EmptyView()
-              }
-            }
-          }
-        } else {
-          QuestList(sortDescriptor: tracker.sortDescriptorFromSortType(sortType: sortType),
-                    settings: settings,
-                    showingCompletedQuests: showingCompletedQuests,
-                    user: user)
-        }
-      }.disabled(showingLevelUpNotification)
-        if showingLevelUpNotification {
-          LevelUpNotification(user: user,
-                              isPresented: $showingLevelUpNotification,
-                              navigateToRewardsView: $rewardsView)
-          .padding()
-        }
-    }
-      .navigationTitle(navigationTitle).navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Menu {
-            Picker("", selection: $sortType) {
-              ForEach(QuestSortDescriptor.allCases, id: \.self) {
-                Text($0.description)
-              }
-            }
-          } label: {
-            Image(systemName: "arrow.up.arrow.down")
-          }
+        var numberOfQuestsOfType: Int {
+          quests.filter({
+            $0.type == type &&
+            $0.isCompleted == showingCompletedQuests })
+          .count
         }
 
-        ToolbarItem(placement: .topBarTrailing) {
-          Button(
-            action: {
-              newQuestView = true
-            },
-            label: {
-              Image(systemName: "plus.circle")
-            })
-        }
-
-        ToolbarItem(placement: .principal) {
-          if showingCompletedQuests {
-            Text("Completed Quests")
+        Section(header: CategoryHeader(title: title,
+                                       model: self.sections,
+                                       countOfEntitiesInCategory: numberOfQuestsOfType,
+                                       shouldBeExpanded: true)) {
+          if self.sections.isExpanded(title: title) {
+            QuestSection(settings: settings,
+                         showingCompletedQuests: showingCompletedQuests,
+                         user: user,
+                         questType: type)
           } else {
-            Text(settings.time, style: .timer)
+            EmptyView()
           }
         }
-
-          ToolbarItem(placement: .topBarLeading) {
-            if showingCompletedQuests {
-            Button(
-              action: {
-                showActiveQuests()
-              }, label: {
-                HStack {
-                  Image(systemName: "chevron.backward")
-                  Text("Back")
-                }
-              })
-          } else {
-            Menu {
-              Button("Home", action: { showActiveQuests()})
-
-              Button(
-                action: {
-                  showCompletedQuests()
-                },
-                label: {
-                  Text("Completed Quests")
-                })
-
-              NavigationLink(destination: RewardsView(user: user)) {
-                Button(action: {}, label: {
-                  Text("View Rewards")
-                })
-              }
-
-              NavigationLink(destination: SettingsView(settings: settings, user: user)) {
-                Button(action: {}, label: {
-                  Text("Settings")
-                })
-              }
-            } label: {
-                Image(systemName: "list.bullet")
-              }
-          }
-        }
+        .listRowBackground(CustomListBackground(type: type))
+        .listRowSeparator(.hidden)
       }
-      .navigationDestination(isPresented: $newQuestView) {
-        QuestView(quest: Quest.defaultQuest(context: modelContext), hasDueDate: false, settings: settings)
-      }
-      .navigationDestination(isPresented: $rewardsView) {
-        RewardsView(user: user)
-      }
-      if earnedRewards.count > 0 {
-        NavigationLink(destination: RewardsView(user: user)) {
-          Text("You have earned rewards! Tap here to view them.").font(.footnote)
-        }
-      }
+      .foregroundStyle(.cyan)
     }
+    .padding()
+    .listStyle(.grouped)
+    .listRowSpacing(5)
+    .scrollContentBackground(.hidden)
     .onReceive(timer, perform: { time in
       if time >= settings.time {
         tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
@@ -176,32 +89,15 @@ struct QuestListView: View {
           tracker.refreshSettingsAndQuests(settings: settings, context: modelContext)
         }
       }
-      print("Scene has changed to \(scenePhase)")
     }
-    .onChange(of: user.level) {
-      showingLevelUpNotification = true
+    .environment(tracker)
+    .sheet(isPresented: $tracker.showingQuestDetails) {
+      QuestView(sections: sections, quest: tracker.questToShowDetails!, editingQuest: true)
     }
-
-    LevelAndExpUI()
-      .padding(.horizontal)
-  }
-
-  func showCompletedQuests() {
-    tracker.deselectQuests(quests: quests, context: modelContext)
-    navigationTitle = "Completed Quests"
-    showingCompletedQuests = true
-  }
-
-  func showActiveQuests() {
-    tracker.deselectQuests(quests: quests, context: modelContext)
-    navigationTitle = "Quest Tracker"
-    showingCompletedQuests = false
   }
 }
 
 #Preview {
-  MainActor.assumeIsolated {
-    QuestListView(tracker: QuestTrackerViewModel())
+  QuestListView(tracker: QuestListViewModel(), sections: SectionsModel(), showingCompletedQuests: false)
       .modelContainer(PreviewSampleData.container)
-  }
 }
