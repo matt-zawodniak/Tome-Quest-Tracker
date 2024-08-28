@@ -16,7 +16,7 @@ struct QuestListView: View {
 
   @ObservedObject var tracker = QuestListViewModel()
 
-  @ObservedObject private var sections = SectionsModel()
+  @ObservedObject var sections: SectionsModel
 
   @Query<Quest>(sort: [SortDescriptor(\Quest.questType, order: .reverse)]) var quests: [Quest]
 
@@ -92,12 +92,12 @@ struct QuestListView: View {
     }
     .environment(tracker)
     .sheet(isPresented: $tracker.showingQuestDetails) {
-      QuestView(quest: tracker.questToShowDetails!, editingQuest: true)
+      QuestView(sections: sections, quest: tracker.questToShowDetails!, editingQuest: true)
     }
   }
 }
 
 #Preview {
-  QuestListView(tracker: QuestListViewModel(), showingCompletedQuests: false)
+  QuestListView(tracker: QuestListViewModel(), sections: SectionsModel(), showingCompletedQuests: false)
       .modelContainer(PreviewSampleData.container)
 }

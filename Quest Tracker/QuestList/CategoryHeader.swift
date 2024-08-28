@@ -16,14 +16,6 @@ struct CategoryHeader: View {
 
   var shouldBeExpanded: Bool
 
-  init(title: String, model: SectionsModel, countOfEntitiesInCategory: Int? = nil, shouldBeExpanded: Bool) {
-    self.title = title
-    self.model = model
-    self.countOfEntitiesInCategory = countOfEntitiesInCategory
-    self.shouldBeExpanded = shouldBeExpanded
-    self.model.shouldBeExpanded = shouldBeExpanded
-  }
-
   var body: some View {
     HStack {
       Text(title)
@@ -40,7 +32,7 @@ struct CategoryHeader: View {
     }
     .contentShape(Rectangle())
     .onTapGesture {
-      self.model.toggle(title: self.title)
+      model.toggle(title: self.title)
     }
     .foregroundStyle(.cyan)
   }
