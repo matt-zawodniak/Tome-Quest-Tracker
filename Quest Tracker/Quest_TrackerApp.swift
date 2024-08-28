@@ -9,6 +9,7 @@ import SwiftUI
 import AppIntents
 import SwiftData
 import Sentry
+import GoogleMobileAds
 
 @main
 @MainActor
@@ -21,12 +22,14 @@ struct Quest_TrackerApp: App {
       options.dsn = "https://eb6119b7fd055ed8924ce9146e1c2556@o4506910806769664.ingest.us.sentry.io/4506910808342528"
     }
 
+    GADMobileAds.sharedInstance().start(completionHandler: nil)
+
     QuestTrackerShortcuts.updateAppShortcutParameters()
   }
 
   var body: some Scene {
     WindowGroup {
-      QuestListView(tracker: QuestTrackerViewModel())
+      MainView()
     }
     .modelContainer(container)
   }

@@ -11,7 +11,6 @@ import SwiftUI
 import SwiftData
 
 struct AddQuestIntent: AppIntent {
-
   static let title: LocalizedStringResource = "Add Quest"
 
   @Parameter(title: "Quest Name",
@@ -30,13 +29,13 @@ struct AddQuestIntent: AppIntent {
       difficulty: 1,
       id: UUID(),
       isCompleted: false,
-      isSelected: false,
       length: 1,
-      questBonusExp: 0,
       questName: questName,
-      questType: questType.rawValue)
+      questType: questType.rawValue,
+      timeCreated: Date.now)
 
     ModelController.shared.modelContainer.mainContext.insert(quest)
+
     return .result(dialog: "Added \(questName) to Quest Tracker.")
   }
 }
