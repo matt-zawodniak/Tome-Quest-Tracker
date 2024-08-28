@@ -64,7 +64,7 @@ desc "release_build"
     increment_build_number
 
     deliver(
-      submit_for_review: false,
+      submit_for_review: true,
       automatic_release: false,
       force: true,
       skip_metadata: false,
