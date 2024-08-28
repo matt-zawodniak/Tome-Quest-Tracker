@@ -20,7 +20,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-     
+          lfs: true
+
+      - name: Checkout base, head branches
+        run: |
+          git checkout ${{ env.BASE_REF }}
+          git checkout ${{ env.HEAD_REF }}
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.head_ref }}
+
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1.160.0
         with:
