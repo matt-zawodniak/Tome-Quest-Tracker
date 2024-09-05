@@ -106,6 +106,14 @@ struct SettingsView: View {
       }
       .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
       .listRowSeparator(.hidden)
+
+      ForEach(storeKit.storeProducts) { product in
+        Section {
+          StoreItem(storeKit: storeKit, user: user, product: product)
+        }
+        .listRowBackground(StylizedOutline().foregroundStyle(.cyan).opacity(storeKit.purchasedProducts.contains(product) ? 0 : 0.8))
+        .listRowSeparator(.hidden)
+      }
     }
     .padding(.horizontal)
     .foregroundStyle(.cyan)
