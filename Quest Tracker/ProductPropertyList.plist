@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>RemoveAds</key>
-	<string>01</string>
+	<string>com.gmail.mdzawodniak.removeAds</string>
 </dict>
 </plist>

@@ -33,6 +33,12 @@ struct MainView: View {
       GlobalUISettings.background
 
       VStack {
+        if !user.purchasedRemoveAds {
+          AdBannerView()
+            .frame(height: 20)
+            .padding(.vertical)
+        }
+
         QuestListView(sections: sections, showingCompletedQuests: showingCompletedQuests)
         .layoutPriority(1)
 
