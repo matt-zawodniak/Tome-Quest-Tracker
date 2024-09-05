@@ -114,6 +114,20 @@ struct SettingsView: View {
         .listRowBackground(StylizedOutline().foregroundStyle(.cyan).opacity(storeKit.purchasedProducts.contains(product) ? 0 : 0.8))
         .listRowSeparator(.hidden)
       }
+
+      Section {
+        HStack {
+          Spacer()
+          Button("Restore Purchases") {
+            Task {
+              try? await AppStore.sync()
+            }
+          }
+          Spacer()
+        }
+      }
+      .listRowBackground(StylizedOutline().stroke(.cyan.opacity(0.4)))
+      .listRowSeparator(.hidden)
     }
     .padding(.horizontal)
     .foregroundStyle(.cyan)

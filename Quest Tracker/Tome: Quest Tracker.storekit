@@ -7,15 +7,15 @@
     {
       "displayPrice" : "0.99",
       "familyShareable" : false,
-      "internalID" : "6612006966",
+      "internalID" : "6670569654",
       "localizations" : [
         {
-          "description" : "Removes the ad banner.",
+          "description" : "Removes the ad on the main screen.",
           "displayName" : "Remove Ads",
           "locale" : "en_US"
         }
       ],
-      "productID" : "01",
+      "productID" : "com.gmail.mdzawodniak.removeAds",
       "referenceName" : "Remove Ads",
       "type" : "NonConsumable"
     }
@@ -24,7 +24,7 @@
     "_applicationInternalID" : "6504598431",
     "_developerTeamID" : "Y4739T7R6D",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 744582779.83065403,
+    "_lastSynchronizedDate" : 747260580.50226796,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
