@@ -34,7 +34,7 @@ jobs:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
 
       - name: Upload ipa and dsyms to artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ipa & dsyms
           path: |
@@ -43,7 +43,7 @@ jobs:
 
       - name: Upload logs to artifacts
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: logs
           path: |
