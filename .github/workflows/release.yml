@@ -1,6 +1,7 @@
-name: PR
+name: release
 on:
-#  pull_request:
+  workflow_dispatch:
+  push:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,7 +18,18 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-     
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Checkout base, head branches
+        run: |
+          git checkout ${{ env.BASE_REF }}
+          git checkout ${{ env.HEAD_REF }}
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.head_ref }}
+
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1.160.0
         with:
@@ -28,13 +40,17 @@ jobs:
         run: |
 
           bundle install
-          bundle exec fastlane build
+          bundle exec fastlane release
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_SSH_KEY }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
 
       - name: Upload ipa and dsyms to artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: ipa & dsyms
           path: |
@@ -43,7 +59,7 @@ jobs:
 
       - name: Upload logs to artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: logs
           path: |
