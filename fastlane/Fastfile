@@ -62,7 +62,7 @@ desc "release_build"
     build_app(scheme: "Quest Tracker", export_method: 'app-store')
 
     deliver(
-      app_version: "1.0.3",
+      app_version: "1.0.4",
       submit_for_review: false,
       automatic_release: false,
       force: true,

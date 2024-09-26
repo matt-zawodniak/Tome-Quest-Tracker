@@ -35,7 +35,7 @@ struct MainView: View {
       VStack {
         if !user.purchasedRemoveAds {
           AdBannerView()
-            .frame(height: 20)
+            .frame(height: UIDevice.current.userInterfaceIdiom == .phone ? 20 : 40)
             .padding(.vertical)
         }
 
@@ -46,7 +46,7 @@ struct MainView: View {
           NavigationBar(showingCompletedQuests: $showingCompletedQuests, sections: sections)
 
           LevelAndExpUI(expBarLength: user.currentExp / user.expToLevel)
-            .padding(.horizontal)
+            .padding(UIDevice.current.userInterfaceIdiom == .phone ? .horizontal : .all)
         }
       }
 
