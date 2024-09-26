@@ -103,9 +103,12 @@ extension User: Identifiable {
 
     let userData = try? context.fetch(userRequest)
 
-    let user = userData?.first ?? defaultUser
-
-    return user
+    if let user = userData?.first {
+      return user
+    } else {
+      context.insert(defaultUser)
+      return defaultUser
+    }
   }
 
   func levelUp() {

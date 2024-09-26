@@ -58,8 +58,12 @@ extension Settings: Identifiable {
     let settingsRequest = FetchDescriptor<Settings>()
     let settingsData = try? context.fetch(settingsRequest)
 
-    let settings = settingsData?.first ?? defaultSettings
-    return settings
+    if let settings = settingsData?.first {
+      return settings
+    } else {
+      context.insert(defaultSettings)
+      return defaultSettings
+    }
   }
 
   var day: DayOfTheWeek {
