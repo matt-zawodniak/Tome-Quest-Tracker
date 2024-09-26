@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct StylizedQuestOutline: Shape {
+  var bottomRight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? rect.size.width * 0.95 : rect.size.width * 0.98
+  var rightMid: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? rect.size.height - (rect.size.width * 0.05) : rect.size.height - (rect.size.width * 0.02)
 
   var opacity = 1
 
@@ -17,11 +19,11 @@ struct StylizedQuestOutline: Shape {
     path.move(to: CGPoint(x: 0,
                           y: rect.size.height))
 
-    path.addLine(to: CGPoint(x: rect.size.width * 0.95,
+    path.addLine(to: CGPoint(x: bottomRight,
                              y: rect.size.height))
 
     path.addLine(to: CGPoint(x: rect.size.width,
-                             y: rect.size.height - (rect.size.width * 0.05 )))
+                             y: rightMid))
 
     path.addLine(to: CGPoint(x: rect.size.width,
                              y: 0))
@@ -34,6 +36,8 @@ struct StylizedQuestOutline: Shape {
 
 struct StylizedOutline: Shape {
   var opacity = 1
+  var bottomRight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? rect.size.width * 0.95 : rect.size.width * 0.98
+  var rightMid: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? rect.size.height - (rect.size.width * 0.05) : rect.size.height - (rect.size.width * 0.02)
 
   func path(in rect: CGRect) -> Path {
 
@@ -45,11 +49,11 @@ struct StylizedOutline: Shape {
     path.addLine(to: CGPoint(x: 0,
                              y: rect.size.height))
 
-    path.addLine(to: CGPoint(x: rect.size.width * 0.95,
+    path.addLine(to: CGPoint(x: bottomRight,
                              y: rect.size.height))
 
     path.addLine(to: CGPoint(x: rect.size.width,
-                             y: rect.size.height - (rect.size.width * 0.05)))
+                             y: rightMid))
 
     path.addLine(to: CGPoint(x: rect.size.width,
                              y: 0))
