@@ -13,6 +13,7 @@ import StoreKit
 struct MainView: View {
 
   @Environment(\.modelContext) var modelContext
+  @Environment(\.requestReview) var requestReview
 
   var user: User {
     User.fetchFirstOrCreate(context: modelContext)
@@ -64,11 +65,21 @@ struct MainView: View {
       }
     }
     .onChange(of: user.level) {
+      if user.level >= 5 {
+        presentReview()
+      }
       user.leveledUpRecently = true
     }
     .sheet(isPresented: $navigateToRewardsView, content: {
       RewardsView()
     })
+  }
+
+  private func presentReview() {
+    Task {
+      try await Task.sleep(for: .seconds(2))
+      requestReview()
+    }
   }
 }
 
